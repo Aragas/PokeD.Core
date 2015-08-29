@@ -1,4 +1,5 @@
-﻿using PokeD.Core.Data;
+﻿using System;
+using PokeD.Core.Data;
 using PokeD.Core.Interfaces;
 using PokeD.Core.IO;
 
@@ -20,8 +21,9 @@ namespace PokeD.Core.Packets.Shared
         public bool PokemonVisible { get { return int.Parse(DataItems[11], CultureInfo) == 1; } set { DataItems[11] = (value ? 1 : 2).ToString(CultureInfo); } }
         public Vector3 PokemonPosition { get { return Vector3.FromPokeString(DataItems[12]); } set { DataItems[12] = value.ToPokeString(); } }
         public string PokemonSkin { get { return DataItems[13]; } set { DataItems[13] = value; } }
-        public int PokemonFacing { get { return int.Parse(DataItems[14], CultureInfo); } set { DataItems[14] = value.ToString(CultureInfo); } }
-        
+
+        public int PokemonFacing { get { try { return int.Parse(DataItems[14], CultureInfo); } catch (Exception) { return 0; } } set { DataItems[14] = value.ToString(CultureInfo); } }
+
 
         public override int ID { get { return (int) PacketTypes.GameData; } }
 

@@ -1,21 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
+
 using PokeD.Core.Data;
 using PokeD.Core.IO;
-using PokeD.Core.Packets.Server;
 
 namespace PokeD.Core.Interfaces
 {
-    /*
-        Single ProtocolVersion { get; }
-        Int32 ID { get; }
-        Int32 Origin { get; set; }
-        Int32 NetworkMode { get; }
-    */
-
     public abstract class IPacket
     {
         public static CultureInfo CultureInfo {  get { return CultureInfo.InvariantCulture; } }
@@ -39,10 +31,9 @@ namespace PokeD.Core.Interfaces
 
         public void ParseData(string str)
         {
-            //ProtocolVersion = ParseProtocolVersion(str);
-            //Origin = ParseOrigin(str);
-            //DataItems = new DataItems(ParseDataItems(str));
-            IsValid(str);
+            ProtocolVersion = ParseProtocolVersion(str);
+            Origin = ParseOrigin(str);
+            DataItems = BuildDataItems(str);
         }
 
         public static float ParseProtocolVersion(string data)
@@ -70,62 +61,85 @@ namespace PokeD.Core.Interfaces
             return data.Split('|').Skip(5).ToArray();
         }
 
-        public bool IsValid(string fullData)
+        public static bool DataIsValid(string data)
         {
-            var isValid = true;
-
-
-            if (fullData == null)
+            if (!(string.IsNullOrEmpty(data) | string.IsNullOrWhiteSpace(data)))
             {
-                isValid = false;
-            }
-            else
-            {
-                char[] separator = new char[] { '|' };
-                List<string> list = fullData.Split(separator).ToList<string>();
-                if (list.Count >= 5)
+                if (!data.Contains("|"))
+                    return false;
+
+                // TODO: Nope
+                if (data.Split('|')[0] != 0.5f.ToString(CultureInfo.InvariantCulture))
+                    return false;
+
+                int dataCount = 0;
+                if (!int.TryParse(data.Split('|')[3], out dataCount))
+                    return false;
+
+                if (dataCount < 0)
+                    return false;
+
+                int num2 = 0;
+                if (!int.TryParse(data.Split('|')[3 + dataCount], out num2))
+                    return false;
+
+                if (num2 < 0)
+                    return false;
+
+                var indexof = data.IndexOf(num2.ToString(), StringComparison.Ordinal) + 3;
+                if (indexof < data.Length)
                 {
-                    ProtocolVersion = float.Parse(list[0], CultureInfo.InvariantCulture);
-                    Origin = int.Parse(list[2]);
+                    var source = data.Substring(indexof);
+                    return (source.Length >= num2);
+                }
+            }
 
+            return false;
+        }
 
-                    int num = int.Parse(list[3]);
-                    List<int> list2 = new List<int>();
-                    int num3 = (num - 1) + 4;
-                    for (int i = 4; i <= num3; i++)
+        private DataItems BuildDataItems(string data)
+        {
+            var dataCount = ParseDataCount(data);
+            string item;
+            var items = new List<string>();
+            int count = 0;
+            if (dataCount == 1)
+            {
+                item = data.Substring( (ParseProtocolVersion(data).ToString(CultureInfo).Length + 1) + (ParseID(data).ToString().Length + 1) + (ParseOrigin(data).ToString().Length + 1) + (dataCount.ToString().Length + 1) + 2);
+                items.Add(item);
+                return new DataItems(items);
+            }
+            item = data.Substring( (ParseProtocolVersion(data).ToString(CultureInfo).Length + 1) + (ParseID(data).ToString().Length + 1) + (ParseOrigin(data).ToString().Length + 1) + (dataCount.ToString().Length) + 1);
+            for (int i = 1; i <= dataCount; i++)
+                item = item.Substring(item.IndexOf("|", StringComparison.Ordinal) + 1);
+            
+            int num8 = 4 + dataCount;
+            for (int j = 4; j <= num8; j++)
+            {
+                if (j == 4)
+                {
+                    count = 0;
+                }
+                else if ((j > 4) & (j < (4 + dataCount)))
+                {
+                    if (int.Parse(data.Split('|')[j]) == count)
+                        items.Add("");
+                    else
                     {
-                        list2.Add(int.Parse(list[i]));
-                    }
-                    string str = "";
-                    int num8 = num + 4;
-                    int num6 = list.Count - 1;
-                    for (int j = num8; j <= num6; j++)
-                    {
-                        if (j > (num + 4))
-                        {
-                            str = str + "|";
-                        }
-                        str = str + list[j];
-                    }
-                    int num10 = list2.Count - 1;
-                    for (int k = 0; k <= num10; k++)
-                    {
-                        int startIndex = list2[k];
-                        int length = str.Length - startIndex;
-                        if (k < (list2.Count - 1))
-                        {
-                            length = list2[k + 1] - startIndex;
-                        }
-                        DataItems.Add(str.Substring(startIndex, length));
+                        if (int.Parse(data.Split('|')[j]) >= item.Length)
+                            items.Add(item.Remove(0, count));
+                        
+                        else
+                            items.Add(item.Remove(int.Parse(data.Split('|')[j])).Remove(0, count));
+                        
+                        count = int.Parse(data.Split('|')[j]);
                     }
                 }
                 else
-                {
-                    isValid = false;
-                }
+                    items.Add(item.Remove(0, count));
+                
             }
-
-            return isValid;
+            return new DataItems(items);
         }
     }
 }

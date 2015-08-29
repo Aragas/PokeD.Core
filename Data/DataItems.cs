@@ -53,7 +53,15 @@ namespace PokeD.Core.Data
 
         public List<string> ToList()
         {
-            return new List<string>(_dataItems);
+            if(_dataItems != null)
+                return new List<string>(_dataItems);
+            else
+                return new List<string>();
+        }
+
+        public string[] ToArray()
+        {
+            return _dataItems;
         }
 
         public void Add(string s)

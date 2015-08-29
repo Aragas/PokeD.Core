@@ -76,20 +76,21 @@ namespace PokeD.Core.Data
         public static Vector3 FromPokeString(string str)
         {
             var data = str.Split('|');
+
             return new Vector3(
-                float.Parse(data[0], CultureInfo.InvariantCulture),
-                float.Parse(data[1], CultureInfo.InvariantCulture),
-                float.Parse(data[2], CultureInfo.InvariantCulture));
+                float.Parse(data[0].Replace(",", "."), CultureInfo.InvariantCulture) * 1000 / 1000,
+                float.Parse(data[1].Replace(",", "."), CultureInfo.InvariantCulture) * 1000 / 1000,
+                float.Parse(data[2].Replace(",", "."), CultureInfo.InvariantCulture) * 1000 / 1000);
         }
 
         public string ToPokeString()
         {
             var data = new StringBuilder();
-            data.Append(X.ToString(CultureInfo.InvariantCulture));
+            data.Append((X * 1000 / 1000).ToString(CultureInfo.InvariantCulture).Replace(".", ","));
             data.Append("|");
-            data.Append(Y.ToString(CultureInfo.InvariantCulture));
+            data.Append((Y * 1000 / 1000).ToString(CultureInfo.InvariantCulture).Replace(".", ","));
             data.Append("|");
-            data.Append(Z.ToString(CultureInfo.InvariantCulture));
+            data.Append((Z * 1000 / 1000).ToString(CultureInfo.InvariantCulture).Replace(".", ","));
 
             return data.ToString();
         }
@@ -229,6 +230,7 @@ namespace PokeD.Core.Data
         {
             return new Vector3(Math.Floor(X), Math.Floor(Y), Math.Floor(Z));
         }
+
 
         /// <summary>
         /// Calculates the distance between two Vector3 objects.
