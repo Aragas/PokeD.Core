@@ -77,6 +77,9 @@ namespace PokeD.Core.Data
         {
             var data = str.Split('|');
 
+            if (data.Length != 3)
+                return Vector3.Zero;
+
             return new Vector3(
                 float.Parse(data[0].Replace(",", "."), CultureInfo.InvariantCulture) * 1000 / 1000,
                 float.Parse(data[1].Replace(",", "."), CultureInfo.InvariantCulture) * 1000 / 1000,
