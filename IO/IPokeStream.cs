@@ -79,6 +79,8 @@ namespace PokeD.Core.IO
     public interface IPokeStreamConnectionStatus
     {
         Boolean Connected { get; }
+
+        Int32 DataAvailable { get; }
     }
 
     /// <summary>

@@ -9,8 +9,7 @@ namespace PokeD.Core.Wrappers
 {
     public interface IFileSystem
     {
-        IFolder ContentFolder { get; }
-        IFolder ProtocolsFolder { get;  }
+        IFolder UsersFolder { get;  }
         IFolder SettingsFolder { get; }
         IFolder LogFolder { get; }
     }
@@ -29,32 +28,37 @@ namespace PokeD.Core.Wrappers
             set { _instance = value; }
         }
 
-        public static IFolder ContentFolder { get { return Instance.ContentFolder; } }
-        public static IFolder ProtocolsFolder { get { return Instance.ProtocolsFolder; } }
+        public static IFolder UsersFolder { get { return Instance.UsersFolder; } }
         public static IFolder SettingsFolder { get { return Instance.SettingsFolder; } }
         public static IFolder LogFolder { get { return Instance.LogFolder; } }
 
-        public static T LoadSettings<T>(string filename, T defaultValue = default(T))
+        public static bool LoadSettings<T>(string filename, out T value)
         {
-            T settings;
+            value = default(T);
             using (var stream = Instance.SettingsFolder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists).Result.OpenAsync(FileAccess.ReadAndWrite).Result)
             using (var reader = new StreamReader(stream))
-            using (var writer = new StreamWriter(stream))
             {
                 var file = reader.ReadToEnd();
-                if (string.IsNullOrEmpty(file))
+                if (!string.IsNullOrEmpty(file))
                 {
-                    settings = defaultValue;
-                    writer.Write(JsonConvert.SerializeObject(settings, Formatting.Indented));
-                }
-                else
-                {
-                    try { settings = JsonConvert.DeserializeObject<T>(file); }
-                    catch (JsonReaderException) { settings = defaultValue; }
+                    try { value = JsonConvert.DeserializeObject<T>(file); }
+                    catch (JsonReaderException) { return false; }
                 }
             }
 
-            return settings;
+            return true;
+        }
+
+        public static bool SaveSettings<T>(string filename, T defaultValue = default(T))
+        {
+            using (var stream = Instance.SettingsFolder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists).Result.OpenAsync(FileAccess.ReadAndWrite).Result)
+            using (var writer = new StreamWriter(stream))
+            {
+                try { writer.Write(JsonConvert.SerializeObject(defaultValue, Formatting.Indented)); }
+                catch (JsonWriterException) { return false; }
+            }
+
+            return true;
         }
     }
 
