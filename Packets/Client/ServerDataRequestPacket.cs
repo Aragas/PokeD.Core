@@ -8,7 +8,7 @@ namespace PokeD.Core.Packets.Client
         public string DontEvenKnow { get { return DataItems[0]; } set { DataItems[0] = value; } }
 
 
-        public override int ID { get { return (int) PacketTypes.ServerDataRequest; } }
+        public override int ID { get { return (int) PlayerPacketTypes.ServerDataRequest; } }
         
         public override IPacket ReadPacket(IPokeDataReader reader)
         {

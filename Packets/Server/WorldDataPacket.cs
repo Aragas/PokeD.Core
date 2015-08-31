@@ -10,7 +10,7 @@ namespace PokeD.Core.Packets.Server
         public string CurrentTime { get { return DataItems[2]; } set { DataItems[2] = value; } }
 
 
-        public override int ID { get { return (int) PacketTypes.WorldData; } }
+        public override int ID { get { return (int) PlayerPacketTypes.WorldData; } }
 
         public override IPacket ReadPacket(IPokeDataReader reader)
         {

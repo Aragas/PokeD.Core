@@ -5,7 +5,7 @@ namespace PokeD.Core.Wrappers
 {
     public interface INetworkTCPServerAsync
     {
-        Task<INetworkTcpClient> AcceptTcpClientAsync(Byte[] bytes, Int32 offset, Int32 count);
+        Task<INetworkTCPClient> AcceptTcpClientAsync(Byte[] bytes, Int32 offset, Int32 count);
     }
 
     public interface INetworkTCPServer : INetworkTCPServerAsync, IDisposable
@@ -16,7 +16,7 @@ namespace PokeD.Core.Wrappers
         void Start();
         void Stop();
 
-        INetworkTcpClient AcceptNetworkTCPClient();
+        INetworkTCPClient AcceptNetworkTCPClient();
 
         INetworkTCPServer NewInstance(ushort port);
     }

@@ -16,7 +16,7 @@ namespace PokeD.Core.Wrappers
         Task<String> ReadLineAsync();
     }
 
-    public interface INetworkTcpClient : INetworkTCPClientAsync, IDisposable
+    public interface INetworkTCPClient : INetworkTCPClientAsync, IDisposable
     {
         int DataAvailable { get; }
         Boolean Connected { get; }
@@ -32,13 +32,13 @@ namespace PokeD.Core.Wrappers
         void WriteLine(String data);
         String ReadLine();
 
-        INetworkTcpClient NewInstance();
+        INetworkTCPClient NewInstance();
     }
 
     public static class NetworkTCPClientWrapper
     {
-        private static INetworkTcpClient _instance;
-        public static INetworkTcpClient Instance
+        private static INetworkTCPClient _instance;
+        public static INetworkTCPClient Instance
         {
             private get
             {
@@ -49,6 +49,6 @@ namespace PokeD.Core.Wrappers
             set { _instance = value; }
         }
 
-        public static INetworkTcpClient NewInstance() { return Instance.NewInstance(); }
+        public static INetworkTCPClient NewInstance() { return Instance.NewInstance(); }
     }
 }

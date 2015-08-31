@@ -8,7 +8,7 @@ namespace PokeD.Core.Packets.Shared
         public string EventMessage {  get { return DataItems[0]; } set { DataItems[0] = value; } }
 
 
-        public override int ID { get { return (int) PacketTypes.GameStateMessage; } }
+        public override int ID { get { return (int) PlayerPacketTypes.GameStateMessage; } }
         
         public override IPacket ReadPacket(IPokeDataReader reader)
         {

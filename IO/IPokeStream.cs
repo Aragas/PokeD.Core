@@ -48,8 +48,6 @@ namespace PokeD.Core.IO
     {
         Byte ReadByte();
 
-        Char ReadChar();
-
         VarInt ReadVarInt();
 
         Byte[] ReadByteArray(Int32 value);
@@ -72,15 +70,21 @@ namespace PokeD.Core.IO
         Boolean DisconnectAsync();
 
         Task SendPacketAsync(IPacket packet);
-        Task SendAsync(byte[] buffer, int offset, int count);
-        Task<Int32> ReadAsync(byte[] buffer, int offset, int count);
+        Task SendAsync(Byte[] buffer, Int32 offset, Int32 count);
+        Task<Int32> ReadAsync(Byte[] buffer, Int32 offset, Int32 count);
     }
 
     public interface IPokeStreamConnectionStatus
     {
         Boolean Connected { get; }
-
         Int32 DataAvailable { get; }
+
+        Boolean EncryptionEnabled { get; }
+        UInt32 CompressionThreshold { get; }
+
+        void InitializeEncryption(Byte[] key);
+
+        void SetCompression(UInt32 threshold);
     }
 
     /// <summary>

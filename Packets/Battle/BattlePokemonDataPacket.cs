@@ -9,7 +9,7 @@ namespace PokeD.Core.Packets.Battle
         public string BattleData { get { return DataItems[1]; } set { DataItems[1] = value; } }
 
 
-        public override int ID { get { return (int) PacketTypes.BattlePokemonData; } }
+        public override int ID { get { return (int) PlayerPacketTypes.BattlePokemonData; } }
 
         public override IPacket ReadPacket(IPokeDataReader reader)
         {

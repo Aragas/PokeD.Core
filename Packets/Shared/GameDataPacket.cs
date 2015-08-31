@@ -25,7 +25,7 @@ namespace PokeD.Core.Packets.Shared
         public int PokemonFacing { get { try { return int.Parse(DataItems[14], CultureInfo); } catch (Exception) { return 0; } } set { DataItems[14] = value.ToString(CultureInfo); } }
 
 
-        public override int ID { get { return (int) PacketTypes.GameData; } }
+        public override int ID { get { return (int) PlayerPacketTypes.GameData; } }
 
         public override IPacket ReadPacket(IPokeDataReader reader)
         {

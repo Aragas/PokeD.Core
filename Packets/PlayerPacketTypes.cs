@@ -1,6 +1,6 @@
 ﻿namespace PokeD.Core.Packets
 {
-    public enum PacketTypes
+    public enum PlayerPacketTypes
     {
         Unknown             =-0x01,
         GameData            = 0x00,

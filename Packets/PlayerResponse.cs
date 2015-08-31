@@ -8,7 +8,7 @@ using PokeD.Core.Packets.Trade;
 
 namespace PokeD.Core.Packets
 {
-    public static class Response
+    public static class PlayerResponse
     {
         public delegate IPacket CreatePacketInstance();
 

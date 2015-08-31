@@ -11,7 +11,7 @@ namespace PokeD.Core.Packets.Server
         public string ServerMessage { get { return DataItems[3]; } set { DataItems[3] = value; } }
 
 
-        public override int ID { get { return (int) PacketTypes.ServerInfoData; } }
+        public override int ID { get { return (int) PlayerPacketTypes.ServerInfoData; } }
 
         public override IPacket ReadPacket(IPokeDataReader reader)
         {
