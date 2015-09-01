@@ -9,6 +9,8 @@ namespace PokeD.Core.Wrappers
         void AbortThread(int id);
 
         bool IsRunning(int id);
+
+        void Sleep(int milliseconds);
     }
 
     /// <summary>
@@ -33,5 +35,7 @@ namespace PokeD.Core.Wrappers
         public static void AbortThread(int id) { Instance.AbortThread(id); }
 
         public static bool IsRunning(int id) { return Instance.IsRunning(id); }
+
+        public static void Sleep(int milliseconds) { Instance.Sleep(milliseconds); }
     }
 }

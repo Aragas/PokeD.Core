@@ -73,27 +73,33 @@ namespace PokeD.Core.Data
             );
         }
 
-        public static Vector3 FromPokeString(string str)
+        public static Vector3 FromPokeString(string str, char separator)
         {
+            str = str.Replace(separator, ',');
             var data = str.Split('|');
 
             if (data.Length != 3)
-                return Vector3.Zero;
+                return Zero;
 
-            return new Vector3(
-                float.Parse(data[0].Replace(",", "."), CultureInfo.InvariantCulture) * 1000 / 1000,
-                float.Parse(data[1].Replace(",", "."), CultureInfo.InvariantCulture) * 1000 / 1000,
-                float.Parse(data[2].Replace(",", "."), CultureInfo.InvariantCulture) * 1000 / 1000);
+            float x, y, z;
+            var xb = float.TryParse(data[0], out x);
+            var yb = float.TryParse(data[1], out y);
+            var zb = float.TryParse(data[2], out z);
+
+            if (xb && yb && zb)
+                return new Vector3(x * 100 / 100, y * 100 / 100, z * 100 / 100);
+            else
+                return Zero;
         }
 
-        public string ToPokeString()
+        public string ToPokeString(char separator)
         {
             var data = new StringBuilder();
-            data.Append((X * 1000 / 1000).ToString(CultureInfo.InvariantCulture).Replace(".", ","));
+            data.Append((X * 1000 / 1000).ToString(CultureInfo.InvariantCulture).Replace('.', separator));
             data.Append("|");
-            data.Append((Y * 1000 / 1000).ToString(CultureInfo.InvariantCulture).Replace(".", ","));
+            data.Append((Y * 1000 / 1000).ToString(CultureInfo.InvariantCulture).Replace('.', separator));
             data.Append("|");
-            data.Append((Z * 1000 / 1000).ToString(CultureInfo.InvariantCulture).Replace(".", ","));
+            data.Append((Z * 1000 / 1000).ToString(CultureInfo.InvariantCulture).Replace('.', separator));
 
             return data.ToString();
         }

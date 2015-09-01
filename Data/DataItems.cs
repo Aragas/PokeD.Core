@@ -30,11 +30,19 @@ namespace PokeD.Core.Data
         {
             get
             {
-                if(_dataItems == null)
+                if (_dataItems == null)
+                {
                     _dataItems = new string[index + 1];
+                    for (int i = 0; i < _dataItems.Length; i++)
+                        _dataItems[i] = "";
+                }
 
                 if (_dataItems.Length < index + 1)
+                {
                     Array.Resize(ref _dataItems, index + 1);
+                    for (int i = index; i < _dataItems.Length; i++)
+                        _dataItems[i] = "";
+                }
 
                 return _dataItems[index];
             }
@@ -53,10 +61,7 @@ namespace PokeD.Core.Data
 
         public List<string> ToList()
         {
-            if(_dataItems != null)
-                return new List<string>(_dataItems);
-            else
-                return new List<string>();
+            return _dataItems != null ? new List<string>(_dataItems) : new List<string>();
         }
 
         public string[] ToArray()
@@ -66,11 +71,7 @@ namespace PokeD.Core.Data
 
         public void Add(string s)
         {
-            List<string> list;
-            if (_dataItems != null)
-                list = new List<string>(_dataItems) {s};
-            else
-                list = new List<string>() { s };
+            var list = _dataItems != null ? new List<string>(_dataItems) { s } : new List<string> { s };
             
             _dataItems = list.ToArray();
         }

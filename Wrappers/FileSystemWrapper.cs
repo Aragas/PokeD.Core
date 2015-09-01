@@ -32,16 +32,15 @@ namespace PokeD.Core.Wrappers
         public static IFolder SettingsFolder { get { return Instance.SettingsFolder; } }
         public static IFolder LogFolder { get { return Instance.LogFolder; } }
 
-        public static bool LoadSettings<T>(string filename, out T value)
+        public static bool LoadSettings<T>(string filename, T value)
         {
-            value = default(T);
             using (var stream = Instance.SettingsFolder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists).Result.OpenAsync(FileAccess.ReadAndWrite).Result)
             using (var reader = new StreamReader(stream))
             {
                 var file = reader.ReadToEnd();
                 if (!string.IsNullOrEmpty(file))
                 {
-                    try { value = JsonConvert.DeserializeObject<T>(file); }
+                    try { JsonConvert.PopulateObject(file, value); }
                     catch (JsonReaderException) { return false; }
                 }
             }

@@ -10,10 +10,10 @@ namespace PokeD.Core.Wrappers
         Boolean DisconnectAsync();
 
         Task SendAsync(Byte[] bytes, Int32 offset, Int32 count);
-
         Task<Int32> ReceiveAsync(Byte[] bytes, Int32 offset, Int32 count);
 
-        Task<String> ReadLineAsync();
+        //Task WriteLineAsync(String data);
+        //Task<String> ReadLineAsync();
     }
 
     public interface INetworkTCPClient : INetworkTCPClientAsync, IDisposable
@@ -29,7 +29,7 @@ namespace PokeD.Core.Wrappers
         void Send(Byte[] bytes, Int32 offset, Int32 count);
         Int32 Receive(Byte[] buffer, Int32 offset, Int32 count);
 
-        void WriteLine(String data);
+        //void WriteLine(String data);
         String ReadLine();
 
         INetworkTCPClient NewInstance();

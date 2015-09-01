@@ -5,7 +5,7 @@ namespace PokeD.Core.Wrappers
 {
     public interface INetworkTCPServerAsync
     {
-        Task<INetworkTCPClient> AcceptTcpClientAsync(Byte[] bytes, Int32 offset, Int32 count);
+        Task<INetworkTCPClient> AcceptTCPClientAsync();
     }
 
     public interface INetworkTCPServer : INetworkTCPServerAsync, IDisposable
