@@ -18,8 +18,9 @@ namespace PokeD.Core.Wrappers
 
     public interface INetworkTCPClient : INetworkTCPClientAsync, IDisposable
     {
-        int DataAvailable { get; }
+        string IP { get; }
         Boolean Connected { get; }
+        int DataAvailable { get; }
 
 
         void Connect(String ip, UInt16 port);

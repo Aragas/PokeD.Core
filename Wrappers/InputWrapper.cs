@@ -13,6 +13,8 @@ namespace PokeD.Core.Wrappers
         void HideKeyboard();
 
         void ConsoleWrite(string message);
+
+        void LogWriteLine(string message);
     }
 
     public static class InputWrapper
@@ -37,5 +39,7 @@ namespace PokeD.Core.Wrappers
         public static void HideKeyboard() { Instance.HideKeyboard(); }
 
         public static void ConsoleWrite(string message) { Instance.ConsoleWrite(message); }
+
+        public static void LogWriteLine(string message) { Instance.LogWriteLine(message); }
     }
 }
