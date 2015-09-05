@@ -5,6 +5,8 @@ namespace PokeD.Core.Data
 {
     public class DataItems
     {
+        public int Count => _dataItems.Length + 1;
+
         private string[] _dataItems;
 
         public DataItems()
