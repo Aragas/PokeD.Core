@@ -16,8 +16,6 @@ namespace PokeD.Core.Wrappers
         void Send(Byte[] bytes, Int32 offset, Int32 count);
         Int32 Receive(Byte[] buffer, Int32 offset, Int32 count);
 
-        //void WriteLine(String data);
-        String ReadLine();
 
         INetworkTCPClient NewInstance();
     }
