@@ -1,4 +1,5 @@
 ﻿using System;
+
 using PokeD.Core.Interfaces;
 using PokeD.Core.IO;
 
@@ -16,7 +17,7 @@ namespace PokeD.Core.Packets.Remote.Authorization
     {
         public AuthorizationStatus AuthorizationStatus { get; set; }
 
-        public override int ID { get { return (int) RemotePacketTypes.AuthorizationResponsePacket; } }
+        public override int ID => (int) RemotePacketTypes.AuthorizationResponsePacket;
 
         public override IPacket ReadPacket(IPokeDataReader reader)
         {

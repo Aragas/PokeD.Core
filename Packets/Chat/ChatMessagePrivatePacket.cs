@@ -9,8 +9,8 @@ namespace PokeD.Core.Packets.Chat
         public string Message { get { return DataItems[1]; } set { DataItems[1] = value; } }
 
 
-        public override int ID { get { return (int) PlayerPacketTypes.PrivateMessage; } }
-        
+        public override int ID => (int) PlayerPacketTypes.PrivateMessage;
+
         public override IPacket ReadPacket(IPokeDataReader reader)
         {
             DestinationPlayerName = reader.ReadString();

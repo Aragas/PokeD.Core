@@ -7,7 +7,7 @@ namespace PokeD.Core.Packets.Remote.Authorization
     {
         public uint Threshold { get; set; }
 
-        public override int ID { get { return (int) RemotePacketTypes.CompressionResponsePacket; } }
+        public override int ID => (int) RemotePacketTypes.CompressionResponsePacket;
 
         public override IPacket ReadPacket(IPokeDataReader reader)
         {

@@ -5,7 +5,7 @@ namespace PokeD.Core.Packets.Remote.Authorization
 {
     public class AuthorizationRequestPacket : IPacket
     {
-        public override int ID { get { return (int) RemotePacketTypes.AuthorizationRequestPacket; } }
+        public override int ID => (int) RemotePacketTypes.AuthorizationRequestPacket;
 
         public override IPacket ReadPacket(IPokeDataReader reader)
         {

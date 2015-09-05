@@ -8,7 +8,7 @@ namespace PokeD.Core.Packets.Remote.Authorization
         public byte[] SharedSecret { get; set; }
         public byte[] VerificationToken { get; set; }
 
-        public override int ID { get { return (int) RemotePacketTypes.EncryptionResponsePacket; } }
+        public override int ID => (int) RemotePacketTypes.EncryptionResponsePacket;
 
         public override IPacket ReadPacket(IPokeDataReader reader)
         {

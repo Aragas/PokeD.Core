@@ -7,7 +7,7 @@ namespace PokeD.Core.Packets.Remote.Authorization
     {
         public string Reason { get; set; }
 
-        public override int ID { get { return (int) RemotePacketTypes.AuthorizationDisconnectPacket; } }
+        public override int ID => (int) RemotePacketTypes.AuthorizationDisconnectPacket;
 
         public override IPacket ReadPacket(IPokeDataReader reader)
         {

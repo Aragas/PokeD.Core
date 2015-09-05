@@ -10,7 +10,7 @@ namespace PokeD.Core.Interfaces
 {
     public abstract class IPacket
     {
-        public static CultureInfo CultureInfo {  get { return CultureInfo.InvariantCulture; } }
+        public static CultureInfo CultureInfo => CultureInfo.InvariantCulture;
 
         public Single ProtocolVersion { get; set; }
         public abstract Int32 ID { get; }

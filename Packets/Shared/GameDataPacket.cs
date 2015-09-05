@@ -1,4 +1,5 @@
 ﻿using System;
+
 using PokeD.Core.Data;
 using PokeD.Core.Interfaces;
 using PokeD.Core.IO;
@@ -28,7 +29,7 @@ namespace PokeD.Core.Packets.Shared
         public Vector3 GetPosition(char separator) { return Vector3.FromPokeString(DataItems[6], separator); }
         public Vector3 GetPokemonPosition(char separator) { return Vector3.FromPokeString(DataItems[12], separator); }
 
-        public override int ID { get { return (int) PlayerPacketTypes.GameData; } }
+        public override int ID => (int) PlayerPacketTypes.GameData;
 
         public override IPacket ReadPacket(IPokeDataReader reader)
         {

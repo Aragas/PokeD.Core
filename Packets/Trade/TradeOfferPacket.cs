@@ -9,7 +9,7 @@ namespace PokeD.Core.Packets.Trade
         public string TradeData { get { return DataItems[1]; } set { DataItems[1] = value; } }
 
 
-        public override int ID { get { return (int) PlayerPacketTypes.TradeOffer; } }
+        public override int ID => (int) PlayerPacketTypes.TradeOffer;
 
         public override IPacket ReadPacket(IPokeDataReader reader)
         {

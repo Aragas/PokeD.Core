@@ -68,12 +68,5 @@ namespace PokeD.Core.Data
         {
             return _dataItems;
         }
-
-        public void Add(string s)
-        {
-            var list = _dataItems != null ? new List<string>(_dataItems) { s } : new List<string> { s };
-            
-            _dataItems = list.ToArray();
-        }
     }
 }

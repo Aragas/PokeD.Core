@@ -8,8 +8,8 @@ namespace PokeD.Core.Packets.Trade
         public int DestinationPlayerID { get { return int.Parse(DataItems[0], CultureInfo); } set { DataItems[0] = value.ToString(CultureInfo); } }
 
 
-        public override int ID { get { return (int) PlayerPacketTypes.TradeJoin; } }
-        
+        public override int ID => (int) PlayerPacketTypes.TradeJoin;
+
         public override IPacket ReadPacket(IPokeDataReader reader)
         {
             DestinationPlayerID = reader.ReadVarInt();

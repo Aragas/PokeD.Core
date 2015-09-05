@@ -10,7 +10,7 @@ namespace PokeD.Core.Wrappers
 
     public interface INetworkTCPServer : INetworkTCPServerAsync, IDisposable
     {
-        ushort Port { get; set; }
+        ushort Port { get; }
         bool AvailableClients { get; }
 
         void Start();

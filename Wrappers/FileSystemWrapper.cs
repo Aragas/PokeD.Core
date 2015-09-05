@@ -28,9 +28,9 @@ namespace PokeD.Core.Wrappers
             set { _instance = value; }
         }
 
-        public static IFolder UsersFolder { get { return Instance.UsersFolder; } }
-        public static IFolder SettingsFolder { get { return Instance.SettingsFolder; } }
-        public static IFolder LogFolder { get { return Instance.LogFolder; } }
+        public static IFolder UsersFolder => Instance.UsersFolder;
+        public static IFolder SettingsFolder => Instance.SettingsFolder;
+        public static IFolder LogFolder => Instance.LogFolder;
 
         public static bool LoadSettings<T>(string filename, T value)
         {

@@ -1,22 +1,8 @@
 ﻿using System;
-using System.Threading.Tasks;
 
 namespace PokeD.Core.Wrappers
 {
-    public interface INetworkTCPClientAsync
-    {
-        Task ConnectAsync(String ip, UInt16 port);
-
-        Boolean DisconnectAsync();
-
-        Task SendAsync(Byte[] bytes, Int32 offset, Int32 count);
-        Task<Int32> ReceiveAsync(Byte[] bytes, Int32 offset, Int32 count);
-
-        //Task WriteLineAsync(String data);
-        //Task<String> ReadLineAsync();
-    }
-
-    public interface INetworkTCPClient : INetworkTCPClientAsync, IDisposable
+    public interface INetworkTCPClient : IDisposable
     {
         string IP { get; }
         Boolean Connected { get; }

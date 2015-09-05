@@ -63,17 +63,6 @@ namespace PokeD.Core.IO
         void SendPacket(ref IPacket packet);
     }
 
-    public interface IPokeStreamConnectionAsync
-    {
-
-        Task ConnectAsync(String ip, UInt16 port);
-        Boolean DisconnectAsync();
-
-        Task SendPacketAsync(IPacket packet);
-        Task SendAsync(Byte[] buffer, Int32 offset, Int32 count);
-        Task<Int32> ReadAsync(Byte[] buffer, Int32 offset, Int32 count);
-    }
-
     public interface IPokeStreamConnectionStatus
     {
         Boolean Connected { get; }
@@ -91,7 +80,7 @@ namespace PokeD.Core.IO
     /// Object that reads VarInt (or Byte) and ByteArray for handling Data later 
     /// and writes any data from packet to user-defined object, that will interact with Minecraft Server.
     /// </summary>
-    public interface IPokeStream : IPokeStreamWrite, IPokeStreamRead, IPokeStreamConnection, IPokeStreamConnectionAsync, IPokeStreamConnectionStatus, IDisposable
+    public interface IPokeStream : IPokeStreamWrite, IPokeStreamRead, IPokeStreamConnection, IPokeStreamConnectionStatus, IDisposable
     {
 
     }
