@@ -9,8 +9,6 @@ namespace PokeD.Core.Wrappers
         Boolean Connected { get; }
         int DataAvailable { get; }
 
-        Stream GetStream { get; }
-
 
         void Connect(String ip, UInt16 port);
         void Disconnect();
@@ -18,6 +16,9 @@ namespace PokeD.Core.Wrappers
 
         void Send(Byte[] bytes, Int32 offset, Int32 count);
         Int32 Receive(Byte[] buffer, Int32 offset, Int32 count);
+
+
+        Stream GetStream();
 
 
         INetworkTCPClient NewInstance();
