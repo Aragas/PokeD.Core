@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PokeD.Core.IO
+namespace PokeD.Core.Interfaces
 {
     /// <summary>
     /// Object that implements AES.

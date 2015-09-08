@@ -1,9 +1,8 @@
 ﻿using PokeD.Core.Interfaces;
-using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.Chat
 {
-    public class ChatMessagePrivatePacket : IPacket
+    public class ChatMessagePrivatePacket : Packet
     {
         public string DestinationPlayerName { get { return DataItems[0]; } set { DataItems[0] = value; } }
         public string Message { get { return DataItems[1]; } set { DataItems[1] = value; } }
@@ -11,17 +10,19 @@ namespace PokeD.Core.Packets.Chat
 
         public override int ID => (int) PlayerPacketTypes.PrivateMessage;
 
-        public override IPacket ReadPacket(IPokeDataReader reader)
+        public override Packet ReadPacket(IPacketDataReader reader)
         {
-            DestinationPlayerName = reader.ReadString();
+            if (reader.IsServer)
+                DestinationPlayerName = reader.ReadString();
             Message = reader.ReadString();
 
             return this;
         }
 
-        public override IPacket WritePacket(IPokeStream writer)
+        public override Packet WritePacket(IPacketStream writer)
         {
-            writer.WriteString(DestinationPlayerName);
+            if (!writer.IsServer)
+                writer.WriteString(DestinationPlayerName);
             writer.WriteString(Message);
 
             return this;

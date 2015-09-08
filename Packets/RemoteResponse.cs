@@ -1,11 +1,10 @@
-﻿using PokeD.Core.Interfaces;
-using PokeD.Core.Packets.Remote.Authorization;
+﻿using PokeD.Core.Packets.Remote.Authorization;
 
 namespace PokeD.Core.Packets
 {
     public static class RemoteResponse
     {
-        public delegate IPacket CreatePacketInstance();
+        public delegate Packet CreatePacketInstance();
 
         public static readonly CreatePacketInstance[] Packets =
         {

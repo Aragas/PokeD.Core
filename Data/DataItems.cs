@@ -9,13 +9,15 @@ namespace PokeD.Core.Data
 
         private string[] _dataItems;
 
+
         public DataItems()
         {
+            
         }
 
         public DataItems(string dataItem)
         {
-            _dataItems = new []{ dataItem  };
+            _dataItems = new []{ dataItem };
         }
 
         public DataItems(string[] dataItems)
@@ -28,23 +30,16 @@ namespace PokeD.Core.Data
             _dataItems = dataItems.ToArray();
         }
 
+
         public string this[int index]
         {
             get
             {
                 if (_dataItems == null)
-                {
                     _dataItems = new string[index + 1];
-                    for (int i = 0; i < _dataItems.Length; i++)
-                        _dataItems[i] = "";
-                }
-
+                
                 if (_dataItems.Length < index + 1)
-                {
                     Array.Resize(ref _dataItems, index + 1);
-                    for (int i = index; i < _dataItems.Length; i++)
-                        _dataItems[i] = "";
-                }
 
                 return _dataItems[index];
             }
@@ -60,6 +55,22 @@ namespace PokeD.Core.Data
                 _dataItems[index] = value;
             }
         }
+
+
+        public void Add(string data)
+        {
+            List<string> list;
+            if (_dataItems != null)
+            {
+                list = new List<string>(_dataItems);
+                list.Add(data);
+            }
+            else
+                list = new List<string> {data};
+
+            _dataItems = list.ToArray();
+        }
+
 
         public List<string> ToList()
         {

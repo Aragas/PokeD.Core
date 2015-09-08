@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using PokeD.Core.Interfaces;
-using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.Server
 {
-    public class ServerInfoDataPacket : IPacket
+    public class ServerInfoDataPacket : Packet
     {
         public int CurrentPlayers { get { return int.Parse(DataItems[0], CultureInfo); } set { DataItems[0] = value.ToString(CultureInfo); } }
         public int MaxPlayers { get { return int.Parse(DataItems[1], CultureInfo); } set { DataItems[1] = value.ToString(CultureInfo); } }
@@ -38,22 +37,24 @@ namespace PokeD.Core.Packets.Server
 
         public override int ID => (int) PlayerPacketTypes.ServerInfoData;
 
-        public override IPacket ReadPacket(IPokeDataReader reader)
+        public override Packet ReadPacket(IPacketDataReader reader)
         {
             CurrentPlayers = reader.ReadVarInt();
             MaxPlayers = reader.ReadVarInt();
             ServerName = reader.ReadString();
             ServerMessage = reader.ReadString();
+            PlayerNames = reader.ReadStringArray(reader.BytesLeft());
 
             return this;
         }
 
-        public override IPacket WritePacket(IPokeStream writer)
+        public override Packet WritePacket(IPacketStream writer)
         {
             writer.WriteVarInt(CurrentPlayers);
             writer.WriteVarInt(MaxPlayers);
             writer.WriteString(ServerName);
             writer.WriteString(ServerMessage);
+            writer.WriteStringArray(PlayerNames);
 
             return this;
         }

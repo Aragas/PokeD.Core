@@ -1,9 +1,8 @@
 ﻿using PokeD.Core.Interfaces;
-using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.Remote.Authorization
 {
-    public class EncryptionRequestPacket : IPacket
+    public class EncryptionRequestPacket : Packet
     {
         public string ServerId { get; set; }
         public byte[] PublicKey { get; set; }
@@ -11,7 +10,7 @@ namespace PokeD.Core.Packets.Remote.Authorization
 
         public override int ID => (int) RemotePacketTypes.EncryptionRequestPacket;
 
-        public override IPacket ReadPacket(IPokeDataReader reader)
+        public override Packet ReadPacket(IPacketDataReader reader)
         {
             ServerId = reader.ReadString();
             var pkLength = reader.ReadVarInt();
@@ -22,7 +21,7 @@ namespace PokeD.Core.Packets.Remote.Authorization
             return this;
         }
 
-        public override IPacket WritePacket(IPokeStream stream)
+        public override Packet WritePacket(IPacketStream stream)
         {
             stream.WriteString(ServerId);
             stream.WriteVarInt(PublicKey.Length);

@@ -1,16 +1,15 @@
 ﻿using PokeD.Core.Interfaces;
-using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.Remote.Authorization
 {
-    public class EncryptionResponsePacket : IPacket
+    public class EncryptionResponsePacket : Packet
     {
         public byte[] SharedSecret { get; set; }
         public byte[] VerificationToken { get; set; }
 
         public override int ID => (int) RemotePacketTypes.EncryptionResponsePacket;
 
-        public override IPacket ReadPacket(IPokeDataReader reader)
+        public override Packet ReadPacket(IPacketDataReader reader)
         {
             var ssLength = reader.ReadVarInt();
             SharedSecret = reader.ReadByteArray(ssLength);
@@ -20,7 +19,7 @@ namespace PokeD.Core.Packets.Remote.Authorization
             return this;
         }
 
-        public override IPacket WritePacket(IPokeStream stream)
+        public override Packet WritePacket(IPacketStream stream)
         {
             stream.WriteVarInt(SharedSecret.Length);
             stream.WriteByteArray(SharedSecret);

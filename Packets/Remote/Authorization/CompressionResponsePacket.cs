@@ -1,22 +1,21 @@
 ﻿using PokeD.Core.Interfaces;
-using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.Remote.Authorization
 {
-    public class CompressionResponsePacket : IPacket
+    public class CompressionResponsePacket : Packet
     {
         public uint Threshold { get; set; }
 
         public override int ID => (int) RemotePacketTypes.CompressionResponsePacket;
 
-        public override IPacket ReadPacket(IPokeDataReader reader)
+        public override Packet ReadPacket(IPacketDataReader reader)
         {
             Threshold = reader.ReadUInt();
 
             return this;
         }
 
-        public override IPacket WritePacket(IPokeStream stream)
+        public override Packet WritePacket(IPacketStream stream)
         {
             stream.WriteUInt(Threshold);
 

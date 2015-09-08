@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace PokeD.Core.Wrappers
 {
@@ -7,6 +8,8 @@ namespace PokeD.Core.Wrappers
         string IP { get; }
         Boolean Connected { get; }
         int DataAvailable { get; }
+
+        Stream GetStream { get; }
 
 
         void Connect(String ip, UInt16 port);

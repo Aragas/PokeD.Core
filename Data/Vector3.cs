@@ -2,8 +2,7 @@
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
-
-using PokeD.Core.IO;
+using PokeD.Core.Interfaces;
 
 namespace PokeD.Core.Data
 {
@@ -90,21 +89,21 @@ namespace PokeD.Core.Data
                 return Zero;
         }
 
-        public string ToPokeString(char separator)
+        public string ToPokeString(char separator, CultureInfo cultureInfo)
         {
             var data = new StringBuilder();
-            data.Append((X * 1000 / 1000).ToString(CultureInfo.InvariantCulture).Replace('.', separator));
+            data.Append((X * 1000 / 1000).ToString(cultureInfo).Replace('.', separator));
             data.Append("|");
-            data.Append((Y * 1000 / 1000).ToString(CultureInfo.InvariantCulture).Replace('.', separator));
+            data.Append((Y * 1000 / 1000).ToString(cultureInfo).Replace('.', separator));
             data.Append("|");
-            data.Append((Z * 1000 / 1000).ToString(CultureInfo.InvariantCulture).Replace('.', separator));
+            data.Append((Z * 1000 / 1000).ToString(cultureInfo).Replace('.', separator));
 
             return data.ToString();
         }
 
         #region Network
 
-        public static Vector3 FromReaderByte(IPokeDataReader reader)
+        public static Vector3 FromReaderByte(IPacketDataReader reader)
         {
             return new Vector3(
                 reader.ReadByte(),
@@ -113,7 +112,7 @@ namespace PokeD.Core.Data
             );
         }
 
-        public static Vector3 FromReaderSByte(IPokeDataReader reader)
+        public static Vector3 FromReaderSByte(IPacketDataReader reader)
         {
             return new Vector3(
                 reader.ReadSByte(),
@@ -122,7 +121,7 @@ namespace PokeD.Core.Data
             );
         }
 
-        public static Vector3 FromReaderShort(IPokeDataReader reader)
+        public static Vector3 FromReaderShort(IPacketDataReader reader)
         {
             return new Vector3(
                 reader.ReadShort(),
@@ -131,7 +130,7 @@ namespace PokeD.Core.Data
             );
         }
 
-        public static Vector3 FromReaderFloat(IPokeDataReader reader)
+        public static Vector3 FromReaderFloat(IPacketDataReader reader)
         {
             return new Vector3(
                 reader.ReadFloat(),
@@ -140,7 +139,7 @@ namespace PokeD.Core.Data
             );
         }
 
-        public static Vector3 FromReaderDouble(IPokeDataReader reader)
+        public static Vector3 FromReaderDouble(IPacketDataReader reader)
         {
             return new Vector3(
                 reader.ReadDouble(),
@@ -149,7 +148,7 @@ namespace PokeD.Core.Data
             );
         }
 
-        public static Vector3 FromReaderSByteFixedPoint(IPokeDataReader reader)
+        public static Vector3 FromReaderSByteFixedPoint(IPacketDataReader reader)
         {
             return new Vector3(
                 reader.ReadSByte() / 32.0f,
@@ -158,7 +157,7 @@ namespace PokeD.Core.Data
             );
         }
 
-        public static Vector3 FromReaderIntFixedPoint(IPokeDataReader reader)
+        public static Vector3 FromReaderIntFixedPoint(IPacketDataReader reader)
         {
             return new Vector3(
                 reader.ReadInt() / 32.0f,
@@ -168,49 +167,49 @@ namespace PokeD.Core.Data
         }
 
 
-        public void ToStreamByte(IPokeStream stream)
+        public void ToStreamByte(IPacketStream stream)
         {
             stream.WriteByte((byte)X);
             stream.WriteByte((byte)Y);
             stream.WriteByte((byte)Z);
         }
 
-        public void ToStreamSByte(IPokeStream stream)
+        public void ToStreamSByte(IPacketStream stream)
         {
             stream.WriteSByte((sbyte)X);
             stream.WriteSByte((sbyte)Y);
             stream.WriteSByte((sbyte)Z);
         }
 
-        public void ToStreamShort(IPokeStream stream)
+        public void ToStreamShort(IPacketStream stream)
         {
             stream.WriteShort((short)X);
             stream.WriteShort((short)Y);
             stream.WriteShort((short)Z);
         }
 
-        public void ToStreamFloat(IPokeStream stream)
+        public void ToStreamFloat(IPacketStream stream)
         {
             stream.WriteFloat(X);
             stream.WriteFloat(Y);
             stream.WriteFloat(Z);
         }
 
-        public void ToStreamDouble(IPokeStream stream)
+        public void ToStreamDouble(IPacketStream stream)
         {
             stream.WriteDouble(X);
             stream.WriteDouble(Y);
             stream.WriteDouble(Z);
         }
         // TODO: Check that
-        public void ToStreamSByteFixedPoint(IPokeStream stream)
+        public void ToStreamSByteFixedPoint(IPacketStream stream)
         {
             stream.WriteSByte((sbyte)(X * 32));
             stream.WriteSByte((sbyte)(Y * 32));
             stream.WriteSByte((sbyte)(Z * 32));
         }
         // TODO: Check that
-        public void ToStreamIntFixedPoint(IPokeStream stream)
+        public void ToStreamIntFixedPoint(IPacketStream stream)
         {
             stream.WriteInt((int)X * 32);
             stream.WriteInt((int)Y * 32);
@@ -225,7 +224,7 @@ namespace PokeD.Core.Data
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("X: {0}, Y: {1}, Z: {2}", X, Y, Z);
+            return $"X: {X}, Y: {Y}, Z: {Z}";
         }
 
         #region Math

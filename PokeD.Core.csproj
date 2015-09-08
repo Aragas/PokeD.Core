@@ -40,11 +40,11 @@
   <ItemGroup>
     <Compile Include="Data\VarInt.cs" />
     <Compile Include="Data\Vector3.cs" />
-    <Compile Include="Interfaces\IPacket.cs" />
+    <Compile Include="Packets\Packet.cs" />
     <Compile Include="Interfaces\IUpdatable.cs" />
-    <Compile Include="IO\IAesStream.cs" />
-    <Compile Include="IO\IPokeDataReader.cs" />
-    <Compile Include="IO\IPokeStream.cs" />
+    <Compile Include="Interfaces\IAesStream.cs" />
+    <Compile Include="Interfaces\IPacketDataReader.cs" />
+    <Compile Include="Interfaces\IPacketStream.cs" />
     <Compile Include="Packets\RemotePacketTypes.cs" />
     <Compile Include="Packets\PlayerPacketTypes.cs" />
     <Compile Include="Packets\RemoteResponse.cs" />

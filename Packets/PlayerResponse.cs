@@ -1,5 +1,4 @@
-﻿using PokeD.Core.Interfaces;
-using PokeD.Core.Packets.Battle;
+﻿using PokeD.Core.Packets.Battle;
 using PokeD.Core.Packets.Chat;
 using PokeD.Core.Packets.Client;
 using PokeD.Core.Packets.Server;
@@ -10,7 +9,7 @@ namespace PokeD.Core.Packets
 {
     public static class PlayerResponse
     {
-        public delegate IPacket CreatePacketInstance();
+        public delegate Packet CreatePacketInstance();
 
         #region Play Response
         public static readonly CreatePacketInstance[] Packets =

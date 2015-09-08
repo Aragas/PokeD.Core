@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Threading.Tasks;
 
 namespace PokeD.Core.Wrappers
 {
-    public interface INetworkTCPServerAsync
-    {
-        Task<INetworkTCPClient> AcceptTCPClientAsync();
-    }
-
-    public interface INetworkTCPServer : INetworkTCPServerAsync, IDisposable
+    public interface INetworkTCPServer : IDisposable
     {
         ushort Port { get; }
         bool AvailableClients { get; }

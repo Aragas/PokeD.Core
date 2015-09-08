@@ -3,9 +3,9 @@ using System.Numerics;
 
 using PokeD.Core.Data;
 
-namespace PokeD.Core.IO
+namespace PokeD.Core.Interfaces
 {
-    public interface IPokeDataReader : IDisposable
+    public interface IPacketDataReaderRead
     {
         String ReadString(Int32 length = 0);
 
@@ -42,5 +42,10 @@ namespace PokeD.Core.IO
         Byte[] ReadByteArray(Int32 value);
 
         Int32 BytesLeft();
+    }
+
+    public interface IPacketDataReader : IPacketDataReaderRead, IDisposable
+    {
+        Boolean IsServer { get; }
     }
 }

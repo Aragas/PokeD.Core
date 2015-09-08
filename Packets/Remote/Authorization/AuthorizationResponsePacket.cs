@@ -1,7 +1,6 @@
 ﻿using System;
 
 using PokeD.Core.Interfaces;
-using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.Remote.Authorization
 {
@@ -13,20 +12,20 @@ namespace PokeD.Core.Packets.Remote.Authorization
         CompressionEnabled = 4
     }
 
-    public class AuthorizationResponsePacket : IPacket
+    public class AuthorizationResponsePacket : Packet
     {
         public AuthorizationStatus AuthorizationStatus { get; set; }
 
         public override int ID => (int) RemotePacketTypes.AuthorizationResponsePacket;
 
-        public override IPacket ReadPacket(IPokeDataReader reader)
+        public override Packet ReadPacket(IPacketDataReader reader)
         {
             AuthorizationStatus = (AuthorizationStatus) reader.ReadByte();
 
             return this;
         }
 
-        public override IPacket WritePacket(IPokeStream stream)
+        public override Packet WritePacket(IPacketStream stream)
         {
             stream.WriteByte((byte) AuthorizationStatus);
 

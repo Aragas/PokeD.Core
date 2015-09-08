@@ -1,18 +1,17 @@
 ﻿using PokeD.Core.Interfaces;
-using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.Client
 {
-    public class PingPacket : IPacket
+    public class PingPacket : Packet
     {
         public override int ID => (int) PlayerPacketTypes.Ping;
 
-        public override IPacket ReadPacket(IPokeDataReader reader)
+        public override Packet ReadPacket(IPacketDataReader reader)
         {
             return this;
         }
 
-        public override IPacket WritePacket(IPokeStream writer)
+        public override Packet WritePacket(IPacketStream writer)
         {
             return this;
         }

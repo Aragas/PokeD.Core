@@ -1,9 +1,8 @@
 ﻿using PokeD.Core.Interfaces;
-using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.Server
 {
-    public class WorldDataPacket : IPacket
+    public class WorldDataPacket : Packet
     {
         public int Season { get { return int.Parse(DataItems[0], CultureInfo); } set { DataItems[0] = value.ToString(CultureInfo); } }
         public int Weather { get { return int.Parse(DataItems[1], CultureInfo); } set { DataItems[1] = value.ToString(CultureInfo); } }
@@ -12,7 +11,7 @@ namespace PokeD.Core.Packets.Server
 
         public override int ID => (int) PlayerPacketTypes.WorldData;
 
-        public override IPacket ReadPacket(IPokeDataReader reader)
+        public override Packet ReadPacket(IPacketDataReader reader)
         {
             Season = reader.ReadVarInt();
             Weather = reader.ReadVarInt();
@@ -21,7 +20,7 @@ namespace PokeD.Core.Packets.Server
             return this;
         }
 
-        public override IPacket WritePacket(IPokeStream writer)
+        public override Packet WritePacket(IPacketStream writer)
         {
             writer.WriteVarInt(Season);
             writer.WriteVarInt(Weather);

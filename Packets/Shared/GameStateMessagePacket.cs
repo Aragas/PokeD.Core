@@ -1,23 +1,22 @@
 ﻿using PokeD.Core.Interfaces;
-using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.Shared
 {
-    public class GameStateMessagePacket : IPacket
+    public class GameStateMessagePacket : Packet
     {
         public string EventMessage {  get { return DataItems[0]; } set { DataItems[0] = value; } }
 
 
         public override int ID => (int) PlayerPacketTypes.GameStateMessage;
 
-        public override IPacket ReadPacket(IPokeDataReader reader)
+        public override Packet ReadPacket(IPacketDataReader reader)
         {
             EventMessage = reader.ReadString();
 
             return this;
         }
 
-        public override IPacket WritePacket(IPokeStream writer)
+        public override Packet WritePacket(IPacketStream writer)
         {
             writer.WriteString(EventMessage);
 

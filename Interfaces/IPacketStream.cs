@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Numerics;
-using System.Threading.Tasks;
-
 using PokeD.Core.Data;
-using PokeD.Core.Interfaces;
+using PokeD.Core.Packets;
 
-namespace PokeD.Core.IO
+namespace PokeD.Core.Interfaces
 {
-    public interface IPokeStreamWrite
+    public interface IPacketStreamWrite
     {
         void WriteString(String value, Int32 length = 0);
 
@@ -44,7 +42,7 @@ namespace PokeD.Core.IO
         void WriteByteArray(Byte[] value);
     }
 
-    public interface IPokeStreamRead
+    public interface IPacketStreamRead
     {
         Byte ReadByte();
 
@@ -54,16 +52,16 @@ namespace PokeD.Core.IO
 
         String ReadLine();
     }
-
-    public interface IPokeStreamConnection
+    
+    public interface IPacketStreamConnection
     {
         void Connect(String ip, UInt16 port);
         void Disconnect();
 
-        void SendPacket(ref IPacket packet);
+        void SendPacket(ref Packet packet);
     }
 
-    public interface IPokeStreamConnectionStatus
+    public interface IPacketStreamStatus
     {
         Boolean Connected { get; }
         Int32 DataAvailable { get; }
@@ -80,8 +78,8 @@ namespace PokeD.Core.IO
     /// Object that reads VarInt (or Byte) and ByteArray for handling Data later 
     /// and writes any data from packet to user-defined object, that will interact with Minecraft Server.
     /// </summary>
-    public interface IPokeStream : IPokeStreamWrite, IPokeStreamRead, IPokeStreamConnection, IPokeStreamConnectionStatus, IDisposable
+    public interface IPacketStream : IPacketStreamWrite, IPacketStreamRead, IPacketStreamConnection, IPacketStreamStatus, IDisposable
     {
-
+        Boolean IsServer { get; }
     }
 }

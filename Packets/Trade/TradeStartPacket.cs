@@ -1,25 +1,26 @@
 ﻿using PokeD.Core.Interfaces;
-using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.Trade
 {
-    public class TradeStartPacket : IPacket
+    public class TradeStartPacket : Packet
     {
         public int DestinationPlayerID { get { return int.Parse(DataItems[0], CultureInfo); } set { DataItems[0] = value.ToString(CultureInfo); } }
 
 
         public override int ID => (int) PlayerPacketTypes.TradeStart;
 
-        public override IPacket ReadPacket(IPokeDataReader reader)
+        public override Packet ReadPacket(IPacketDataReader reader)
         {
-            DestinationPlayerID = reader.ReadVarInt();
+            if (reader.IsServer)
+                DestinationPlayerID = reader.ReadVarInt();
 
             return this;
         }
 
-        public override IPacket WritePacket(IPokeStream writer)
+        public override Packet WritePacket(IPacketStream writer)
         {
-            writer.WriteVarInt(DestinationPlayerID);
+            if (!writer.IsServer)
+                writer.WriteVarInt(DestinationPlayerID);
 
             return this;
         }
