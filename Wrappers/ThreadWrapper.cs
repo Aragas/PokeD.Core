@@ -4,13 +4,13 @@ namespace PokeD.Core.Wrappers
 {
     public interface IThreadWrapper
     {
-        int StartThread(Action action, bool isBackground, string threadName);
+        Int32 StartThread(Action action, Boolean isBackground, String threadName);
 
-        void AbortThread(int id);
+        void AbortThread(Int32 id);
 
-        bool IsRunning(int id);
+        Boolean IsRunning(Int32 id);
 
-        void Sleep(int milliseconds);
+        void Sleep(Int32 milliseconds);
     }
 
     /// <summary>

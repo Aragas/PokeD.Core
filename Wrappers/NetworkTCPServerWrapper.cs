@@ -4,15 +4,15 @@ namespace PokeD.Core.Wrappers
 {
     public interface INetworkTCPServer : IDisposable
     {
-        ushort Port { get; }
-        bool AvailableClients { get; }
+        UInt16 Port { get; }
+        Boolean AvailableClients { get; }
 
         void Start();
         void Stop();
 
         INetworkTCPClient AcceptNetworkTCPClient();
 
-        INetworkTCPServer NewInstance(ushort port);
+        INetworkTCPServer NewInstance(UInt16 port);
     }
 
     public static class NetworkTCPServerWrapper

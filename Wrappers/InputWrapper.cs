@@ -12,9 +12,9 @@ namespace PokeD.Core.Wrappers
 
         void HideKeyboard();
 
-        void ConsoleWrite(string message);
-
-        void LogWriteLine(string message);
+        void ConsoleWrite(String message);
+        
+        void LogWriteLine(String message);
     }
 
     public static class InputWrapper

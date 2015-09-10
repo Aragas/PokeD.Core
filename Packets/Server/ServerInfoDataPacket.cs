@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using PokeD.Core.Interfaces;
 
 namespace PokeD.Core.Packets.Server

@@ -7,8 +7,8 @@ namespace PokeD.Core.Interfaces
     /// </summary>
     public interface IAesStream : IDisposable
     {
-        int Read(byte[] buffer, int offset, int count);
+        Int32 Read(Byte[] buffer, Int32 offset, Int32 count);
 
-        void Write(byte[] buffer, int offset, int count);
+        void Write(Byte[] buffer, Int32 offset, Int32 count);
     }
 }

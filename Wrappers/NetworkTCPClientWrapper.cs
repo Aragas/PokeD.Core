@@ -5,9 +5,9 @@ namespace PokeD.Core.Wrappers
 {
     public interface INetworkTCPClient : IDisposable
     {
-        string IP { get; }
+        String IP { get; }
         Boolean Connected { get; }
-        int DataAvailable { get; }
+        Int32 DataAvailable { get; }
 
 
         void Connect(String ip, UInt16 port);
