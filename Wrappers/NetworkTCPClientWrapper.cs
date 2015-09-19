@@ -10,8 +10,8 @@ namespace PokeD.Core.Wrappers
         Int32 DataAvailable { get; }
 
 
-        void Connect(String ip, UInt16 port);
-        void Disconnect();
+        INetworkTCPClient Connect(String ip, UInt16 port);
+        INetworkTCPClient Disconnect();
 
 
         void Send(Byte[] bytes, Int32 offset, Int32 count);

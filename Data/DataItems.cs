@@ -20,14 +20,9 @@ namespace PokeD.Core.Data
             _dataItems = new []{ dataItem };
         }
 
-        public DataItems(string[] dataItems)
+        public DataItems(params string[] dataItems)
         {
             _dataItems = dataItems;
-        }
-
-        public DataItems(List<string> dataItems)
-        {
-            _dataItems = dataItems.ToArray();
         }
 
 
@@ -71,11 +66,6 @@ namespace PokeD.Core.Data
             _dataItems = list.ToArray();
         }
 
-
-        public List<string> ToList()
-        {
-            return _dataItems != null ? new List<string>(_dataItems) : new List<string>();
-        }
 
         public string[] ToArray()
         {

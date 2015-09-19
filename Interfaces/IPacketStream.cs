@@ -34,13 +34,13 @@ namespace PokeD.Core.Interfaces
         void WriteFloat(Single value);
 
 
-        void WriteStringArray(String[] value);
+        void WriteStringArray(params String[] value);
 
-        void WriteVarIntArray(Int32[] value);
+        void WriteVarIntArray(params Int32[] value);
 
-        void WriteIntArray(Int32[] value);
+        void WriteIntArray(params Int32[] value);
 
-        void WriteByteArray(Byte[] value);
+        void WriteByteArray(params Byte[] value);
     }
 
     public interface IPacketStreamRead
