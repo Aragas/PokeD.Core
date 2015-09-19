@@ -1,10 +1,10 @@
 ﻿using PokeD.Core.Interfaces;
 
-namespace PokeD.Core.Packets.SCON.Status
+namespace PokeD.Core.Packets.SCON.Chat
 {
     public class StartChatReceivingPacket : ProtobufPacket
     {
-        public override int ID => (int) SCONPacketTypes.PlayerListRequest;
+        public override int ID => (int) SCONPacketTypes.StartChatReceiving;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {

@@ -1,18 +1,27 @@
 ﻿using PokeD.Core.Interfaces;
 
-namespace PokeD.Core.Packets.SCON.Status
+namespace PokeD.Core.Packets.SCON.Chat
 {
-    public class StopChatReceivingPacket : ProtobufPacket
+    public class ChatMessagePacket : ProtobufPacket
     {
-        public override int ID => (int)SCONPacketTypes.PlayerListRequest;
+        public string Player { get; set; }
+        public string Message { get; set; }
+
+        public override int ID => (int) SCONPacketTypes.ChatMessage;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
+            Player = reader.ReadString();
+            Message = reader.ReadString();
+
             return this;
         }
 
         public override ProtobufPacket WritePacket(IPacketStream stream)
         {
+            stream.WriteString(Player);
+            stream.WriteString(Message);
+
             return this;
         }
     }

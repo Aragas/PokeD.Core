@@ -64,6 +64,11 @@
     <Compile Include="Packets\SCON\Authorization\AuthorizationRequestPacket.cs" />
     <Compile Include="Packets\SCON\Authorization\AuthorizationResponsePacket.cs" />
     <Compile Include="Packets\SCON\ExecuteCommandPacket.cs" />
+    <Compile Include="Packets\SCON\Chat\ChatMessagePacket.cs" />
+    <Compile Include="Packets\SCON\Chat\StopChatReceivingPacket.cs" />
+    <Compile Include="Packets\SCON\Chat\StartChatReceivingPacket.cs" />
+    <Compile Include="Packets\SCON\Status\PlayerLocationResponsePacket.cs" />
+    <Compile Include="Packets\SCON\Status\PlayerLocationRequestPacket.cs" />
     <Compile Include="Packets\SCON\Status\PlayerListResponsePacket.cs" />
     <Compile Include="Packets\SCON\Status\PlayerListRequestPacket.cs" />
     <Compile Include="Packets\SCON\Authorization\EncryptionResponsePacket.cs" />
