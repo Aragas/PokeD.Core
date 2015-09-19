@@ -2,20 +2,20 @@
 
 namespace PokeD.Core.Packets.SCON.Authorization
 {
-    public class AuthorizationDisconnectPacket : Packet
+    public class AuthorizationDisconnectPacket : ProtobufPacket
     {
         public string Reason { get; set; }
 
         public override int ID => (int) SCONPacketTypes.AuthorizationDisconnect;
 
-        public override Packet ReadPacket(IPacketDataReader reader)
+        public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
             Reason = reader.ReadString();
 
             return this;
         }
 
-        public override Packet WritePacket(IPacketStream stream)
+        public override ProtobufPacket WritePacket(IPacketStream stream)
         {
             stream.WriteString(Reason);
 

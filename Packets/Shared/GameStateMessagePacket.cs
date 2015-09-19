@@ -2,21 +2,21 @@
 
 namespace PokeD.Core.Packets.Shared
 {
-    public class GameStateMessagePacket : Packet
+    public class GameStateMessageP3DPacket : P3DPacket
     {
         public string EventMessage {  get { return DataItems[0]; } set { DataItems[0] = value; } }
 
 
         public override int ID => (int) PlayerPacketTypes.GameStateMessage;
 
-        public override Packet ReadPacket(IPacketDataReader reader)
+        public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
             EventMessage = reader.ReadString();
 
             return this;
         }
 
-        public override Packet WritePacket(IPacketStream writer)
+        public override ProtobufPacket WritePacket(IPacketStream writer)
         {
             writer.WriteString(EventMessage);
 

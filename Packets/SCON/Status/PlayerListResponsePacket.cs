@@ -2,13 +2,13 @@
 
 namespace PokeD.Core.Packets.SCON.Status
 {
-    public class PlayerListResponsePacket : Packet
+    public class PlayerListResponsePacket : ProtobufPacket
     {
         public string[] Players { get; set; }
 
         public override int ID => (int) SCONPacketTypes.PlayerListResponse;
 
-        public override Packet ReadPacket(IPacketDataReader reader)
+        public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
             int length = reader.ReadVarInt();
             Players = reader.ReadStringArray(length);
@@ -16,7 +16,7 @@ namespace PokeD.Core.Packets.SCON.Status
             return this;
         }
 
-        public override Packet WritePacket(IPacketStream stream)
+        public override ProtobufPacket WritePacket(IPacketStream stream)
         {
             stream.WriteVarInt(Players.Length);
             stream.WriteStringArray(Players);

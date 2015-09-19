@@ -2,21 +2,21 @@
 
 namespace PokeD.Core.Packets.Client
 {
-    public class ServerDataRequestPacket : Packet
+    public class ServerDataRequestP3DPacket : P3DPacket
     {
         public string DontEvenKnow { get { return DataItems[0]; } set { DataItems[0] = value; } }
 
 
         public override int ID => (int) PlayerPacketTypes.ServerDataRequest;
 
-        public override Packet ReadPacket(IPacketDataReader reader)
+        public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
             DontEvenKnow = reader.ReadString();
 
             return this;
         }
 
-        public override Packet WritePacket(IPacketStream writer)
+        public override ProtobufPacket WritePacket(IPacketStream writer)
         {
             writer.WriteString(DontEvenKnow);
 

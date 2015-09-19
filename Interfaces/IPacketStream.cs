@@ -59,7 +59,8 @@ namespace PokeD.Core.Interfaces
         void Connect(String ip, UInt16 port);
         void Disconnect();
 
-        void SendPacket(ref Packet packet);
+        void SendPacket(ref ProtobufPacket packet);
+        void SendPacket(ref P3DPacket p3DPacket);
     }
 
     public interface IPacketStreamStatus

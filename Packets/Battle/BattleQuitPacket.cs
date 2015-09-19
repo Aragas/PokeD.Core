@@ -2,14 +2,14 @@
 
 namespace PokeD.Core.Packets.Battle
 {
-    public class BattleQuitPacket : Packet
+    public class BattleQuitP3DPacket : P3DPacket
     {
         public int DestinationPlayerID { get { return int.Parse(DataItems[0], CultureInfo); } set { DataItems[0] = value.ToString(CultureInfo); } }
 
 
         public override int ID => (int) PlayerPacketTypes.BattleQuit;
 
-        public override Packet ReadPacket(IPacketDataReader reader)
+        public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
             if (reader.IsServer)
                 DestinationPlayerID = reader.ReadVarInt();
@@ -17,7 +17,7 @@ namespace PokeD.Core.Packets.Battle
             return this;
         }
 
-        public override Packet WritePacket(IPacketStream writer)
+        public override ProtobufPacket WritePacket(IPacketStream writer)
         {
             if (!writer.IsServer)
                 writer.WriteVarInt(DestinationPlayerID);

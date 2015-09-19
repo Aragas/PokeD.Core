@@ -4,30 +4,16 @@ using System.Globalization;
 using System.Linq;
 
 using PokeD.Core.Data;
-using PokeD.Core.Interfaces;
 
 namespace PokeD.Core.Packets
 {
-    public abstract class Packet
+    public abstract class P3DPacket : ProtobufPacket
     {
         public Single ProtocolVersion { get; set; }
-        public abstract Int32 ID { get; }
         public Int32 Origin { get; set; }
-        public DataItems DataItems = new DataItems();
+        public DataItems DataItems { get; set; } = new DataItems();
 
         protected static CultureInfo CultureInfo => CultureInfo.InvariantCulture;
-
-
-        /// <summary>
-        /// Read packet from IPokeDataReader.
-        /// </summary>
-        public abstract Packet ReadPacket(IPacketDataReader reader);
-
-        /// <summary>
-        /// Write packet to IPokeStream.
-        /// </summary>
-        public abstract Packet WritePacket(IPacketStream writer);
-
 
         public static bool TryParseID(string fullData, out int id)
         {

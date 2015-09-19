@@ -2,21 +2,21 @@
 
 namespace PokeD.Core.Packets.Server
 {
-    public class ServerMessagePacket : Packet
+    public class ServerMessageP3DPacket : P3DPacket
     {
         public string Message { get { return DataItems[0]; } set { DataItems[0] = value; } }
 
 
         public override int ID => (int) PlayerPacketTypes.ServerMessage;
 
-        public override Packet ReadPacket(IPacketDataReader reader)
+        public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
             Message = reader.ReadString();
 
             return this;
         }
 
-        public override Packet WritePacket(IPacketStream writer)
+        public override ProtobufPacket WritePacket(IPacketStream writer)
         {
             writer.WriteString(Message);
 

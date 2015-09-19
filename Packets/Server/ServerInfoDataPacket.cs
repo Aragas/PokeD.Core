@@ -4,7 +4,7 @@ using PokeD.Core.Interfaces;
 
 namespace PokeD.Core.Packets.Server
 {
-    public class ServerInfoDataPacket : Packet
+    public class ServerInfoDataP3DPacket : P3DPacket
     {
         public int CurrentPlayers { get { return int.Parse(DataItems[0], CultureInfo); } set { DataItems[0] = value.ToString(CultureInfo); } }
         public int MaxPlayers { get { return int.Parse(DataItems[1], CultureInfo); } set { DataItems[1] = value.ToString(CultureInfo); } }
@@ -38,7 +38,7 @@ namespace PokeD.Core.Packets.Server
 
         public override int ID => (int) PlayerPacketTypes.ServerInfoData;
 
-        public override Packet ReadPacket(IPacketDataReader reader)
+        public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
             CurrentPlayers = reader.ReadVarInt();
             MaxPlayers = reader.ReadVarInt();
@@ -49,7 +49,7 @@ namespace PokeD.Core.Packets.Server
             return this;
         }
 
-        public override Packet WritePacket(IPacketStream writer)
+        public override ProtobufPacket WritePacket(IPacketStream writer)
         {
             writer.WriteVarInt(CurrentPlayers);
             writer.WriteVarInt(MaxPlayers);

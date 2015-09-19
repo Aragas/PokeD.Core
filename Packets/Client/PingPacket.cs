@@ -2,16 +2,16 @@
 
 namespace PokeD.Core.Packets.Client
 {
-    public class PingPacket : Packet
+    public class PingP3DPacket : P3DPacket
     {
         public override int ID => (int) PlayerPacketTypes.Ping;
 
-        public override Packet ReadPacket(IPacketDataReader reader)
+        public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
             return this;
         }
 
-        public override Packet WritePacket(IPacketStream writer)
+        public override ProtobufPacket WritePacket(IPacketStream writer)
         {
             return this;
         }

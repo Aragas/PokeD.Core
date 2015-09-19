@@ -2,16 +2,16 @@
 
 namespace PokeD.Core.Packets.SCON.Authorization
 {
-    public class AuthorizationCompletePacket : Packet
+    public class AuthorizationCompletePacket : ProtobufPacket
     {
         public override int ID => (int) SCONPacketTypes.AuthorizationComplete;
 
-        public override Packet ReadPacket(IPacketDataReader reader)
+        public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
             return this;
         }
 
-        public override Packet WritePacket(IPacketStream stream)
+        public override ProtobufPacket WritePacket(IPacketStream stream)
         {
             return this;
         }

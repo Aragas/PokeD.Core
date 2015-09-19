@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="Data\VarInt.cs" />
     <Compile Include="Data\Vector3.cs" />
+    <Compile Include="Packets\ProtobufPacket.cs" />
     <Compile Include="Packets\Packet.cs" />
     <Compile Include="Interfaces\IUpdatable.cs" />
     <Compile Include="Interfaces\IAesStream.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Packets\Chat\ChatMessagePacket.cs" />
     <Compile Include="Packets\Chat\ChatMessagePrivatePacket.cs" />
     <Compile Include="Packets\SCON\Authorization\AuthorizationDisconnectPacket.cs" />
+    <Compile Include="Packets\SCON\Authorization\AuthorizationPasswordPacket.cs" />
     <Compile Include="Packets\SCON\Authorization\AuthorizationRequestPacket.cs" />
     <Compile Include="Packets\SCON\Authorization\AuthorizationResponsePacket.cs" />
     <Compile Include="Packets\SCON\ExecuteCommandPacket.cs" />

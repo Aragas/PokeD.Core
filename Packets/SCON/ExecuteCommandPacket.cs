@@ -2,20 +2,20 @@
 
 namespace PokeD.Core.Packets.SCON
 {
-    public class ExecuteCommandPacket : Packet
+    public class ExecuteCommandPacket : ProtobufPacket
     {
         public string Command { get; set; }
 
         public override int ID => (int) SCONPacketTypes.ExecuteCommand;
 
-        public override Packet ReadPacket(IPacketDataReader reader)
+        public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
             Command = reader.ReadString();
 
             return this;
         }
 
-        public override Packet WritePacket(IPacketStream stream)
+        public override ProtobufPacket WritePacket(IPacketStream stream)
         {
             stream.WriteString(Command);
 

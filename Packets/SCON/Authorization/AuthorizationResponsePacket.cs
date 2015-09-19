@@ -10,20 +10,20 @@ namespace PokeD.Core.Packets.SCON.Authorization
         EncryprionEnabled = 2
     }
 
-    public class AuthorizationResponsePacket : Packet
+    public class AuthorizationResponsePacket : ProtobufPacket
     {
         public AuthorizationStatus AuthorizationStatus { get; set; }
 
         public override int ID => (int) SCONPacketTypes.AuthorizationResponse;
 
-        public override Packet ReadPacket(IPacketDataReader reader)
+        public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
             AuthorizationStatus = (AuthorizationStatus) reader.ReadByte();
 
             return this;
         }
 
-        public override Packet WritePacket(IPacketStream stream)
+        public override ProtobufPacket WritePacket(IPacketStream stream)
         {
             stream.WriteByte((byte) AuthorizationStatus);
 

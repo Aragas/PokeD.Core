@@ -6,7 +6,7 @@ namespace PokeD.Core.Packets
 {
     public static class SCONResponse
     {
-        public delegate Packet CreatePacketInstance();
+        public delegate ProtobufPacket CreatePacketInstance();
 
         public static readonly CreatePacketInstance[] Packets =
         {
@@ -16,15 +16,15 @@ namespace PokeD.Core.Packets
             () => new EncryptionRequestPacket(),        // 0x02
             () => new EncryptionResponsePacket(),       // 0x03
 
-            () => new AuthorizationCompletePacket(),    // 0x04
-            () => new AuthorizationDisconnectPacket(),  // 0x05
+            () => new AuthorizationPasswordPacket(),    // 0x04
+            () => new AuthorizationCompletePacket(),    // 0x05
+            () => new AuthorizationDisconnectPacket(),  // 0x06
 
-            () => new ExecuteCommandPacket(),           // 0x06
+            () => new ExecuteCommandPacket(),           // 0x07
 
-            () => new PlayerListRequestPacket(),        // 0x07
-            () => new PlayerListResponsePacket(),       // 0x08
+            () => new PlayerListRequestPacket(),        // 0x08
+            () => new PlayerListResponsePacket(),       // 0x09
 
-            null, // 0x09
             null, // 0x0A
             null, // 0x0B
             null, // 0x0C

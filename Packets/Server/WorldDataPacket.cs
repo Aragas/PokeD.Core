@@ -2,7 +2,7 @@
 
 namespace PokeD.Core.Packets.Server
 {
-    public class WorldDataPacket : Packet
+    public class WorldDataP3DPacket : P3DPacket
     {
         public int Season { get { return int.Parse(DataItems[0], CultureInfo); } set { DataItems[0] = value.ToString(CultureInfo); } }
         public int Weather { get { return int.Parse(DataItems[1], CultureInfo); } set { DataItems[1] = value.ToString(CultureInfo); } }
@@ -11,7 +11,7 @@ namespace PokeD.Core.Packets.Server
 
         public override int ID => (int) PlayerPacketTypes.WorldData;
 
-        public override Packet ReadPacket(IPacketDataReader reader)
+        public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
             Season = reader.ReadVarInt();
             Weather = reader.ReadVarInt();
@@ -20,7 +20,7 @@ namespace PokeD.Core.Packets.Server
             return this;
         }
 
-        public override Packet WritePacket(IPacketStream writer)
+        public override ProtobufPacket WritePacket(IPacketStream writer)
         {
             writer.WriteVarInt(Season);
             writer.WriteVarInt(Weather);
