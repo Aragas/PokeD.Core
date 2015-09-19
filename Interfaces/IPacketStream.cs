@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+
 using PokeD.Core.Data;
 using PokeD.Core.Packets;
 

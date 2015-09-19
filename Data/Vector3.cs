@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
+
 using PokeD.Core.Interfaces;
 
 namespace PokeD.Core.Data
