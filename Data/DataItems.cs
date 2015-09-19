@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace PokeD.Core.Data
 {
     public class DataItems
     {
-        public int Count => _dataItems.Length + 1;
+        public int Count => _dataItems.Length;
 
         private string[] _dataItems;
 
@@ -13,11 +12,6 @@ namespace PokeD.Core.Data
         public DataItems()
         {
             
-        }
-
-        public DataItems(string dataItem)
-        {
-            _dataItems = new []{ dataItem };
         }
 
         public DataItems(params string[] dataItems)
@@ -30,13 +24,10 @@ namespace PokeD.Core.Data
         {
             get
             {
-                if (_dataItems == null)
-                    _dataItems = new string[index + 1];
-                
-                if (_dataItems.Length < index + 1)
-                    Array.Resize(ref _dataItems, index + 1);
-
-                return _dataItems[index];
+                if(_dataItems.Length < index + 1)
+                    return string.Empty;
+                else
+                    return _dataItems[index];
             }
 
             set
@@ -54,16 +45,14 @@ namespace PokeD.Core.Data
 
         public void Add(string data)
         {
-            List<string> list;
-            if (_dataItems != null)
-            {
-                list = new List<string>(_dataItems);
-                list.Add(data);
-            }
-            else
-                list = new List<string> {data};
+            if (_dataItems == null)
+                _dataItems = new string[0];
 
-            _dataItems = list.ToArray();
+            var index = _dataItems.Length;
+            if (_dataItems.Length < index + 1)
+                Array.Resize(ref _dataItems, index + 1);
+
+            _dataItems[index] = data;
         }
 
 
