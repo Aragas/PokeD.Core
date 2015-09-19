@@ -1,8 +1,10 @@
-﻿using PokeD.Core.Packets.Remote.Authorization;
+﻿using PokeD.Core.Packets.SCON;
+using PokeD.Core.Packets.SCON.Authorization;
+using PokeD.Core.Packets.SCON.Status;
 
 namespace PokeD.Core.Packets
 {
-    public static class RemoteResponse
+    public static class SCONResponse
     {
         public delegate Packet CreatePacketInstance();
 
@@ -10,13 +12,18 @@ namespace PokeD.Core.Packets
         {
             () => new AuthorizationRequestPacket(),     // 0x00
             () => new AuthorizationResponsePacket(),    // 0x01
+
             () => new EncryptionRequestPacket(),        // 0x02
             () => new EncryptionResponsePacket(),       // 0x03
-            () => new CompressionRequestPacket(),       // 0x04
-            () => new CompressionResponsePacket(),      // 0x05
-            () => new AuthorizationCompletePacket(),    // 0x06
-            () => new AuthorizationDisconnectPacket(),  // 0x07
-            null, // 0x08
+
+            () => new AuthorizationCompletePacket(),    // 0x04
+            () => new AuthorizationDisconnectPacket(),  // 0x05
+
+            () => new ExecuteCommandPacket(),           // 0x06
+
+            () => new PlayerListRequestPacket(),        // 0x07
+            () => new PlayerListResponsePacket(),       // 0x08
+
             null, // 0x09
             null, // 0x0A
             null, // 0x0B

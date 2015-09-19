@@ -1,6 +1,6 @@
 ﻿using PokeD.Core.Interfaces;
 
-namespace PokeD.Core.Packets.Remote.Authorization
+namespace PokeD.Core.Packets.SCON.Authorization
 {
     public class EncryptionRequestPacket : Packet
     {
@@ -8,7 +8,7 @@ namespace PokeD.Core.Packets.Remote.Authorization
         public byte[] PublicKey { get; set; }
         public byte[] VerificationToken { get; set; }
 
-        public override int ID => (int) RemotePacketTypes.EncryptionRequestPacket;
+        public override int ID => (int) SCONPacketTypes.EncryptionRequest;
 
         public override Packet ReadPacket(IPacketDataReader reader)
         {

@@ -1,14 +1,15 @@
 ﻿namespace PokeD.Core.Packets
 {
-    public enum RemotePacketTypes
+    public enum SCONPacketTypes
     {
-        AuthorizationRequestPacket      = 0x00,
-        AuthorizationResponsePacket     = 0x01,
-        EncryptionRequestPacket         = 0x02,
-        EncryptionResponsePacket        = 0x03,
-        CompressionRequestPacket        = 0x04,
-        CompressionResponsePacket       = 0x05,
-        AuthorizationCompletePacket     = 0x06,
-        AuthorizationDisconnectPacket   = 0x07,
+        AuthorizationRequest    = 0x00,
+        AuthorizationResponse   = 0x01,
+        EncryptionRequest       = 0x02,
+        EncryptionResponse      = 0x03,
+        AuthorizationComplete   = 0x04,
+        AuthorizationDisconnect = 0x05,
+        ExecuteCommand          = 0x06,
+        PlayerListRequest       = 0x07,
+        PlayerListResponse      = 0x08,
     }
 }

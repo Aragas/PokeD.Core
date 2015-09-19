@@ -6,7 +6,7 @@ namespace PokeD.Core.Packets.SCON
     {
         public string Command { get; set; }
 
-        public override int ID => (int) 0;
+        public override int ID => (int) SCONPacketTypes.ExecuteCommand;
 
         public override Packet ReadPacket(IPacketDataReader reader)
         {

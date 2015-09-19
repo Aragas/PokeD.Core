@@ -1,10 +1,10 @@
 ﻿using PokeD.Core.Interfaces;
 
-namespace PokeD.Core.Packets.Remote.Authorization
+namespace PokeD.Core.Packets.SCON.Authorization
 {
     public class AuthorizationRequestPacket : Packet
     {
-        public override int ID => (int) RemotePacketTypes.AuthorizationRequestPacket;
+        public override int ID => (int) SCONPacketTypes.AuthorizationRequest;
 
         public override Packet ReadPacket(IPacketDataReader reader)
         {

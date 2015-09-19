@@ -35,7 +35,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <Folder Include="Packets\Remote\Status\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\VarInt.cs" />
@@ -45,9 +44,9 @@
     <Compile Include="Interfaces\IAesStream.cs" />
     <Compile Include="Interfaces\IPacketDataReader.cs" />
     <Compile Include="Interfaces\IPacketStream.cs" />
-    <Compile Include="Packets\RemotePacketTypes.cs" />
+    <Compile Include="Packets\SCONPacketTypes.cs" />
     <Compile Include="Packets\PlayerPacketTypes.cs" />
-    <Compile Include="Packets\RemoteResponse.cs" />
+    <Compile Include="Packets\SCONResponse.cs" />
     <Compile Include="Packets\PlayerResponse.cs" />
     <Compile Include="Packets\Battle\BattleClientDataPacket.cs" />
     <Compile Include="Packets\Battle\BattleHostDataPacket.cs" />
@@ -59,14 +58,15 @@
     <Compile Include="Packets\Battle\BattleStartPacket.cs" />
     <Compile Include="Packets\Chat\ChatMessagePacket.cs" />
     <Compile Include="Packets\Chat\ChatMessagePrivatePacket.cs" />
-    <Compile Include="Packets\Remote\Authorization\AuthorizationDisconnectPacket.cs" />
-    <Compile Include="Packets\Remote\Authorization\AuthorizationRequestPacket.cs" />
-    <Compile Include="Packets\Remote\Authorization\AuthorizationResponsePacket.cs" />
-    <Compile Include="Packets\Remote\Authorization\CompressionRequestPacket.cs" />
-    <Compile Include="Packets\Remote\Authorization\CompressionResponsePacket.cs" />
-    <Compile Include="Packets\Remote\Authorization\AuthorizationCompletePacket.cs" />
-    <Compile Include="Packets\Remote\Authorization\EncryptionResponsePacket.cs" />
-    <Compile Include="Packets\Remote\Authorization\EncryptionRequestPacket.cs" />
+    <Compile Include="Packets\SCON\Authorization\AuthorizationDisconnectPacket.cs" />
+    <Compile Include="Packets\SCON\Authorization\AuthorizationRequestPacket.cs" />
+    <Compile Include="Packets\SCON\Authorization\AuthorizationResponsePacket.cs" />
+    <Compile Include="Packets\SCON\ExecuteCommandPacket.cs" />
+    <Compile Include="Packets\SCON\Status\PlayerListResponsePacket.cs" />
+    <Compile Include="Packets\SCON\Status\PlayerListRequestPacket.cs" />
+    <Compile Include="Packets\SCON\Authorization\EncryptionResponsePacket.cs" />
+    <Compile Include="Packets\SCON\Authorization\EncryptionRequestPacket.cs" />
+    <Compile Include="Packets\SCON\Authorization\AuthorizationCompletePacket.cs" />
     <Compile Include="Packets\Server\ServerMessagePacket.cs" />
     <Compile Include="Packets\Server\ServerClosePacket.cs" />
     <Compile Include="Packets\Server\CreatePlayerPacket.cs" />
