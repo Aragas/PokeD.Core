@@ -4,7 +4,7 @@ using PokeD.Core.Interfaces;
 
 namespace PokeD.Core.Packets.Server
 {
-    public class ServerInfoDataP3DPacket : P3DPacket
+    public class ServerInfoDataPacket : P3DPacket
     {
         public int CurrentPlayers { get { return int.Parse(DataItems[0], CultureInfo); } set { DataItems[0] = value.ToString(CultureInfo); } }
         public int MaxPlayers { get { return int.Parse(DataItems[1], CultureInfo); } set { DataItems[1] = value.ToString(CultureInfo); } }

@@ -2,7 +2,7 @@
 
 namespace PokeD.Core.Packets.Client
 {
-    public class PingP3DPacket : P3DPacket
+    public class PingPacket : P3DPacket
     {
         public override int ID => (int) PlayerPacketTypes.Ping;
 

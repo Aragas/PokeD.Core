@@ -2,7 +2,7 @@
 
 namespace PokeD.Core.Packets.Server
 {
-    public class IdP3DPacket : P3DPacket
+    public class IDPacket : P3DPacket
     {
         public int PlayerID { get { return int.Parse(DataItems[0], CultureInfo); } set { DataItems[0] = value.ToString(CultureInfo); } }
 

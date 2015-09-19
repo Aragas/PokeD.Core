@@ -2,7 +2,7 @@
 
 namespace PokeD.Core.Packets.Trade
 {
-    public class TradeRequestP3DPacket : P3DPacket
+    public class TradeRequestPacket : P3DPacket
     {
         public int DestinationPlayerID { get { return int.Parse(DataItems[0], CultureInfo); } set { DataItems[0] = value.ToString(CultureInfo); } }
 

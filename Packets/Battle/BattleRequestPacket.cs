@@ -2,7 +2,7 @@
 
 namespace PokeD.Core.Packets.Battle
 {
-    public class BattleRequestP3DPacket : P3DPacket
+    public class BattleRequestPacket : P3DPacket
     {
         public int DestinationPlayerID { get { return int.Parse(DataItems[0], CultureInfo); } set { DataItems[0] = value.ToString(CultureInfo); } }
 

@@ -14,21 +14,21 @@ namespace PokeD.Core.Packets
         #region Play Response
         public static readonly CreatePacketInstance[] Packets =
         {
-            () => new GameDataP3DPacket(),             // 0x00
-            () => new GameDataP3DPacket(),             // 0x01
-            () => new ChatMessagePrivateP3DPacket(),   // 0x02
-            () => new ChatMessageP3DPacket(),          // 0x03
-            () => new KickedP3DPacket(),               // 0x04
+            () => new GameDataPacket(),             // 0x00
+            () => new GameDataPacket(),             // 0x01
+            () => new ChatMessagePrivatePacket(),   // 0x02
+            () => new ChatMessagePacket(),          // 0x03
+            () => new KickedPacket(),               // 0x04
             null, // 0x05
             null, // 0x06
-            () => new IdP3DPacket(),                   // 0x07
-            () => new CreatePlayerP3DPacket(),         // 0x08
-            () => new DestroyPlayerP3DPacket(),        // 0x09
-            () => new ServerCloseP3DPacket(),          // 0x0A
-            () => new ServerMessageP3DPacket(),        // 0x0B
-            () => new WorldDataP3DPacket(),            // 0x0C
-            () => new PingP3DPacket(),                 // 0x0D
-            () => new GameStateMessageP3DPacket(),     // 0x0E
+            () => new IDPacket(),                   // 0x07
+            () => new CreatePlayerPacket(),         // 0x08
+            () => new DestroyPlayerPacket(),        // 0x09
+            () => new ServerClosePacket(),          // 0x0A
+            () => new ServerMessagePacket(),        // 0x0B
+            () => new WorldDataPacket(),            // 0x0C
+            () => new PingPacket(),                 // 0x0D
+            () => new GameStateMessagePacket(),     // 0x0E
             null, // 0x0F
             null, // 0x10
             null, // 0x11
@@ -44,11 +44,11 @@ namespace PokeD.Core.Packets
             null, // 0x1B
             null, // 0x1C
             null, // 0x1D
-            () => new TradeRequestP3DPacket(),         // 0x1E
-            () => new TradeJoinP3DPacket(),            // 0x1F
-            () => new TradeQuitP3DPacket(),            // 0x20
-            () => new TradeOfferP3DPacket(),           // 0x21
-            () => new TradeStartP3DPacket(),           // 0x22
+            () => new TradeRequestPacket(),         // 0x1E
+            () => new TradeJoinPacket(),            // 0x1F
+            () => new TradeQuitPacket(),            // 0x20
+            () => new TradeOfferPacket(),           // 0x21
+            () => new TradeStartPacket(),           // 0x22
             null, // 0x23
             null, // 0x24
             null, // 0x25
@@ -64,14 +64,14 @@ namespace PokeD.Core.Packets
             null, // 0x2F
             null, // 0x30
             null, // 0x31
-            () => new BattleRequestP3DPacket(),        // 0x32
-            () => new BattleJoinP3DPacket(),           // 0x33
-            () => new BattleQuitP3DPacket(),           // 0x34 
-            () => new BattleOfferP3DPacket(),          // 0x35
-            () => new BattleStartP3DPacket(),          // 0x36
-            () => new BattleClientDataP3DPacket(),     // 0x37
-            () => new BattleHostDataP3DPacket(),       // 0x38
-            () => new BattlePokemonDataP3DPacket(),    // 0x39
+            () => new BattleRequestPacket(),        // 0x32
+            () => new BattleJoinPacket(),           // 0x33
+            () => new BattleQuitPacket(),           // 0x34 
+            () => new BattleOfferPacket(),          // 0x35
+            () => new BattleStartPacket(),          // 0x36
+            () => new BattleClientDataPacket(),     // 0x37
+            () => new BattleHostDataPacket(),       // 0x38
+            () => new BattlePokemonDataPacket(),    // 0x39
             null, // 0x3A
             null, // 0x3B
             null, // 0x3C
@@ -112,8 +112,8 @@ namespace PokeD.Core.Packets
             null, // 0x5F
             null, // 0x60
             null, // 0x61
-            () => new ServerInfoDataP3DPacket(),       // 0x62
-            () => new ServerDataRequestP3DPacket(),    // 0x63
+            () => new ServerInfoDataPacket(),       // 0x62
+            () => new ServerDataRequestPacket(),    // 0x63
             null, // 0x64
             null, // 0x65
             null, // 0x66

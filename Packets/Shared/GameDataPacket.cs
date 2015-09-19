@@ -5,7 +5,7 @@ using PokeD.Core.Interfaces;
 
 namespace PokeD.Core.Packets.Shared
 {
-    public class GameDataP3DPacket : P3DPacket
+    public class GameDataPacket : P3DPacket
     {
         public string GameMode { get { return DataItems[0]; } set { DataItems[0] = value; } }
         public bool IsGameJoltPlayer { get { return int.Parse(DataItems[1], CultureInfo) == 1; } set { DataItems[1] = (value ? 1 : 2).ToString(CultureInfo); } }

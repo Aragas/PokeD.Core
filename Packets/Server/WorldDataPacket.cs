@@ -2,7 +2,7 @@
 
 namespace PokeD.Core.Packets.Server
 {
-    public class WorldDataP3DPacket : P3DPacket
+    public class WorldDataPacket : P3DPacket
     {
         public int Season { get { return int.Parse(DataItems[0], CultureInfo); } set { DataItems[0] = value.ToString(CultureInfo); } }
         public int Weather { get { return int.Parse(DataItems[1], CultureInfo); } set { DataItems[1] = value.ToString(CultureInfo); } }

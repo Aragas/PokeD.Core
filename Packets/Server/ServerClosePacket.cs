@@ -2,7 +2,7 @@
 
 namespace PokeD.Core.Packets.Server
 {
-    public class ServerCloseP3DPacket : P3DPacket
+    public class ServerClosePacket : P3DPacket
     {
         public string Reason { get { return DataItems[0]; } set { DataItems[0] = value; } }
 

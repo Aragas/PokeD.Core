@@ -2,7 +2,7 @@
 
 namespace PokeD.Core.Packets.Chat
 {
-    public class ChatMessageP3DPacket : P3DPacket
+    public class ChatMessagePacket : P3DPacket
     {
         public string Message { get { return DataItems[0]; } set { DataItems[0] = value; } }
 

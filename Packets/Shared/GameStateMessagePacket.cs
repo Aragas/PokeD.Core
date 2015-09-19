@@ -2,7 +2,7 @@
 
 namespace PokeD.Core.Packets.Shared
 {
-    public class GameStateMessageP3DPacket : P3DPacket
+    public class GameStateMessagePacket : P3DPacket
     {
         public string EventMessage {  get { return DataItems[0]; } set { DataItems[0] = value; } }
 
