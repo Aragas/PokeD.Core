@@ -36,11 +36,12 @@ namespace PokeD.Core.Wrappers
         {
             using (var stream = Instance.SettingsFolder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists).Result.OpenAsync(FileAccess.ReadAndWrite).Result)
             using (var reader = new StreamReader(stream))
+            using (var writer = new StreamWriter(stream))
             {
                 var file = reader.ReadToEnd();
                 if (!string.IsNullOrEmpty(file))
                 {
-                    try { JsonConvert.PopulateObject(file, value); }
+                    try { JsonConvert.PopulateObject(file, value); writer.Write(JsonConvert.SerializeObject(value, Formatting.Indented)); }
                     catch (JsonReaderException) { return false; }
                 }
             }

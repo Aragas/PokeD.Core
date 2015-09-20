@@ -67,6 +67,14 @@
     <Compile Include="Packets\SCON\Chat\ChatMessagePacket.cs" />
     <Compile Include="Packets\SCON\Chat\StopChatReceivingPacket.cs" />
     <Compile Include="Packets\SCON\Chat\StartChatReceivingPacket.cs" />
+    <Compile Include="Packets\SCON\Logs\LogFileRequestPacket.cs" />
+    <Compile Include="Packets\SCON\Logs\CrashLogFileRequestPacket.cs" />
+    <Compile Include="Packets\SCON\Logs\LogFileResponsePacket.cs" />
+    <Compile Include="Packets\SCON\Logs\CrashLogFileResponsePacket.cs" />
+    <Compile Include="Packets\SCON\Logs\CrashLogListRequestPacket.cs" />
+    <Compile Include="Packets\SCON\Logs\CrashLogListResponsePacket.cs" />
+    <Compile Include="Packets\SCON\Logs\LogListResponsePacket.cs" />
+    <Compile Include="Packets\SCON\Logs\LogListRequestPacket.cs" />
     <Compile Include="Packets\SCON\Status\PlayerLocationResponsePacket.cs" />
     <Compile Include="Packets\SCON\Status\PlayerLocationRequestPacket.cs" />
     <Compile Include="Packets\SCON\Status\PlayerListResponsePacket.cs" />

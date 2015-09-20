@@ -23,5 +23,17 @@
 
         PlayerLocationRequest   = 0x0D,
         PlayerLocationResponse  = 0x0E,
+
+        LogListRequest          = 0x0F,
+        LogListResponse         = 0x10,
+
+        LogFileRequest          = 0x11,
+        LogFileResponse         = 0x12,
+
+        CrashLogListRequest     = 0x13,
+        CrashLogListResponse    = 0x14,
+
+        CrashLogFileRequest     = 0x15,
+        CrashLogFileResponse    = 0x16,
     }
 }
