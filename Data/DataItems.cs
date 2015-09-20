@@ -1,4 +1,5 @@
 ﻿using System;
+using PokeD.Core.Wrappers;
 
 namespace PokeD.Core.Data
 {
@@ -24,10 +25,14 @@ namespace PokeD.Core.Data
         {
             get
             {
-                if(_dataItems.Length < index + 1)
+                if (_dataItems.Length < index + 1)
                     return string.Empty;
-                else
-                    return _dataItems[index];
+
+                // if string is null, make it empty.
+                if (_dataItems[index] == null)
+                    _dataItems[index] = string.Empty;
+
+                return _dataItems[index];
             }
 
             set
@@ -38,6 +43,10 @@ namespace PokeD.Core.Data
                 if (_dataItems.Length < index + 1)
                     Array.Resize(ref _dataItems, index + 1);
 
+                // if string is null, make it empty.
+                if (value == null)
+                    value = string.Empty;
+                
                 _dataItems[index] = value;
             }
         }
