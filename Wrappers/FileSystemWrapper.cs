@@ -41,7 +41,7 @@ namespace PokeD.Core.Wrappers
                 var file = reader.ReadToEnd();
                 if (!string.IsNullOrEmpty(file))
                 {
-                    try { JsonConvert.PopulateObject(file, value); writer.Write(JsonConvert.SerializeObject(value, Formatting.Indented)); }
+                    try { JsonConvert.PopulateObject(file, value); stream.Seek(0, SeekOrigin.Begin); writer.Write(JsonConvert.SerializeObject(value, Formatting.Indented)); }
                     catch (JsonReaderException) { return false; }
                 }
             }
