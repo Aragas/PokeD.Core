@@ -4,18 +4,15 @@ namespace PokeD.Core.Data
 {
     public class DataItems
     {
-        public int Count => _dataItems.Length;
+        public int Length => _dataItems.Length;
 
         private string[] _dataItems;
 
-
-        public DataItems()
-        {
-            
-        }
-
         public DataItems(params string[] dataItems)
         {
+            if(dataItems == null)
+                dataItems = new string[0];
+            
             _dataItems = dataItems;
         }
 
@@ -36,9 +33,6 @@ namespace PokeD.Core.Data
 
             set
             {
-                if (_dataItems == null)
-                    _dataItems = new string[index + 1];
-
                 if (_dataItems.Length < index + 1)
                     Array.Resize(ref _dataItems, index + 1);
 
@@ -51,12 +45,10 @@ namespace PokeD.Core.Data
         }
 
 
-        public void Add(string data)
+        public void AddToEnd(string data)
         {
-            if (_dataItems == null)
-                _dataItems = new string[0];
-
             var index = _dataItems.Length;
+
             if (_dataItems.Length < index + 1)
                 Array.Resize(ref _dataItems, index + 1);
 

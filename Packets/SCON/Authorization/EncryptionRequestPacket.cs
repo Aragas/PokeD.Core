@@ -4,7 +4,6 @@ namespace PokeD.Core.Packets.SCON.Authorization
 {
     public class EncryptionRequestPacket : ProtobufPacket
     {
-        public string ServerId { get; set; }
         public byte[] PublicKey { get; set; }
         public byte[] VerificationToken { get; set; }
 
@@ -12,7 +11,6 @@ namespace PokeD.Core.Packets.SCON.Authorization
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
-            ServerId = reader.ReadString();
             var pkLength = reader.ReadVarInt();
             PublicKey = reader.ReadByteArray(pkLength);
             var vtLength = reader.ReadVarInt();
@@ -23,7 +21,6 @@ namespace PokeD.Core.Packets.SCON.Authorization
 
         public override ProtobufPacket WritePacket(IPacketStream stream)
         {
-            stream.WriteString(ServerId);
             stream.WriteVarInt(PublicKey.Length);
             stream.WriteByteArray(PublicKey);
             stream.WriteVarInt(VerificationToken.Length);

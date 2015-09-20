@@ -40,7 +40,7 @@
     <Compile Include="Data\VarInt.cs" />
     <Compile Include="Data\Vector3.cs" />
     <Compile Include="Packets\ProtobufPacket.cs" />
-    <Compile Include="Packets\Packet.cs" />
+    <Compile Include="Packets\P3DPacket.cs" />
     <Compile Include="Interfaces\IUpdatable.cs" />
     <Compile Include="Interfaces\IAesStream.cs" />
     <Compile Include="Interfaces\IPacketDataReader.cs" />

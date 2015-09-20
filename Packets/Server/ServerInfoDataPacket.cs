@@ -14,10 +14,10 @@ namespace PokeD.Core.Packets.Server
         {
             get
             {
-                if (DataItems.Count > 4)
+                if (DataItems.Length > 4)
                 {
                     var list = new List<string>();
-                    for (var i = 4; i < DataItems.Count; i++)
+                    for (var i = 4; i < DataItems.Length; i++)
                         list.Add(DataItems[i]);
 
                     return list.ToArray();

@@ -58,7 +58,7 @@ namespace PokeD.Core.Packets
             }
 
             //Set the datastring, its the last item in the list. If it contained any separators, they will get read here:
-            string dataString = "";
+            var dataString = "";
             for (var i = dataItemsCount + 4; i <= chunks.Count - 1; i++)
             {
                 if (i > dataItemsCount + 4)
@@ -76,7 +76,7 @@ namespace PokeD.Core.Packets
                 if (i < offsetList.Count - 1)
                     length = offsetList[i + 1] - cOffset;
 
-                DataItems.Add(dataString.Substring(cOffset, length));
+                DataItems.AddToEnd(dataString.Substring(cOffset, length));
             }
 
             return true;
