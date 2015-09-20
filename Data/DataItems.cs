@@ -1,5 +1,4 @@
 ﻿using System;
-using PokeD.Core.Wrappers;
 
 namespace PokeD.Core.Data
 {
