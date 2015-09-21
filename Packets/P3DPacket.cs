@@ -10,7 +10,6 @@ namespace PokeD.Core.Packets
     public abstract class P3DPacket : ProtobufPacket
     {
         public Single ProtocolVersion { get; set; }
-        public Int32 Origin { get; set; }
         public DataItems DataItems { get; set; } = new DataItems();
 
         protected static CultureInfo CultureInfo => CultureInfo.InvariantCulture;

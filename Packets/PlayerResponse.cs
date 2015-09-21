@@ -1,6 +1,7 @@
 ﻿using PokeD.Core.Packets.Battle;
 using PokeD.Core.Packets.Chat;
 using PokeD.Core.Packets.Client;
+using PokeD.Core.Packets.Encryption;
 using PokeD.Core.Packets.Server;
 using PokeD.Core.Packets.Shared;
 using PokeD.Core.Packets.Trade;
@@ -19,8 +20,10 @@ namespace PokeD.Core.Packets
             () => new ChatMessagePrivatePacket(),   // 0x02
             () => new ChatMessagePacket(),          // 0x03
             () => new KickedPacket(),               // 0x04
-            null, // 0x05
-            null, // 0x06
+
+            () => new EncryptionRequestPacket(),    // 0x05
+            () => new EncryptionResponsePacket(),   // 0x06
+
             () => new IDPacket(),                   // 0x07
             () => new CreatePlayerPacket(),         // 0x08
             () => new DestroyPlayerPacket(),        // 0x09

@@ -8,6 +8,10 @@
         PrivateMessage      = 0x02,
         ChatMessage         = 0x03,
         Kicked              = 0x04,
+
+        EncryptionRequest   = 0x05,
+        EncryptionResponse  = 0x06,
+
         ID                  = 0x07,
         CreatePlayer        = 0x08,
         DestroyPlayer       = 0x09,

@@ -43,6 +43,8 @@
     <Compile Include="Interfaces\IAesStream.cs" />
     <Compile Include="Interfaces\IPacketDataReader.cs" />
     <Compile Include="Interfaces\IPacketStream.cs" />
+    <Compile Include="Packets\Encryption\EncryptionRequestPacket.cs" />
+    <Compile Include="Packets\Encryption\EncryptionResponsePacket.cs" />
     <Compile Include="Packets\SCONPacketTypes.cs" />
     <Compile Include="Packets\PlayerPacketTypes.cs" />
     <Compile Include="Packets\SCONResponse.cs" />

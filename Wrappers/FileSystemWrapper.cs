@@ -57,6 +57,17 @@ namespace PokeD.Core.Wrappers
                         return false;
                     }
                 }
+                else
+                {
+                    try
+                    {
+                        writer.Write(JsonConvert.SerializeObject(value, Formatting.Indented));
+                    }
+                    catch (JsonWriterException)
+                    {
+                        return false;
+                    }
+                }
             }
 
             return true;

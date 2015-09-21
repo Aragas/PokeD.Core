@@ -35,10 +35,14 @@ namespace PokeD.Core.Packets.Shared
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
+            var length = reader.ReadVarInt();
+            DataItems = new DataItems(reader.ReadStringArray(length));
+            
+            /*
             GameMode = reader.ReadString();
             IsGameJoltPlayer = reader.ReadBoolean();
-            GameJoltId = reader.ReadVarInt();
-            DecimalSeparator = reader.ReadString()[0];
+            GameJoltId = reader.ReadLong();
+            DecimalSeparator = (char) reader.ReadVarInt();
             Name = reader.ReadString();
             LevelFile = reader.ReadString();
             SetPosition(Vector3.FromReaderByte(reader), DecimalSeparator);
@@ -50,12 +54,18 @@ namespace PokeD.Core.Packets.Shared
             SetPokemonPosition(Vector3.FromReaderByte(reader), DecimalSeparator);
             PokemonSkin = reader.ReadString();
             PokemonFacing = reader.ReadVarInt();
+            */
 
             return this;
         }
 
         public override ProtobufPacket WritePacket(IPacketStream writer)
         {
+            var data = DataItems.ToArray();
+            writer.WriteVarInt(data.Length);
+            writer.WriteStringArray(data);
+            
+            /*
             writer.WriteString(GameMode);
             writer.WriteBoolean(IsGameJoltPlayer);
             writer.WriteLong(GameJoltId);
@@ -71,6 +81,7 @@ namespace PokeD.Core.Packets.Shared
             GetPokemonPosition(DecimalSeparator).ToStreamByte(writer);
             writer.WriteString(PokemonSkin);
             writer.WriteVarInt(PokemonFacing);
+            */
 
             return this;
         }

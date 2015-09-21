@@ -8,6 +8,7 @@ namespace PokeD.Core.Packets
     {
         public abstract Int32 ID { get; }
 
+        public Int32 Origin { get; set; }
 
         /// <summary>
         /// Read packet from IPokeDataReader.
