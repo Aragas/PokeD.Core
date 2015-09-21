@@ -23,7 +23,7 @@ namespace PokeD.Core.Packets.Server
                     return list.ToArray();
                 }
 
-                return null;
+                return new string[0];
             }
             set
             {
