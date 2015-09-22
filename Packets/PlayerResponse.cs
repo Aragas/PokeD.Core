@@ -21,8 +21,8 @@ namespace PokeD.Core.Packets
             () => new ChatMessagePacket(),          // 0x03
             () => new KickedPacket(),               // 0x04
 
-            () => new EncryptionRequestPacket(),    // 0x05
-            () => new EncryptionResponsePacket(),   // 0x06
+            null, // 0x05
+            null, // 0x06
 
             () => new IDPacket(),                   // 0x07
             () => new CreatePlayerPacket(),         // 0x08
@@ -97,10 +97,12 @@ namespace PokeD.Core.Packets
             null, // 0x4D
             null, // 0x4E
             null, // 0x4F
-            null, // 0x50
-            null, // 0x51
-            null, // 0x52
-            null, // 0x53
+
+            () => new EncryptionRequestPacket(),    // 0x50
+            () => new EncryptionResponsePacket(),   // 0x51
+            () => new JoiningGameRequestPacket(),   // 0x52
+            () => new JoiningGameResponsePacket(),  // 0x53
+
             null, // 0x54
             null, // 0x55
             null, // 0x56

@@ -9,9 +9,6 @@
         ChatMessage         = 0x03,
         Kicked              = 0x04,
 
-        EncryptionRequest   = 0x05,
-        EncryptionResponse  = 0x06,
-
         ID                  = 0x07,
         CreatePlayer        = 0x08,
         DestroyPlayer       = 0x09,
@@ -38,6 +35,11 @@
         BattleClientData    = 0x37,
         BattleHostData      = 0x38,
         BattlePokemonData   = 0x39,
+
+        EncryptionRequest   = 0x50,
+        EncryptionResponse  = 0x51,
+        JoiningGameRequest  = 0x52,
+        JoiningGameResponse = 0x53,
 
         ServerInfoData      = 0x62,
         ServerDataRequest   = 0x63,
