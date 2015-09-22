@@ -41,32 +41,14 @@ namespace PokeD.Core.Wrappers
                 var file = reader.ReadToEnd();
                 if (!string.IsNullOrEmpty(file))
                 {
-                    try
-                    {
-                        JsonConvert.PopulateObject(file, value);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        writer.Write(JsonConvert.SerializeObject(value, Formatting.Indented));
-                    }
-                    catch (JsonReaderException)
-                    {
-                        writer.Write(JsonConvert.SerializeObject(value, Formatting.Indented));
-                        return false;
-                    }
-                    catch (JsonWriterException)
-                    {
-                        return false;
-                    }
+                    try { JsonConvert.PopulateObject(file, value); stream.SetLength(0); writer.Write(JsonConvert.SerializeObject(value, Formatting.Indented)); }
+                    catch (JsonReaderException) { stream.SetLength(0); writer.Write(JsonConvert.SerializeObject(value, Formatting.Indented)); return false; }
+                    catch (JsonWriterException) { return false; }
                 }
                 else
                 {
-                    try
-                    {
-                        writer.Write(JsonConvert.SerializeObject(value, Formatting.Indented));
-                    }
-                    catch (JsonWriterException)
-                    {
-                        return false;
-                    }
+                    try { stream.SetLength(0); writer.Write(JsonConvert.SerializeObject(value, Formatting.Indented)); }
+                    catch (JsonWriterException) { return false; }
                 }
             }
 
