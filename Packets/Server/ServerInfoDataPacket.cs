@@ -44,7 +44,8 @@ namespace PokeD.Core.Packets.Server
             MaxPlayers = reader.ReadVarInt();
             ServerName = reader.ReadString();
             ServerMessage = reader.ReadString();
-            PlayerNames = reader.ReadStringArray(reader.BytesLeft());
+            var length = reader.ReadVarInt();
+            PlayerNames = reader.ReadStringArray(length);
 
             return this;
         }
@@ -55,6 +56,7 @@ namespace PokeD.Core.Packets.Server
             writer.WriteVarInt(MaxPlayers);
             writer.WriteString(ServerName);
             writer.WriteString(ServerMessage);
+            writer.WriteVarInt(PlayerNames.Length);
             writer.WriteStringArray(PlayerNames);
 
             return this;

@@ -13,7 +13,7 @@ namespace PokeD.Core.Packets.Shared
         public char DecimalSeparator { get { return DataItems[3][0]; } set { DataItems[3] = value.ToString(); } }
         public string Name { get { return DataItems[4]; } set { DataItems[4] = value; } }
         public string LevelFile { get { return DataItems[5]; } set { DataItems[5] = value; } }
-        private string Position { get { return DataItems[6]; } set { DataItems[0] = value; } }
+        private string Position { get { return DataItems[6]; } set { DataItems[6] = value; } }
         public int Facing { get { return int.Parse(DataItems[7], CultureInfo); } set { DataItems[7] = value.ToString(CultureInfo); } }
         public bool Moving { get { return int.Parse(DataItems[8], CultureInfo) == 1; } set { DataItems[8] = (value ? 1 : 2).ToString(CultureInfo); } }
         public string Skin { get { return DataItems[9]; } set { DataItems[9] = value; } }
