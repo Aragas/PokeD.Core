@@ -116,7 +116,9 @@ namespace PokeD.Core.Packets
             null, // 0x60
             null, // 0x61
             () => new ServerInfoDataPacket(),       // 0x62
-            () => new ServerDataRequestPacket()     // 0x63
+            () => new ServerDataRequestPacket(),     // 0x63
+            null, // 0x64
+            null, // 0x65
         };
         #endregion
     }

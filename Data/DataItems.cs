@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace PokeD.Core.Data
 {
@@ -59,6 +60,11 @@ namespace PokeD.Core.Data
         public string[] ToArray()
         {
             return _dataItems;
+        }
+
+        public override string ToString()
+        {
+            return string.Join("*", _dataItems);
         }
     }
 }
