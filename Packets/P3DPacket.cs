@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 
 using PokeD.Core.Data;
 
@@ -9,7 +8,7 @@ namespace PokeD.Core.Packets
 {
     public abstract class P3DPacket : ProtobufPacket
     {
-        public Single ProtocolVersion { get; set; }
+        public static Single ProtocolVersion { get; set; } = 0.5f;
         public DataItems DataItems { get; set; } = new DataItems();
 
         protected static CultureInfo CultureInfo => CultureInfo.InvariantCulture;
@@ -22,13 +21,13 @@ namespace PokeD.Core.Packets
 
         public bool TryParseData(string fullData)
         {
-            var chunks = fullData.Split('|').ToList();
+            var chunks = fullData.Split('|');
 
-            if (chunks.Count < 5)
+            if (chunks.Length < 5)
                 return false;
 
-            //if (!string.Equals(ProtocolVersion.ToString(CultureInfo), chunks[0], StringComparison.OrdinalIgnoreCase))
-            //    return false;
+            if (!string.Equals(ProtocolVersion.ToString(CultureInfo), chunks[0], StringComparison.OrdinalIgnoreCase))
+                return false;
 
             int id;
             if (!int.TryParse(chunks[1], out id))
@@ -58,7 +57,7 @@ namespace PokeD.Core.Packets
 
             //Set the datastring, its the last item in the list. If it contained any separators, they will get read here:
             var dataString = "";
-            for (var i = dataItemsCount + 4; i <= chunks.Count - 1; i++)
+            for (var i = dataItemsCount + 4; i <= chunks.Length - 1; i++)
             {
                 if (i > dataItemsCount + 4)
                     dataString += "|";
