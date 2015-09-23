@@ -69,11 +69,8 @@ namespace PokeD.Core.Interfaces
         Int32 DataAvailable { get; }
 
         Boolean EncryptionEnabled { get; }
-        UInt32 CompressionThreshold { get; }
 
         void InitializeEncryption(Byte[] key);
-
-        void SetCompression(UInt32 threshold);
     }
 
     /// <summary>
