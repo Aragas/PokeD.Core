@@ -1,24 +1,24 @@
 ﻿using PokeD.Core.Data.Structs;
 using PokeD.Core.Interfaces;
 
-namespace PokeD.Core.Packets.SCON.Logs
+namespace PokeD.Core.Packets.SCON.Status
 {
-    public class LogListResponsePacket : ProtobufPacket
+    public class BanListResponsePacket : ProtobufPacket
     {
-        public LogList LogList { get; set; }
+        public BanList BanList { get; set; }
 
-        public override int ID => (int) SCONPacketTypes.LogListResponse;
+        public override int ID => (int) SCONPacketTypes.BanListResponse;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
-            LogList = LogList.FromReader(reader);
+            BanList = BanList.FromReader(reader);
 
             return this;
         }
 
         public override ProtobufPacket WritePacket(IPacketStream stream)
         {
-            LogList.ToStream(stream);
+            BanList.ToStream(stream);
 
             return this;
         }

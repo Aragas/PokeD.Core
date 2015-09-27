@@ -1,25 +1,24 @@
-﻿using PokeD.Core.Interfaces;
+﻿using PokeD.Core.Data.Structs;
+using PokeD.Core.Interfaces;
 
 namespace PokeD.Core.Packets.SCON.Logs
 {
     public class CrashLogListResponsePacket : ProtobufPacket
     {
-        public string[] CrashLogFileList { get; set; }
+        public LogList CrashLogList { get; set; }
 
         public override int ID => (int) SCONPacketTypes.CrashLogListResponse;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
-            var length = reader.ReadVarInt();
-            CrashLogFileList = reader.ReadStringArray(length);
+            CrashLogList = LogList.FromReader(reader);
 
             return this;
         }
 
         public override ProtobufPacket WritePacket(IPacketStream stream)
         {
-            stream.WriteVarInt(CrashLogFileList.Length);
-            stream.WriteStringArray(CrashLogFileList);
+            CrashLogList.ToStream(stream);
 
             return this;
         }

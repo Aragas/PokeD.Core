@@ -35,8 +35,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Data\Password.cs" />
+    <Compile Include="Data\Structs\Log.cs" />
+    <Compile Include="Data\Structs\Ban.cs" />
+    <Compile Include="Data\Structs\PlayerDatabase.cs" />
     <Compile Include="Data\VarInt.cs" />
     <Compile Include="Data\Vector3.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\BouncyCastleExtensions.cs" />
     <Compile Include="Packets\Encryption\JoiningGameResponsePacket.cs" />
     <Compile Include="Packets\Encryption\JoiningGameRequestPacket.cs" />
@@ -78,10 +82,13 @@
     <Compile Include="Packets\SCON\Logs\CrashLogListResponsePacket.cs" />
     <Compile Include="Packets\SCON\Logs\LogListResponsePacket.cs" />
     <Compile Include="Packets\SCON\Logs\LogListRequestPacket.cs" />
-    <Compile Include="Packets\SCON\Status\PlayerLocationResponsePacket.cs" />
-    <Compile Include="Packets\SCON\Status\PlayerLocationRequestPacket.cs" />
-    <Compile Include="Packets\SCON\Status\PlayerListResponsePacket.cs" />
-    <Compile Include="Packets\SCON\Status\PlayerListRequestPacket.cs" />
+    <Compile Include="Data\Structs\PlayerInfo.cs" />
+    <Compile Include="Packets\SCON\Status\BanListRequestPacket.cs" />
+    <Compile Include="Packets\SCON\Status\BanListResponsePacket.cs" />
+    <Compile Include="Packets\SCON\Status\PlayerDatabaseListRequestPacket.cs" />
+    <Compile Include="Packets\SCON\Status\PlayerDatabaseListResponsePacket.cs" />
+    <Compile Include="Packets\SCON\Status\PlayerInfoListResponsePacket.cs" />
+    <Compile Include="Packets\SCON\Status\PlayerInfoListRequestPacket.cs" />
     <Compile Include="Packets\SCON\Authorization\EncryptionResponsePacket.cs" />
     <Compile Include="Packets\SCON\Authorization\EncryptionRequestPacket.cs" />
     <Compile Include="Packets\SCON\Authorization\AuthorizationCompletePacket.cs" />
