@@ -4,6 +4,7 @@ namespace PokeD.Core.Packets.SCON.Logs
 {
     public class LogFileResponsePacket : ProtobufPacket
     {
+        public string LogFilename { get; set; }
         public string LogFile { get; set; }
 
         public override int ID => (int) SCONPacketTypes.LogFileResponse;

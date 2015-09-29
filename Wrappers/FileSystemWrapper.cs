@@ -78,7 +78,6 @@ namespace PokeD.Core.Wrappers
 
             return true;
         }
-
         public static bool SaveSettings<T>(string filename, T defaultValue = default(T))
         {
             using (var stream = Instance.SettingsFolder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists).Result.OpenAsync(FileAccess.ReadAndWrite).Result)
@@ -92,6 +91,18 @@ namespace PokeD.Core.Wrappers
                 {
                     return false;
                 }
+            }
+
+            return true;
+        }
+
+        public static bool SaveLog(string filename, string content)
+        {
+            using (var stream = Instance.LogFolder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists).Result.OpenAsync(FileAccess.ReadAndWrite).Result)
+            using (var writer = new StreamWriter(stream))
+            {
+                try { writer.Write(content); }
+                catch (IOException) { return false; }
             }
 
             return true;

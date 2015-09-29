@@ -8,7 +8,7 @@ namespace PokeD.Core.Data.Structs
     public class Ban
     {
         public string Name { get; set; }
-        public uint GameJoltID { get; set; }
+        public ulong GameJoltID { get; set; }
         public string IP { get; set; }
         public DateTime BanTime { get; set; }
         public DateTime UnBanTime { get; set; }
@@ -58,7 +58,7 @@ namespace PokeD.Core.Data.Structs
                 value[i] = new Ban
                 {
                     Name = reader.ReadString(),
-                    GameJoltID = reader.ReadUInt(),
+                    GameJoltID = reader.ReadULong(),
                     IP = reader.ReadString(),
                     BanTime = DateTimeExtensions.FromReader(reader),
                     UnBanTime = DateTimeExtensions.FromReader(reader),
@@ -75,7 +75,7 @@ namespace PokeD.Core.Data.Structs
             foreach (var entry in _entries)
             {
                 stream.WriteString(entry.Name);
-                stream.WriteUInt(entry.GameJoltID);
+                stream.WriteULong(entry.GameJoltID);
                 stream.WriteString(entry.IP);
                 entry.BanTime.ToStream(stream);
                 entry.UnBanTime.ToStream(stream);

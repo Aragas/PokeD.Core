@@ -4,6 +4,7 @@ namespace PokeD.Core.Packets.SCON.Logs
 {
     public class CrashLogFileResponsePacket : ProtobufPacket
     {
+        public string CrashLogFilename { get; set; }
         public string CrashLogFile { get; set; }
 
         public override int ID => (int) SCONPacketTypes.CrashLogFileResponse;

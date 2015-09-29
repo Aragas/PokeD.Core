@@ -8,7 +8,7 @@ namespace PokeD.Core.Data.Structs
     public class PlayerDatabase
     {
         public string Name { get; set; }
-        public uint GameJoltID { get; set; }
+        public ulong GameJoltID { get; set; }
         public string LastIP { get; set; }
         public DateTime LastSeen { get; set; }
     }
@@ -56,7 +56,7 @@ namespace PokeD.Core.Data.Structs
                 value[i] = new PlayerDatabase
                 {
                     Name = reader.ReadString(),
-                    GameJoltID = reader.ReadUInt(),
+                    GameJoltID = reader.ReadULong(),
                     LastIP = reader.ReadString(),
                     LastSeen = DateTimeExtensions.FromReader(reader)
                 };
@@ -71,7 +71,7 @@ namespace PokeD.Core.Data.Structs
             foreach (var entry in _entries)
             {
                 stream.WriteString(entry.Name);
-                stream.WriteUInt(entry.GameJoltID);
+                stream.WriteULong(entry.GameJoltID);
                 stream.WriteString(entry.LastIP);
                 entry.LastSeen.ToStream(stream);
             }
