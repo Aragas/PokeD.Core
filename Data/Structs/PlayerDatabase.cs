@@ -24,6 +24,11 @@ namespace PokeD.Core.Data.Structs
             _entries = new PlayerDatabase[length];
         }
 
+        public PlayerDatabaseList(params PlayerDatabase[] data)
+        {
+            _entries = data;
+        }
+
         public PlayerDatabase this[int index]
         {
             get

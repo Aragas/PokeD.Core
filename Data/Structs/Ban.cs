@@ -26,6 +26,11 @@ namespace PokeD.Core.Data.Structs
             _entries = new Ban[length];
         }
 
+        public BanList(params Ban[] data)
+        {
+            _entries = data;
+        }
+
         public Ban this[int index]
         {
             get

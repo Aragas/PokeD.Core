@@ -7,7 +7,7 @@ namespace PokeD.Core.Data.Structs
     public class PlayerInfo
     {
         public string Name { get; set; }
-        public uint GameJoltID { get; set; }
+        public ulong GameJoltID { get; set; }
         public string IP { get; set; }
         public ushort Ping { get; set; }
         public Vector3 Position { get; set; }
@@ -23,6 +23,11 @@ namespace PokeD.Core.Data.Structs
         public PlayerInfoList(int length = 0)
         {
             _entries = new PlayerInfo[length];
+        }
+
+        public PlayerInfoList(params PlayerInfo[] data)
+        {
+            _entries = data;
         }
 
         public PlayerInfo this[int index]
@@ -52,7 +57,7 @@ namespace PokeD.Core.Data.Structs
                 value[i] = new PlayerInfo
                 {
                     Name = reader.ReadString(),
-                    GameJoltID = reader.ReadUInt(),
+                    GameJoltID = reader.ReadULong(),
                     IP = reader.ReadString(),
                     Ping = reader.ReadUShort(),
                     Position = Vector3.FromReaderByte(reader),
@@ -70,7 +75,7 @@ namespace PokeD.Core.Data.Structs
             foreach (var entry in _entries)
             {
                 stream.WriteString(entry.Name);
-                stream.WriteUInt(entry.GameJoltID);
+                stream.WriteULong(entry.GameJoltID);
                 stream.WriteString(entry.IP);
                 stream.WriteUShort(entry.Ping);
                 entry.Position.ToStreamByte(stream);

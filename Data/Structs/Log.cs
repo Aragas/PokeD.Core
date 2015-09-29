@@ -21,6 +21,11 @@ namespace PokeD.Core.Data.Structs
             _entries = new Log[length];
         }
 
+        public LogList(params Log[] data)
+        {
+            _entries = data;
+        }
+
         public Log this[int index]
         {
             get
