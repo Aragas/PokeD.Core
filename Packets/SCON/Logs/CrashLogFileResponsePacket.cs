@@ -11,6 +11,7 @@ namespace PokeD.Core.Packets.SCON.Logs
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
+            CrashLogFilename = reader.ReadString();
             CrashLogFile = reader.ReadString();
 
             return this;
@@ -18,6 +19,7 @@ namespace PokeD.Core.Packets.SCON.Logs
 
         public override ProtobufPacket WritePacket(IPacketStream stream)
         {
+            stream.WriteString(CrashLogFilename);
             stream.WriteString(CrashLogFile);
 
             return this;
