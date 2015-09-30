@@ -13,7 +13,7 @@ namespace PokeD.Core.Data.Structs
         public ushort Ping { get; set; }
         public Vector3 Position { get; set; }
         public string LevelFile { get; set; }
-        public TimeSpan PlayerTime { get; set; }
+        public TimeSpan PlayTime { get; set; }
     }
 
     public class PlayerInfoList
@@ -64,7 +64,7 @@ namespace PokeD.Core.Data.Structs
                     Ping = reader.ReadUShort(),
                     Position = Vector3.FromReaderByte(reader),
                     LevelFile = reader.ReadString(),
-                    PlayerTime = TimeSpanExtensions.FromReader(reader)
+                    PlayTime = TimeSpanExtensions.FromReader(reader)
                 };
             
             return value;
@@ -82,7 +82,7 @@ namespace PokeD.Core.Data.Structs
                 stream.WriteUShort(entry.Ping);
                 entry.Position.ToStreamByte(stream);
                 stream.WriteString(entry.LevelFile);
-                entry.PlayerTime.ToStream(stream);
+                entry.PlayTime.ToStream(stream);
             }
         }
     }
