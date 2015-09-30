@@ -46,9 +46,9 @@ namespace PokeD.Core.Packets
             var offsetList = new List<int>();
 
             //Count from 4th item to second last item. Those are the offsets.
-            for (var i = 4; i <= dataItemsCount - 1 + 4; i++)
+            for (var i = 4; i < dataItemsCount + 4; i++)
             {
-                var offset = 0;
+                int offset;
                 if (int.TryParse(chunks[i], out offset))
                     offsetList.Add(offset);
                 else
@@ -57,7 +57,7 @@ namespace PokeD.Core.Packets
 
             //Set the datastring, its the last item in the list. If it contained any separators, they will get read here:
             var dataString = "";
-            for (var i = dataItemsCount + 4; i <= chunks.Length - 1; i++)
+            for (var i = dataItemsCount + 4; i < chunks.Length; i++)
             {
                 if (i > dataItemsCount + 4)
                     dataString += "|";
@@ -66,13 +66,19 @@ namespace PokeD.Core.Packets
             }
 
             //Cutting the data:
-            for (var i = 0; i <= offsetList.Count - 1; i++)
+            for (var i = 0; i < offsetList.Count; i++)
             {
                 var cOffset = offsetList[i];
                 var length = dataString.Length - cOffset;
 
                 if (i < offsetList.Count - 1)
                     length = offsetList[i + 1] - cOffset;
+
+                if (length < 0)
+                    return false;
+
+                if (cOffset + length > dataString.Length)
+                    return false;
 
                 DataItems.AddToEnd(dataString.Substring(cOffset, length));
             }
