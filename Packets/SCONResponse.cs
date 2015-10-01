@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using PokeD.Core.Wrappers;
 
@@ -13,17 +12,16 @@ namespace PokeD.Core.Packets
 
         static SCONResponse()
         {
-            var list = new List<CreatePacketInstance>();
-            
-            foreach (SCONPacketTypes packetName in Enum.GetValues(typeof(SCONPacketTypes)))
+            var typeNames = Enum.GetValues(typeof(SCONPacketTypes));
+            Packets = new CreatePacketInstance[typeNames.Length];
+
+            foreach (SCONPacketTypes packetName in typeNames)
             {
                 var name = $"{packetName}Packet";
 
                 var packet = AppDomainWrapper.GetTypeFromNameAndAbstract<ProtobufPacket>(name);
-                list.Insert((int) packetName, () => packet);
+                Packets[(int) packetName] = () => packet;
             }
-
-            Packets = list.ToArray();
         }
     }
 }
