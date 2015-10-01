@@ -1,6 +1,5 @@
 ﻿using System;
 
-using PokeD.Core.Extensions;
 using PokeD.Core.Interfaces;
 
 namespace PokeD.Core.Data.Structs

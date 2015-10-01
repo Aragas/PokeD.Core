@@ -2,11 +2,9 @@
 
 namespace PokeD.Core.Wrappers
 {
-    public delegate Action OnKeys(int newValue);
-
     public interface IInputWrapper
     {
-        event OnKeys OnKey;
+        event Action<string> OnKey;
 
         void ShowKeyboard();
 
@@ -32,10 +30,9 @@ namespace PokeD.Core.Wrappers
         }
 
 
-        public static event OnKeys OnKey { add { Instance.OnKey += value; } remove { Instance.OnKey -= value; } }
+        public static event Action<string> OnKey { add { Instance.OnKey += value; } remove { Instance.OnKey -= value; } }
 
         public static void ShowKeyboard() { Instance.ShowKeyboard();}
-
         public static void HideKeyboard() { Instance.HideKeyboard(); }
 
         public static void ConsoleWrite(string message) { Instance.ConsoleWrite(message); }

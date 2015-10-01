@@ -5,7 +5,6 @@ namespace PokeD.Core.Wrappers
     public interface IThreadWrapper
     {
         Int32 StartThread(Action action, Boolean isBackground, String threadName);
-
         void AbortThread(Int32 id);
 
         Boolean IsRunning(Int32 id);
@@ -31,7 +30,6 @@ namespace PokeD.Core.Wrappers
         }
 
         public static int StartThread(Action action, bool isBackground, string threadName) { return Instance.StartThread(action, isBackground, threadName); }
-
         public static void AbortThread(int id) { Instance.AbortThread(id); }
 
         public static bool IsRunning(int id) { return Instance.IsRunning(id); }

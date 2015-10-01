@@ -7,21 +7,13 @@ namespace PokeD.Core.Wrappers
     public interface IAppDomain
     {
         Assembly GetCallingAssembly();
-        
-        IList<IAssembly> GetAssemblies();
+        Assembly[] GetAssemblies();
         Assembly LoadAssembly(byte[] assemblyData);
-    }
-
-    public interface IAssembly
-    {
-        string GetName();
-        IList<Type> GetTypes();
     }
 
     public static class AppDomainWrapper
     {
         private static IAppDomain _instance;
-
         public static IAppDomain Instance
         {
             private get
@@ -35,9 +27,7 @@ namespace PokeD.Core.Wrappers
         }
 
         public static Assembly GetCallingAssembly() { return Instance.GetCallingAssembly(); }
-
-        public static IList<IAssembly> GetAssemblies() { return Instance.GetAssemblies(); }
-
+        public static Assembly[] GetAssemblies() { return Instance.GetAssemblies(); }
         public static Assembly LoadAssembly(byte[] assemblyData) { return Instance.LoadAssembly(assemblyData); }
 
         public static object GetTypeFromNameAndAbstract(string className)
@@ -48,7 +38,6 @@ namespace PokeD.Core.Wrappers
 
             return null;
         }
-
         public static T GetTypeFromNameAndInterface<T>(string className)
         {
             foreach (var typeInfo in new List<TypeInfo>(GetCallingAssembly().DefinedTypes))
@@ -59,7 +48,6 @@ namespace PokeD.Core.Wrappers
 
             return default(T);
         }
-
         public static T GetTypeFromNameAndAbstract<T>(string className)
         {
             foreach (var typeInfo in new List<TypeInfo>(GetCallingAssembly().DefinedTypes))

@@ -4,7 +4,6 @@ using System.IO;
 using Newtonsoft.Json;
 
 using PCLStorage;
-using PokeD.Core.Data;
 
 namespace PokeD.Core.Wrappers
 {
@@ -108,5 +107,4 @@ namespace PokeD.Core.Wrappers
             return true;
         }
     }
-
 }
