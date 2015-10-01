@@ -9,10 +9,10 @@ namespace PokeD.Core.Data
 {
     public class PasswordStorage
     {
-        const string NoPassword = "PUT_PASSWORD_HERE";
+        private const string NoPassword = "PUT_PASSWORD_HERE";
 
         [JsonProperty("Hash", NullValueHandling = NullValueHandling.Ignore)]
-        public string Hash { get; set; }
+        public string Hash { get; private set; }
 
         [JsonProperty("Password", NullValueHandling = NullValueHandling.Ignore)]
         private string Password { get; set; }

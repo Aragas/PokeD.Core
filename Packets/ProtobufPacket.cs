@@ -11,12 +11,12 @@ namespace PokeD.Core.Packets
         public Int32 Origin { get; set; }
 
         /// <summary>
-        /// Read packet from IPokeDataReader.
+        /// Read packet from IPacketDataReader.
         /// </summary>
         public abstract ProtobufPacket ReadPacket(IPacketDataReader reader);
 
         /// <summary>
-        /// Write packet to IPokeStream.
+        /// Write packet to IPacketStream.
         /// </summary>
         public abstract ProtobufPacket WritePacket(IPacketStream writer);
     }
