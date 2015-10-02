@@ -62,9 +62,9 @@ namespace PokeD.Core.Data.Structs
                     GameJoltID = reader.ReadULong(),
                     IP = reader.ReadString(),
                     Ping = reader.ReadUShort(),
-                    Position = Vector3.FromReaderByte(reader),
+                    Position = reader.ReadVector3_Byte(),
                     LevelFile = reader.ReadString(),
-                    PlayTime = TimeSpanExtensions.FromReader(reader)
+                    PlayTime = reader.ReadTimeSpan()
                 };
             
             return value;
@@ -80,9 +80,9 @@ namespace PokeD.Core.Data.Structs
                 stream.WriteULong(entry.GameJoltID);
                 stream.WriteString(entry.IP);
                 stream.WriteUShort(entry.Ping);
-                entry.Position.ToStreamByte(stream);
+                stream.WriteVector3_Byte(entry.Position);
                 stream.WriteString(entry.LevelFile);
-                entry.PlayTime.ToStream(stream);
+                stream.WriteTimeSpan(entry.PlayTime);
             }
         }
     }

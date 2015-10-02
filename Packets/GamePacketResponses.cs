@@ -54,7 +54,7 @@ namespace PokeD.Core.Packets
 
         static GamePacketResponses()
         {
-            Packets = new GamePacketTypes().CreatePacketInstance<P3DPacket>();
+            Packets = new GamePacketTypes().CreatePacketInstances<P3DPacket>();
         }
     }
 }

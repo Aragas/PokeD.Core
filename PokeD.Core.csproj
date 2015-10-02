@@ -40,9 +40,9 @@
     <Compile Include="Data\Structs\PlayerDatabase.cs" />
     <Compile Include="Data\VarInt.cs" />
     <Compile Include="Data\Vector3.cs" />
+    <Compile Include="Extensions\Vector3Extensions.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
-    <Compile Include="Extensions\TimeSpanExtensions.cs" />
-    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\PacketExtensions.cs" />
     <Compile Include="Extensions\BouncyCastleExtensions.cs" />
     <Compile Include="Packets\Encryption\JoiningGameResponsePacket.cs" />
     <Compile Include="Packets\Encryption\JoiningGameRequestPacket.cs" />

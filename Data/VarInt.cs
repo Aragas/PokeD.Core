@@ -1,4 +1,6 @@
-﻿namespace PokeD.Core.Data
+﻿using System.Collections.Generic;
+
+namespace PokeD.Core.Data
 {
     public class VarInt
     {
@@ -22,6 +24,25 @@
         public override string ToString()
         {
             return _value.ToString();
+        }
+
+        public byte[] InByteArray()
+        {
+            uint value = (uint) _value;
+
+            var bytes = new List<byte>();
+            while (true)
+            {
+                if ((value & 0xFFFFFF80u) == 0)
+                {
+                    bytes.Add((byte) value);
+                    break;
+                }
+                bytes.Add((byte) (value & 0x7F | 0x80));
+                value >>= 7;
+            }
+
+            return bytes.ToArray();
         }
     }
 }

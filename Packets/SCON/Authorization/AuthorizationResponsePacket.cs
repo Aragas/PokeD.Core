@@ -1,4 +1,5 @@
 ﻿using System;
+
 using PokeD.Core.Interfaces;
 
 namespace PokeD.Core.Packets.SCON.Authorization

@@ -58,7 +58,7 @@ namespace PokeD.Core.Data.Structs
                     Name = reader.ReadString(),
                     GameJoltID = reader.ReadULong(),
                     LastIP = reader.ReadString(),
-                    LastSeen = DateTimeExtensions.FromReader(reader)
+                    LastSeen = reader.ReadDateTime()
                 };
             
             return value;
@@ -73,7 +73,7 @@ namespace PokeD.Core.Data.Structs
                 stream.WriteString(entry.Name);
                 stream.WriteULong(entry.GameJoltID);
                 stream.WriteString(entry.LastIP);
-                entry.LastSeen.ToStream(stream);
+                stream.WriteDateTime(entry.LastSeen);
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 
 using PokeD.Core.Data;
+using PokeD.Core.Extensions;
 using PokeD.Core.Interfaces;
 
 namespace PokeD.Core.Packets.Shared
@@ -25,10 +26,11 @@ namespace PokeD.Core.Packets.Shared
         public int PokemonFacing { get { try { return int.Parse(DataItems[14], CultureInfo); } catch (Exception) { return 0; } } set { DataItems[14] = value.ToString(CultureInfo); } }
 
 
-        public Vector3 GetPosition(char separator) { return Vector3.FromPokeString(Position, separator); }
+        public Vector3 GetPosition(char separator) { return Vector3Extensions.FromPokeString(Position, separator); }
         public void SetPosition(Vector3 position, char separator) { Position = position.ToPokeString(separator, CultureInfo); }
 
-        public Vector3 GetPokemonPosition(char separator) { return Vector3.FromPokeString(PokemonPosition, separator); }
+        //public Vector3 GetPokemonPosition(char separator) { return Vector3.FromPokeString(PokemonPosition, separator); }
+        public Vector3 GetPokemonPosition(char separator) { return Vector3Extensions.FromPokeString(PokemonPosition, separator); }
         public void SetPokemonPosition(Vector3 position, char separator) { PokemonPosition = position.ToPokeString(separator, CultureInfo); }
 
         public override int ID => (int) GamePacketTypes.GameData;

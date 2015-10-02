@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Globalization;
 using System.Runtime.InteropServices;
-using System.Text;
-
-using PokeD.Core.Interfaces;
 
 namespace PokeD.Core.Data
 {
@@ -50,174 +46,18 @@ namespace PokeD.Core.Data
 
         public Vector3(double x, double y, double z)
         {
-            X = (float)x;
-            Y = (float)y;
-            Z = (float)z;
+            X = (float) x;
+            Y = (float) y;
+            Z = (float) z;
         }
 
-        public Vector3(Vector3 v)
+        public Vector3(Vector3 vector3)
         {
-            X = v.X;
-            Y = v.Y;
-            Z = v.Z;
+            X = vector3.X;
+            Y = vector3.Y;
+            Z = vector3.Z;
         }
 
-        public static Vector3 FromFixedPoint(int x, int y, int z)
-        {
-            return new Vector3(
-                x / 32.0f,
-                y / 32.0f,
-                z / 32.0f
-            );
-        }
-
-        public static Vector3 FromPokeString(string str, char separator)
-        {
-            str = str.Replace(separator, ',');
-            var data = str.Split('|');
-
-            if (data.Length != 3)
-                return Zero;
-
-            float x, y, z;
-            var xb = float.TryParse(data[0], out x);
-            var yb = float.TryParse(data[1], out y);
-            var zb = float.TryParse(data[2], out z);
-
-            if (xb && yb && zb)
-                return new Vector3(x * 100 / 100, y * 100 / 100, z * 100 / 100);
-            else
-                return Zero;
-        }
-
-        public string ToPokeString(char separator, CultureInfo cultureInfo)
-        {
-            var data = new StringBuilder();
-            data.Append((X * 1000 / 1000).ToString(cultureInfo).Replace('.', separator));
-            data.Append("|");
-            data.Append((Y * 1000 / 1000).ToString(cultureInfo).Replace('.', separator));
-            data.Append("|");
-            data.Append((Z * 1000 / 1000).ToString(cultureInfo).Replace('.', separator));
-
-            return data.ToString();
-        }
-
-        #region Network
-
-        public static Vector3 FromReaderByte(IPacketDataReader reader)
-        {
-            return new Vector3(
-                reader.ReadByte(),
-                reader.ReadByte(),
-                reader.ReadByte()
-            );
-        }
-
-        public static Vector3 FromReaderSByte(IPacketDataReader reader)
-        {
-            return new Vector3(
-                reader.ReadSByte(),
-                reader.ReadSByte(),
-                reader.ReadSByte()
-            );
-        }
-
-        public static Vector3 FromReaderShort(IPacketDataReader reader)
-        {
-            return new Vector3(
-                reader.ReadShort(),
-                reader.ReadShort(),
-                reader.ReadShort()
-            );
-        }
-
-        public static Vector3 FromReaderFloat(IPacketDataReader reader)
-        {
-            return new Vector3(
-                reader.ReadFloat(),
-                reader.ReadFloat(),
-                reader.ReadFloat()
-            );
-        }
-
-        public static Vector3 FromReaderDouble(IPacketDataReader reader)
-        {
-            return new Vector3(
-                reader.ReadDouble(),
-                reader.ReadDouble(),
-                reader.ReadDouble()
-            );
-        }
-
-        public static Vector3 FromReaderSByteFixedPoint(IPacketDataReader reader)
-        {
-            return new Vector3(
-                reader.ReadSByte() / 32.0f,
-                reader.ReadSByte() / 32.0f,
-                reader.ReadSByte() / 32.0f
-            );
-        }
-
-        public static Vector3 FromReaderIntFixedPoint(IPacketDataReader reader)
-        {
-            return new Vector3(
-                reader.ReadInt() / 32.0f,
-                reader.ReadInt() / 32.0f,
-                reader.ReadInt() / 32.0f
-            );
-        }
-
-
-        public void ToStreamByte(IPacketStream stream)
-        {
-            stream.WriteByte((byte)X);
-            stream.WriteByte((byte)Y);
-            stream.WriteByte((byte)Z);
-        }
-
-        public void ToStreamSByte(IPacketStream stream)
-        {
-            stream.WriteSByte((sbyte)X);
-            stream.WriteSByte((sbyte)Y);
-            stream.WriteSByte((sbyte)Z);
-        }
-
-        public void ToStreamShort(IPacketStream stream)
-        {
-            stream.WriteShort((short)X);
-            stream.WriteShort((short)Y);
-            stream.WriteShort((short)Z);
-        }
-
-        public void ToStreamFloat(IPacketStream stream)
-        {
-            stream.WriteFloat(X);
-            stream.WriteFloat(Y);
-            stream.WriteFloat(Z);
-        }
-
-        public void ToStreamDouble(IPacketStream stream)
-        {
-            stream.WriteDouble(X);
-            stream.WriteDouble(Y);
-            stream.WriteDouble(Z);
-        }
-        // TODO: Check that
-        public void ToStreamSByteFixedPoint(IPacketStream stream)
-        {
-            stream.WriteSByte((sbyte)(X * 32));
-            stream.WriteSByte((sbyte)(Y * 32));
-            stream.WriteSByte((sbyte)(Z * 32));
-        }
-        // TODO: Check that
-        public void ToStreamIntFixedPoint(IPacketStream stream)
-        {
-            stream.WriteInt((int)X * 32);
-            stream.WriteInt((int)Y * 32);
-            stream.WriteInt((int)Z * 32);
-        }
-
-        #endregion
 
         /// <summary>
         /// Converts this Vector3 to a string.
@@ -230,33 +70,47 @@ namespace PokeD.Core.Data
 
         #region Math
 
-        /// <summary>
-        /// Truncates the decimal component of each part of this Vector3.
-        /// </summary>
-        public Vector3 Floor()
+        public static Vector3 FromFixedPoint(int x, int y, int z)
         {
-            return new Vector3(Math.Floor(X), Math.Floor(Y), Math.Floor(Z));
+            return new Vector3(
+                x / 32.0f,
+                y / 32.0f,
+                z / 32.0f
+            );
         }
 
 
+        public static Vector3 Floor(Vector3 vector3)
+        {
+            return new Vector3(Math.Floor(vector3.X), Math.Floor(vector3.Y), Math.Floor(vector3.Z));
+        }
+        public Vector3 Floor()
+        {
+            return Floor(this);
+        }
+
+        public static Vector3 Ceiling(Vector3 vector3)
+        {
+            return new Vector3(Math.Ceiling(vector3.X), Math.Ceiling(vector3.Y), Math.Ceiling(vector3.Z));
+        }
+        public Vector3 Ceiling()
+        {
+            return Ceiling(this);
+        }
+
+
+        private static double Square(double num)
+        {
+            return num * num;
+        }
+        
         /// <summary>
         /// Calculates the distance between two Vector3 objects.
         /// </summary>
         public double DistanceTo(Vector3 other)
         {
-            return Math.Sqrt(Square(other.X - X) +
-                             Square(other.Y - Y) +
-                             Square(other.Z - Z));
+            return Math.Sqrt(Square(other.X - X) + Square(other.Y - Y) + Square(other.Z - Z));
         }
-
-        /// <summary>
-        /// Calculates the square of a num.
-        /// </summary>
-        private static double Square(double num)
-        {
-            return num * num;
-        }
-
         /// <summary>
         /// Finds the distance of this vector from Vector3.Zero
         /// </summary>
@@ -273,6 +127,14 @@ namespace PokeD.Core.Data
                 Math.Min(value1.Z, value2.Z)
                 );
         }
+        public Vector3 Min(Vector3 value2)
+        {
+            return new Vector3(
+                Math.Min(X, value2.X),
+                Math.Min(Y, value2.Y),
+                Math.Min(Z, value2.Z)
+                );
+        }
 
         public static Vector3 Max(Vector3 value1, Vector3 value2)
         {
@@ -280,6 +142,14 @@ namespace PokeD.Core.Data
                 Math.Max(value1.X, value2.X),
                 Math.Max(value1.Y, value2.Y),
                 Math.Max(value1.Z, value2.Z)
+                );
+        }
+        public Vector3 Max(Vector3 value2)
+        {
+            return new Vector3(
+                Math.Max(X, value2.X),
+                Math.Max(Y, value2.Y),
+                Math.Max(Z, value2.Z)
                 );
         }
 
@@ -291,15 +161,22 @@ namespace PokeD.Core.Data
                 firstLocation.Z - secondLocation.Z
                 );
         }
+        public Vector3 Delta(Vector3 secondLocation)
+        {
+            return new Vector3(
+                X - secondLocation.X,
+                Y - secondLocation.Y,
+                Z - secondLocation.Z
+                );
+        }
 
 
         public static float ToYaw(Vector3 position, Vector3 look)
         {
             var delta = Delta(look, position);
 
-            return (float)Math.Atan2(delta.Z, delta.X);
+            return (float) Math.Atan2(delta.Z, delta.X);
         }
-
         public static Vector3 Yaw(Vector3 look, float angle)
         {
             var x = (look.Z * -Math.Sin(angle)) + (look.X * Math.Cos(angle));
@@ -308,12 +185,10 @@ namespace PokeD.Core.Data
 
             return new Vector3(x, y, z);
         }
-
         public Vector3 Yaw(float angle)
         {
             return Yaw(this, angle);
         }
-
 
         public static float ToPitch(Vector3 position, Vector3 look)
         {
@@ -321,7 +196,6 @@ namespace PokeD.Core.Data
 
             return (float)(Math.Atan2(Math.Sqrt(Square(delta.Z) + Square(delta.X)), delta.Y) + Math.PI);
         }
-
         public static Vector3 Pitch(Vector3 look, float angle)
         {
             var x = look.X;
@@ -330,12 +204,10 @@ namespace PokeD.Core.Data
 
             return new Vector3(x, y, z);
         }
-
         public Vector3 Pitch(float angle)
         {
             return Pitch(this, angle);
         }
-
 
         public static Vector3 Roll(Vector3 look, float angle)
         {
@@ -345,7 +217,6 @@ namespace PokeD.Core.Data
 
             return new Vector3(x, y, z);
         }
-
         public Vector3 Roll(float angle)
         {
             return Roll(this, angle);
@@ -354,10 +225,9 @@ namespace PokeD.Core.Data
 
         public static float ToRadians(float val)
         {
-            return (float)(val * Math.PI / 180.0f);
+            return (float) (val * Math.PI / 180.0f);
         }
-
-
+        
         #endregion
 
         #region Operators

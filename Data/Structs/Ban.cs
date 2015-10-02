@@ -60,8 +60,8 @@ namespace PokeD.Core.Data.Structs
                     Name = reader.ReadString(),
                     GameJoltID = reader.ReadULong(),
                     IP = reader.ReadString(),
-                    BanTime = DateTimeExtensions.FromReader(reader),
-                    UnBanTime = DateTimeExtensions.FromReader(reader),
+                    BanTime = reader.ReadDateTime(),
+                    UnBanTime = reader.ReadDateTime(),
                     Reason = reader.ReadString()
                 };
             
@@ -77,8 +77,8 @@ namespace PokeD.Core.Data.Structs
                 stream.WriteString(entry.Name);
                 stream.WriteULong(entry.GameJoltID);
                 stream.WriteString(entry.IP);
-                entry.BanTime.ToStream(stream);
-                entry.UnBanTime.ToStream(stream);
+                stream.WriteDateTime(entry.BanTime);
+                stream.WriteDateTime(entry.UnBanTime);
                 stream.WriteString(entry.Reason);
             }
         }

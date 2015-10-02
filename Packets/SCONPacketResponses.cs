@@ -53,7 +53,7 @@ namespace PokeD.Core.Packets
 
         static SCONPacketResponses()
         {
-            Packets = new SCONPacketTypes().CreatePacketInstance<ProtobufPacket>();
+            Packets = new SCONPacketTypes().CreatePacketInstances<ProtobufPacket>();
         }
     }
 }

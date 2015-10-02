@@ -7,7 +7,7 @@ namespace PokeD.Core.Extensions
 {
     public static class EnumExtensions
     {
-        public static Func<T>[] CreatePacketInstance<T>(this Enum packetType)
+        public static Func<T>[] CreatePacketInstances<T>(this Enum packetType)
         {
             var typeNames = Enum.GetValues(packetType.GetType());
             var packets = new Func<T>[typeNames.Cast<int>().Max() + 1];
