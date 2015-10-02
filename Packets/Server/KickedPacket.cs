@@ -7,7 +7,7 @@ namespace PokeD.Core.Packets.Server
         public string Reason { get { return DataItems[0]; } set { DataItems[0] = value; } }
 
 
-        public override int ID => (int) PlayerPacketTypes.Kicked;
+        public override int ID => (int) GamePacketTypes.Kicked;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {

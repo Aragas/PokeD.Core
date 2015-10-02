@@ -30,14 +30,6 @@ namespace PokeD.Core.Wrappers
         public static Assembly[] GetAssemblies() { return Instance.GetAssemblies(); }
         public static Assembly LoadAssembly(byte[] assemblyData) { return Instance.LoadAssembly(assemblyData); }
 
-        public static object GetTypeFromNameAndAbstract(string className)
-        {
-            foreach (var typeInfo in new List<TypeInfo>(GetCallingAssembly().DefinedTypes))
-                if (typeInfo.Name == className)
-                    return Activator.CreateInstance(typeInfo.AsType());
-
-            return null;
-        }
         public static T GetTypeFromNameAndInterface<T>(string className)
         {
             foreach (var typeInfo in new List<TypeInfo>(GetCallingAssembly().DefinedTypes))
@@ -56,6 +48,14 @@ namespace PokeD.Core.Wrappers
                         return (T) Activator.CreateInstance(typeInfo.AsType());
 
             return default(T);
+        }
+        public static object GetTypeFromName(string className)
+        {
+            foreach (var typeInfo in new List<TypeInfo>(GetCallingAssembly().DefinedTypes))
+                if (typeInfo.Name == className)
+                    return Activator.CreateInstance(typeInfo.AsType());
+
+            return null;
         }
     }
 }

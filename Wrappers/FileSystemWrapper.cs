@@ -56,10 +56,7 @@ namespace PokeD.Core.Wrappers
                         writer.Write(JsonConvert.SerializeObject(value, Formatting.Indented, Converters));
                         return false;
                     }
-                    catch (JsonWriterException e)
-                    {
-                        return false;
-                    }
+                    catch (JsonWriterException e) { return false; }
                 }
                 else
                 {
@@ -68,10 +65,7 @@ namespace PokeD.Core.Wrappers
                         stream.SetLength(0);
                         writer.Write(JsonConvert.SerializeObject(value, Formatting.Indented, Converters));
                     }
-                    catch (JsonWriterException e)
-                    {
-                        return false;
-                    }
+                    catch (JsonWriterException e) { return false; }
                 }
             }
 
@@ -82,14 +76,8 @@ namespace PokeD.Core.Wrappers
             using (var stream = Instance.SettingsFolder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists).Result.OpenAsync(FileAccess.ReadAndWrite).Result)
             using (var writer = new StreamWriter(stream))
             {
-                try
-                {
-                    writer.Write(JsonConvert.SerializeObject(defaultValue, Formatting.Indented, Converters));
-                }
-                catch (JsonWriterException e)
-                {
-                    return false;
-                }
+                try { writer.Write(JsonConvert.SerializeObject(defaultValue, Formatting.Indented, Converters)); }
+                catch (JsonWriterException e) { return false; }
             }
 
             return true;

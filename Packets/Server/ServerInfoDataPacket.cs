@@ -36,7 +36,7 @@ namespace PokeD.Core.Packets.Server
         }
 
 
-        public override int ID => (int) PlayerPacketTypes.ServerInfoData;
+        public override int ID => (int) GamePacketTypes.ServerInfoData;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {

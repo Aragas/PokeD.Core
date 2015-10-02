@@ -40,6 +40,7 @@
     <Compile Include="Data\Structs\PlayerDatabase.cs" />
     <Compile Include="Data\VarInt.cs" />
     <Compile Include="Data\Vector3.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\TimeSpanExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\BouncyCastleExtensions.cs" />
@@ -53,10 +54,8 @@
     <Compile Include="Interfaces\IPacketStream.cs" />
     <Compile Include="Packets\Encryption\EncryptionRequestPacket.cs" />
     <Compile Include="Packets\Encryption\EncryptionResponsePacket.cs" />
-    <Compile Include="Packets\SCONPacketTypes.cs" />
-    <Compile Include="Packets\PlayerPacketTypes.cs" />
-    <Compile Include="Packets\SCONResponse.cs" />
-    <Compile Include="Packets\PlayerResponse.cs" />
+    <Compile Include="Packets\SCONPacketResponses.cs" />
+    <Compile Include="Packets\GamePacketResponses.cs" />
     <Compile Include="Packets\Battle\BattleClientDataPacket.cs" />
     <Compile Include="Packets\Battle\BattleHostDataPacket.cs" />
     <Compile Include="Packets\Battle\BattleJoinPacket.cs" />
@@ -65,7 +64,7 @@
     <Compile Include="Packets\Battle\BattleQuitPacket.cs" />
     <Compile Include="Packets\Battle\BattleRequestPacket.cs" />
     <Compile Include="Packets\Battle\BattleStartPacket.cs" />
-    <Compile Include="Packets\Chat\ChatMessagePacket.cs" />
+    <Compile Include="Packets\Chat\ChatMessageGlobalPacket.cs" />
     <Compile Include="Packets\Chat\ChatMessagePrivatePacket.cs" />
     <Compile Include="Packets\SCON\Authorization\AuthorizationDisconnectPacket.cs" />
     <Compile Include="Packets\SCON\Authorization\AuthorizationPasswordPacket.cs" />

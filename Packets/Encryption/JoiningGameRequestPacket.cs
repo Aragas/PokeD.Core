@@ -4,7 +4,7 @@ namespace PokeD.Core.Packets.Encryption
 {
     public class JoiningGameRequestPacket : P3DPacket
     {
-        public override int ID => (int) PlayerPacketTypes.JoiningGameRequest;
+        public override int ID => (int) GamePacketTypes.JoiningGameRequest;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {

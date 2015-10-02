@@ -7,7 +7,7 @@ namespace PokeD.Core.Packets.Encryption
         public byte[] SharedSecret { get; set; }
         public byte[] VerificationToken { get; set; }
 
-        public override int ID => (int) PlayerPacketTypes.EncryptionResponse;
+        public override int ID => (int) GamePacketTypes.EncryptionResponse;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {

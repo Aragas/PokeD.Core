@@ -7,7 +7,7 @@ namespace PokeD.Core.Packets.Battle
         public int DestinationPlayerID { get { return int.Parse(DataItems[0], CultureInfo); } set { DataItems[0] = value.ToString(CultureInfo); } }
 
 
-        public override int ID => (int) PlayerPacketTypes.BattleJoin;
+        public override int ID => (int) GamePacketTypes.BattleJoin;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {

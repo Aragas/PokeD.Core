@@ -31,7 +31,7 @@ namespace PokeD.Core.Packets.Shared
         public Vector3 GetPokemonPosition(char separator) { return Vector3.FromPokeString(PokemonPosition, separator); }
         public void SetPokemonPosition(Vector3 position, char separator) { PokemonPosition = position.ToPokeString(separator, CultureInfo); }
 
-        public override int ID => (int) PlayerPacketTypes.GameData;
+        public override int ID => (int) GamePacketTypes.GameData;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {

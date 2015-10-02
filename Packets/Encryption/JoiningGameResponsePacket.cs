@@ -6,7 +6,7 @@ namespace PokeD.Core.Packets.Encryption
     {
         public bool EncryptionEnabled { get; set; }
 
-        public override int ID => (int) PlayerPacketTypes.JoiningGameResponse;
+        public override int ID => (int) GamePacketTypes.JoiningGameResponse;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
