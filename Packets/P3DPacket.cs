@@ -16,7 +16,12 @@ namespace PokeD.Core.Packets
         public static bool TryParseID(string fullData, out int id)
         {
             id = 0;
-            return fullData.Contains("|") && int.TryParse(fullData.Split('|')[1], out id);
+
+            if (!fullData.Contains("|"))
+                return false;
+
+            var splitted = fullData.Split('|');
+            return splitted.Length > 1 && int.TryParse(splitted[1], out id);
         }
 
         public bool TryParseData(string fullData)

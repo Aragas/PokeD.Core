@@ -2,7 +2,6 @@
 {
     public enum PlayerPacketTypes
     {
-        Unknown             =-0x01,
         GameData            = 0x00,
         PlayData            = 0x01,
         PrivateMessage      = 0x02,

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using PokeD.Core.Wrappers;
 
@@ -13,7 +14,7 @@ namespace PokeD.Core.Packets
         static PlayerResponse()
         {
             var typeNames = Enum.GetValues(typeof (PlayerPacketTypes));
-            Packets = new CreatePacketInstance[typeNames.Length];
+            Packets = new CreatePacketInstance[typeNames.Cast<int>().Max() + 1];
 
             foreach (PlayerPacketTypes packetName in typeNames)
             {
