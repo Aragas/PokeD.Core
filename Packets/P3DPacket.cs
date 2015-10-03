@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 
+using Aragas.Core.Packets;
+
 using PokeD.Core.Data;
 
 namespace PokeD.Core.Packets

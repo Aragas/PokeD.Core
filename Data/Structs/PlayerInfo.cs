@@ -1,7 +1,8 @@
 ﻿using System;
 
-using PokeD.Core.Extensions;
-using PokeD.Core.Interfaces;
+using Aragas.Core.Data;
+using Aragas.Core.Extensions;
+using Aragas.Core.Interfaces;
 
 namespace PokeD.Core.Data.Structs
 {

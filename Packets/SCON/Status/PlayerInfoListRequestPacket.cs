@@ -1,4 +1,5 @@
-﻿using PokeD.Core.Interfaces;
+﻿using Aragas.Core.Interfaces;
+using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.SCON.Status
 {

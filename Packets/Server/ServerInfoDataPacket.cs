@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
-using PokeD.Core.Interfaces;
+using Aragas.Core.Interfaces;
+using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.Server
 {

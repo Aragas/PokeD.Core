@@ -1,8 +1,9 @@
 ﻿using System;
-
+using Aragas.Core.Data;
 using PokeD.Core.Data;
 using PokeD.Core.Extensions;
-using PokeD.Core.Interfaces;
+using Aragas.Core.Interfaces;
+using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.Shared
 {
