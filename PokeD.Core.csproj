@@ -39,6 +39,8 @@
     <Compile Include="Data\Structs\PlayerDatabase.cs" />
     <Compile Include="Extensions\Vector3Extensions.cs" />
     <Compile Include="Extensions\BouncyCastleExtensions.cs" />
+    <Compile Include="IO\P3DStream.cs" />
+    <Compile Include="IO\P3DStream.Stream.cs" />
     <Compile Include="Packets\Encryption\JoiningGameResponsePacket.cs" />
     <Compile Include="Packets\Encryption\JoiningGameRequestPacket.cs" />
     <Compile Include="Packets\P3DPacket.cs" />

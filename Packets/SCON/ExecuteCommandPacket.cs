@@ -1,4 +1,5 @@
-﻿using Aragas.Core.Interfaces;
+﻿using Aragas.Core.Data;
+using Aragas.Core.Interfaces;
 using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.SCON
@@ -7,7 +8,7 @@ namespace PokeD.Core.Packets.SCON
     {
         public string Command { get; set; }
 
-        public override int ID => (int) SCONPacketTypes.ExecuteCommand;
+        public override VarInt ID => (int) SCONPacketTypes.ExecuteCommand;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
@@ -18,7 +19,7 @@ namespace PokeD.Core.Packets.SCON
 
         public override ProtobufPacket WritePacket(IPacketStream stream)
         {
-            stream.WriteString(Command);
+            stream.Write(Command);
 
             return this;
         }

@@ -1,14 +1,15 @@
-﻿using Aragas.Core.Interfaces;
+﻿using Aragas.Core.Data;
+using Aragas.Core.Interfaces;
 using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.Trade
 {
     public class TradeQuitPacket : P3DPacket
     {
-        public int DestinationPlayerID { get { return int.Parse(DataItems[0], CultureInfo); } set { DataItems[0] = value.ToString(CultureInfo); } }
+        public VarInt DestinationPlayerID { get { return VarInt.Parse(DataItems[0], CultureInfo); } set { DataItems[0] = value.ToString(CultureInfo); } }
 
 
-        public override int ID => (int) GamePacketTypes.TradeQuit;
+        public override VarInt ID => (int) GamePacketTypes.TradeQuit;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
@@ -21,7 +22,7 @@ namespace PokeD.Core.Packets.Trade
         public override ProtobufPacket WritePacket(IPacketStream writer)
         {
             if (!writer.IsServer)
-                writer.WriteVarInt(DestinationPlayerID);
+                writer.Write(DestinationPlayerID);
 
             return this;
         }

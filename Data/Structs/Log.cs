@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Aragas.Core.Data;
 using Aragas.Core.Interfaces;
 
 namespace PokeD.Core.Data.Structs
@@ -59,11 +59,11 @@ namespace PokeD.Core.Data.Structs
 
         public void ToStream(IPacketStream stream)
         {
-            stream.WriteVarInt(Length);
+            stream.Write(new VarInt(Length));
 
             foreach (var entry in _entries)
             {
-                stream.WriteString(entry.LogFileName);
+                stream.Write(entry.LogFileName);
             }
         }
     }

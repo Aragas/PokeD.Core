@@ -34,7 +34,7 @@ namespace PokeD.Core.Packets.Shared
         public Vector3 GetPokemonPosition(char separator) { return Vector3Extensions.FromPokeString(PokemonPosition, separator); }
         public void SetPokemonPosition(Vector3 position, char separator) { PokemonPosition = position.ToPokeString(separator, CultureInfo); }
 
-        public override int ID => (int) GamePacketTypes.GameData;
+        public override VarInt ID => (int) GamePacketTypes.GameData;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
@@ -65,8 +65,8 @@ namespace PokeD.Core.Packets.Shared
         public override ProtobufPacket WritePacket(IPacketStream writer)
         {
             var data = DataItems.ToArray();
-            writer.WriteVarInt(data.Length);
-            writer.WriteStringArray(data);
+            writer.Write(new VarInt(data.Length));
+            writer.Write(data);
             
             /*
             writer.WriteString(GameMode);

@@ -73,17 +73,17 @@ namespace PokeD.Core.Data.Structs
 
         public void ToStream(IPacketStream stream)
         {
-            stream.WriteVarInt(Length);
+            stream.Write(new VarInt(Length));
 
             foreach (var entry in _entries)
             {
-                stream.WriteString(entry.Name);
-                stream.WriteULong(entry.GameJoltID);
-                stream.WriteString(entry.IP);
-                stream.WriteUShort(entry.Ping);
-                stream.WriteVector3_Byte(entry.Position);
-                stream.WriteString(entry.LevelFile);
-                stream.WriteTimeSpan(entry.PlayTime);
+                stream.Write(entry.Name);
+                stream.Write(entry.GameJoltID);
+                stream.Write(entry.IP);
+                stream.Write(entry.Ping);
+                stream.Write_Byte(entry.Position);
+                stream.Write(entry.LevelFile);
+                stream.Write(entry.PlayTime);
             }
         }
     }

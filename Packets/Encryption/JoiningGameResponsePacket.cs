@@ -1,4 +1,5 @@
-﻿using Aragas.Core.Interfaces;
+﻿using Aragas.Core.Data;
+using Aragas.Core.Interfaces;
 using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.Encryption
@@ -7,7 +8,7 @@ namespace PokeD.Core.Packets.Encryption
     {
         public bool EncryptionEnabled { get; set; }
 
-        public override int ID => (int) GamePacketTypes.JoiningGameResponse;
+        public override VarInt ID => (int) GamePacketTypes.JoiningGameResponse;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
@@ -18,7 +19,7 @@ namespace PokeD.Core.Packets.Encryption
 
         public override ProtobufPacket WritePacket(IPacketStream stream)
         {
-            stream.WriteBoolean(EncryptionEnabled);
+            stream.Write(EncryptionEnabled);
 
             return this;
         }

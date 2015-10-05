@@ -1,4 +1,5 @@
-﻿using Aragas.Core.Interfaces;
+﻿using Aragas.Core.Data;
+using Aragas.Core.Interfaces;
 using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.SCON.Authorization
@@ -7,7 +8,7 @@ namespace PokeD.Core.Packets.SCON.Authorization
     {
         public string PasswordHash { get; set; }
 
-        public override int ID => (int) SCONPacketTypes.AuthorizationPassword;
+        public override VarInt ID => (int) SCONPacketTypes.AuthorizationPassword;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
@@ -18,7 +19,7 @@ namespace PokeD.Core.Packets.SCON.Authorization
 
         public override ProtobufPacket WritePacket(IPacketStream stream)
         {
-            stream.WriteString(PasswordHash);
+            stream.Write(PasswordHash);
 
             return this;
         }

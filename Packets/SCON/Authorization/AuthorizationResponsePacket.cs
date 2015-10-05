@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Aragas.Core.Data;
 using Aragas.Core.Interfaces;
 using Aragas.Core.Packets;
 
@@ -16,7 +16,7 @@ namespace PokeD.Core.Packets.SCON.Authorization
     {
         public AuthorizationStatus AuthorizationStatus { get; set; }
 
-        public override int ID => (int) SCONPacketTypes.AuthorizationResponse;
+        public override VarInt ID => (int) SCONPacketTypes.AuthorizationResponse;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
@@ -27,7 +27,7 @@ namespace PokeD.Core.Packets.SCON.Authorization
 
         public override ProtobufPacket WritePacket(IPacketStream stream)
         {
-            stream.WriteByte((byte) AuthorizationStatus);
+            stream.Write((byte) AuthorizationStatus);
 
             return this;
         }

@@ -1,4 +1,5 @@
-﻿using Aragas.Core.Interfaces;
+﻿using Aragas.Core.Data;
+using Aragas.Core.Interfaces;
 using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.SCON.Logs
@@ -8,7 +9,7 @@ namespace PokeD.Core.Packets.SCON.Logs
         public string CrashLogFilename { get; set; }
         public string CrashLogFile { get; set; }
 
-        public override int ID => (int) SCONPacketTypes.CrashLogFileResponse;
+        public override VarInt ID => (int) SCONPacketTypes.CrashLogFileResponse;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
@@ -20,8 +21,8 @@ namespace PokeD.Core.Packets.SCON.Logs
 
         public override ProtobufPacket WritePacket(IPacketStream stream)
         {
-            stream.WriteString(CrashLogFilename);
-            stream.WriteString(CrashLogFile);
+            stream.Write(CrashLogFilename);
+            stream.Write(CrashLogFile);
 
             return this;
         }

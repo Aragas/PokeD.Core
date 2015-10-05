@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Aragas.Core.Data;
 using Aragas.Core.Extensions;
 using Aragas.Core.Interfaces;
 
@@ -70,16 +70,16 @@ namespace PokeD.Core.Data.Structs
 
         public void ToStream(IPacketStream stream)
         {
-            stream.WriteVarInt(Length);
+            stream.Write(new VarInt(Length));
 
             foreach (var entry in _entries)
             {
-                stream.WriteString(entry.Name);
-                stream.WriteULong(entry.GameJoltID);
-                stream.WriteString(entry.IP);
-                stream.WriteDateTime(entry.BanTime);
-                stream.WriteDateTime(entry.UnBanTime);
-                stream.WriteString(entry.Reason);
+                stream.Write(entry.Name);
+                stream.Write(entry.GameJoltID);
+                stream.Write(entry.IP);
+                stream.Write(entry.BanTime);
+                stream.Write(entry.UnBanTime);
+                stream.Write(entry.Reason);
             }
         }
     }
