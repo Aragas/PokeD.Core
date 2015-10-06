@@ -13,7 +13,7 @@ namespace PokeD.Core.Packets.Server
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
-            Message = reader.ReadString();
+            Message = reader.Read(Message);
 
             return this;
         }

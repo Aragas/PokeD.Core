@@ -6,15 +6,15 @@ namespace PokeD.Core.Packets.SCON.Chat
 {
     public class ChatMessagePacket : ProtobufPacket
     {
-        public string Player { get; set; }
-        public string Message { get; set; }
+        public string Player;
+        public string Message;
 
         public override VarInt ID => (int) SCONPacketTypes.ChatMessage;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
-            Player = reader.ReadString();
-            Message = reader.ReadString();
+            Player = reader.Read(Player);
+            Message = reader.Read(Message);
 
             return this;
         }

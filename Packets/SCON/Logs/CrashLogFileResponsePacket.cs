@@ -6,15 +6,15 @@ namespace PokeD.Core.Packets.SCON.Logs
 {
     public class CrashLogFileResponsePacket : ProtobufPacket
     {
-        public string CrashLogFilename { get; set; }
-        public string CrashLogFile { get; set; }
+        public string CrashLogFilename;
+        public string CrashLogFile;
 
         public override VarInt ID => (int) SCONPacketTypes.CrashLogFileResponse;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
-            CrashLogFilename = reader.ReadString();
-            CrashLogFile = reader.ReadString();
+            CrashLogFilename = reader.Read(CrashLogFilename);
+            CrashLogFile = reader.Read(CrashLogFile);
 
             return this;
         }

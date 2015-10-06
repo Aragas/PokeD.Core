@@ -6,13 +6,13 @@ namespace PokeD.Core.Packets.SCON
 {
     public class ExecuteCommandPacket : ProtobufPacket
     {
-        public string Command { get; set; }
+        public string Command;
 
         public override VarInt ID => (int) SCONPacketTypes.ExecuteCommand;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
-            Command = reader.ReadString();
+            Command = reader.Read(Command);
 
             return this;
         }

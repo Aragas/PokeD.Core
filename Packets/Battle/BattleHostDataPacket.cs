@@ -15,8 +15,9 @@ namespace PokeD.Core.Packets.Battle
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
             if (reader.IsServer)
-                DestinationPlayerID = reader.ReadVarInt();
-            BattleData = reader.ReadString();
+                DestinationPlayerID = reader.Read(DestinationPlayerID);
+
+            BattleData = reader.Read(BattleData);
 
             return this;
         }

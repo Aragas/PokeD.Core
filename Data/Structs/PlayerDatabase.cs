@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Aragas.Core.Data;
 using Aragas.Core.Extensions;
 using Aragas.Core.Interfaces;
@@ -7,10 +8,28 @@ namespace PokeD.Core.Data.Structs
 {
     public class PlayerDatabase
     {
-        public string Name { get; set; }
-        public ulong GameJoltID { get; set; }
-        public string LastIP { get; set; }
-        public DateTime LastSeen { get; set; }
+        public string Name;
+        public ulong GameJoltID;
+        public string LastIP;
+        public DateTime LastSeen;
+
+        public PlayerDatabase FromReader(IPacketDataReader reader)
+        {
+            Name = reader.Read(Name);
+            GameJoltID = reader.Read(GameJoltID);
+            LastIP = reader.Read(LastIP);
+            LastSeen = reader.Read(LastSeen);
+
+            return this;
+        }
+
+        public void ToStream(IPacketStream stream)
+        {
+            stream.Write(Name);
+            stream.Write(GameJoltID);
+            stream.Write(LastIP);
+            stream.Write(LastSeen);
+        }
     }
 
     public class PlayerDatabaseList
@@ -49,18 +68,13 @@ namespace PokeD.Core.Data.Structs
 
         public static PlayerDatabaseList FromReader(IPacketDataReader reader)
         {
-            var length = reader.ReadVarInt();
+            VarInt length = 0;
+            reader.Read(length);
 
             var value = new PlayerDatabaseList();
             for (var i = 0; i < length; i++)
-                value[i] = new PlayerDatabase
-                {
-                    Name = reader.ReadString(),
-                    GameJoltID = reader.ReadULong(),
-                    LastIP = reader.ReadString(),
-                    LastSeen = reader.ReadDateTime()
-                };
-            
+                value[i] = new PlayerDatabase().FromReader(reader);
+
             return value;
         }
 

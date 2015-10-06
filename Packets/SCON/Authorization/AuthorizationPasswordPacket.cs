@@ -6,13 +6,13 @@ namespace PokeD.Core.Packets.SCON.Authorization
 {
     public class AuthorizationPasswordPacket : ProtobufPacket
     {
-        public string PasswordHash { get; set; }
+        public string PasswordHash;
 
         public override VarInt ID => (int) SCONPacketTypes.AuthorizationPassword;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
-            PasswordHash = reader.ReadString();
+            PasswordHash = reader.Read(PasswordHash);
 
             return this;
         }

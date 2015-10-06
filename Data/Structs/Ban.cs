@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Aragas.Core.Data;
 using Aragas.Core.Extensions;
 using Aragas.Core.Interfaces;
@@ -7,12 +8,34 @@ namespace PokeD.Core.Data.Structs
 {
     public class Ban
     {
-        public string Name { get; set; }
-        public ulong GameJoltID { get; set; }
-        public string IP { get; set; }
-        public DateTime BanTime { get; set; }
-        public DateTime UnBanTime { get; set; }
-        public string Reason { get; set; }
+        public string Name;
+        public ulong GameJoltID;
+        public string IP;
+        public DateTime BanTime;
+        public DateTime UnBanTime;
+        public string Reason;
+
+        public Ban FromReader(IPacketDataReader reader)
+        {
+            Name = reader.Read(Name);
+            GameJoltID = reader.Read(GameJoltID);
+            IP = reader.Read(IP);
+            BanTime = reader.Read(BanTime);
+            UnBanTime = reader.Read(UnBanTime);
+            Reason = reader.Read(Reason);
+
+            return this;
+        }
+
+        public void ToStream(IPacketStream stream)
+        {
+            stream.Write(Name);
+            stream.Write(GameJoltID);
+            stream.Write(IP);
+            stream.Write(BanTime);
+            stream.Write(UnBanTime);
+            stream.Write(Reason);
+        }
     }
 
     public class BanList
@@ -51,19 +74,12 @@ namespace PokeD.Core.Data.Structs
 
         public static BanList FromReader(IPacketDataReader reader)
         {
-            var count = reader.ReadVarInt();
+            VarInt length = 0;
+            reader.Read(length);
 
             var value = new BanList();
-            for (var i = 0; i < count; i++)
-                value[i] = new Ban
-                {
-                    Name = reader.ReadString(),
-                    GameJoltID = reader.ReadULong(),
-                    IP = reader.ReadString(),
-                    BanTime = reader.ReadDateTime(),
-                    UnBanTime = reader.ReadDateTime(),
-                    Reason = reader.ReadString()
-                };
+            for (var i = 0; i < length; i++)
+                value[i] = new Ban().FromReader(reader);
             
             return value;
         }

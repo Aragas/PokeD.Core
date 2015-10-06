@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using Aragas.Core.Data;
 using Aragas.Core.Interfaces;
 using Aragas.Core.Packets;
@@ -41,12 +42,11 @@ namespace PokeD.Core.Packets.Server
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
-            CurrentPlayers = reader.ReadVarInt();
-            MaxPlayers = reader.ReadVarInt();
-            ServerName = reader.ReadString();
-            ServerMessage = reader.ReadString();
-            var length = reader.ReadVarInt();
-            PlayerNames = reader.ReadStringArray(length);
+            CurrentPlayers = reader.Read(CurrentPlayers);
+            MaxPlayers = reader.Read(MaxPlayers);
+            ServerName = reader.Read(ServerName);
+            ServerMessage = reader.Read(ServerMessage);
+            PlayerNames = reader.Read(PlayerNames);
 
             return this;
         }
@@ -57,7 +57,6 @@ namespace PokeD.Core.Packets.Server
             writer.Write(MaxPlayers);
             writer.Write(ServerName);
             writer.Write(ServerMessage);
-            writer.Write(PlayerNames.Length);
             writer.Write(PlayerNames);
 
             return this;

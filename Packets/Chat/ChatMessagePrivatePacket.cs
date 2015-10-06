@@ -15,8 +15,9 @@ namespace PokeD.Core.Packets.Chat
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
             if (reader.IsServer)
-                DestinationPlayerName = reader.ReadString();
-            Message = reader.ReadString();
+                DestinationPlayerName = reader.Read(DestinationPlayerName);
+            
+            Message = reader.Read(Message);
 
             return this;
         }

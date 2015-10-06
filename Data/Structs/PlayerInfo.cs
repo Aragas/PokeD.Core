@@ -8,13 +8,37 @@ namespace PokeD.Core.Data.Structs
 {
     public class PlayerInfo
     {
-        public string Name { get; set; }
-        public ulong GameJoltID { get; set; }
-        public string IP { get; set; }
-        public ushort Ping { get; set; }
-        public Vector3 Position { get; set; }
-        public string LevelFile { get; set; }
-        public TimeSpan PlayTime { get; set; }
+        public string Name;
+        public ulong GameJoltID;
+        public string IP;
+        public ushort Ping;
+        public Vector3 Position;
+        public string LevelFile;
+        public TimeSpan PlayTime;
+
+        public PlayerInfo FromReader(IPacketDataReader reader)
+        {
+            Name = reader.Read(Name);
+            GameJoltID = reader.Read(GameJoltID);
+            IP = reader.Read(IP);
+            Ping = reader.Read(Ping);
+            Position = reader.Read(Position);
+            LevelFile = reader.Read(LevelFile);
+            PlayTime = reader.Read(PlayTime);
+
+            return this;
+        }
+
+        public void ToStream(IPacketStream stream)
+        {
+            stream.Write(Name);
+            stream.Write(GameJoltID);
+            stream.Write(IP);
+            stream.Write(Ping);
+            stream.Write(Position);
+            stream.Write(LevelFile);
+            stream.Write(PlayTime);
+        }
     }
 
     public class PlayerInfoList
@@ -53,20 +77,12 @@ namespace PokeD.Core.Data.Structs
 
         public static PlayerInfoList FromReader(IPacketDataReader reader)
         {
-            var count = reader.ReadVarInt();
+            VarInt length = 0;
+            reader.Read(length);
 
             var value = new PlayerInfoList();
-            for (var i = 0; i < count; i++)
-                value[i] = new PlayerInfo
-                {
-                    Name = reader.ReadString(),
-                    GameJoltID = reader.ReadULong(),
-                    IP = reader.ReadString(),
-                    Ping = reader.ReadUShort(),
-                    Position = reader.ReadVector3_Byte(),
-                    LevelFile = reader.ReadString(),
-                    PlayTime = reader.ReadTimeSpan()
-                };
+            for (var i = 0; i < length; i++)
+                value[i] = new PlayerInfo().FromReader(reader);
             
             return value;
         }
@@ -76,15 +92,7 @@ namespace PokeD.Core.Data.Structs
             stream.Write(new VarInt(Length));
 
             foreach (var entry in _entries)
-            {
-                stream.Write(entry.Name);
-                stream.Write(entry.GameJoltID);
-                stream.Write(entry.IP);
-                stream.Write(entry.Ping);
-                stream.Write_Byte(entry.Position);
-                stream.Write(entry.LevelFile);
-                stream.Write(entry.PlayTime);
-            }
+                entry.ToStream(stream);
         }
     }
 }

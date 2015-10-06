@@ -1,7 +1,8 @@
 ﻿using Aragas.Core.Data;
-using PokeD.Core.Data.Structs;
 using Aragas.Core.Interfaces;
 using Aragas.Core.Packets;
+
+using PokeD.Core.Data.Structs;
 
 namespace PokeD.Core.Packets.SCON.Logs
 {

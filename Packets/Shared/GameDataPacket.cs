@@ -1,9 +1,11 @@
 ﻿using System;
+
 using Aragas.Core.Data;
-using PokeD.Core.Data;
-using PokeD.Core.Extensions;
 using Aragas.Core.Interfaces;
 using Aragas.Core.Packets;
+
+using PokeD.Core.Data;
+using PokeD.Core.Extensions;
 
 namespace PokeD.Core.Packets.Shared
 {
@@ -38,8 +40,7 @@ namespace PokeD.Core.Packets.Shared
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
-            var length = reader.ReadVarInt();
-            DataItems = new DataItems(reader.ReadStringArray(length));
+            DataItems = new DataItems(reader.Read<string[]>());
             
             /*
             GameMode = reader.ReadString();
@@ -64,9 +65,7 @@ namespace PokeD.Core.Packets.Shared
 
         public override ProtobufPacket WritePacket(IPacketStream writer)
         {
-            var data = DataItems.ToArray();
-            writer.Write(new VarInt(data.Length));
-            writer.Write(data);
+            writer.Write(DataItems.ToArray());
             
             /*
             writer.WriteString(GameMode);

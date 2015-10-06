@@ -6,13 +6,13 @@ namespace PokeD.Core.Packets.SCON.Authorization
 {
     public class AuthorizationDisconnectPacket : ProtobufPacket
     {
-        public string Reason { get; set; }
+        public string Reason;
 
         public override VarInt ID => (int) SCONPacketTypes.AuthorizationDisconnect;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
-            Reason = reader.ReadString();
+            Reason = reader.Read(Reason);
 
             return this;
         }

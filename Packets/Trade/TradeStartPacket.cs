@@ -14,7 +14,7 @@ namespace PokeD.Core.Packets.Trade
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
             if (reader.IsServer)
-                DestinationPlayerID = reader.ReadVarInt();
+                DestinationPlayerID = reader.Read(DestinationPlayerID);
 
             return this;
         }

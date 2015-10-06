@@ -6,13 +6,13 @@ namespace PokeD.Core.Packets.SCON.Logs
 {
     public class LogFileRequestPacket : ProtobufPacket
     {
-        public string LogFilename { get; set; }
+        public string LogFilename;
 
         public override VarInt ID => (int) SCONPacketTypes.LogFileRequest;
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
-            LogFilename = reader.ReadString();
+            LogFilename = reader.Read(LogFilename);
 
             return this;
         }

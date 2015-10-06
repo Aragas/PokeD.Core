@@ -15,9 +15,9 @@ namespace PokeD.Core.Packets.Server
 
         public override ProtobufPacket ReadPacket(IPacketDataReader reader)
         {
-            Season = reader.ReadVarInt();
-            Weather = reader.ReadVarInt();
-            CurrentTime = reader.ReadString();
+            Season = reader.Read(Season);
+            Weather = reader.Read(Weather);
+            CurrentTime = reader.Read(CurrentTime);
 
             return this;
         }
