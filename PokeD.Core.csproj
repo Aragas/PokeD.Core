@@ -75,6 +75,8 @@
     <Compile Include="Packets\SCON\Logs\LogListResponsePacket.cs" />
     <Compile Include="Packets\SCON\Logs\LogListRequestPacket.cs" />
     <Compile Include="Data\Structs\PlayerInfo.cs" />
+    <Compile Include="Packets\SCON\Lua\ReloadLuaFilesPacket.cs" />
+    <Compile Include="Packets\SCON\Lua\UploadLuaToServerPacket.cs" />
     <Compile Include="Packets\SCON\Status\BanListRequestPacket.cs" />
     <Compile Include="Packets\SCON\Status\BanListResponsePacket.cs" />
     <Compile Include="Packets\SCON\Status\PlayerDatabaseListRequestPacket.cs" />

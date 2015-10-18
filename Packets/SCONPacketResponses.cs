@@ -46,7 +46,10 @@ namespace PokeD.Core.Packets
         UnBanPlayer                 = 0x18,
 
         PlayerDatabaseListRequest   = 0x19,
-        PlayerDatabaseListResponse  = 0x1A
+        PlayerDatabaseListResponse  = 0x1A,
+
+        UploadLuaToServer           = 0x1B,
+        ReloadNPCs                  = 0x1C,
     }
 
     public static class SCONPacketResponses
