@@ -25,15 +25,13 @@ namespace PokeD.Core.Packets.Shared
         public bool PokemonVisible { get { return int.Parse(DataItems[11], CultureInfo) == 1; } set { DataItems[11] = (value ? 1 : 2).ToString(CultureInfo); } }
         private string PokemonPosition { get { return DataItems[12]; } set { DataItems[12] = value; } }
         public string PokemonSkin { get { return DataItems[13]; } set { DataItems[13] = value; } }
-
         public int PokemonFacing { get { try { return int.Parse(DataItems[14], CultureInfo); } catch (Exception) { return 0; } } set { DataItems[14] = value.ToString(CultureInfo); } }
 
 
-        public Vector3 GetPosition(char separator) { return Vector3Extensions.FromPokeString(Position, separator); }
+        public Vector3 GetPosition(char separator) { return Vector3Extensions.FromPokeString(Position, separator, CultureInfo); }
         public void SetPosition(Vector3 position, char separator) { Position = position.ToPokeString(separator, CultureInfo); }
 
-        //public Vector3 GetPokemonPosition(char separator) { return Vector3.FromPokeString(PokemonPosition, separator); }
-        public Vector3 GetPokemonPosition(char separator) { return Vector3Extensions.FromPokeString(PokemonPosition, separator); }
+        public Vector3 GetPokemonPosition(char separator) { return Vector3Extensions.FromPokeString(PokemonPosition, separator, CultureInfo); }
         public void SetPokemonPosition(Vector3 position, char separator) { PokemonPosition = position.ToPokeString(separator, CultureInfo); }
 
         public override VarInt ID => (int) GamePacketTypes.GameData;
