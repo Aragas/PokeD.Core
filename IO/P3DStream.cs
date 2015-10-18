@@ -160,7 +160,7 @@ namespace PokeD.Core.IO
             throw new NotSupportedException();
         }
 
-        byte[] IPacketStreamRead.ReadByteArray(int value)
+        byte[] IPacketStreamRead.ReadByteArray(int length)
         {
             throw new NotSupportedException();
         }
