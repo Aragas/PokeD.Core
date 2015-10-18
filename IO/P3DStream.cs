@@ -52,95 +52,95 @@ namespace PokeD.Core.IO
         #region Write
 
         // -- String
-        void IPacketStreamWrite.Write(string value, int length = 0)
+        public void Write(string value, int length = 0)
         {
             throw new NotSupportedException();
         }
 
         // -- VarInt
-        void IPacketStreamWrite.Write(VarInt value)
+        public void Write(VarInt value)
         {
             throw new NotSupportedException();
         }
 
         // -- Boolean
-        void IPacketStreamWrite.Write(bool value)
+        public void Write(bool value)
         {
             throw new NotSupportedException();
         }
 
         // -- SByte & Byte
-        void IPacketStreamWrite.Write(sbyte value)
+        public void Write(sbyte value)
         {
             throw new NotSupportedException();
         }
-        void IPacketStreamWrite.Write(byte value)
+        public void Write(byte value)
         {
             throw new NotSupportedException();
         }
 
         // -- Short & UShort
-        void IPacketStreamWrite.Write(short value)
+        public void Write(short value)
         {
             throw new NotSupportedException();
         }
-        void IPacketStreamWrite.Write(ushort value)
+        public void Write(ushort value)
         {
             throw new NotSupportedException();
         }
 
         // -- Int & UInt
-        void IPacketStreamWrite.Write(int value)
+        public void Write(int value)
         {
             throw new NotSupportedException();
         }
-        void IPacketStreamWrite.Write(uint value)
+        public void Write(uint value)
         {
             throw new NotSupportedException();
         }
 
         // -- Long & ULong
-        void IPacketStreamWrite.Write(long value)
+        public void Write(long value)
         {
             throw new NotSupportedException();
         }
-        void IPacketStreamWrite.Write(ulong value)
+        public void Write(ulong value)
         {
             throw new NotSupportedException();
         }
 
         // -- Float
-        void IPacketStreamWrite.Write(float value)
+        public void Write(float value)
         {
             throw new NotSupportedException();
         }
 
         // -- Double
-        void IPacketStreamWrite.Write(double value)
+        public void Write(double value)
         {
             throw new NotSupportedException();
         }
 
         // -- StringArray
-        void IPacketStreamWrite.Write(string[] value)
+        public void Write(string[] value)
         {
             throw new NotSupportedException();
         }
 
         // -- VarIntArray
-        void IPacketStreamWrite.Write(int[] value)
+        public void Write(int[] value)
         {
             throw new NotSupportedException();
         }
 
         // -- IntArray
-        void IPacketStreamWrite.Write(VarInt[] value)
+        public void Write(VarInt[] value)
         {
             throw new NotSupportedException();
         }
 
         // -- ByteArray
-        void IPacketStreamWrite.Write(byte[] value)
+        public void Write(byte[] value)
         {
             throw new NotSupportedException();
         }
@@ -150,17 +150,17 @@ namespace PokeD.Core.IO
 
         #region Read
 
-        byte IPacketStreamRead.ReadByte()
+        public byte ReadByte()
         {
             throw new NotSupportedException();
         }
 
-        VarInt IPacketStreamRead.ReadVarInt()
+        public VarInt ReadVarInt()
         {
             throw new NotSupportedException();
         }
 
-        byte[] IPacketStreamRead.ReadByteArray(int length)
+        public byte[] ReadByteArray(int length)
         {
             throw new NotSupportedException();
         }
