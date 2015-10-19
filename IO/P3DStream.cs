@@ -23,10 +23,10 @@ namespace PokeD.Core.IO
 
         private static CultureInfo CultureInfo => CultureInfo.InvariantCulture;
 
-        private readonly INetworkTCPClient _tcp;
+        private readonly ITCPClient _tcp;
 
 
-        public P3DStream(INetworkTCPClient tcp)
+        public P3DStream(ITCPClient tcp)
         {
             _tcp = tcp;
             _reader = new StreamReader(_tcp.GetStream());
@@ -212,7 +212,7 @@ namespace PokeD.Core.IO
         {
             var str = CreateData(ref packet);
             var array = Encoding.UTF8.GetBytes(str + "\r\n");
-            _tcp.Send(array, 0, array.Length);
+            _tcp.WriteByteArray(array);
         }
 
 
