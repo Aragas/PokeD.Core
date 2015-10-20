@@ -68,8 +68,7 @@ namespace PokeD.Core.Data.Structs
 
         public static PlayerDatabaseList FromReader(IPacketDataReader reader)
         {
-            VarInt length = 0;
-            reader.Read(length);
+            var length = reader.Read<VarInt>();
 
             var value = new PlayerDatabaseList();
             for (var i = 0; i < length; i++)
