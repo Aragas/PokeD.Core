@@ -9,7 +9,7 @@ namespace PokeD.Core.Data.Structs
     public class PlayerInfo
     {
         public string Name;
-        public ulong GameJoltID;
+        public long GameJoltID;
         public string IP;
         public ushort Ping;
         public Vector3 Position;
