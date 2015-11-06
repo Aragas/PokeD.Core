@@ -6,7 +6,6 @@ using Aragas.Core.Packets;
 
 using PokeD.Core.Data;
 using PokeD.Core.Extensions;
-using static PokeD.Core.Extensions.Vector3Extensions;
 
 namespace PokeD.Core.Packets.Shared
 {
@@ -29,10 +28,10 @@ namespace PokeD.Core.Packets.Shared
         public int PokemonFacing { get { try { return int.Parse(DataItems[14], CultureInfo); } catch (Exception) { return 0; } } set { DataItems[14] = value.ToString(CultureInfo); } }
 
 
-        public Vector3 GetPosition(char separator) { return FromPokeString(Position, separator, CultureInfo); }
+        public Vector3 GetPosition(char separator) { return Vector3Extensions.FromPokeString(Position, separator, CultureInfo); }
         public void SetPosition(Vector3 position, char separator) { Position = position.ToPokeString(separator, CultureInfo); }
 
-        public Vector3 GetPokemonPosition(char separator) { return FromPokeString(PokemonPosition, separator, CultureInfo); }
+        public Vector3 GetPokemonPosition(char separator) { return Vector3Extensions.FromPokeString(PokemonPosition, separator, CultureInfo); }
         public void SetPokemonPosition(Vector3 position, char separator) { PokemonPosition = position.ToPokeString(separator, CultureInfo); }
 
         public override VarInt ID => (int) GamePacketTypes.GameData;
