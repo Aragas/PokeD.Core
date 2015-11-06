@@ -4,8 +4,6 @@ using Aragas.Core.Data;
 using Aragas.Core.Extensions;
 using Aragas.Core.Interfaces;
 
-using static Aragas.Core.Extensions.PacketExtensions;
-
 namespace PokeD.Core.Data.Structs
 {
     public class Ban
