@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Aragas.Core.Data;
-using Aragas.Core.Interfaces;
+using Aragas.Core.IO;
 
 namespace PokeD.Core.Data.Structs
 {
@@ -9,14 +9,14 @@ namespace PokeD.Core.Data.Structs
     {
         public string LogFileName;
 
-        public Log FromReader(IPacketDataReader reader)
+        public Log FromReader(PacketDataReader reader)
         {
             LogFileName = reader.Read(LogFileName);
 
             return this;
         }
 
-        public void ToStream(IPacketStream stream)
+        public void ToStream(PacketStream stream)
         {
             stream.Write(LogFileName);
         }
@@ -56,7 +56,7 @@ namespace PokeD.Core.Data.Structs
             }
         }
 
-        public static LogList FromReader(IPacketDataReader reader)
+        public static LogList FromReader(PacketDataReader reader)
         {
             var length = reader.Read<VarInt>();
 
@@ -67,7 +67,7 @@ namespace PokeD.Core.Data.Structs
             return value;
         }
 
-        public void ToStream(IPacketStream stream)
+        public void ToStream(PacketStream stream)
         {
             stream.Write(new VarInt(Length));
 

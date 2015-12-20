@@ -1,5 +1,5 @@
 ﻿using Aragas.Core.Data;
-using Aragas.Core.Interfaces;
+using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.Chat
@@ -12,7 +12,7 @@ namespace PokeD.Core.Packets.Chat
 
         public override VarInt ID => (int) GamePacketTypes.ChatMessagePrivate;
 
-        public override ProtobufPacket ReadPacket(IPacketDataReader reader)
+        public override ProtobufPacket ReadPacket(PacketDataReader reader)
         {
             if (reader.IsServer)
                 DestinationPlayerName = reader.Read(DestinationPlayerName);
@@ -22,7 +22,7 @@ namespace PokeD.Core.Packets.Chat
             return this;
         }
 
-        public override ProtobufPacket WritePacket(IPacketStream writer)
+        public override ProtobufPacket WritePacket(PacketStream writer)
         {
             if (!writer.IsServer)
                 writer.Write(DestinationPlayerName);

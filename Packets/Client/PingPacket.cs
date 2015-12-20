@@ -1,5 +1,5 @@
 ﻿using Aragas.Core.Data;
-using Aragas.Core.Interfaces;
+using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.Client
@@ -8,12 +8,12 @@ namespace PokeD.Core.Packets.Client
     {
         public override VarInt ID => (int) GamePacketTypes.Ping;
 
-        public override ProtobufPacket ReadPacket(IPacketDataReader reader)
+        public override ProtobufPacket ReadPacket(PacketDataReader reader)
         {
             return this;
         }
 
-        public override ProtobufPacket WritePacket(IPacketStream writer)
+        public override ProtobufPacket WritePacket(PacketStream writer)
         {
             return this;
         }

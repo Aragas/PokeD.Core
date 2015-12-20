@@ -2,7 +2,7 @@
 
 using Aragas.Core.Data;
 using Aragas.Core.Extensions;
-using Aragas.Core.Interfaces;
+using Aragas.Core.IO;
 
 namespace PokeD.Core.Data.Structs
 {
@@ -13,7 +13,7 @@ namespace PokeD.Core.Data.Structs
         public string LastIP;
         public DateTime LastSeen;
 
-        public PlayerDatabase FromReader(IPacketDataReader reader)
+        public PlayerDatabase FromReader(PacketDataReader reader)
         {
             Name = reader.Read(Name);
             GameJoltID = reader.Read(GameJoltID);
@@ -23,7 +23,7 @@ namespace PokeD.Core.Data.Structs
             return this;
         }
 
-        public void ToStream(IPacketStream stream)
+        public void ToStream(PacketStream stream)
         {
             stream.Write(Name);
             stream.Write(GameJoltID);
@@ -66,7 +66,7 @@ namespace PokeD.Core.Data.Structs
             }
         }
 
-        public static PlayerDatabaseList FromReader(IPacketDataReader reader)
+        public static PlayerDatabaseList FromReader(PacketDataReader reader)
         {
             var length = reader.Read<VarInt>();
 
@@ -77,7 +77,7 @@ namespace PokeD.Core.Data.Structs
             return value;
         }
 
-        public void ToStream(IPacketStream stream)
+        public void ToStream(PacketStream stream)
         {
             stream.Write(new VarInt(Length));
 

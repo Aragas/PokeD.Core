@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Aragas.Core.Data;
-using Aragas.Core.Interfaces;
+using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
 using PokeD.Core.Data;
@@ -36,7 +36,7 @@ namespace PokeD.Core.Packets.Shared
 
         public override VarInt ID => (int) GamePacketTypes.GameData;
 
-        public override ProtobufPacket ReadPacket(IPacketDataReader reader)
+        public override ProtobufPacket ReadPacket(PacketDataReader reader)
         {
             DataItems = new DataItems(reader.Read<string[]>());
             
@@ -61,7 +61,7 @@ namespace PokeD.Core.Packets.Shared
             return this;
         }
 
-        public override ProtobufPacket WritePacket(IPacketStream writer)
+        public override ProtobufPacket WritePacket(PacketStream writer)
         {
             writer.Write(DataItems.ToArray());
             

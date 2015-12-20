@@ -1,5 +1,5 @@
 ﻿using Aragas.Core.Data;
-using Aragas.Core.Interfaces;
+using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.Shared
@@ -11,14 +11,14 @@ namespace PokeD.Core.Packets.Shared
 
         public override VarInt ID => (int) GamePacketTypes.GameStateMessage;
 
-        public override ProtobufPacket ReadPacket(IPacketDataReader reader)
+        public override ProtobufPacket ReadPacket(PacketDataReader reader)
         {
             EventMessage = reader.Read(EventMessage);
 
             return this;
         }
 
-        public override ProtobufPacket WritePacket(IPacketStream writer)
+        public override ProtobufPacket WritePacket(PacketStream writer)
         {
             writer.Write(EventMessage);
 

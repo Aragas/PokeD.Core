@@ -1,5 +1,5 @@
 ﻿using Aragas.Core.Data;
-using Aragas.Core.Interfaces;
+using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.SCON.Chat
@@ -11,7 +11,7 @@ namespace PokeD.Core.Packets.SCON.Chat
 
         public override VarInt ID => (int) SCONPacketTypes.ChatMessage;
 
-        public override ProtobufPacket ReadPacket(IPacketDataReader reader)
+        public override ProtobufPacket ReadPacket(PacketDataReader reader)
         {
             Player = reader.Read(Player);
             Message = reader.Read(Message);
@@ -19,7 +19,7 @@ namespace PokeD.Core.Packets.SCON.Chat
             return this;
         }
 
-        public override ProtobufPacket WritePacket(IPacketStream stream)
+        public override ProtobufPacket WritePacket(PacketStream stream)
         {
             stream.Write(Player);
             stream.Write(Message);

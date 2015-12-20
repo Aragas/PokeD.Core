@@ -2,7 +2,7 @@
 
 using Aragas.Core.Data;
 using Aragas.Core.Extensions;
-using Aragas.Core.Interfaces;
+using Aragas.Core.IO;
 
 namespace PokeD.Core.Data.Structs
 {
@@ -16,7 +16,7 @@ namespace PokeD.Core.Data.Structs
         public string LevelFile;
         public TimeSpan PlayTime;
 
-        public PlayerInfo FromReader(IPacketDataReader reader)
+        public PlayerInfo FromReader(PacketDataReader reader)
         {
             Name = reader.Read(Name);
             GameJoltID = reader.Read(GameJoltID);
@@ -29,7 +29,7 @@ namespace PokeD.Core.Data.Structs
             return this;
         }
 
-        public void ToStream(IPacketStream stream)
+        public void ToStream(PacketStream stream)
         {
             stream.Write(Name);
             stream.Write(GameJoltID);
@@ -75,7 +75,7 @@ namespace PokeD.Core.Data.Structs
             }
         }
 
-        public static PlayerInfoList FromReader(IPacketDataReader reader)
+        public static PlayerInfoList FromReader(PacketDataReader reader)
         {
             var length = reader.Read<VarInt>();
 
@@ -86,7 +86,7 @@ namespace PokeD.Core.Data.Structs
             return value;
         }
 
-        public void ToStream(IPacketStream stream)
+        public void ToStream(PacketStream stream)
         {
             stream.Write(new VarInt(Length));
 

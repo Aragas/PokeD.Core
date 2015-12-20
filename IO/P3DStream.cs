@@ -1,172 +1,29 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.IO;
 using System.Text;
 
-using Aragas.Core.Data;
-using Aragas.Core.Interfaces;
-using Aragas.Core.Packets;
+using Aragas.Core.IO;
 using Aragas.Core.Wrappers;
 
 using PokeD.Core.Packets;
 
 namespace PokeD.Core.IO
 {
-    public sealed partial class P3DStream : IPacketStream
+    public sealed class P3DStream : ProtobufStream
     {
-        public bool IsServer => false;
-
-        public bool Connected => _tcp != null && _tcp.Connected;
-        public int DataAvailable => _tcp?.DataAvailable ?? 0;
-
-        public bool EncryptionEnabled => false;
+        private StreamReader Reader { get; }
 
         private static CultureInfo CultureInfo => CultureInfo.InvariantCulture;
 
-        private readonly ITCPClient _tcp;
-
-
-        public P3DStream(ITCPClient tcp)
+        public P3DStream(ITCPClient tcp) : base(tcp)
         {
-            _tcp = tcp;
-            _reader = new StreamReader(_tcp.GetStream());
+            Reader = new StreamReader(TCP.GetStream());
         }
 
-
-        public void InitializeEncryption(byte[] key)
+        public string ReadLine()
         {
-            throw new NotSupportedException();
+            return Reader.ReadLine();
         }
-
-
-        public void Connect(string ip, ushort port)
-        {
-            _tcp.Connect(ip, port);
-        }
-        public void Disconnect()
-        {
-            _tcp.Disconnect();
-        }
-
-
-        #region Write
-
-        // -- String
-        public void Write(string value, int length = 0)
-        {
-            throw new NotSupportedException();
-        }
-
-        // -- VarInt
-        public void Write(VarInt value)
-        {
-            throw new NotSupportedException();
-        }
-
-        // -- Boolean
-        public void Write(bool value)
-        {
-            throw new NotSupportedException();
-        }
-
-        // -- SByte & Byte
-        public void Write(sbyte value)
-        {
-            throw new NotSupportedException();
-        }
-        public void Write(byte value)
-        {
-            throw new NotSupportedException();
-        }
-
-        // -- Short & UShort
-        public void Write(short value)
-        {
-            throw new NotSupportedException();
-        }
-        public void Write(ushort value)
-        {
-            throw new NotSupportedException();
-        }
-
-        // -- Int & UInt
-        public void Write(int value)
-        {
-            throw new NotSupportedException();
-        }
-        public void Write(uint value)
-        {
-            throw new NotSupportedException();
-        }
-
-        // -- Long & ULong
-        public void Write(long value)
-        {
-            throw new NotSupportedException();
-        }
-        public void Write(ulong value)
-        {
-            throw new NotSupportedException();
-        }
-
-        // -- Float
-        public void Write(float value)
-        {
-            throw new NotSupportedException();
-        }
-
-        // -- Double
-        public void Write(double value)
-        {
-            throw new NotSupportedException();
-        }
-
-        // -- StringArray
-        public void Write(string[] value)
-        {
-            throw new NotSupportedException();
-        }
-
-        // -- VarIntArray
-        public void Write(int[] value)
-        {
-            throw new NotSupportedException();
-        }
-
-        // -- IntArray
-        public void Write(VarInt[] value)
-        {
-            throw new NotSupportedException();
-        }
-
-        // -- ByteArray
-        public void Write(byte[] value)
-        {
-            throw new NotSupportedException();
-        }
-
-        #endregion Write
-
-
-        #region Read
-
-        public byte ReadByte()
-        {
-            throw new NotSupportedException();
-        }
-
-        public VarInt ReadVarInt()
-        {
-            throw new NotSupportedException();
-        }
-
-        public byte[] ReadByteArray(int length)
-        {
-            throw new NotSupportedException();
-        }
-
-        #endregion Read
-
 
         private static string CreateData(ref P3DPacket packet)
         {
@@ -204,24 +61,19 @@ namespace PokeD.Core.IO
             return stringBuilder.ToString();
         }
 
-        public void SendPacket(ref ProtobufPacket packet)
-        {
-            throw new NotImplementedException();
-        }
         public void SendPacket(ref P3DPacket packet)
         {
             var str = CreateData(ref packet);
             var array = Encoding.UTF8.GetBytes(str + "\r\n");
-            _tcp.WriteByteArray(array);
+            TCP.WriteByteArray(array);
         }
 
 
-        void IDisposable.Dispose()
+        public override void Dispose()
         {
-            if (Connected)
-                _tcp.Disconnect();
+            base.Dispose();
 
-            _tcp?.Dispose();
+            Reader.Dispose();
         }
     }
 }

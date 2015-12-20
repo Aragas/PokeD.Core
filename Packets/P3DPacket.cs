@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-using Aragas.Core.Packets;
-
 using PokeD.Core.Data;
 
 namespace PokeD.Core.Packets
 {
-    public abstract class P3DPacket : ProtobufPacket
+    public abstract class P3DPacket : ProtobufOriginPacket
     {
         public static Single ProtocolVersion { get; set; } = 0.5f;
         public DataItems DataItems = new DataItems();
