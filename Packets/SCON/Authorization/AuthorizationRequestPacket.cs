@@ -4,7 +4,7 @@ using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.SCON.Authorization
 {
-    public class AuthorizationRequestPacket : ProtobufPacket
+    public class AuthorizationRequestPacket : SCONPacket
     {
         public override VarInt ID => (int) SCONPacketTypes.AuthorizationRequest;
 

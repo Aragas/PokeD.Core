@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 
 using PokeD.Core.Data;
+using PokeD.Core.Data.P3D;
 
 namespace PokeD.Core.Packets
 {

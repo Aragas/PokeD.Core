@@ -4,9 +4,9 @@ using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.SCON.Lua
 {
-    public class UploadLuaToServerPacket : ProtobufPacket
+    public class UploadLuaToServerPacket : SCONPacket
     {
-        public string LuaFile;
+        public string LuaFile { get; set; }
 
         public override VarInt ID => (int) SCONPacketTypes.UploadLuaToServer;
 

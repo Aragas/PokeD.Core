@@ -4,9 +4,9 @@ using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.SCON.Authorization
 {
-    public class AuthorizationDisconnectPacket : ProtobufPacket
+    public class AuthorizationDisconnectPacket : SCONPacket
     {
-        public string Reason;
+        public string Reason { get; set; }
 
         public override VarInt ID => (int) SCONPacketTypes.AuthorizationDisconnect;
 

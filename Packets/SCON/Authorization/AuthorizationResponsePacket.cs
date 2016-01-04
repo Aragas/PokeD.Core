@@ -13,9 +13,9 @@ namespace PokeD.Core.Packets.SCON.Authorization
         EncryprionEnabled = 2
     }
 
-    public class AuthorizationResponsePacket : ProtobufPacket
+    public class AuthorizationResponsePacket : SCONPacket
     {
-        public AuthorizationStatus AuthorizationStatus;
+        public AuthorizationStatus AuthorizationStatus { get; set; }
 
         public override VarInt ID => (int) SCONPacketTypes.AuthorizationResponse;
 

@@ -1,7 +1,6 @@
 ﻿using System;
 
 using Aragas.Core.Extensions;
-using Aragas.Core.Packets;
 using Aragas.Core.Wrappers;
 
 namespace PokeD.Core.Packets
@@ -54,7 +53,7 @@ namespace PokeD.Core.Packets
 
     public static class SCONPacketResponses
     {
-        public static readonly Func<ProtobufPacket>[] Packets;
+        public static readonly Func<SCONPacket>[] Packets;
 
         static SCONPacketResponses()
         {

@@ -4,7 +4,7 @@ using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.SCON.Lua
 {
-    public class ReloadNPCsPacket : ProtobufPacket
+    public class ReloadNPCsPacket : SCONPacket
     {
         public override VarInt ID => (int) SCONPacketTypes.ReloadNPCs;
 

@@ -1,27 +1,27 @@
 ﻿using Aragas.Core.Data;
 using Aragas.Core.IO;
 using Aragas.Core.Packets;
-
-using PokeD.Core.Data.Structs;
+using PokeD.Core.Data.SCON;
+using PokeD.Core.Extensions;
 
 namespace PokeD.Core.Packets.SCON.Logs
 {
-    public class LogListResponsePacket : ProtobufPacket
+    public class LogListResponsePacket : SCONPacket
     {
-        public LogList LogList { get; set; }
+        public Log[] Logs { get; set; }
 
         public override VarInt ID => (int) SCONPacketTypes.LogListResponse;
 
         public override ProtobufPacket ReadPacket(PacketDataReader reader)
         {
-            LogList = LogList.FromReader(reader);
+            Logs = reader.Read(Logs);
 
             return this;
         }
 
         public override ProtobufPacket WritePacket(PacketStream stream)
         {
-            LogList.ToStream(stream);
+            stream.Write(Logs);
 
             return this;
         }

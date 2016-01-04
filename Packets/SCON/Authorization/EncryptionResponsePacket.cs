@@ -4,10 +4,10 @@ using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.SCON.Authorization
 {
-    public class EncryptionResponsePacket : ProtobufPacket
+    public class EncryptionResponsePacket : SCONPacket
     {
-        public byte[] SharedSecret;
-        public byte[] VerificationToken;
+        public byte[] SharedSecret { get; set; }
+        public byte[] VerificationToken { get; set; }
 
         public override VarInt ID => (int) SCONPacketTypes.EncryptionResponse;
 

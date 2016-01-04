@@ -4,7 +4,7 @@ using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.SCON.Chat
 {
-    public class StopChatReceivingPacket : ProtobufPacket
+    public class StopChatReceivingPacket : SCONPacket
     {
         public override VarInt ID => (int) SCONPacketTypes.StopChatReceiving;
 

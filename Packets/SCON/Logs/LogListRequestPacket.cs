@@ -4,7 +4,7 @@ using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.SCON.Logs
 {
-    public class LogListRequestPacket : ProtobufPacket
+    public class LogListRequestPacket : SCONPacket
     {
         public override VarInt ID => (int) SCONPacketTypes.LogListRequest;
 

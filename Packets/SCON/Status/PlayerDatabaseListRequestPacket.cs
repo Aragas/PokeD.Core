@@ -4,7 +4,7 @@ using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.SCON.Status
 {
-    public class PlayerDatabaseListRequestPacket : ProtobufPacket
+    public class PlayerDatabaseListRequestPacket : SCONPacket
     {
         public override VarInt ID => (int) SCONPacketTypes.PlayerDatabaseListRequest;
 

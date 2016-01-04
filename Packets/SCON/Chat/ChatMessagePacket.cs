@@ -4,10 +4,10 @@ using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.SCON.Chat
 {
-    public class ChatMessagePacket : ProtobufPacket
+    public class ChatMessagePacket : SCONPacket
     {
-        public string Player;
-        public string Message;
+        public string Player { get; set; }
+        public string Message { get; set; }
 
         public override VarInt ID => (int) SCONPacketTypes.ChatMessage;
 

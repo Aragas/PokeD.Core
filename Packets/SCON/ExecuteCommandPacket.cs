@@ -4,9 +4,9 @@ using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.SCON
 {
-    public class ExecuteCommandPacket : ProtobufPacket
+    public class ExecuteCommandPacket : SCONPacket
     {
-        public string Command;
+        public string Command { get; set; }
 
         public override VarInt ID => (int) SCONPacketTypes.ExecuteCommand;
 

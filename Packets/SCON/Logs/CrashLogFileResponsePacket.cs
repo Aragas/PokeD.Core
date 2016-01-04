@@ -4,10 +4,10 @@ using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.SCON.Logs
 {
-    public class CrashLogFileResponsePacket : ProtobufPacket
+    public class CrashLogFileResponsePacket : SCONPacket
     {
-        public string CrashLogFilename;
-        public string CrashLogFile;
+        public string CrashLogFilename { get; set; }
+        public string CrashLogFile { get; set; }
 
         public override VarInt ID => (int) SCONPacketTypes.CrashLogFileResponse;
 
