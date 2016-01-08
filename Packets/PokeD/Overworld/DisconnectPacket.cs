@@ -2,25 +2,25 @@
 using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
-namespace PokeD.Core.Packets.PokeD.Chat
+namespace PokeD.Core.Packets.PokeD.Overworld
 {
-    public class ChatGlobalMessagePacket : PokeDPacket
+    public class DisconnectPacket : PokeDPacket
     {
-        public string Message { get; set; }
+        public string Reason { get; set; }
 
 
-        public override VarInt ID => (int) PokeDPacketTypes.ChatGlobalMessage;
+        public override VarInt ID => (int) PokeDPacketTypes.Disconnect;
 
         public override ProtobufPacket ReadPacket(PacketDataReader reader)
         {
-            Message = reader.Read(Message);
+            Reason = reader.Read(Reason);
 
             return this;
         }
 
         public override ProtobufPacket WritePacket(PacketStream writer)
         {
-            writer.Write(Message);
+            writer.Write(Reason);
 
             return this;
         }

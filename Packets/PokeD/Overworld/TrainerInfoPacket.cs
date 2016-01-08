@@ -49,7 +49,7 @@ namespace PokeD.Core.Packets.PokeD.Overworld
         public IOpponentTeam MonsterTeam { get; set; }
 
 
-        public override VarInt ID => (int) P3DPacketTypes.ChatMessageGlobal;
+        public override VarInt ID => (int) PokeDPacketTypes.TrainerInfo;
 
         public override ProtobufPacket ReadPacket(PacketDataReader reader)
         {

@@ -14,7 +14,7 @@ namespace PokeD.Core.Packets.PokeD.Overworld
         public Vector3 Position { get { return Info.Position; } private set { Info.Position = value; } }
 
 
-        public override VarInt ID => (int) P3DPacketTypes.ChatMessageGlobal;
+        public override VarInt ID => (int) PokeDPacketTypes.Position;
 
         public override ProtobufPacket ReadPacket(PacketDataReader reader)
         {

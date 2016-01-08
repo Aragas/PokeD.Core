@@ -241,14 +241,14 @@ namespace PokeD.Core.Data.PokeD.Monster
         public short ID { get; }
         public MonsterCatchInfo CatchInfo { get; set; } = new MonsterCatchInfo();
 
-        private uint PersonalityValue { get; }
+        public uint PersonalityValue { get; }
         public MonsterGender Gender => StaticData.MaleMax == byte.MaxValue ? MonsterGender.Genderless : (PersonalityValue % 256 < StaticData.MaleMax ? MonsterGender.Male : MonsterGender.Female);
 
         //public short Ability => (short) (PersonalityValue / 65536 % 2);
         public bool OneAbility => (PersonalityValue / 65536 % 2) != 0;
         public bool IsShiny => (PersonalityValue % 65536) < 16;
         public byte Characteristic => (byte)(PersonalityValue % 6);
-        public short[] Abilities { get; set; }
+        public short[] Abilities { get; }
         public byte Nature { get; }
 
         public int Experience { get; set; }
@@ -273,16 +273,25 @@ namespace PokeD.Core.Data.PokeD.Monster
         public Vector2[] SpindaSpots => BitConverter.GetBytes(PersonalityValue).Select(b => new Vector2(b & 0x0F, b >> 4)).ToArray();
         public byte WurmplesEvolution => (byte) (PersonalityValue / 65536);
 
-        public MonsterInstanceData(short id, string nickname, MonsterGender gender, bool isShiny, byte nature)
+        public MonsterInstanceData(short id, uint personalityValue, short[] abilities, byte nature)
         {
             ID = id;
 
             StaticData = MonsterStaticData.LoadStaticDataPokeApi(ID);
 
-            CatchInfo.Nickname = string.IsNullOrEmpty(nickname) ? StaticData.Name : nickname;
-            
-            PersonalityValue = GenerateRandom(gender, isShiny);
+            PersonalityValue = personalityValue;
+            Abilities = abilities;
+            Nature = nature;
+        }
+        
+        public MonsterInstanceData(short id, MonsterGender gender, bool isShiny, short[] abilities, byte nature)
+        {
+            ID = id;
 
+            StaticData = MonsterStaticData.LoadStaticDataPokeApi(ID);
+
+            PersonalityValue = GenerateRandom(gender, isShiny);
+            Abilities = abilities;
             Nature = nature;
         }
         private uint GenerateRandom(MonsterGender gender, bool isShiny)

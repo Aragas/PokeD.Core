@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="Data\PokeD\Battle\BattleState.cs" />
     <Compile Include="Data\PokeD\Battle\IBattleInfo.cs" />
+    <Compile Include="Data\PokeD\Monster\Interfaces\IMonsterTradeInfo.cs" />
     <Compile Include="Data\PokeD\Structs\MetaSwitch.cs" />
     <Compile Include="Data\PokeD\Structs\MetaPosition.cs" />
     <Compile Include="Data\PokeD\Monster\Data\MonsterEggGroup.cs" />
@@ -75,6 +76,10 @@
     <Compile Include="Packets\P3D\Encryption\EncryptionResponsePacket.cs" />
     <Compile Include="Packets\P3D\Encryption\JoiningGameRequestPacket.cs" />
     <Compile Include="Packets\P3D\Encryption\JoiningGameResponsePacket.cs" />
+    <Compile Include="Packets\PokeD\Authorization\AuthorizationCompletePacket.cs" />
+    <Compile Include="Packets\PokeD\Authorization\AuthorizationDisconnectPacket.cs" />
+    <Compile Include="Packets\PokeD\Authorization\AuthorizationRequestPacket.cs" />
+    <Compile Include="Packets\PokeD\Authorization\AuthorizationResponsePacket.cs" />
     <Compile Include="Packets\PokeD\Battle\BattleAcceptPacket.cs" />
     <Compile Include="Packets\PokeD\Battle\BattleCancelledPacket.cs" />
     <Compile Include="Packets\PokeD\Battle\BattleRequestPacket.cs" />
@@ -86,17 +91,22 @@
     <Compile Include="Data\PokeD\Structs\MetaAttack.cs" />
     <Compile Include="Data\PokeD\Structs\MetaItem.cs" />
     <Compile Include="Packets\PokeD\Battle\BattleStatePacket.cs" />
+    <Compile Include="Packets\PokeD\Chat\ChatServerMessagePacket.cs" />
     <Compile Include="Packets\PokeD\Chat\ChatGlobalMessagePacket.cs" />
     <Compile Include="Packets\PokeD\Chat\ChatPrivateMessagePacket.cs" />
+    <Compile Include="Packets\PokeD\Overworld\DisconnectPacket.cs" />
     <Compile Include="Packets\PokeD\Overworld\TrainerInfoPacket.cs" />
     <Compile Include="Packets\PokeD\Overworld\PositionPacket.cs" />
+    <Compile Include="Packets\PokeD\Trade\TradeRefusePacket.cs" />
+    <Compile Include="Packets\PokeD\Trade\TradeAcceptPacket.cs" />
+    <Compile Include="Packets\PokeD\Trade\TradeOfferPacket.cs" />
     <Compile Include="Packets\SCONPacket.cs" />
     <Compile Include="Packets\PokeDPacketResponses.cs" />
     <Compile Include="Packets\PokeDPacket.cs" />
     <Compile Include="Packets\ProtobufOriginPacket.cs" />
     <Compile Include="Packets\P3DPacket.cs" />
-    <Compile Include="Packets\PokeD\Encryption\EncryptionRequestPacket.cs" />
-    <Compile Include="Packets\PokeD\Encryption\EncryptionResponsePacket.cs" />
+    <Compile Include="Packets\PokeD\Authorization\EncryptionRequestPacket.cs" />
+    <Compile Include="Packets\PokeD\Authorization\EncryptionResponsePacket.cs" />
     <Compile Include="Packets\SCONPacketResponses.cs" />
     <Compile Include="Packets\P3DPacketResponses.cs" />
     <Compile Include="Packets\P3D\Battle\BattleClientDataPacket.cs" />
@@ -227,5 +237,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

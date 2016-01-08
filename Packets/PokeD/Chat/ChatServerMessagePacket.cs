@@ -4,17 +4,15 @@ using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.PokeD.Chat
 {
-    public class ChatPrivateMessagePacket : PokeDPacket
+    public class ChatServerMessagePacket : PokeDPacket
     {
-        public VarInt PlayerID { get; set; }
         public string Message { get; set; }
 
 
-        public override VarInt ID => (int) PokeDPacketTypes.ChatPrivateMessage;
+        public override VarInt ID => (int) PokeDPacketTypes.ChatServerMessage;
 
         public override ProtobufPacket ReadPacket(PacketDataReader reader)
         {
-            PlayerID = reader.Read(PlayerID);
             Message = reader.Read(Message);
 
             return this;
@@ -22,7 +20,6 @@ namespace PokeD.Core.Packets.PokeD.Chat
 
         public override ProtobufPacket WritePacket(PacketStream writer)
         {
-            writer.Write(PlayerID);
             writer.Write(Message);
 
             return this;

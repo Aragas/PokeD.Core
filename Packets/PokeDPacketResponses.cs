@@ -7,23 +7,41 @@ namespace PokeD.Core.Packets
 {
     public enum PokeDPacketTypes
     {
-        Position                = 0x00,
-        TrainerInfo             = 0x01,
+        AuthorizationRequest    = 0xA1,
+        AuthorizationResponse   = 0xA2,
+        AuthorizationDisconnect = 0xA3,
+        AuthorizationComplete   = 0xA4,
+        EncryptionRequest       = 0xA5,
+        EncryptionResponse      = 0xA6,
+
 
         BattleRequest           = 0xB0,
-        BattleCancelled         = 0xB8,
-        BattleOffer             = 0xB1,
-        BattleAccept            = 0xB2,
+        BattleCancelled         = 0xB1,
+        BattleOffer             = 0xB2,
+        BattleAccept            = 0xB3,
         
-        BattleAttack            = 0xB3,
-        BattleItem              = 0xB4,
-        BattleSwitch            = 0xB5,
-        BattleFlee              = 0xB6,
+        BattleAttack            = 0xB4,
+        BattleItem              = 0xB5,
+        BattleSwitch            = 0xB6,
+        BattleFlee              = 0xB7,
+        
+        BattleState             = 0xB8,
 
-        BattleState             = 0xB7,
 
         ChatGlobalMessage       = 0xC0,
         ChatPrivateMessage      = 0xC1,
+        ChatServerMessage       = 0xC2,
+
+
+        Position                = 0xD0,
+        TrainerInfo             = 0xD1,
+
+
+        TradeOffer              = 0xE0,
+        TradeAccept             = 0xE1,
+        TradeRefuse             = 0xE2,
+
+        Disconnect              = 0xFF,
     }
 
     public static class PokeDPacketResponses

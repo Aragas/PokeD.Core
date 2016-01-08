@@ -2,18 +2,19 @@
 using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
-namespace PokeD.Core.Packets.PokeD.Encryption
+namespace PokeD.Core.Packets.PokeD.Authorization
 {
-    public class EncryptionRequestPacket : P3DPacket
+    public class EncryptionResponsePacket : PokeDPacket
     {
-        public byte[] PublicKey;
+        public byte[] SharedSecret;
         public byte[] VerificationToken;
 
-        public override VarInt ID => (int) P3DPacketTypes.EncryptionRequest;
+
+        public override VarInt ID => (int) PokeDPacketTypes.EncryptionResponse;
 
         public override ProtobufPacket ReadPacket(PacketDataReader reader)
         {
-            PublicKey = reader.Read(PublicKey);
+            SharedSecret = reader.Read(SharedSecret);
             VerificationToken = reader.Read(VerificationToken);
 
             return this;
@@ -21,7 +22,7 @@ namespace PokeD.Core.Packets.PokeD.Encryption
 
         public override ProtobufPacket WritePacket(PacketStream stream)
         {
-            stream.Write(PublicKey);
+            stream.Write(SharedSecret);
             stream.Write(VerificationToken);
 
             return this;
