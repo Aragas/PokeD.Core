@@ -2,9 +2,12 @@
 using Aragas.Core.Extensions;
 using Aragas.Core.IO;
 
-using PokeD.Core.Data.PokeD;
+using PokeD.Core.Data.PokeD.Battle;
 using PokeD.Core.Data.PokeD.Monster;
+using PokeD.Core.Data.PokeD.Monster.Interfaces;
+using PokeD.Core.Data.PokeD.Structs;
 using PokeD.Core.Data.PokeD.Trainer;
+using PokeD.Core.Data.PokeD.Trainer.Interfaces;
 using PokeD.Core.Data.SCON;
 
 using static Aragas.Core.IO.PacketDataReader;
@@ -54,7 +57,8 @@ namespace PokeD.Core.Extensions
             var level = reader.Read<byte>();
             var isShiny = reader.Read<bool>();
 
-            return new Monster(id, nickname, (MonsterGender) gender, level, isShiny);
+            //return new Monster(id, nickname, (MonsterGender) gender, level, isShiny);
+            return null;
         }
 
         public static void Write(this PacketStream stream, IOpponentTeam value)

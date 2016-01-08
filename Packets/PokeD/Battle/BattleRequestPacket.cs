@@ -13,7 +13,7 @@ namespace PokeD.Core.Packets.PokeD.Battle
         public string Message { get; set; }
 
 
-        public override VarInt ID => (int) P3DPacketTypes.BattleClientData;
+        public override VarInt ID => (int) PokeDPacketTypes.BattleRequest;
 
         public override ProtobufPacket ReadPacket(PacketDataReader reader)
         {

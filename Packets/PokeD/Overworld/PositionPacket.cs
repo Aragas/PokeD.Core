@@ -2,12 +2,12 @@
 using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
-using PokeD.Core.Data.PokeD;
+using PokeD.Core.Data.PokeD.Structs;
 using PokeD.Core.Extensions;
 
 namespace PokeD.Core.Packets.PokeD.Overworld
 {
-    public class PositionPacket : P3DPacket
+    public class PositionPacket : PokeDPacket
     {
         private MetaPosition Info { get; set; }
 

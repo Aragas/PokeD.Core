@@ -1,4 +1,4 @@
-namespace PokeD.Core.Data.PokeD.Trainer
+namespace PokeD.Core.Data.PokeD.Trainer.Interfaces
 {
     public interface IOpponentServerInfo
     {

@@ -2,31 +2,28 @@
 using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
-using PokeD.Core.Data.PokeD.Battle;
-using PokeD.Core.Extensions;
-
 namespace PokeD.Core.Packets.PokeD.Battle
 {
     /// <summary>
-    /// From Server
+    /// From Client
     /// </summary>
-    public class BattleStatePacket : PokeDPacket
+    public class BattleAcceptPacket : PokeDPacket
     {
-        public BattleState BattleState { get; set; }
+        public bool IsAccepted { get; set; }
 
 
-        public override VarInt ID => (int) PokeDPacketTypes.BattleState;
+        public override VarInt ID => (int) PokeDPacketTypes.BattleAccept;
 
         public override ProtobufPacket ReadPacket(PacketDataReader reader)
         {
-            BattleState = reader.Read(BattleState);
+            IsAccepted = reader.Read(IsAccepted);
 
             return this;
         }
 
         public override ProtobufPacket WritePacket(PacketStream writer)
         {
-            //writer.Write(BattleState);
+            writer.Write(IsAccepted);
 
             return this;
         }

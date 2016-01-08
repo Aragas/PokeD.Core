@@ -1,6 +1,7 @@
 ﻿using Aragas.Core.Data;
 using Aragas.Core.IO;
 using Aragas.Core.Packets;
+
 using PokeD.Core.Data.SCON;
 using PokeD.Core.Extensions;
 

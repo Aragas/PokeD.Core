@@ -4,12 +4,12 @@ using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.PokeD.Chat
 {
-    public class ChatMessagePacket : P3DPacket
+    public class ChatGlobalMessagePacket : P3DPacket
     {
         public string Message { get; set; }
 
 
-        public override VarInt ID => (int) P3DPacketTypes.ChatMessageGlobal;
+        public override VarInt ID => (int) PokeDPacketTypes.ChatGlobalMessage;
 
         public override ProtobufPacket ReadPacket(PacketDataReader reader)
         {

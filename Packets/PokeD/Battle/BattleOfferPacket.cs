@@ -7,13 +7,13 @@ namespace PokeD.Core.Packets.PokeD.Battle
     /// <summary>
     /// From Server
     /// </summary>
-    public class BattleOfferPacket : P3DPacket
+    public class BattleOfferPacket : PokeDPacket
     {
         public VarInt[] PlayerIDs { get; set; } // First is Player that has offered battle
         public string Message { get; set; }
 
 
-        public override VarInt ID => (int) P3DPacketTypes.BattleOffer;
+        public override VarInt ID => (int) PokeDPacketTypes.BattleOffer;
 
         public override ProtobufPacket ReadPacket(PacketDataReader reader)
         {

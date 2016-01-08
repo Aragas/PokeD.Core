@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Aragas.Core.Data;
 
 namespace PokeD.Core.Data.SCON

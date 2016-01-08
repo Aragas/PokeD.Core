@@ -1,10 +1,12 @@
-namespace PokeD.Core.Data.PokeD.Monster
+using PokeD.Core.Data.PokeD.Monster.Data;
+
+namespace PokeD.Core.Data.PokeD.Monster.Interfaces
 {
     public interface IMonsterInfo
     {
         short ID { get; }
         string DisplayName { get; }
-        short TrainerID { get; }
+        MonsterCatchInfo CatchInfo { get; }
 
         byte Level { get; }
         int Experience { get; }
@@ -13,12 +15,9 @@ namespace PokeD.Core.Data.PokeD.Monster
         short CurrentHP { get; }
         short StatusEffect { get; }
         MonsterGender Gender { get; }
-        short Ability { get; }
+        short[] Abilities { get; }
         bool IsShiny { get; }
 
-        //MonsterStats BaseStats { get; }
-        //MonsterStats EV { get; }
-        //MonsterStats IV { get; }
         MonsterStats Stats { get; }
 
         int EggSteps { get; }

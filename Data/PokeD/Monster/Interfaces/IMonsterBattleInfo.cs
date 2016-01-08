@@ -1,4 +1,6 @@
-namespace PokeD.Core.Data.PokeD.Monster
+using PokeD.Core.Data.PokeD.Monster.Data;
+
+namespace PokeD.Core.Data.PokeD.Monster.Interfaces
 {
     public interface IMonsterBattleInfo
     {

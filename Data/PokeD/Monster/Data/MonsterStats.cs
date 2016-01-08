@@ -1,4 +1,4 @@
-namespace PokeD.Core.Data.PokeD.Monster
+namespace PokeD.Core.Data.PokeD.Monster.Data
 {
     public enum MonsterStatType
     {
@@ -11,12 +11,27 @@ namespace PokeD.Core.Data.PokeD.Monster
     }
     public class MonsterStats
     {
+        public static MonsterStats Empty => new MonsterStats(0, 0, 0, 0, 0, 0);
+
         public short HP { get; }
         public short Attack { get; }
         public short Defense { get; }
         public short SpecialAttack { get; }
         public short SpecialDefense { get; }
         public short Speed { get; }
+
+
+        public MonsterStats(short hp, short attack, short defense, short specialAttack, short specialDefense, short speed)
+        {
+            HP = hp;
+            Attack = attack;
+            Defense = defense;
+            SpecialAttack = specialAttack;
+            SpecialDefense = specialDefense;
+            Speed = speed;
+        }
+        
+        public override string ToString() => $"HP: {HP}, Att: {Attack}, Def: {Defense}, SpAtt: {SpecialAttack}, SpDef: {SpecialDefense}, Spd: {Speed}";
 
         public short GetStat(MonsterStatType statType)
         {
@@ -37,16 +52,6 @@ namespace PokeD.Core.Data.PokeD.Monster
             }
 
             return 0;
-        }
-
-        public MonsterStats(short hp, short attack, short defense, short specialAttack, short specialDefense, short speed)
-        {
-            HP = hp;
-            Attack = attack;
-            Defense = defense;
-            SpecialAttack = specialAttack;
-            SpecialDefense = specialDefense;
-            Speed = speed;
         }
     }
 }

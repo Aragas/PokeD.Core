@@ -3,9 +3,7 @@ using Aragas.Core.Extensions;
 using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
-using PokeD.Core.Data.PokeD;
-using PokeD.Core.Data.PokeD.Monster;
-using PokeD.Core.Data.PokeD.Trainer;
+using PokeD.Core.Data.PokeD.Trainer.Interfaces;
 using PokeD.Core.Extensions;
 
 namespace PokeD.Core.Packets.PokeD.Overworld
@@ -39,7 +37,7 @@ namespace PokeD.Core.Packets.PokeD.Overworld
         public MetaTrainerInfo(byte meta) { Meta = meta; }
     }
 
-    public class TrainerInfoPacket : P3DPacket
+    public class TrainerInfoPacket : PokeDPacket
     {
         public VarInt PlayerID { get; set; }
         public short TrainerSprite { get; set; }

@@ -1,11 +1,11 @@
 ﻿using Aragas.Core.Data;
 
-using PokeD.Core.Data.PokeD.Monster;
+using PokeD.Core.Data.PokeD.Monster.Interfaces;
+using PokeD.Core.Data.PokeD.Trainer.Data;
+using PokeD.Core.Data.PokeD.Trainer.Interfaces;
 
 namespace PokeD.Core.Data.PokeD.Trainer
 {
-    public enum TrainerGender { Male, Female }
-
     public class TrainerStaticData
     {
         public string ID;
@@ -34,14 +34,18 @@ namespace PokeD.Core.Data.PokeD.Trainer
         }
     }
 
-
     public class Trainer : IOpponentInfo, IOpponentServerInfo, IOpponentTeamInfo, IOpponentBattleInfo
     {
-        public VarInt EntityID { get; }
+        public VarInt EntityID { get; set; }
         public short TrainerSprite { get; }
         private TrainernInstanceData TrainernInstanceData { get; }
 
-        public string Name => TrainernInstanceData.Name;
+        public string Name
+        {
+            get { return TrainernInstanceData.Name; }
+            set { throw new System.NotImplementedException(); }
+        }
+
         public short TrainerID => TrainernInstanceData.TrainerID;
         public short SecretID => TrainernInstanceData.SecretID;
 
@@ -50,6 +54,10 @@ namespace PokeD.Core.Data.PokeD.Trainer
         public IOpponentTeam MonsterTeam { get; set; }
         public IMonsterBattleInfo MainMonster => MonsterTeam.Monster_1;
 
+
+        public string Location;
+        public Vector3 Position;
+        public byte Facing;
 
 
         public Trainer(string name, TrainerGender gender)

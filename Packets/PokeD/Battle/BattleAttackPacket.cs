@@ -2,7 +2,7 @@
 using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
-using PokeD.Core.Data.PokeD;
+using PokeD.Core.Data.PokeD.Structs;
 using PokeD.Core.Extensions;
 
 namespace PokeD.Core.Packets.PokeD.Battle
@@ -10,7 +10,7 @@ namespace PokeD.Core.Packets.PokeD.Battle
     /// <summary>
     /// From Client
     /// </summary>
-    public class BattleAttackPacket : P3DPacket
+    public class BattleAttackPacket : PokeDPacket
     {
         private MetaAttack Info { get; set; }
 
@@ -19,7 +19,7 @@ namespace PokeD.Core.Packets.PokeD.Battle
         public byte TargetMonster { get { return Info.TargetMonster; } set { Info.TargetMonster = value; } }
 
 
-        public override VarInt ID => (int) P3DPacketTypes.BattleHostData;
+        public override VarInt ID => (int) PokeDPacketTypes.BattleAttack;
 
         public override ProtobufPacket ReadPacket(PacketDataReader reader)
         {

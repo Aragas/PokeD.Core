@@ -1,6 +1,8 @@
 using Aragas.Core.Data;
 
-namespace PokeD.Core.Data.PokeD.Trainer
+using PokeD.Core.Data.PokeD.Trainer.Data;
+
+namespace PokeD.Core.Data.PokeD.Trainer.Interfaces
 {
     public interface IOpponentInfo
     {

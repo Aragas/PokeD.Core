@@ -1,6 +1,6 @@
 using Aragas.Core.Extensions;
 
-namespace PokeD.Core.Data.PokeD
+namespace PokeD.Core.Data.PokeD.Structs
 {
     public class MetaAttack
     {

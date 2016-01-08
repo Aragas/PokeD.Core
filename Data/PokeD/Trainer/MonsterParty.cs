@@ -1,6 +1,6 @@
-using PokeD.Core.Data.PokeD.Trainer;
+using PokeD.Core.Data.PokeD.Trainer.Interfaces;
 
-namespace PokeD.Core.Data.PokeD
+namespace PokeD.Core.Data.PokeD.Trainer
 {
     public class MonsterParty : IOpponentTeam
     {

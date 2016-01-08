@@ -7,9 +7,9 @@ namespace PokeD.Core.Packets.PokeD.Battle
     /// <summary>
     /// From Client
     /// </summary>
-    public class BattleFleePacket : P3DPacket
+    public class BattleFleePacket : PokeDPacket
     {
-        public override VarInt ID => (int) P3DPacketTypes.BattleQuit;
+        public override VarInt ID => (int) PokeDPacketTypes.BattleFlee;
 
         public override ProtobufPacket ReadPacket(PacketDataReader reader)
         {
