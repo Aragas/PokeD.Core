@@ -102,7 +102,6 @@ namespace PokeD.Core.Extensions
         public static void Write(this PacketStream stream, Ban value)
         {
             stream.Write(value.Name);
-            stream.Write(value.GameJoltID);
             stream.Write(value.IP);
             stream.Write(value.BanTime);
             stream.Write(value.UnBanTime);
@@ -112,7 +111,6 @@ namespace PokeD.Core.Extensions
         {
             var value = new Ban();
             value.Name = reader.Read(value.Name);
-            value.GameJoltID = reader.Read(value.GameJoltID);
             value.IP = reader.Read(value.IP);
             value.BanTime = reader.Read(value.BanTime);
             value.UnBanTime = reader.Read(value.UnBanTime);
@@ -136,7 +134,6 @@ namespace PokeD.Core.Extensions
         public static void Write(this PacketStream stream, PlayerDatabase value)
         {
             stream.Write(value.Name);
-            stream.Write(value.GameJoltID);
             stream.Write(value.LastIP);
             stream.Write(value.LastSeen);
         }
@@ -144,7 +141,6 @@ namespace PokeD.Core.Extensions
         {
             var value = new PlayerDatabase();
             value.Name = reader.Read(value.Name);
-            value.GameJoltID = reader.Read(value.GameJoltID);
             value.LastIP = reader.Read(value.LastIP);
             value.LastSeen = reader.Read(value.LastSeen);
 
@@ -154,7 +150,6 @@ namespace PokeD.Core.Extensions
         public static void Write(this PacketStream stream, PlayerInfo value)
         {
             stream.Write(value.Name);
-            stream.Write(value.GameJoltID);
             stream.Write(value.IP);
             stream.Write(value.Ping);
             stream.Write(value.Position);
@@ -165,7 +160,6 @@ namespace PokeD.Core.Extensions
         {
             var value = new PlayerInfo();
             value.Name = reader.Read(value.Name);
-            value.GameJoltID = reader.Read(value.GameJoltID);
             value.IP = reader.Read(value.IP);
             value.Ping = reader.Read(value.Ping);
             value.Position = reader.Read(value.Position);

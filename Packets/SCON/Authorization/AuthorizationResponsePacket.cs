@@ -9,8 +9,7 @@ namespace PokeD.Core.Packets.SCON.Authorization
     [Flags]
     public enum AuthorizationStatus
     {
-        RemoteClientEnabled = 1,
-        EncryprionEnabled = 2
+        EncryprionEnabled = 1
     }
 
     public class AuthorizationResponsePacket : SCONPacket
