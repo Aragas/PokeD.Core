@@ -4,7 +4,7 @@ namespace PokeD.Core.Data.PokeD.Monster.Interfaces
 {
     public interface IMonsterInfo
     {
-        short ID { get; }
+        short Species { get; }
         string DisplayName { get; }
         MonsterCatchInfo CatchInfo { get; }
 
@@ -15,7 +15,7 @@ namespace PokeD.Core.Data.PokeD.Monster.Interfaces
         short CurrentHP { get; }
         short StatusEffect { get; }
         MonsterGender Gender { get; }
-        short[] Abilities { get; }
+        MonsterAbility Ability { get; }
         bool IsShiny { get; }
 
         MonsterStats Stats { get; }

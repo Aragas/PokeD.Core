@@ -54,7 +54,7 @@ namespace PokeD.Core.Extensions
         public static void Write(this PacketStream stream, Move value)
         {
             stream.Write(value.ID);
-            stream.Write(value.Additional);
+            stream.Write(value.PPUPs);
         }
         private static Move ReadMove(PacketDataReader reader, int length = 0)
         {
@@ -115,7 +115,7 @@ namespace PokeD.Core.Extensions
                 Method = reader.Read<string>(),
                 Location = reader.Read<string>(),
                 TrainerName = reader.Read<string>(),
-                TrainerID = reader.Read<short>(),
+                TrainerID = reader.Read<ushort>(),
                 PokeballID = reader.Read<byte>(),
                 Nickname = reader.Read<string>()
             };
@@ -123,9 +123,9 @@ namespace PokeD.Core.Extensions
 
         public static void Write(this PacketStream stream, MonsterInstanceData value)
         {
-            stream.Write(value.ID);
+            stream.Write(value.Species);
+            stream.Write(value.SecretID);
             stream.Write(value.PersonalityValue);
-            stream.Write(value.Abilities.Select(ability => (int) ability).ToArray());
             stream.Write(value.Nature);
             stream.Write(value.CatchInfo);
             stream.Write(value.Experience);
@@ -142,12 +142,12 @@ namespace PokeD.Core.Extensions
         }
         private static MonsterInstanceData ReadMonsterInstanceData(PacketDataReader reader, int length = 0)
         {
-            var id = reader.Read<short>();
+            var species = reader.Read<short>();
+            var secretId = reader.Read<ushort>();
             var personalityValue = reader.Read<uint>();
-            var abilities = reader.Read<int[]>().Select(ability => (short) ability).ToArray();
             var nature = reader.Read<byte>();
 
-            return new MonsterInstanceData(id, personalityValue, abilities, nature)
+            return new MonsterInstanceData(species, secretId, personalityValue, nature)
             {
                 CatchInfo = reader.Read<MonsterCatchInfo>(),
                 Experience = reader.Read<int>(),
@@ -168,7 +168,7 @@ namespace PokeD.Core.Extensions
         
         public static void Write(this PacketStream stream, IMonsterBaseInfo value)
         {
-            stream.Write(value.ID);
+            stream.Write(value.Species);
             stream.Write(value.DisplayName);
             stream.Write((byte) value.Gender);
             stream.Write(value.Level);

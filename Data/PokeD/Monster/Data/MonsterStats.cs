@@ -2,12 +2,12 @@ namespace PokeD.Core.Data.PokeD.Monster.Data
 {
     public enum MonsterStatType
     {
-        HP,
-        Attack,
-        Defense,
-        SpecialAttack,
-        SpecialDefense,
-        Speed
+        HP              = 1,
+        Attack          = 2,
+        Defense         = 3,
+        SpecialAttack   = 4,
+        SpecialDefense  = 5,
+        Speed           = 6
     }
     public class MonsterStats
     {

@@ -6,13 +6,14 @@ namespace PokeD.Core.Data.PokeD.Monster
 {
     public enum MonsterExperienceType
     {
-        Fast,
-        Erratic,
-        Fluctuating,
-        MediumFast,
-        MediumSlow,
-        Slow
+        Slow        = 1,
+        MediumFast  = 2,
+        Fast        = 3,
+        MediumSlow  = 4,
+        Erratic     = 5,
+        Fluctuating = 6
     }
+
     public static class MonsterExperienceCalculator
     {
         public static int GainExperience(IOpponentInfo trainer, Monster victorious, Monster fainted, bool hasParticipatedAndExpShare = false, bool useScaled = false)
@@ -43,6 +44,7 @@ namespace PokeD.Core.Data.PokeD.Monster
             byte level = 1;
             while (ExperienceNeededForLevel(experienceType, level) <= experience)
                 level++;
+            //level--;
 
             return level;
         }

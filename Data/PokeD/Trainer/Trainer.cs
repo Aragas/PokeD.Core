@@ -27,6 +27,10 @@ namespace PokeD.Core.Data.PokeD.Trainer
             Name = name;
             Gender = gender;
         }
+        public TrainernInstanceData(string name)
+        {
+            Name = name;
+        }
 
         public static TrainernInstanceData LoadData(int entityID)
         {
@@ -63,6 +67,10 @@ namespace PokeD.Core.Data.PokeD.Trainer
         public Trainer(string name, TrainerGender gender)
         {
             TrainernInstanceData = new TrainernInstanceData(name, gender);
+        }
+        public Trainer(string name)
+        {
+            TrainernInstanceData = new TrainernInstanceData(name);
         }
         private Trainer(int entityID)
         {

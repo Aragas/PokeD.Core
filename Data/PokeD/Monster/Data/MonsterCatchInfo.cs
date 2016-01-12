@@ -2,12 +2,14 @@ namespace PokeD.Core.Data.PokeD.Monster.Data
 {
     public class MonsterCatchInfo
     {
-        public string Full => $"{Method} {Location}";
-        public string Method { get; set; }
-        public string Location { get; set; }
+        public static MonsterCatchInfo Empty => new MonsterCatchInfo();
 
-        public string TrainerName { get; set; }
-        public short TrainerID { get; set; }
+        public string Full => $"{Method} {Location}";
+        public string Method { get; set; } = string.Empty;
+        public string Location { get; set; } = string.Empty;
+
+        public string TrainerName { get; set; } = string.Empty;
+        public ushort TrainerID { get; set; }
 
         public byte PokeballID { get; set; }
 

@@ -34,9 +34,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Data\Import\PK6.cs" />
+    <Compile Include="Data\Import\PK6Wrapped.cs" />
     <Compile Include="Data\PokeD\Battle\BattleState.cs" />
     <Compile Include="Data\PokeD\Battle\IBattleInfo.cs" />
     <Compile Include="Data\PokeD\Monster\Interfaces\IMonsterTradeInfo.cs" />
+    <Compile Include="Data\PokeD\Monster\Data\MonsterAbility.cs" />
+    <Compile Include="Data\PokeD\Monster\Data\MonsterHeldItem.cs" />
+    <Compile Include="Data\PokeD\PokeApi.cs" />
+    <Compile Include="Data\PokeD\PokeApiV2.cs" />
+    <Compile Include="Data\PokeD\PokeApiV2.Json.cs" />
     <Compile Include="Data\PokeD\Structs\MetaSwitch.cs" />
     <Compile Include="Data\PokeD\Structs\MetaPosition.cs" />
     <Compile Include="Data\PokeD\Monster\Data\MonsterEggGroup.cs" />
@@ -44,8 +51,6 @@
     <Compile Include="Data\PokeD\Monster\Data\MonsterType.cs" />
     <Compile Include="Data\PokeD\Trainer\Data\TrainerGender.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
-    <Compile Include="Data\PokeD\PokeApi.cs" />
-    <Compile Include="Data\PokeD\PokeApi.Json.cs" />
     <Compile Include="Data\PokeD\Monster\Interfaces\IMonsterBaseInfo.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Data\PokeD\Trainer\Interfaces\IOpponentServerInfo.cs" />
