@@ -35,6 +35,9 @@ namespace PokeD.Core.Packets
 
         Position                = 0xD0,
         TrainerInfo             = 0xD1,
+        Map                     = 0xD2,
+        TileSetRequest          = 0xD3,
+        TileSetResponse         = 0xD4,
 
 
         TradeOffer              = 0xE0,

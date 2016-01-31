@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Text;
 
 using Aragas.Core.Data;
 using Aragas.Core.Extensions;
@@ -13,6 +14,8 @@ using PokeD.Core.Data.PokeD.Trainer;
 using PokeD.Core.Data.PokeD.Trainer.Interfaces;
 using PokeD.Core.Data.SCON;
 
+using TMXParserPCL;
+
 using static Aragas.Core.IO.PacketDataReader;
 
 namespace PokeD.Core.Extensions
@@ -22,6 +25,8 @@ namespace PokeD.Core.Extensions
         public static void Init()
         {
             Aragas.Core.Extensions.PacketExtensions.Init();
+
+            ExtendRead<Map>(ReadMap);
 
             ExtendRead<Move>(ReadMove);
             ExtendRead<MonsterMoves>(ReadMonsterMoves);
@@ -46,6 +51,21 @@ namespace PokeD.Core.Extensions
             ExtendRead<Log[]>(ReadLogArray);
             ExtendRead<PlayerDatabase[]>(ReadPlayerDatabaseArray);
             ExtendRead<PlayerInfo[]>(ReadPlayerInfoArray);
+        }
+
+
+        public static void Write(this PacketStream stream, Map value)
+        {
+            //stream.Write(value.Species);
+            //stream.Write(value.DisplayName);
+            //stream.Write((byte)value.Gender);
+            //stream.Write(value.Level);
+            //stream.Write(value.IsShiny);
+        }
+        private static Map ReadMap(PacketDataReader reader, int length = 0)
+        {
+            var mapData = reader.Read<string>();
+            return Map.Load(new MemoryStream(Encoding.UTF8.GetBytes(mapData)));
         }
 
 
