@@ -82,7 +82,7 @@ namespace PokeD.Core.Data.PokeD.Monster
 
     public class MonsterStaticData
     {
-        public static Languages UsedLanguage { get; set; } = Languages.English;
+        public static Languages UsedLanguage { get; set; } = Languages.English; // TODO: Move it
         private static Dictionary<int, MonsterStaticData> Cache { get; } = new Dictionary<int, MonsterStaticData>(); 
 
         public short ID { get; }
@@ -330,6 +330,11 @@ namespace PokeD.Core.Data.PokeD.Monster
         public Monster(MonsterInstanceData instanceData)
         {
             InstanceData = instanceData;
+        }
+
+        public bool IsValid()
+        {
+            return true;
         }
     }
 }

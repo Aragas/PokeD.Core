@@ -11,7 +11,7 @@ namespace PokeD.Core.Packets.PokeD.Overworld
     {
         private MetaPosition Info { get; set; }
 
-        public Vector3 Position { get { return Info.Position; } private set { Info.Position = value; } }
+        public Vector3 Position { get { return Info.Position; } set { Info = new MetaPosition(value); } }
 
 
         public override VarInt ID => (int) PokeDPacketTypes.Position;

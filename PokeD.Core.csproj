@@ -103,6 +103,7 @@
     <Compile Include="Packets\PokeD\Overworld\DisconnectPacket.cs" />
     <Compile Include="Packets\PokeD\Overworld\Map\TileSetResponsePacket.cs" />
     <Compile Include="Packets\PokeD\Overworld\Map\MapPacket.cs" />
+    <Compile Include="Packets\PokeD\Overworld\PingPacket.cs" />
     <Compile Include="Packets\PokeD\Overworld\TrainerInfoPacket.cs" />
     <Compile Include="Packets\PokeD\Overworld\PositionPacket.cs" />
     <Compile Include="Packets\PokeD\Trade\TradeRefusePacket.cs" />

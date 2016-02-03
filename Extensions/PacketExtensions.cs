@@ -13,6 +13,7 @@ using PokeD.Core.Data.PokeD.Structs;
 using PokeD.Core.Data.PokeD.Trainer;
 using PokeD.Core.Data.PokeD.Trainer.Interfaces;
 using PokeD.Core.Data.SCON;
+using PokeD.Core.Packets.PokeD.Overworld.Map;
 
 using TMXParserPCL;
 
@@ -26,6 +27,8 @@ namespace PokeD.Core.Extensions
         {
             Aragas.Core.Extensions.PacketExtensions.Init();
 
+            ExtendRead<ImageResponse>(ReadImageResponse);
+            ExtendRead<TileSetResponse>(ReadTileSetResponse);
             ExtendRead<Map>(ReadMap);
 
             ExtendRead<Move>(ReadMove);
@@ -53,6 +56,25 @@ namespace PokeD.Core.Extensions
             ExtendRead<PlayerInfo[]>(ReadPlayerInfoArray);
         }
 
+        public static void Write(this PacketStream stream, ImageResponse value)
+        {
+            stream.Write(value.Name);
+            stream.Write(value.ImageData);
+        }
+        private static ImageResponse ReadImageResponse(PacketDataReader reader, int length = 0)
+        {
+            return new ImageResponse() { Name = reader.Read<string>(), ImageData = reader.Read<byte[]>() };
+        }
+
+        public static void Write(this PacketStream stream, TileSetResponse value)
+        {
+            stream.Write(value.Name);
+            stream.Write(value.TileSetData);
+        }
+        private static TileSetResponse ReadTileSetResponse(PacketDataReader reader, int length = 0)
+        {
+            return new TileSetResponse() { Name = reader.Read<string>(), TileSetData = reader.Read<string>() };
+        }
 
         public static void Write(this PacketStream stream, Map value)
         {
