@@ -274,10 +274,10 @@ namespace PokeD.Core.Data.PokeD.Monster
         private static byte GenerateNature() => (byte) new MersenneTwisterRandom().Next(25);
 
 
-        public bool IsValid() => (PersonalityValue == 0) ||
-                                 !StaticData.Abilities.Contains(Ability) ||
-                                 !IV.IsValidIV() ||
-                                 !EV.IsValidEV();
+        public bool IsValid() => (PersonalityValue != 0) ||
+                                 StaticData.Abilities.Contains(Ability) ||
+                                 IV.IsValidIV() ||
+                                 EV.IsValidEV();
     }
 
     public class Monster : IMonsterInfo, IMonsterBaseInfo, IMonsterBattleInfo
