@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using Aragas.Core.Data;
+﻿using Aragas.Core.Data;
 using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
@@ -29,26 +27,16 @@ namespace PokeD.Core.Packets.PokeD.Overworld.Map
 
         public override ProtobufPacket ReadPacket(PacketDataReader reader)
         {
-            TileSets = new TileSetResponse[reader.Read<VarInt>()];
-            for (var i = 0; i < TileSets.Length; i++)
-                TileSets[i] = reader.Read<TileSetResponse>();
-
-            Images = new ImageResponse[reader.Read<VarInt>()];
-            for (var i = 0; i < Images.Length; i++)
-                Images[i] = reader.Read<ImageResponse>();
+            TileSets = reader.Read(TileSets);
+            Images = reader.Read(Images);
 
             return this;
         }
 
         public override ProtobufPacket WritePacket(PacketStream writer)
         {
-            writer.Write(new VarInt(TileSets.Length));
-            for (var i = 0; i < TileSets.Length; i++)
-                writer.Write(TileSets[i]);
-
-            writer.Write(new VarInt(Images.Length));
-            for (var i = 0; i < Images.Length; i++)
-                writer.Write(Images[i]);
+            writer.Write(TileSets);
+            writer.Write(Images);
 
             return this;
         }

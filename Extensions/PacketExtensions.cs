@@ -27,6 +27,11 @@ namespace PokeD.Core.Extensions
         {
             Aragas.Core.Extensions.PacketExtensions.Init();
 
+            ExtendRead<FileHash[]>(ReadFileHashArray);
+            ExtendRead<FileHash>(ReadFileHash);
+
+            ExtendRead<ImageResponse[]>(ReadImageResponseArray);
+            ExtendRead<TileSetResponse[]>(ReadTileSetResponseArray);
             ExtendRead<ImageResponse>(ReadImageResponse);
             ExtendRead<TileSetResponse>(ReadTileSetResponse);
             ExtendRead<Map>(ReadMap);
@@ -56,6 +61,78 @@ namespace PokeD.Core.Extensions
             ExtendRead<PlayerInfo[]>(ReadPlayerInfoArray);
         }
 
+
+        public static void Write(this PacketStream stream, FileHash[] value)
+        {
+            stream.Write(new VarInt(value.Length));
+
+            foreach (var fileHash in value)
+                stream.Write(fileHash);
+        }
+        private static FileHash[] ReadFileHashArray(PacketDataReader reader, int length = 0)
+        {
+            if (length == 0)
+                length = reader.Read<VarInt>();
+
+            var array = new FileHash[length];
+
+            for (var i = 0; i < length; i++)
+                array[i] = ReadFileHash(reader);
+
+            return array;
+        }
+
+        public static void Write(this PacketStream stream, FileHash value)
+        {
+            stream.Write(value.Name);
+            stream.Write(value.Hash);
+        }
+        private static FileHash ReadFileHash(PacketDataReader reader, int length = 0)
+        {
+            return new FileHash() { Name = reader.Read<string>(), Hash = reader.Read<string>() };
+        }
+
+        
+        public static void Write(this PacketStream stream, ImageResponse[] value)
+        {
+            stream.Write(new VarInt(value.Length));
+
+            foreach (var imageResponse in value)
+                stream.Write(imageResponse);
+        }
+        private static ImageResponse[] ReadImageResponseArray(PacketDataReader reader, int length = 0)
+        {
+            if (length == 0)
+                length = reader.Read<VarInt>();
+
+            var array = new ImageResponse[length];
+
+            for (var i = 0; i < length; i++)
+                array[i] = ReadImageResponse(reader);
+
+            return array;
+        }
+
+        public static void Write(this PacketStream stream, TileSetResponse[] value)
+        {
+            stream.Write(new VarInt(value.Length));
+
+            foreach (var tileSetResponse in value)
+                stream.Write(tileSetResponse);
+        }
+        private static TileSetResponse[] ReadTileSetResponseArray(PacketDataReader reader, int length = 0)
+        {
+            if (length == 0)
+                length = reader.Read<VarInt>();
+
+            var array = new TileSetResponse[length];
+
+            for (var i = 0; i < length; i++)
+                array[i] = ReadTileSetResponse(reader);
+
+            return array;
+        }
+
         public static void Write(this PacketStream stream, ImageResponse value)
         {
             stream.Write(value.Name);
@@ -76,18 +153,10 @@ namespace PokeD.Core.Extensions
             return new TileSetResponse() { Name = reader.Read<string>(), TileSetData = reader.Read<string>() };
         }
 
-        public static void Write(this PacketStream stream, Map value)
-        {
-            //stream.Write(value.Species);
-            //stream.Write(value.DisplayName);
-            //stream.Write((byte)value.Gender);
-            //stream.Write(value.Level);
-            //stream.Write(value.IsShiny);
-        }
+        public static void Write(this PacketStream stream, Map value) { }
         private static Map ReadMap(PacketDataReader reader, int length = 0)
         {
-            var mapData = reader.Read<string>();
-            return Map.Load(new MemoryStream(Encoding.UTF8.GetBytes(mapData)));
+            return Map.Load(new MemoryStream(Encoding.UTF8.GetBytes(reader.Read<string>())));
         }
 
 
@@ -207,6 +276,7 @@ namespace PokeD.Core.Extensions
         }
 
         #endregion MonsterInstanceData
+
         
         public static void Write(this PacketStream stream, IMonsterBaseInfo value)
         {
@@ -352,7 +422,7 @@ namespace PokeD.Core.Extensions
 
             var array = new Ban[length];
 
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
                 array[i] = ReadBan(reader);
 
             return array;
@@ -372,7 +442,7 @@ namespace PokeD.Core.Extensions
 
             var array = new Log[length];
 
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
                 array[i] = ReadLog(reader);
 
             return array;
@@ -392,7 +462,7 @@ namespace PokeD.Core.Extensions
 
             var array = new PlayerDatabase[length];
 
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
                 array[i] = ReadPlayerDatabase(reader);
 
             return array;
@@ -412,7 +482,7 @@ namespace PokeD.Core.Extensions
 
             var array = new PlayerInfo[length];
 
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
                 array[i] = ReadPlayerInfo(reader);
 
             return array;

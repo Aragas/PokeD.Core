@@ -13,18 +13,14 @@ namespace PokeD.Core.Packets.PokeD.Overworld.Map
 
         public override ProtobufPacket ReadPacket(PacketDataReader reader)
         {
-            TileSetNames = new string[reader.Read<VarInt>()];
-            for (var i = 0; i < TileSetNames.Length; i++)
-                TileSetNames[i] = reader.Read<string>();
-            
+            TileSetNames = reader.Read(TileSetNames);
+
             return this;
         }
 
         public override ProtobufPacket WritePacket(PacketStream writer)
         {
-            writer.Write(new VarInt(TileSetNames.Length));
-            for (var i = 0; i < TileSetNames.Length; i++)
-                writer.Write(TileSetNames[i]);
+            writer.Write(TileSetNames);
            
             return this;
         }
