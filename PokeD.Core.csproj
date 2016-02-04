@@ -50,9 +50,7 @@
     <Compile Include="Data\PokeD\Monster\Data\MonsterGender.cs" />
     <Compile Include="Data\PokeD\Monster\Data\MonsterType.cs" />
     <Compile Include="Data\PokeD\Trainer\Data\TrainerGender.cs" />
-    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Data\PokeD\Monster\Interfaces\IMonsterBaseInfo.cs" />
-    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Data\PokeD\Trainer\Interfaces\IOpponentServerInfo.cs" />
     <Compile Include="Data\PokeD\Trainer\Interfaces\IOpponentTeamInfo.cs" />
     <Compile Include="Data\PokeD\Trainer\Interfaces\IOpponentInfo.cs" />
