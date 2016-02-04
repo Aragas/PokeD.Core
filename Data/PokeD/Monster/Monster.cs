@@ -247,11 +247,10 @@ namespace PokeD.Core.Data.PokeD.Monster
         }
         public MonsterInstanceData(short species, MonsterGender gender, bool isShiny, short ability, byte nature)
         {
+            StaticData = MonsterStaticData.LoadStaticDataPokeApiV2(species);
+
             Species = species;
-
-            StaticData = MonsterStaticData.LoadStaticDataPokeApiV2(Species);
-
-            PersonalityValue = GenerateRandom(gender, isShiny, ability);
+            PersonalityValue = StaticData.Abilities.Contains(ability) ? GenerateRandom(gender, isShiny, ability) : 0;
             Nature = nature;
         }
         private uint GenerateRandom(MonsterGender gender, bool isShiny, short ability)
@@ -273,6 +272,12 @@ namespace PokeD.Core.Data.PokeD.Monster
             return result;
         }
         private static byte GenerateNature() => (byte) new MersenneTwisterRandom().Next(25);
+
+
+        public bool IsValid() => (PersonalityValue == 0) ||
+                                 !StaticData.Abilities.Contains(Ability) ||
+                                 !IV.IsValidIV() ||
+                                 !EV.IsValidEV();
     }
 
     public class Monster : IMonsterInfo, IMonsterBaseInfo, IMonsterBattleInfo
@@ -334,7 +339,11 @@ namespace PokeD.Core.Data.PokeD.Monster
 
         public bool IsValid()
         {
+#if NOPOKEAPI
             return true;
+#else
+            return InstanceData.IsValid();
+#endif
         }
     }
 }

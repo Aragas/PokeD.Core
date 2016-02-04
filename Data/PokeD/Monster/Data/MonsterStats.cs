@@ -53,5 +53,27 @@ namespace PokeD.Core.Data.PokeD.Monster.Data
 
             return 0;
         }
+
+        public bool IsValidIV()
+        {
+            return (HP >= 0 && HP <= 31) &&
+                   (Attack >= 0 && Attack <= 31) &&
+                   (Defense >= 0 && Defense <= 31) &&
+                   (SpecialAttack >= 0 && SpecialAttack <= 31) &&
+                   (SpecialDefense >= 0 && SpecialDefense <= 31) &&
+                   (Speed >= 0 && Speed <= 31);
+        }
+
+        public bool IsValidEV()
+        {
+            // TODO: 255 or 252?
+            return (HP >= 0 && HP <= 255) &&
+                   (Attack >= 0 && Attack <= 255) &&
+                   (Defense >= 0 && Defense <= 255) &&
+                   (SpecialAttack >= 0 && SpecialAttack <= 255) &&
+                   (SpecialDefense >= 0 && SpecialDefense <= 255) &&
+                   (Speed >= 0 && Speed <= 255) &&
+                   (HP + Attack + Defense + SpecialAttack + SpecialDefense + Speed <= 510);
+        }
     }
 }
