@@ -6,80 +6,12 @@ using Aragas.Core.Data;
 
 using MersenneTwister;
 
+using PokeD.Core.Data.PokeApi;
 using PokeD.Core.Data.PokeD.Monster.Data;
 using PokeD.Core.Data.PokeD.Monster.Interfaces;
 
 namespace PokeD.Core.Data.PokeD.Monster
 {
-    public class MonsterMove
-    {
-        public int ID { get; set; }
-        public string Name { get; set; }
-
-        public int Type { get; set; }
-        public int PP { get; set; }
-        public int Accuracy { get; set; }
-        public int Power { get; set; }
-        public int EffectChance { get; set; }
-
-
-        //public object effect_chance { get; set; }
-        //public int priority { get; set; }
-        //public ContestCombos contest_combos { get; set; }
-        //public NamedAPIResource contest_type { get; set; }
-        //public ContestEffect contest_effect { get; set; }
-        //public NamedAPIResource damage_class { get; set; }
-        //public List<EffectEntry> effect_entries { get; set; }
-        //public List<object> effect_changes { get; set; }
-        //public NamedAPIResource generation { get; set; }
-        //public Meta meta { get; set; }
-        //public List<Localization> names { get; set; }
-        //public List<object> past_values { get; set; }
-        //public List<object> stat_changes { get; set; }
-        //public SuperContestEffect super_contest_effect { get; set; }
-        //public NamedAPIResource target { get; set; }
-        //public NamedAPIResource type { get; set; }
-    }
-    public class AvailableMoves
-    {
-        
-    }
-
-
-    public static class MonsterStatic
-    {
-        /*
-        public class EvolutionTriggers
-        {
-            public int ID { get; set; }
-            public string Trigger { get; set; }
-            public Localization[] Localizations { get; set; }
-            public NamedAPIResource[] Pokemons { get; set; }
-
-
-            public EvolutionTriggers(EvolutionTriggersJsonV2 data)
-            {
-                ID = data.id;
-                Trigger = data.name;
-                Localizations = data.names.ToArray();
-                Pokemons = data.pokemon_species.ToArray();
-            }
-        }
-        public static List<EvolutionTriggers> EvolutionTriggersList { get; } = new List<EvolutionTriggers>();
-
-
-        public static void Load()
-        {
-            for (int id = 1; id <= 4; id++)
-                EvolutionTriggersList.Add(new EvolutionTriggers(PokeApiV2.GetEvolutionTriggers(new ResourceUri($"api/v2/evolution-trigger/{id}/"))));
-
-
-            for (int id = 1; id <= 373; id++)
-                EvolutionTriggersList.Add(new EvolutionTriggers(PokeApiV2.GetEvolutionTriggers(new ResourceUri($"api/v2/evolution-trigger/{id}/"))));
-        }
-        */
-    }
-
     public class MonsterStaticData
     {
         public static Languages UsedLanguage { get; set; } = Languages.English; // TODO: Move it

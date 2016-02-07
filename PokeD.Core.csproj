@@ -41,9 +41,13 @@
     <Compile Include="Data\PokeD\Monster\Interfaces\IMonsterTradeInfo.cs" />
     <Compile Include="Data\PokeD\Monster\Data\MonsterAbility.cs" />
     <Compile Include="Data\PokeD\Monster\Data\MonsterHeldItem.cs" />
-    <Compile Include="Data\PokeD\PokeApi.cs" />
-    <Compile Include="Data\PokeD\PokeApiV2.cs" />
-    <Compile Include="Data\PokeD\PokeApiV2.Json.cs" />
+    <Compile Include="Data\PokeApi\Languages.cs" />
+    <Compile Include="Data\PokeApi\NamedAPIResource.cs" />
+    <Compile Include="Data\PokeApi\Localization.cs" />
+    <Compile Include="Data\PokeApi\PokeApiException.cs" />
+    <Compile Include="Data\PokeApi\PokeApiV2.cs" />
+    <Compile Include="Data\PokeApi\PokeApiV2.Json.cs" />
+    <Compile Include="Data\PokeApi\ResourceUri.cs" />
     <Compile Include="Data\PokeD\Structs\MetaSwitch.cs" />
     <Compile Include="Data\PokeD\Structs\MetaPosition.cs" />
     <Compile Include="Data\PokeD\Monster\Data\MonsterEggGroup.cs" />

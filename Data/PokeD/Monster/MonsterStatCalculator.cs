@@ -44,7 +44,7 @@ namespace PokeD.Core.Data.PokeD.Monster
             // HP = 
             // (floor((2 * Base + IV + floor(EV / 4)) * Level) + Level + 10)
 
-            return (short) (Math.Floor(((2 * instanceData.StaticData.BaseStats.HP + instanceData.IV.HP + Math.Floor((double)instanceData.EV.HP / 4)) * instanceData.Level) / 100) + instanceData.Level + 10);
+            return (short) (Math.Floor(((2 * instanceData.StaticData.BaseStats.HP + instanceData.IV.HP + Math.Floor((double) instanceData.EV.HP / 4)) * instanceData.Level) / 100) + instanceData.Level + 10);
         }
     }
 }

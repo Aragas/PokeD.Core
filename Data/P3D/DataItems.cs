@@ -56,14 +56,8 @@ namespace PokeD.Core.Data.P3D
         }
 
 
-        public string[] ToArray()
-        {
-            return _dataItems;
-        }
+        public string[] ToArray() => _dataItems;
 
-        public override string ToString()
-        {
-            return string.Join("*", _dataItems);
-        }
+        public override string ToString() => string.Join("*", _dataItems);
     }
 }

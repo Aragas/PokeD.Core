@@ -30,9 +30,9 @@ namespace PokeD.Core.Data.PokeD.Monster
             double v = victorious.Level > victorious.StaticData.LevelEvolveRequirement ? 1.2 : 1;
 
             if (!useScaled)
-                return (int)((a * t * b * e * l * p * f * v) / 7 * s);
+                return (int) ((a * t * b * e * l * p * f * v) / 7 * s);
             else
-                return (int)((((a * b * l) / 5 * s) * (Math.Pow(2 * l + 10, 2.5) / Math.Pow(l + lp + 10, 2.5)) + 1) * t * e * p);
+                return (int) ((((a * b * l) / 5 * s) * (Math.Pow(2 * l + 10, 2.5) / Math.Pow(l + lp + 10, 2.5)) + 1) * t * e * p);
         }
 
         public static byte LevelForExperienceValue(MonsterExperienceType experienceType, int experience)
@@ -44,7 +44,6 @@ namespace PokeD.Core.Data.PokeD.Monster
             byte level = 1;
             while (ExperienceNeededForLevel(experienceType, level) <= experience)
                 level++;
-            //level--;
 
             return level;
         }

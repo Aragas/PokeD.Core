@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PokeD.Core.Data.PokeD
+namespace PokeD.Core.Data.PokeApi
 {
     public class EvolutionChainsJsonV2
     {

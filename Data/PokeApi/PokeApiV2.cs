@@ -5,72 +5,70 @@ using System.Net.Http;
 
 using Newtonsoft.Json;
 
-namespace PokeD.Core.Data.PokeD
+namespace PokeD.Core.Data.PokeApi
 {
     public static class PokeApiV2
     {
-        public static bool UseNetwork { get; set; } = true;
-
         public static PokemonJsonV2 GetPokemon(ResourceUri uri)
         {
             if (uri.Type != ResourceUri.ApiType.Pokemon || uri.Version != ResourceUri.ApiVersion.V2)
-                throw new Exception();
+                throw new PokeApiException("ResourceUri Type not correct. Should be ResourceUri.ApiType.Pokemon, or request is not ResourceUri.ApiVersion.V2");
 
             return GetPokemonNetwork(uri);
         }
         public static List<AbilitiesJsonV2> GetAbilities(params ResourceUri[] uris)
         {
             if (uris.Any(uri => uri.Type != ResourceUri.ApiType.Ability) || uris.Any(uri => uri.Version != ResourceUri.ApiVersion.V2))
-                throw new Exception();
+                throw new PokeApiException("ResourceUri Type not correct. Should be ResourceUri.ApiType.Ability, or request is not ResourceUri.ApiVersion.V2");
 
             return GetAbilitiesNetwork(uris);
         }
         public static List<MoveJsonV2> GetMoves(params ResourceUri[] uris)
         {
             if (uris.Any(uri => uri.Type != ResourceUri.ApiType.Move) || uris.Any(uri => uri.Version != ResourceUri.ApiVersion.V2))
-                throw new Exception();
+                throw new PokeApiException("ResourceUri Type not correct. Should be ResourceUri.ApiType.Move, or request is not ResourceUri.ApiVersion.V2");
 
             return GetMovesNetwork(uris);
         }
         public static List<PokemonTypeJsonV2> GetTypes(params ResourceUri[] uris)
         {
             if (uris.Any(uri => uri.Type != ResourceUri.ApiType.Type) || uris.Any(uri => uri.Version != ResourceUri.ApiVersion.V2))
-                throw new Exception();
+                throw new PokeApiException("ResourceUri Type not correct. Should be ResourceUri.ApiType.Type, or request is not ResourceUri.ApiVersion.V2");
 
             return GetTypesNetwork(uris);
         }
         public static List<EggGroupJsonV2> GetEggGroups(params ResourceUri[] uris)
         {
             if (uris.Any(uri => uri.Type != ResourceUri.ApiType.EggGroup) || uris.Any(uri => uri.Version != ResourceUri.ApiVersion.V2))
-                throw new Exception();
+                throw new PokeApiException("ResourceUri Type not correct. Should be ResourceUri.ApiType.EggGroup, or request is not ResourceUri.ApiVersion.V2");
 
             return GetEggGroupsNetwork(uris);
         }
         public static GenderJsonV2 GetGender(ResourceUri uri)
         {
             if (uri.Type != ResourceUri.ApiType.Gender || uri.Version != ResourceUri.ApiVersion.V2)
-                throw new Exception();
+                throw new PokeApiException("ResourceUri Type not correct. Should be ResourceUri.ApiType.Type, or request is not ResourceUri.ApiVersion.V2");
 
             return GetGenderNetwork(uri);
         }
         public static PokemonSpeciesJsonV2 GetPokemonSpecies(ResourceUri uri)
         {
             if (uri.Type != ResourceUri.ApiType.PokemonSpecies || uri.Version != ResourceUri.ApiVersion.V2)
-                throw new Exception();
+                throw new PokeApiException("ResourceUri Type not correct. Should be ResourceUri.ApiType.PokemonSpecies, or request is not ResourceUri.ApiVersion.V2");
 
             return GetPokemonSpeciesNetwork(uri);
         }
         public static List<ItemJsonV2> GetItems(params ResourceUri[] uris)
         {
             if (uris.Any(uri => uri.Type != ResourceUri.ApiType.Item) || uris.Any(uri => uri.Version != ResourceUri.ApiVersion.V2))
-                throw new Exception();
+                throw new PokeApiException("ResourceUri Type not correct. Should be ResourceUri.ApiType.Item, or request is not ResourceUri.ApiVersion.V2");
 
             return GetItemsNetwork(uris);
         }
         public static EvolutionTriggersJsonV2 GetEvolutionTriggers(ResourceUri uri)
         {
             if (uri.Type != ResourceUri.ApiType.EvolutionTrigger || uri.Version != ResourceUri.ApiVersion.V2)
-                throw new Exception();
+                throw new PokeApiException("ResourceUri Type not correct. Should be ResourceUri.ApiType.EvolutionTrigger, or request is not ResourceUri.ApiVersion.V2");
 
             return GetEvolutionTriggersNetwork(uri);
         }
@@ -134,5 +132,4 @@ namespace PokeD.Core.Data.PokeD
             return JsonConvert.DeserializeObject<EvolutionTriggersJsonV2>(response);
         }
     }
-
 }

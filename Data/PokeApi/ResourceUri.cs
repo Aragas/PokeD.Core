@@ -1,38 +1,13 @@
-﻿using System;
+using System;
 using System.Linq;
+
 using PokeD.Core.Extensions;
 
-namespace PokeD.Core.Data.PokeD
+namespace PokeD.Core.Data.PokeApi
 {
-    public class Localization
-    {
-        public string name { get; set; }
-        public NamedAPIResource language { get; set; }
-    }
-    public class NamedAPIResource
-    {
-        public string name { get; set; }
-        public string url { get; set; }
-    }
-
-    public enum Languages
-    {
-        Japanese        = 1,
-        OfficialRoomaji = 2,
-        Korean          = 3,
-        Chinese         = 4,
-        French          = 5,
-        German          = 6,
-        Spanish         = 7,
-        Italian         = 8,
-        English         = 9,
-        Czech           = 10,
-    }
-
-
     public class ResourceUri
     {
-        public static string URL { get; set; } = "";
+        public static string URL { private get; set; } = "";
 
         public enum ApiVersion { V1, V2 }
         public enum ApiType { Pokedex, Pokemon, PokemonSpecies, Type, Move, Ability, Egg, EggGroup, GrowthRate, Sprite, Language, Gender, Stat, Item, EvolutionTrigger }

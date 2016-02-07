@@ -1,14 +1,16 @@
+using System;
+
 namespace PokeD.Core.Data.PokeD.Monster.Data
 {
-    public class Move
+    public class MonsterMove
     {
-        public static Move Empty => new Move(0, 0);
+        public static MonsterMove Empty => new MonsterMove(0, 0);
 
         public int ID { get; }
         public int PPUPs { get; }
 
 
-        public Move(int id, int ppUPs)
+        public MonsterMove(int id, int ppUPs)
         {
             ID = id;
             PPUPs = ppUPs;
@@ -17,14 +19,14 @@ namespace PokeD.Core.Data.PokeD.Monster.Data
 
     public class MonsterMoves
     {
-        public static MonsterMoves Empty => new MonsterMoves(Move.Empty, Move.Empty, Move.Empty, Move.Empty);
+        public static MonsterMoves Empty => new MonsterMoves();
 
-        public Move Move_0 { get; } = Move.Empty;
-        public Move Move_1 { get; } = Move.Empty;
-        public Move Move_2 { get; } = Move.Empty;
-        public Move Move_3 { get; } = Move.Empty;
+        public MonsterMove Move_0 { get; } = MonsterMove.Empty;
+        public MonsterMove Move_1 { get; } = MonsterMove.Empty;
+        public MonsterMove Move_2 { get; } = MonsterMove.Empty;
+        public MonsterMove Move_3 { get; } = MonsterMove.Empty;
 
-        public MonsterMoves(params Move[] moves)
+        public MonsterMoves(params MonsterMove[] moves)
         {
             if (moves.Length > 0)
                 Move_0 = moves[0];
@@ -37,13 +39,20 @@ namespace PokeD.Core.Data.PokeD.Monster.Data
 
             if (moves.Length > 3)
                 Move_3 = moves[3];
+
+            if (moves.Length > 4)
+                throw new Exception();
         }
-        public MonsterMoves(Move move_0, Move move_1, Move move_2, Move move_3)
+        public MonsterMoves(MonsterMove move_0, MonsterMove move_1, MonsterMove move_2, MonsterMove move_3)
         {
             Move_0 = move_0;
             Move_1 = move_1;
             Move_2 = move_2;
             Move_3 = move_3;
         }
+
+
+        public bool Contains(MonsterMove move) => Move_0 == move || Move_1 == move || Move_2 == move || Move_3 == move;
+        public bool Contains(short move) => Move_0.ID == move || Move_1.ID == move || Move_2.ID == move || Move_3.ID == move;
     }
 }

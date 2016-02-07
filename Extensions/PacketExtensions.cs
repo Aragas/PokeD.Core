@@ -36,7 +36,7 @@ namespace PokeD.Core.Extensions
             ExtendRead<TileSetResponse>(ReadTileSetResponse);
             ExtendRead<Map>(ReadMap);
 
-            ExtendRead<Move>(ReadMove);
+            ExtendRead<MonsterMove>(ReadMonsterMove);
             ExtendRead<MonsterMoves>(ReadMonsterMoves);
             ExtendRead<MonsterStats>(ReadMonsterStats);
             ExtendRead<MonsterInstanceData>(ReadMonsterInstanceData);
@@ -162,14 +162,14 @@ namespace PokeD.Core.Extensions
 
         #region MonsterInstanceData
 
-        public static void Write(this PacketStream stream, Move value)
+        public static void Write(this PacketStream stream, MonsterMove value)
         {
             stream.Write(value.ID);
             stream.Write(value.PPUPs);
         }
-        private static Move ReadMove(PacketDataReader reader, int length = 0)
+        private static MonsterMove ReadMonsterMove(PacketDataReader reader, int length = 0)
         {
-            return new Move(
+            return new MonsterMove(
                 reader.Read<int>(),
                 reader.Read<int>());
         }
@@ -184,10 +184,10 @@ namespace PokeD.Core.Extensions
         private static MonsterMoves ReadMonsterMoves(PacketDataReader reader, int length = 0)
         {
             return new MonsterMoves(
-                reader.Read<Move>(),
-                reader.Read<Move>(),
-                reader.Read<Move>(),
-                reader.Read<Move>());
+                reader.Read<MonsterMove>(),
+                reader.Read<MonsterMove>(),
+                reader.Read<MonsterMove>(),
+                reader.Read<MonsterMove>());
         }
 
         public static void Write(this PacketStream stream, MonsterStats value)

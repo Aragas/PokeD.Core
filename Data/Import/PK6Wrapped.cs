@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
+using PKHeX;
+
 using PokeD.Core.Data.PokeD.Monster;
 using PokeD.Core.Data.PokeD.Monster.Data;
 
-namespace PKHeX
+namespace PokeD.Core.Data.Import
 {
     public enum EncounterTypes
     {
@@ -23,7 +26,7 @@ namespace PKHeX
     }
     public static class MetLocationTypes
     {
-        public static Dictionary<int, string> MetLocation = new Dictionary<int, string>()
+        public static readonly Dictionary<int, string> MetLocation = new Dictionary<int, string>()
             {
                 {13, "Avance Trail"},
                 {14, "Santalune Forest"},
@@ -313,8 +316,7 @@ namespace PKHeX
                 {60004, "an old hot-springs visitor"},
             };
     }
-
-
+    
     public class PK6Wrapped
     {
         private PK6 Data { get; }
@@ -422,10 +424,10 @@ namespace PKHeX
                 HeldItem = HeldItem,
                 IV = new MonsterStats(IVs[0], IVs[1], IVs[2], IVs[3], IVs[4], IVs[5]),
                 Moves = new MonsterMoves(
-                    new Move(Move1, Move1_PPUps),
-                    new Move(Move2, Move2_PPUps),
-                    new Move(Move3, Move3_PPUps),
-                    new Move(Move4, Move4_PPUps))
+                    new MonsterMove(Move1, Move1_PPUps),
+                    new MonsterMove(Move2, Move2_PPUps),
+                    new MonsterMove(Move3, Move3_PPUps),
+                    new MonsterMove(Move4, Move4_PPUps))
             };
 
             // HT_Affection?

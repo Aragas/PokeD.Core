@@ -38,5 +38,9 @@ namespace PokeD.Core.Data.PokeD.Monster.Data
         }
 
         public override string ToString() => $"Type1: {Type_0}; Type2: {Type_1}";
+
+
+        public bool Contains(MonsterEggGroup eggGroup) => Type_0 == eggGroup || Type_1 == eggGroup;
+        public bool Contains(short eggGroup) => Type_0.ID == eggGroup || Type_1.ID == eggGroup;
     }
 }

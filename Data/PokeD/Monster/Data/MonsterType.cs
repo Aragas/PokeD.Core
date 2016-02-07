@@ -11,10 +11,6 @@ namespace PokeD.Core.Data.PokeD.Monster.Data
 
         public MonsterType(int id, string name) { ID = id; Name = name; }
 
-        //public Types Type { get; }
-        //public MonsterType(int type, string name) { Type = (Types) type; Name = name; }
-        //public MonsterType(Types type, string name) { Type = type; Name = name; }
-
         public override string ToString() => $"{Name}, ID: {ID}";
     }
     public class MonsterTypes
@@ -42,5 +38,9 @@ namespace PokeD.Core.Data.PokeD.Monster.Data
         }
 
         public override string ToString() => $"Type1: {Type_0}; Type2: {Type_1}";
+
+
+        public bool Contains(MonsterType type) => Type_0 == type || Type_1 == type;
+        public bool Contains(short type) => Type_0.ID == type || Type_1.ID == type;
     }
 }
