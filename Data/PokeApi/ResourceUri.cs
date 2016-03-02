@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-
+using Aragas.Core.Extensions;
 using PokeD.Core.Extensions;
 
 namespace PokeD.Core.Data.PokeApi
