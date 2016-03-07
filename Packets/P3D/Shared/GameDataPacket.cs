@@ -2,7 +2,6 @@
 
 using Aragas.Core.Data;
 using Aragas.Core.IO;
-using Aragas.Core.Packets;
 
 using PokeD.Core.Data.P3D;
 using PokeD.Core.Extensions;
@@ -34,9 +33,9 @@ namespace PokeD.Core.Packets.P3D.Shared
         public Vector3 GetPokemonPosition(char separator) { return Vector3Extensions.FromPokeString(PokemonPosition, separator, CultureInfo); }
         public void SetPokemonPosition(Vector3 position, char separator) { PokemonPosition = position.ToPokeString(separator, CultureInfo); }
 
-        public override VarInt ID => (int) P3DPacketTypes.GameData;
+        public override int ID => (int) P3DPacketTypes.GameData;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override P3DPacket ReadPacket(PacketDataReader reader)
         {
             DataItems = new DataItems(reader.Read<string[]>());
             
@@ -61,7 +60,7 @@ namespace PokeD.Core.Packets.P3D.Shared
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream writer)
+        public override P3DPacket WritePacket(PacketStream writer)
         {
             writer.Write(DataItems.ToArray());
             

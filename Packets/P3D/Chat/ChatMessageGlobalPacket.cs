@@ -1,6 +1,4 @@
-﻿using Aragas.Core.Data;
-using Aragas.Core.IO;
-using Aragas.Core.Packets;
+﻿using Aragas.Core.IO;
 
 namespace PokeD.Core.Packets.P3D.Chat
 {
@@ -9,16 +7,16 @@ namespace PokeD.Core.Packets.P3D.Chat
         public string Message { get { return DataItems[0]; } set { DataItems[0] = value; } }
 
 
-        public override VarInt ID => (int) P3DPacketTypes.ChatMessageGlobal;
+        public override int ID => (int) P3DPacketTypes.ChatMessageGlobal;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override P3DPacket ReadPacket(PacketDataReader reader)
         {
             Message = reader.Read(Message);
 
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream writer)
+        public override P3DPacket WritePacket(PacketStream writer)
         {
             writer.Write(Message);
 

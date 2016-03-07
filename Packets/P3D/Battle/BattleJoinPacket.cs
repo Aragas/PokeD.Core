@@ -1,17 +1,15 @@
-﻿using Aragas.Core.Data;
-using Aragas.Core.IO;
-using Aragas.Core.Packets;
+﻿using Aragas.Core.IO;
 
 namespace PokeD.Core.Packets.P3D.Battle
 {
     public class BattleJoinPacket : P3DPacket
     {
-        public VarInt DestinationPlayerID { get { return VarInt.Parse(DataItems[0] == string.Empty ? 0.ToString() : DataItems[0], CultureInfo); } set { DataItems[0] = value.ToString(CultureInfo); } }
+        public int DestinationPlayerID { get { return int.Parse(DataItems[0] == string.Empty ? 0.ToString() : DataItems[0]); } set { DataItems[0] = value.ToString(); } }
 
 
-        public override VarInt ID => (int) P3DPacketTypes.BattleJoin;
+        public override int ID => (int) P3DPacketTypes.BattleJoin;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override P3DPacket ReadPacket(PacketDataReader reader)
         {
             if (reader.IsServer)
                 DestinationPlayerID = reader.Read(DestinationPlayerID);
@@ -19,7 +17,7 @@ namespace PokeD.Core.Packets.P3D.Battle
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream writer)
+        public override P3DPacket WritePacket(PacketStream writer)
         {
             if (!writer.IsServer)
                 writer.Write(DestinationPlayerID);

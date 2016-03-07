@@ -1,6 +1,4 @@
-﻿using Aragas.Core.Data;
-using Aragas.Core.IO;
-using Aragas.Core.Packets;
+﻿using Aragas.Core.IO;
 
 namespace PokeD.Core.Packets.P3D.Encryption
 {
@@ -8,16 +6,16 @@ namespace PokeD.Core.Packets.P3D.Encryption
     {
         public bool EncryptionEnabled;
 
-        public override VarInt ID => (int) P3DPacketTypes.JoiningGameResponse;
+        public override int ID => (int) P3DPacketTypes.JoiningGameResponse;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override P3DPacket ReadPacket(PacketDataReader reader)
         {
             EncryptionEnabled = reader.Read(EncryptionEnabled);
 
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream stream)
+        public override P3DPacket WritePacket(PacketStream stream)
         {
             stream.Write(EncryptionEnabled);
 

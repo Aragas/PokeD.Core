@@ -9,21 +9,22 @@ using PokeD.Core.Packets;
 
 namespace PokeD.Core.IO
 {
-    public sealed class P3DStream : ProtobufStream
+    public class P3DStream : StandardStream
     {
+        private ITCPClient TCPClient { get; }
+        protected  override Stream BaseStream =>  TCPClient.GetStream();
+
         private StreamReader Reader { get; }
 
         private static CultureInfo CultureInfo => CultureInfo.InvariantCulture;
 
         public P3DStream(ITCPClient tcp) : base(tcp)
         {
-            Reader = new StreamReader(TCP.GetStream());
+            TCPClient = tcp;
+            Reader = new StreamReader(this, Encoding.UTF8, true, 1024, true);
         }
 
-        public string ReadLine()
-        {
-            return Reader.ReadLine();
-        }
+        public string ReadLine() { return Reader.ReadLine(); }
 
         private static string CreateData(ref P3DPacket packet)
         {
@@ -63,15 +64,22 @@ namespace PokeD.Core.IO
 
         public void SendPacket(ref P3DPacket packet)
         {
-            var str = CreateData(ref packet);
-            var array = Encoding.UTF8.GetBytes(str + "\r\n");
-            TCP.WriteByteArray(array);
+            ToBuffer(Encoding.UTF8.GetBytes($"{CreateData(ref packet)}\r\n"));
+            Purge();
         }
 
-
-        public override void Dispose()
+        protected override void Purge()
         {
-            base.Dispose();
+            var array = Buffer.ToArray();
+
+            Send(array);
+
+            Buffer.SetLength(0);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
 
             Reader.Dispose();
         }

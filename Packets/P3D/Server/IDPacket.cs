@@ -1,24 +1,22 @@
-﻿using Aragas.Core.Data;
-using Aragas.Core.IO;
-using Aragas.Core.Packets;
+﻿using Aragas.Core.IO;
 
 namespace PokeD.Core.Packets.P3D.Server
 {
     public class IDPacket : P3DPacket
     {
-        public VarInt PlayerID { get { return VarInt.Parse(DataItems[0] == string.Empty ? 0.ToString() : DataItems[0], CultureInfo); } set { DataItems[0] = value.ToString(CultureInfo); } }
+        public int PlayerID { get { return int.Parse(DataItems[0] == string.Empty ? 0.ToString() : DataItems[0]); } set { DataItems[0] = value.ToString(); } }
 
 
-        public override VarInt ID => (int) P3DPacketTypes.ID;
+        public override int ID => (int) P3DPacketTypes.ID;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override P3DPacket ReadPacket(PacketDataReader reader)
         {
             PlayerID = reader.Read(PlayerID);
 
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream writer)
+        public override P3DPacket WritePacket(PacketStream writer)
         {
             writer.Write(PlayerID);
 

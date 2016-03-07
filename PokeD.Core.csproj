@@ -76,7 +76,6 @@
     <Compile Include="Extensions\PacketExtensions.cs" />
     <Compile Include="Extensions\Vector3Extensions.cs" />
     <Compile Include="Extensions\BouncyCastleExtensions.cs" />
-    <Compile Include="IO\ProtobufOriginStream.cs" />
     <Compile Include="IO\P3DStream.cs" />
     <Compile Include="MersenneTwisterRandom.cs" />
     <Compile Include="Packets\P3D\Encryption\EncryptionRequestPacket.cs" />
@@ -114,7 +113,6 @@
     <Compile Include="Packets\SCONPacket.cs" />
     <Compile Include="Packets\PokeDPacketResponses.cs" />
     <Compile Include="Packets\PokeDPacket.cs" />
-    <Compile Include="Packets\ProtobufOriginPacket.cs" />
     <Compile Include="Packets\P3DPacket.cs" />
     <Compile Include="Packets\PokeD\Authorization\EncryptionRequestPacket.cs" />
     <Compile Include="Packets\PokeD\Authorization\EncryptionResponsePacket.cs" />
