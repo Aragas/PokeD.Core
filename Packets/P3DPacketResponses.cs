@@ -40,11 +40,6 @@ namespace PokeD.Core.Packets
         BattleHostData              = 0x38,
         BattlePokemonData           = 0x39,
 
-        EncryptionRequest           = 0x50,
-        EncryptionResponse          = 0x51,
-        JoiningGameRequest          = 0x52,
-        JoiningGameResponse         = 0x53,
-
         ServerInfoData              = 0x62,
         ServerDataRequest           = 0x63
     }

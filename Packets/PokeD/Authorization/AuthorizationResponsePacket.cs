@@ -14,16 +14,16 @@ namespace PokeD.Core.Packets.PokeD.Authorization
         public AuthorizationStatus AuthorizationStatus { get; set; }
 
 
-        public override VarInt ID => (int) PokeDPacketTypes.AuthorizationResponse;
+        public override VarInt ID => PokeDPacketTypes.AuthorizationResponse;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             AuthorizationStatus = (AuthorizationStatus) reader.Read((byte) AuthorizationStatus);
 
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream stream)
+        public override ProtobufPacket WritePacket(ProtobufStream stream)
         {
             stream.Write((byte) AuthorizationStatus);
 

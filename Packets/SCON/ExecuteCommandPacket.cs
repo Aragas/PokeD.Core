@@ -8,16 +8,16 @@ namespace PokeD.Core.Packets.SCON
     {
         public string Command { get; set; }
 
-        public override VarInt ID => (int) SCONPacketTypes.ExecuteCommand;
+        public override VarInt ID => SCONPacketTypes.ExecuteCommand;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             Command = reader.Read(Command);
 
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream stream)
+        public override ProtobufPacket WritePacket(ProtobufStream stream)
         {
             stream.Write(Command);
 

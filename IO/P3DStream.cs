@@ -1,86 +1,91 @@
-﻿using System.Globalization;
+﻿using System;
 using System.IO;
 using System.Text;
 
 using Aragas.Core.IO;
+using Aragas.Core.Packets;
 using Aragas.Core.Wrappers;
 
 using PokeD.Core.Packets;
 
 namespace PokeD.Core.IO
 {
-    public class P3DStream : StandardStream
+    public sealed class P3DStream : PacketStream
     {
+        public override bool IsServer { get; }
+
+        public override string Host => TCPClient.IP;
+        public override ushort Port => TCPClient.Port;
+        public override bool Connected => TCPClient != null && TCPClient.Connected;
+        public override int DataAvailable => TCPClient?.DataAvailable ?? 0;
+
+
         private ITCPClient TCPClient { get; }
-        protected  override Stream BaseStream =>  TCPClient.GetStream();
+
+        protected override Stream BaseStream => TCPClient.GetStream();
+        private byte[] _buffer;
 
         private StreamReader Reader { get; }
 
-        private static CultureInfo CultureInfo => CultureInfo.InvariantCulture;
 
-        public P3DStream(ITCPClient tcp) : base(tcp)
+        public P3DStream(ITCPClient tcp, bool isServer = false)
         {
             TCPClient = tcp;
-            Reader = new StreamReader(this, Encoding.UTF8, true, 1024, true);
+            IsServer = isServer;
+
+            Reader = new StreamReader(BaseStream, Encoding.UTF8, true, 1024, true);
         }
+
+
+        public override void Connect(string ip, ushort port) { TCPClient.Connect(ip, port); }
+        public override void Disconnect() { TCPClient.Disconnect(); }
+
+
+        // -- Anything 
+        public override void Write<T>(T value = default(T)) { }
+
+        private void ToBuffer(byte[] value)
+        {
+            if (_buffer != null)
+            {
+                Array.Resize(ref _buffer, _buffer.Length + value.Length);
+                Array.Copy(value, 0, _buffer, _buffer.Length - value.Length, value.Length);
+            }
+            else
+                _buffer = value;
+        }
+
 
         public string ReadLine() { return Reader.ReadLine(); }
 
-        private static string CreateData(ref P3DPacket packet)
+
+        public void Send(byte[] buffer)
         {
-            var dataItems = packet.DataItems.ToArray();
-
-            var stringBuilder = new StringBuilder();
-
-            stringBuilder.Append(P3DPacket.ProtocolVersion.ToString(CultureInfo));
-            stringBuilder.Append("|");
-            stringBuilder.Append(packet.ID.ToString());
-            stringBuilder.Append("|");
-            stringBuilder.Append(packet.Origin.ToString());
-
-            if (dataItems.Length <= 0)
-            {
-                stringBuilder.Append("|0|");
-                return stringBuilder.ToString();
-            }
-
-            stringBuilder.Append("|");
-            stringBuilder.Append(dataItems.Length.ToString());
-            stringBuilder.Append("|0|");
-
-            var num = 0;
-            for (var i = 0; i < dataItems.Length - 1; i++)
-            {
-                num += dataItems[i].Length;
-                stringBuilder.Append(num);
-                stringBuilder.Append("|");
-            }
-
-            foreach (var dataItem in dataItems)
-                stringBuilder.Append(dataItem);
-
-            return stringBuilder.ToString();
+            TCPClient.Write(buffer, 0, buffer.Length);
+        }
+        public byte[] Receive(int length)
+        {
+            var buffer = new byte[length];
+            TCPClient.Read(buffer, 0, buffer.Length);
+            return buffer;
         }
 
-        public void SendPacket(ref P3DPacket packet)
+        public override void SendPacket(Packet packet)
         {
-            ToBuffer(Encoding.UTF8.GetBytes($"{CreateData(ref packet)}\r\n"));
+            var p3dPacket = packet as P3DPacket;
+            ToBuffer(Encoding.UTF8.GetBytes($"{p3dPacket.CreateData()}\r\n"));
             Purge();
         }
 
-        protected override void Purge()
+        private void Purge()
         {
-            var array = Buffer.ToArray();
-
-            Send(array);
-
-            Buffer.SetLength(0);
+            Send(_buffer);
+            _buffer = null;
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
 
+        public override void Dispose()
+        {
             Reader.Dispose();
         }
     }

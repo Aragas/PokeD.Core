@@ -1,4 +1,4 @@
-﻿using Aragas.Core.IO;
+﻿using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.P3D.Chat
 {
@@ -10,23 +10,7 @@ namespace PokeD.Core.Packets.P3D.Chat
 
         public override int ID => (int) P3DPacketTypes.ChatMessagePrivate;
 
-        public override P3DPacket ReadPacket(PacketDataReader reader)
-        {
-            if (reader.IsServer)
-                DestinationPlayerName = reader.Read(DestinationPlayerName);
-            
-            Message = reader.Read(Message);
-
-            return this;
-        }
-
-        public override P3DPacket WritePacket(PacketStream writer)
-        {
-            if (!writer.IsServer)
-                writer.Write(DestinationPlayerName);
-            writer.Write(Message);
-
-            return this;
-        }
+        public override P3DPacket ReadPacket(P3DDataReader reader) { return this; }
+        public override P3DPacket WritePacket(P3DStream writer) { return this; }
     }
 }

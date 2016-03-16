@@ -9,16 +9,16 @@ namespace PokeD.Core.Packets.PokeD.Overworld
         public string Reason { get; set; }
 
 
-        public override VarInt ID => (int) PokeDPacketTypes.Disconnect;
+        public override VarInt ID => PokeDPacketTypes.Disconnect;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             Reason = reader.Read(Reason);
 
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream writer)
+        public override ProtobufPacket WritePacket(ProtobufStream writer)
         {
             writer.Write(Reason);
 

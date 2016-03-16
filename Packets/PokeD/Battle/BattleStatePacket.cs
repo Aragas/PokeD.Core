@@ -3,7 +3,6 @@ using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
 using PokeD.Core.Data.PokeD.Battle;
-using PokeD.Core.Extensions;
 
 namespace PokeD.Core.Packets.PokeD.Battle
 {
@@ -15,16 +14,16 @@ namespace PokeD.Core.Packets.PokeD.Battle
         public BattleState BattleState { get; set; }
 
 
-        public override VarInt ID => (int) PokeDPacketTypes.BattleState;
+        public override VarInt ID => PokeDPacketTypes.BattleState;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             BattleState = reader.Read(BattleState);
 
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream writer)
+        public override ProtobufPacket WritePacket(ProtobufStream writer)
         {
             //writer.Write(BattleState);
 

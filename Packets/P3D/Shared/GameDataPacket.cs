@@ -1,10 +1,9 @@
 ﻿using System;
 
 using Aragas.Core.Data;
-using Aragas.Core.IO;
 
-using PokeD.Core.Data.P3D;
 using PokeD.Core.Extensions;
+using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.P3D.Shared
 {
@@ -35,54 +34,7 @@ namespace PokeD.Core.Packets.P3D.Shared
 
         public override int ID => (int) P3DPacketTypes.GameData;
 
-        public override P3DPacket ReadPacket(PacketDataReader reader)
-        {
-            DataItems = new DataItems(reader.Read<string[]>());
-            
-            /*
-            GameMode = reader.ReadString();
-            IsGameJoltPlayer = reader.ReadBoolean();
-            GameJoltId = reader.ReadULong();
-            DecimalSeparator = (char) reader.ReadVarInt();
-            Name = reader.ReadString();
-            LevelFile = reader.ReadString();
-            SetPosition(Vector3.FromReaderByte(reader), DecimalSeparator);
-            Facing = reader.ReadVarInt();
-            Moving = reader.ReadBoolean();
-            Skin = reader.ReadString();
-            BusyType = reader.ReadString();
-            PokemonVisible = reader.ReadBoolean();
-            SetPokemonPosition(Vector3.FromReaderByte(reader), DecimalSeparator);
-            PokemonSkin = reader.ReadString();
-            PokemonFacing = reader.ReadVarInt();
-            */
-
-            return this;
-        }
-
-        public override P3DPacket WritePacket(PacketStream writer)
-        {
-            writer.Write(DataItems.ToArray());
-            
-            /*
-            writer.WriteString(GameMode);
-            writer.WriteBoolean(IsGameJoltPlayer);
-            writer.WriteULong(GameJoltId);
-            writer.WriteVarInt(DecimalSeparator);
-            writer.WriteString(Name);
-            writer.WriteString(LevelFile);
-            GetPosition(DecimalSeparator).ToStreamByte(writer);
-            writer.WriteVarInt(Facing);
-            writer.WriteBoolean(Moving);
-            writer.WriteString(Skin);
-            writer.WriteString(BusyType);
-            writer.WriteBoolean(PokemonVisible);
-            GetPokemonPosition(DecimalSeparator).ToStreamByte(writer);
-            writer.WriteString(PokemonSkin);
-            writer.WriteVarInt(PokemonFacing);
-            */
-
-            return this;
-        }
+        public override P3DPacket ReadPacket(P3DDataReader reader) { return this; }
+        public override P3DPacket WritePacket(P3DStream writer) { return this; }
     }
 }

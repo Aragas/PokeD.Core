@@ -9,9 +9,9 @@ namespace PokeD.Core.Packets.SCON.Chat
         public string Player { get; set; }
         public string Message { get; set; }
 
-        public override VarInt ID => (int) SCONPacketTypes.ChatMessage;
+        public override VarInt ID => SCONPacketTypes.ChatMessage;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             Player = reader.Read(Player);
             Message = reader.Read(Message);
@@ -19,7 +19,7 @@ namespace PokeD.Core.Packets.SCON.Chat
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream stream)
+        public override ProtobufPacket WritePacket(ProtobufStream stream)
         {
             stream.Write(Player);
             stream.Write(Message);

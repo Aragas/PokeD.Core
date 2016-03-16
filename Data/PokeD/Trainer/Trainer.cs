@@ -40,7 +40,7 @@ namespace PokeD.Core.Data.PokeD.Trainer
 
     public class Trainer : IOpponentInfo, IOpponentServerInfo, IOpponentTeamInfo, IOpponentBattleInfo
     {
-        public VarInt EntityID { get; set; }
+        public int EntityID { get; set; } = -1;
         public short TrainerSprite { get; }
         private TrainernInstanceData TrainernInstanceData { get; }
 

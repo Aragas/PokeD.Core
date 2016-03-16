@@ -1,4 +1,4 @@
-﻿using Aragas.Core.IO;
+﻿using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.P3D.Battle
 {
@@ -10,23 +10,7 @@ namespace PokeD.Core.Packets.P3D.Battle
 
         public override int ID => (int) P3DPacketTypes.BattlePokemonData;
 
-        public override P3DPacket ReadPacket(PacketDataReader reader)
-        {
-            if (reader.IsServer)
-                DestinationPlayerID = reader.Read(DestinationPlayerID);
-
-            BattleData = reader.Read(BattleData);
-
-            return this;
-        }
-
-        public override P3DPacket WritePacket(PacketStream writer)
-        {
-            if (!writer.IsServer)
-                writer.Write(DestinationPlayerID);
-            writer.Write(BattleData);
-
-            return this;
-        }
+        public override P3DPacket ReadPacket(P3DDataReader reader) { return this; }
+        public override P3DPacket WritePacket(P3DStream writer) { return this; }
     }
 }

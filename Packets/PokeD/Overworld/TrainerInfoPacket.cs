@@ -4,7 +4,6 @@ using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
 using PokeD.Core.Data.PokeD.Trainer.Interfaces;
-using PokeD.Core.Extensions;
 
 namespace PokeD.Core.Packets.PokeD.Overworld
 {
@@ -49,9 +48,9 @@ namespace PokeD.Core.Packets.PokeD.Overworld
         public IOpponentTeam MonsterTeam { get; set; }
 
 
-        public override VarInt ID => (int) PokeDPacketTypes.TrainerInfo;
+        public override VarInt ID => PokeDPacketTypes.TrainerInfo;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             PlayerID = reader.Read(PlayerID);
             TrainerSprite = reader.Read(TrainerSprite);
@@ -65,7 +64,7 @@ namespace PokeD.Core.Packets.PokeD.Overworld
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream writer)
+        public override ProtobufPacket WritePacket(ProtobufStream writer)
         {
             writer.Write(PlayerID);
             writer.Write(TrainerSprite);

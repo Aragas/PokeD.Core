@@ -9,16 +9,16 @@ namespace PokeD.Core.Packets.PokeD.Trade
         public VarInt DestinationID { get; set; }
 
 
-        public override VarInt ID => (int) PokeDPacketTypes.TradeRefuse;
+        public override VarInt ID => PokeDPacketTypes.TradeRefuse;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             DestinationID = reader.Read(DestinationID);
 
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream writer)
+        public override ProtobufPacket WritePacket(ProtobufStream writer)
         {
             writer.Write(DestinationID);
 

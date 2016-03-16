@@ -1,4 +1,4 @@
-﻿using Aragas.Core.IO;
+﻿using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.P3D.Trade
 {
@@ -10,24 +10,7 @@ namespace PokeD.Core.Packets.P3D.Trade
 
         public override int ID => (int) P3DPacketTypes.TradeOffer;
 
-        public override P3DPacket ReadPacket(PacketDataReader reader)
-        {
-            if (reader.IsServer)
-                DestinationPlayerID = reader.Read(DestinationPlayerID);
-
-            TradeData = reader.Read(TradeData);
-
-            return this;
-        }
-
-        public override P3DPacket WritePacket(PacketStream writer)
-        {
-            if (!writer.IsServer)
-                writer.Write(DestinationPlayerID);
-
-            writer.Write(TradeData);
-
-            return this;
-        }
+        public override P3DPacket ReadPacket(P3DDataReader reader) { return this; }
+        public override P3DPacket WritePacket(P3DStream writer) { return this; }
     }
 }

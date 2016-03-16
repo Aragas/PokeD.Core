@@ -15,24 +15,31 @@ namespace PokeD.Core
         private bool OnlyPublic { get; }
 
 
+        /// <summary>
+        /// Can Sign and DeSign
+        /// </summary>
+        /// <param name="rsaKeyPair"></param>
         public PKCS1Signer(AsymmetricCipherKeyPair rsaKeyPair)
         {
             RSAKeyPair = rsaKeyPair;
             OnlyPublic = false;
         }
 
+        /// <summary>
+        /// Can only Sign.
+        /// </summary>
+        /// <param name="rsaPublicKey"></param>
         public PKCS1Signer(AsymmetricKeyParameter rsaPublicKey)
         {
-            RSAKeyPair = new AsymmetricCipherKeyPair(rsaPublicKey, null);
+            RSAKeyPair = new AsymmetricCipherKeyPair(rsaPublicKey, new RsaKeyParameters(true, BigInteger.Zero, BigInteger.Zero));
             OnlyPublic = true;
         }
 
-        public PKCS1Signer(byte[] rsaPublicKey)
-        {
-            var key = (RsaKeyParameters)PublicKeyFactory.CreateKey(rsaPublicKey);
-            RSAKeyPair = new AsymmetricCipherKeyPair(key, new RsaKeyParameters(true, BigInteger.One, BigInteger.One));
-            OnlyPublic = true;
-        }
+        /// <summary>
+        /// Can only Sign.
+        /// </summary>
+        /// <param name="rsaPublicKey"></param>
+        public PKCS1Signer(byte[] rsaPublicKey) : this(PublicKeyFactory.CreateKey(rsaPublicKey)) { }
 
 
         public byte[] SignData(byte[] data)
@@ -45,7 +52,7 @@ namespace PokeD.Core
         public byte[] DeSignData(byte[] data)
         {
             if (OnlyPublic)
-                throw new NotImplementedException("Not supported with only public key");
+                throw new NotSupportedException("Private key not available");
 
             var eng = new Pkcs1Encoding(new RsaEngine());
             eng.Init(false, RSAKeyPair.Private);

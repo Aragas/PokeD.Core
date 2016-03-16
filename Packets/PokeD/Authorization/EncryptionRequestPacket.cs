@@ -10,9 +10,9 @@ namespace PokeD.Core.Packets.PokeD.Authorization
         public byte[] VerificationToken;
 
 
-        public override VarInt ID => (int) PokeDPacketTypes.EncryptionRequest;
+        public override VarInt ID => PokeDPacketTypes.EncryptionRequest;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             PublicKey = reader.Read(PublicKey);
             VerificationToken = reader.Read(VerificationToken);
@@ -20,7 +20,7 @@ namespace PokeD.Core.Packets.PokeD.Authorization
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream stream)
+        public override ProtobufPacket WritePacket(ProtobufStream stream)
         {
             stream.Write(PublicKey);
             stream.Write(VerificationToken);

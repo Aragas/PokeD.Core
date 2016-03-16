@@ -3,7 +3,6 @@ using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
 using PokeD.Core.Data.SCON;
-using PokeD.Core.Extensions;
 
 namespace PokeD.Core.Packets.SCON.Logs
 {
@@ -11,16 +10,16 @@ namespace PokeD.Core.Packets.SCON.Logs
     {
         public Log[] CrashLogs { get; set; }
 
-        public override VarInt ID => (int) SCONPacketTypes.CrashLogListResponse;
+        public override VarInt ID => SCONPacketTypes.CrashLogListResponse;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             CrashLogs = reader.Read(CrashLogs);
 
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream stream)
+        public override ProtobufPacket WritePacket(ProtobufStream stream)
         {
             stream.Write(CrashLogs);
 

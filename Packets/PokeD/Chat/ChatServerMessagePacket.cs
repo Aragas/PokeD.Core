@@ -9,16 +9,16 @@ namespace PokeD.Core.Packets.PokeD.Chat
         public string Message { get; set; }
 
 
-        public override VarInt ID => (int) PokeDPacketTypes.ChatServerMessage;
+        public override VarInt ID => PokeDPacketTypes.ChatServerMessage;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             Message = reader.Read(Message);
 
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream writer)
+        public override ProtobufPacket WritePacket(ProtobufStream writer)
         {
             writer.Write(Message);
 

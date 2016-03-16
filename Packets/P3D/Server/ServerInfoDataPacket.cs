@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-using Aragas.Core.IO;
+using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.P3D.Server
 {
@@ -38,26 +38,7 @@ namespace PokeD.Core.Packets.P3D.Server
 
         public override int ID => (int) P3DPacketTypes.ServerInfoData;
 
-        public override P3DPacket ReadPacket(PacketDataReader reader)
-        {
-            CurrentPlayers = reader.Read(CurrentPlayers);
-            MaxPlayers = reader.Read(MaxPlayers);
-            ServerName = reader.Read(ServerName);
-            ServerMessage = reader.Read(ServerMessage);
-            PlayerNames = reader.Read(PlayerNames);
-
-            return this;
-        }
-
-        public override P3DPacket WritePacket(PacketStream writer)
-        {
-            writer.Write(CurrentPlayers);
-            writer.Write(MaxPlayers);
-            writer.Write(ServerName);
-            writer.Write(ServerMessage);
-            writer.Write(PlayerNames);
-
-            return this;
-        }
+        public override P3DPacket ReadPacket(P3DDataReader reader) { return this; }
+        public override P3DPacket WritePacket(P3DStream writer) { return this; }
     }
 }

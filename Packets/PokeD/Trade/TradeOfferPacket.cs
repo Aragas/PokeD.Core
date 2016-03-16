@@ -3,7 +3,6 @@ using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
 using PokeD.Core.Data.PokeD.Monster;
-using PokeD.Core.Extensions;
 
 namespace PokeD.Core.Packets.PokeD.Trade
 {
@@ -13,9 +12,9 @@ namespace PokeD.Core.Packets.PokeD.Trade
         public MonsterInstanceData MonsterData { get; set; }
 
 
-        public override VarInt ID => (int) PokeDPacketTypes.TradeOffer;
+        public override VarInt ID => PokeDPacketTypes.TradeOffer;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             DestinationID = reader.Read(DestinationID);
             MonsterData = reader.Read(MonsterData);
@@ -23,7 +22,7 @@ namespace PokeD.Core.Packets.PokeD.Trade
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream writer)
+        public override ProtobufPacket WritePacket(ProtobufStream writer)
         {
             writer.Write(DestinationID);
             writer.Write(MonsterData);

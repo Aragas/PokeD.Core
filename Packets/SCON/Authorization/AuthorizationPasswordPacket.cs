@@ -8,16 +8,16 @@ namespace PokeD.Core.Packets.SCON.Authorization
     {
         public string PasswordHash { get; set; }
 
-        public override VarInt ID => (int) SCONPacketTypes.AuthorizationPassword;
+        public override VarInt ID => SCONPacketTypes.AuthorizationPassword;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             PasswordHash = reader.Read(PasswordHash);
 
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream stream)
+        public override ProtobufPacket WritePacket(ProtobufStream stream)
         {
             stream.Write(PasswordHash);
 

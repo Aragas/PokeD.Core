@@ -2,8 +2,6 @@
 using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
-using PokeD.Core.Extensions;
-
 namespace PokeD.Core.Packets.PokeD.Overworld.Map
 {
     public class TileSetResponse
@@ -23,9 +21,9 @@ namespace PokeD.Core.Packets.PokeD.Overworld.Map
         public ImageResponse[] Images { get; set; }
 
 
-        public override VarInt ID => (int)PokeDPacketTypes.TileSetResponse;
+        public override VarInt ID => PokeDPacketTypes.TileSetResponse;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             TileSets = reader.Read(TileSets);
             Images = reader.Read(Images);
@@ -33,7 +31,7 @@ namespace PokeD.Core.Packets.PokeD.Overworld.Map
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream writer)
+        public override ProtobufPacket WritePacket(ProtobufStream writer)
         {
             writer.Write(TileSets);
             writer.Write(Images);

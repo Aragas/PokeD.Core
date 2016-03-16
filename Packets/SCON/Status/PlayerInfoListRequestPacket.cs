@@ -6,14 +6,14 @@ namespace PokeD.Core.Packets.SCON.Status
 {
     public class PlayerInfoListRequestPacket : SCONPacket
     {
-        public override VarInt ID => (int) SCONPacketTypes.PlayerInfoListRequest;
+        public override VarInt ID => SCONPacketTypes.PlayerInfoListRequest;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream stream)
+        public override ProtobufPacket WritePacket(ProtobufStream stream)
         {
             return this;
         }

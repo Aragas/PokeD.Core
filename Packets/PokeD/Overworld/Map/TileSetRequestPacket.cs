@@ -9,16 +9,16 @@ namespace PokeD.Core.Packets.PokeD.Overworld.Map
         public string[] TileSetNames { get; set; }
 
 
-        public override VarInt ID => (int) PokeDPacketTypes.TileSetRequest;
+        public override VarInt ID => PokeDPacketTypes.TileSetRequest;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             TileSetNames = reader.Read(TileSetNames);
 
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream writer)
+        public override ProtobufPacket WritePacket(ProtobufStream writer)
         {
             writer.Write(TileSetNames);
            

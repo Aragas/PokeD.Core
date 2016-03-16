@@ -9,14 +9,14 @@ namespace PokeD.Core.Packets.PokeD.Battle
     /// </summary>
     public class BattleFleePacket : PokeDPacket
     {
-        public override VarInt ID => (int) PokeDPacketTypes.BattleFlee;
+        public override VarInt ID => PokeDPacketTypes.BattleFlee;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream writer)
+        public override ProtobufPacket WritePacket(ProtobufStream writer)
         {
             return this;
         }

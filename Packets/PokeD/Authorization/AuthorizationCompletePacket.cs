@@ -9,16 +9,16 @@ namespace PokeD.Core.Packets.PokeD.Authorization
         public VarInt PlayerID { get; set; }
 
 
-        public override VarInt ID => (int) PokeDPacketTypes.AuthorizationComplete;
+        public override VarInt ID => PokeDPacketTypes.AuthorizationComplete;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             PlayerID = reader.Read(PlayerID);
 
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream stream)
+        public override ProtobufPacket WritePacket(ProtobufStream stream)
         {
             stream.Write(PlayerID);
 

@@ -1,4 +1,4 @@
-﻿using Aragas.Core.IO;
+﻿using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.P3D.Server
 {
@@ -9,18 +9,7 @@ namespace PokeD.Core.Packets.P3D.Server
 
         public override int ID => (int) P3DPacketTypes.ServerMessage;
 
-        public override P3DPacket ReadPacket(PacketDataReader reader)
-        {
-            Message = reader.Read(Message);
-
-            return this;
-        }
-
-        public override P3DPacket WritePacket(PacketStream writer)
-        {
-            writer.Write(Message);
-
-            return this;
-        }
+        public override P3DPacket ReadPacket(P3DDataReader reader) { return this; }
+        public override P3DPacket WritePacket(P3DStream writer) { return this; }
     }
 }

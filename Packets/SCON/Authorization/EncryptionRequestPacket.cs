@@ -9,9 +9,9 @@ namespace PokeD.Core.Packets.SCON.Authorization
         public byte[] PublicKey { get; set; }
         public byte[] VerificationToken { get; set; }
 
-        public override VarInt ID => (int) SCONPacketTypes.EncryptionRequest;
+        public override VarInt ID => SCONPacketTypes.EncryptionRequest;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             PublicKey = reader.Read(PublicKey);
             VerificationToken = reader.Read(VerificationToken);
@@ -19,7 +19,7 @@ namespace PokeD.Core.Packets.SCON.Authorization
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream stream)
+        public override ProtobufPacket WritePacket(ProtobufStream stream)
         {
             stream.Write(PublicKey);
             stream.Write(VerificationToken);

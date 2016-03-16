@@ -3,7 +3,6 @@ using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
 using PokeD.Core.Data.PokeD.Structs;
-using PokeD.Core.Extensions;
 
 namespace PokeD.Core.Packets.PokeD.Battle
 {
@@ -18,16 +17,16 @@ namespace PokeD.Core.Packets.PokeD.Battle
         public short Item { get { return Info.Item; } set { Info.Item = value; } }
 
 
-        public override VarInt ID => (int) PokeDPacketTypes.BattleItem;
+        public override VarInt ID => PokeDPacketTypes.BattleItem;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             Info = reader.Read(Info);
 
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream writer)
+        public override ProtobufPacket WritePacket(ProtobufStream writer)
         {
             writer.Write(Info);
 

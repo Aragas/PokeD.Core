@@ -9,9 +9,9 @@ namespace PokeD.Core.Packets.SCON.Logs
         public string LogFilename { get; set; }
         public string LogFile { get; set; }
 
-        public override VarInt ID => (int) SCONPacketTypes.LogFileResponse;
+        public override VarInt ID => SCONPacketTypes.LogFileResponse;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             LogFilename = reader.Read(LogFilename);
             LogFile = reader.Read(LogFile);
@@ -19,7 +19,7 @@ namespace PokeD.Core.Packets.SCON.Logs
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream stream)
+        public override ProtobufPacket WritePacket(ProtobufStream stream)
         {
             stream.Write(LogFilename);
             stream.Write(LogFile);

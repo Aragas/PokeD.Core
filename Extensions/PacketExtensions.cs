@@ -1,5 +1,6 @@
-﻿using Aragas.Core.Data;
-using Aragas.Core.Extensions;
+﻿using System;
+
+using Aragas.Core.Data;
 using Aragas.Core.IO;
 
 using PokeD.Core.Data.PokeD.Battle;
@@ -12,51 +13,58 @@ using PokeD.Core.Data.PokeD.Trainer.Interfaces;
 using PokeD.Core.Data.SCON;
 using PokeD.Core.Packets.PokeD.Overworld.Map;
 
+using static Aragas.Core.IO.PacketStream;
 using static Aragas.Core.IO.PacketDataReader;
 
 namespace PokeD.Core.Extensions
 {
     public static class PacketExtensions
     {
+        private static void Extend<T>(Func<PacketDataReader, int, T> readFunc, Action<PacketStream, T> writeAction)
+        {
+            ExtendRead(readFunc);
+            ExtendWrite(writeAction);
+        }
+
         public static void Init()
         {
             Aragas.Core.Extensions.PacketExtensions.Init();
 
-            ExtendRead<FileHash[]>(ReadFileHashArray);
-            ExtendRead<FileHash>(ReadFileHash);
+            Extend<FileHash[]>(ReadFileHashArray, WriteFileHashArray);
+            Extend<FileHash>(ReadFileHash, WriteFileHash);
 
-            ExtendRead<ImageResponse[]>(ReadImageResponseArray);
-            ExtendRead<TileSetResponse[]>(ReadTileSetResponseArray);
-            ExtendRead<ImageResponse>(ReadImageResponse);
-            ExtendRead<TileSetResponse>(ReadTileSetResponse);
+            Extend<ImageResponse[]>(ReadImageResponseArray, WriteImageResponseArray);
+            Extend<TileSetResponse[]>(ReadTileSetResponseArray, WriteTileSetResponseArray);
+            Extend<ImageResponse>(ReadImageResponse, WriteImageResponse);
+            Extend<TileSetResponse>(ReadTileSetResponse, WriteTileSetResponse);
 
-            ExtendRead<MonsterMove>(ReadMonsterMove);
-            ExtendRead<MonsterMoves>(ReadMonsterMoves);
-            ExtendRead<MonsterStats>(ReadMonsterStats);
-            ExtendRead<MonsterInstanceData>(ReadMonsterInstanceData);
+            Extend<MonsterMove>(ReadMonsterMove, WriteMonsterMove);
+            Extend<MonsterMoves>(ReadMonsterMoves, WriteMonsterMoves);
+            Extend<MonsterStats>(ReadMonsterStats, WriteMonsterStats);
+            Extend<MonsterInstanceData>(ReadMonsterInstanceData, WriteMonsterInstanceData);
             
-            ExtendRead<IMonsterBaseInfo>(ReadIMonsterBaseInfo);
-            ExtendRead<IOpponentTeam>(ReadIOpponentTeam);
+            Extend<IMonsterBaseInfo>(ReadIMonsterBaseInfo, WriteIMonsterBaseInfo);
+            Extend<IOpponentTeam>(ReadIOpponentTeam, WriteIOpponentTeam);
             
-            ExtendRead<MetaSwitch>(ReadMetaSwitch);
-            ExtendRead<MetaPosition>(ReadMetaPosition);
-            ExtendRead<MetaAttack>(ReadMetaAttack);
-            ExtendRead<MetaItem>(ReadMetaItem);
-            ExtendRead<BattleState>(ReadMetaItem);
+            Extend<MetaSwitch>(ReadMetaSwitch, WriteMetaSwitch);
+            Extend<MetaPosition>(ReadMetaPosition, WriteMetaPosition);
+            Extend<MetaAttack>(ReadMetaAttack, WriteMetaAttack);
+            Extend<MetaItem>(ReadMetaItem, WriteMetaItem);
+            //Extend<BattleState>(ReadBattleState, WriteBattleState);
             
-            ExtendRead<Ban>(ReadBan);
-            ExtendRead<Log>(ReadLog);
-            ExtendRead<PlayerDatabase>(ReadPlayerDatabase);
-            ExtendRead<PlayerInfo>(ReadPlayerInfo);
+            Extend<Ban>(ReadBan, WriteBan);
+            Extend<Log>(ReadLog, WriteLog);
+            Extend<PlayerDatabase>(ReadPlayerDatabase, WritePlayerDatabase);
+            Extend<PlayerInfo>(ReadPlayerInfo, WritePlayerInfo);
 
-            ExtendRead<Ban[]>(ReadBanArray);
-            ExtendRead<Log[]>(ReadLogArray);
-            ExtendRead<PlayerDatabase[]>(ReadPlayerDatabaseArray);
-            ExtendRead<PlayerInfo[]>(ReadPlayerInfoArray);
+            Extend<Ban[]>(ReadBanArray, WriteBanArray);
+            Extend<Log[]>(ReadLogArray, WriteLogArray);
+            Extend<PlayerDatabase[]>(ReadPlayerDatabaseArray, WritePlayerDatabaseArray);
+            Extend<PlayerInfo[]>(ReadPlayerInfoArray, WritePlayerInfoArray);
         }
 
 
-        public static void Write(this PacketStream stream, FileHash[] value)
+        private static void WriteFileHashArray(PacketStream stream, FileHash[] value)
         {
             stream.Write(new VarInt(value.Length));
 
@@ -76,7 +84,7 @@ namespace PokeD.Core.Extensions
             return array;
         }
 
-        public static void Write(this PacketStream stream, FileHash value)
+        private static void WriteFileHash(PacketStream stream, FileHash value)
         {
             stream.Write(value.Name);
             stream.Write(value.Hash);
@@ -87,7 +95,7 @@ namespace PokeD.Core.Extensions
         }
 
         
-        public static void Write(this PacketStream stream, ImageResponse[] value)
+        private static void WriteImageResponseArray(PacketStream stream, ImageResponse[] value)
         {
             stream.Write(new VarInt(value.Length));
 
@@ -107,7 +115,7 @@ namespace PokeD.Core.Extensions
             return array;
         }
 
-        public static void Write(this PacketStream stream, TileSetResponse[] value)
+        private static void WriteTileSetResponseArray(PacketStream stream, TileSetResponse[] value)
         {
             stream.Write(new VarInt(value.Length));
 
@@ -127,7 +135,7 @@ namespace PokeD.Core.Extensions
             return array;
         }
 
-        public static void Write(this PacketStream stream, ImageResponse value)
+        private static void WriteImageResponse(PacketStream stream, ImageResponse value)
         {
             stream.Write(value.Name);
             stream.Write(value.ImageData);
@@ -137,7 +145,7 @@ namespace PokeD.Core.Extensions
             return new ImageResponse() { Name = reader.Read<string>(), ImageData = reader.Read<byte[]>() };
         }
 
-        public static void Write(this PacketStream stream, TileSetResponse value)
+        private static void WriteTileSetResponse(PacketStream stream, TileSetResponse value)
         {
             stream.Write(value.Name);
             stream.Write(value.TileSetData);
@@ -150,7 +158,7 @@ namespace PokeD.Core.Extensions
 
         #region MonsterInstanceData
 
-        public static void Write(this PacketStream stream, MonsterMove value)
+        private static void WriteMonsterMove(PacketStream stream, MonsterMove value)
         {
             stream.Write(value.ID);
             stream.Write(value.PPUPs);
@@ -162,7 +170,7 @@ namespace PokeD.Core.Extensions
                 reader.Read<int>());
         }
 
-        public static void Write(this PacketStream stream, MonsterMoves value)
+        private static void WriteMonsterMoves(PacketStream stream, MonsterMoves value)
         {
             stream.Write(value.Move_0);
             stream.Write(value.Move_1);
@@ -178,7 +186,7 @@ namespace PokeD.Core.Extensions
                 reader.Read<MonsterMove>());
         }
 
-        public static void Write(this PacketStream stream, MonsterStats value)
+        private static void WriteMonsterStats(PacketStream stream, MonsterStats value)
         {
             stream.Write(value.HP);
             stream.Write(value.Attack);
@@ -198,7 +206,7 @@ namespace PokeD.Core.Extensions
                 reader.Read<short>());
         }
 
-        public static void Write(this PacketStream stream, MonsterCatchInfo value)
+        private static void WriteMonsterCatchInfo(PacketStream stream, MonsterCatchInfo value)
         {
             stream.Write(value.Method);
             stream.Write(value.Location);
@@ -220,7 +228,7 @@ namespace PokeD.Core.Extensions
             };
         }
 
-        public static void Write(this PacketStream stream, MonsterInstanceData value)
+        private static void WriteMonsterInstanceData(PacketStream stream, MonsterInstanceData value)
         {
             stream.Write(value.Species);
             stream.Write(value.SecretID);
@@ -266,7 +274,7 @@ namespace PokeD.Core.Extensions
         #endregion MonsterInstanceData
 
         
-        public static void Write(this PacketStream stream, IMonsterBaseInfo value)
+        private static void WriteIMonsterBaseInfo(PacketStream stream, IMonsterBaseInfo value)
         {
             stream.Write(value.Species);
             stream.Write(value.DisplayName);
@@ -286,7 +294,7 @@ namespace PokeD.Core.Extensions
             return null;
         }
 
-        public static void Write(this PacketStream stream, IOpponentTeam value)
+        private static void WriteIOpponentTeam(PacketStream stream, IOpponentTeam value)
         {
             stream.Write((IMonsterBaseInfo) value.Monster_1);
             stream.Write((IMonsterBaseInfo) value.Monster_2);
@@ -309,23 +317,23 @@ namespace PokeD.Core.Extensions
         }
 
 
-        public static void Write(this PacketStream stream, MetaSwitch value) { stream.Write(value.Meta); }
+        private static void WriteMetaSwitch(PacketStream stream, MetaSwitch value) { stream.Write(value.Meta); }
         private static MetaSwitch ReadMetaSwitch(PacketDataReader reader, int length = 0) => new MetaSwitch(reader.Read<byte>());
 
-        public static void Write(this PacketStream stream, MetaPosition value) { stream.Write(value.Meta); }
+        private static void WriteMetaPosition(PacketStream stream, MetaPosition value) { stream.Write(value.Meta); }
         private static MetaPosition ReadMetaPosition(PacketDataReader reader, int length = 0) => new MetaPosition(reader.Read<long>());
 
-        //public static void Write(this PacketStream stream, BattleState value) { stream.Write(value.Meta); }
-        private static BattleState ReadBattleState(PacketDataReader reader, int length = 0) => new BattleState();
+        //private static void WriteBattleState(PacketStream stream, BattleState value) { stream.Write(value.Meta); }
+        //private static BattleState ReadBattleState(PacketDataReader reader, int length = 0) => new BattleState();
 
-        public static void Write(this PacketStream stream, MetaAttack value) { stream.Write(value.Meta); }
+        private static void WriteMetaAttack(PacketStream stream, MetaAttack value) { stream.Write(value.Meta); }
         private static MetaAttack ReadMetaAttack(PacketDataReader reader, int length = 0) => new MetaAttack(reader.Read<byte>());
 
-        public static void Write(this PacketStream stream, MetaItem value) { stream.Write(value.Meta); }
+        private static void WriteMetaItem(PacketStream stream, MetaItem value) { stream.Write(value.Meta); }
         private static MetaItem ReadMetaItem(PacketDataReader reader, int length = 0) => new MetaItem(reader.Read<short>());
 
 
-        public static void Write(this PacketStream stream, Ban value)
+        private static void WriteBan(PacketStream stream, Ban value)
         {
             stream.Write(value.Name);
             stream.Write(value.IP);
@@ -345,7 +353,7 @@ namespace PokeD.Core.Extensions
             return value;
         }
 
-        public static void Write(this PacketStream stream, Log value)
+        private static void WriteLog(PacketStream stream, Log value)
         {
             stream.Write(value.LogFileName);
         }
@@ -357,7 +365,7 @@ namespace PokeD.Core.Extensions
             return value;
         }
 
-        public static void Write(this PacketStream stream, PlayerDatabase value)
+        private static void WritePlayerDatabase(PacketStream stream, PlayerDatabase value)
         {
             stream.Write(value.Name);
             stream.Write(value.LastIP);
@@ -373,7 +381,7 @@ namespace PokeD.Core.Extensions
             return value;
         }
 
-        public static void Write(this PacketStream stream, PlayerInfo value)
+        private static void WritePlayerInfo(PacketStream stream, PlayerInfo value)
         {
             stream.Write(value.Name);
             stream.Write(value.IP);
@@ -396,7 +404,7 @@ namespace PokeD.Core.Extensions
         }
 
 
-        public static void Write(this PacketStream stream, Ban[] value)
+        private static void WriteBanArray(PacketStream stream, Ban[] value)
         {
             stream.Write(new VarInt(value.Length));
 
@@ -416,7 +424,7 @@ namespace PokeD.Core.Extensions
             return array;
         }
 
-        public static void Write(this PacketStream stream, Log[] value)
+        private static void WriteLogArray(PacketStream stream, Log[] value)
         {
             stream.Write(new VarInt(value.Length));
 
@@ -436,7 +444,7 @@ namespace PokeD.Core.Extensions
             return array;
         }
 
-        public static void Write(this PacketStream stream, PlayerDatabase[] value)
+        private static void WritePlayerDatabaseArray(PacketStream stream, PlayerDatabase[] value)
         {
             stream.Write(new VarInt(value.Length));
 
@@ -456,7 +464,7 @@ namespace PokeD.Core.Extensions
             return array;
         }
 
-        public static void Write(this PacketStream stream, PlayerInfo[] value)
+        private static void WritePlayerInfoArray(PacketStream stream, PlayerInfo[] value)
         {
             stream.Write(new VarInt(value.Length));
 

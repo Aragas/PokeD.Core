@@ -13,9 +13,9 @@ namespace PokeD.Core.Packets.PokeD.Battle
         public string Message { get; set; }
 
 
-        public override VarInt ID => (int) PokeDPacketTypes.BattleOffer;
+        public override VarInt ID => PokeDPacketTypes.BattleOffer;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             PlayerIDs = reader.Read(PlayerIDs);
             Message = reader.Read(Message);
@@ -23,7 +23,7 @@ namespace PokeD.Core.Packets.PokeD.Battle
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream writer)
+        public override ProtobufPacket WritePacket(ProtobufStream writer)
         {
             writer.Write(PlayerIDs);
             writer.Write(Message);

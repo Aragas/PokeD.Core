@@ -8,16 +8,16 @@ namespace PokeD.Core.Packets.SCON.Logs
     {
         public string CrashLogFilename { get; set; }
 
-        public override VarInt ID => (int) SCONPacketTypes.CrashLogFileRequest;
+        public override VarInt ID => SCONPacketTypes.CrashLogFileRequest;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             CrashLogFilename = reader.Read(CrashLogFilename);
 
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream stream)
+        public override ProtobufPacket WritePacket(ProtobufStream stream)
         {
             stream.Write(CrashLogFilename);
 

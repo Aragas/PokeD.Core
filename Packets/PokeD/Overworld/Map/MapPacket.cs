@@ -2,8 +2,6 @@
 using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
-using PokeD.Core.Extensions;
-
 namespace PokeD.Core.Packets.PokeD.Overworld.Map
 {
     public class FileHash
@@ -19,9 +17,9 @@ namespace PokeD.Core.Packets.PokeD.Overworld.Map
         public FileHash[] ImageHashes { get; set; }
 
 
-        public override VarInt ID => (int) PokeDPacketTypes.Map;
+        public override VarInt ID => PokeDPacketTypes.Map;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             MapData = reader.Read(MapData);
             TileSetHashes = reader.Read(TileSetHashes);
@@ -30,7 +28,7 @@ namespace PokeD.Core.Packets.PokeD.Overworld.Map
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream writer)
+        public override ProtobufPacket WritePacket(ProtobufStream writer)
         {
             writer.Write(MapData);
             writer.Write(TileSetHashes);

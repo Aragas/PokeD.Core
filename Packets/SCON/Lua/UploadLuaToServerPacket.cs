@@ -8,16 +8,16 @@ namespace PokeD.Core.Packets.SCON.Lua
     {
         public string LuaFile { get; set; }
 
-        public override VarInt ID => (int) SCONPacketTypes.UploadLuaToServer;
+        public override VarInt ID => SCONPacketTypes.UploadLuaToServer;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             LuaFile = reader.Read(LuaFile);
 
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream stream)
+        public override ProtobufPacket WritePacket(ProtobufStream stream)
         {
             stream.Write(LuaFile);
 

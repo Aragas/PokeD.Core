@@ -6,14 +6,14 @@ namespace PokeD.Core.Packets.SCON.Logs
 {
     public class LogListRequestPacket : SCONPacket
     {
-        public override VarInt ID => (int) SCONPacketTypes.LogListRequest;
+        public override VarInt ID => SCONPacketTypes.LogListRequest;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream stream)
+        public override ProtobufPacket WritePacket(ProtobufStream stream)
         {
             return this;
         }

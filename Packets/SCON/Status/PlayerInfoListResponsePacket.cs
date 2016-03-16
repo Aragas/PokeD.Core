@@ -3,7 +3,6 @@ using Aragas.Core.IO;
 using Aragas.Core.Packets;
 
 using PokeD.Core.Data.SCON;
-using PokeD.Core.Extensions;
 
 namespace PokeD.Core.Packets.SCON.Status
 {
@@ -11,16 +10,16 @@ namespace PokeD.Core.Packets.SCON.Status
     {
         public PlayerInfo[] PlayerInfos { get; set; }
 
-        public override VarInt ID => (int) SCONPacketTypes.PlayerInfoListResponse;
+        public override VarInt ID => SCONPacketTypes.PlayerInfoListResponse;
 
-        public override ProtobufPacket ReadPacket(PacketDataReader reader)
+        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
             PlayerInfos = reader.Read(PlayerInfos);
 
             return this;
         }
 
-        public override ProtobufPacket WritePacket(PacketStream stream)
+        public override ProtobufPacket WritePacket(ProtobufStream stream)
         {
             stream.Write(PlayerInfos);
 

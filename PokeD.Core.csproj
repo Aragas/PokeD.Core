@@ -77,11 +77,8 @@
     <Compile Include="Extensions\Vector3Extensions.cs" />
     <Compile Include="Extensions\BouncyCastleExtensions.cs" />
     <Compile Include="IO\P3DStream.cs" />
+    <Compile Include="IO\P3DDataReader.cs" />
     <Compile Include="MersenneTwisterRandom.cs" />
-    <Compile Include="Packets\P3D\Encryption\EncryptionRequestPacket.cs" />
-    <Compile Include="Packets\P3D\Encryption\EncryptionResponsePacket.cs" />
-    <Compile Include="Packets\P3D\Encryption\JoiningGameRequestPacket.cs" />
-    <Compile Include="Packets\P3D\Encryption\JoiningGameResponsePacket.cs" />
     <Compile Include="Packets\PokeD\Authorization\AuthorizationCompletePacket.cs" />
     <Compile Include="Packets\PokeD\Authorization\AuthorizationDisconnectPacket.cs" />
     <Compile Include="Packets\PokeD\Authorization\AuthorizationRequestPacket.cs" />

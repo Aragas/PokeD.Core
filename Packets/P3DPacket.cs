@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text;
 
 using Aragas.Core.Packets;
 
 using PokeD.Core.Data.P3D;
+using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets
 {
-    public abstract class P3DPacket : Packet<int, P3DPacket>
+    public abstract class P3DPacket : Packet<int, P3DPacket, P3DDataReader, P3DStream>
     {
         public int Origin { get; set; }
 
-        public static Single ProtocolVersion { get; set; } = 0.5f;
+        public static float ProtocolVersion { get; set; } = 0.5f;
         public DataItems DataItems = new DataItems();
 
         protected static CultureInfo CultureInfo => CultureInfo.InvariantCulture;
@@ -93,6 +95,44 @@ namespace PokeD.Core.Packets
             }
 
             return true;
+        }
+
+
+
+        public string CreateData()
+        {
+            var dataItems = DataItems.ToArray();
+
+            var stringBuilder = new StringBuilder();
+
+            stringBuilder.Append(ProtocolVersion.ToString(CultureInfo));
+            stringBuilder.Append("|");
+            stringBuilder.Append(ID.ToString(CultureInfo));
+            stringBuilder.Append("|");
+            stringBuilder.Append(Origin.ToString(CultureInfo));
+
+            if (dataItems.Length <= 0)
+            {
+                stringBuilder.Append("|0|");
+                return stringBuilder.ToString();
+            }
+
+            stringBuilder.Append("|");
+            stringBuilder.Append(dataItems.Length.ToString(CultureInfo));
+            stringBuilder.Append("|0|");
+
+            var num = 0;
+            for (var i = 0; i < dataItems.Length - 1; i++)
+            {
+                num += dataItems[i].Length;
+                stringBuilder.Append(num);
+                stringBuilder.Append("|");
+            }
+
+            foreach (var dataItem in dataItems)
+                stringBuilder.Append(dataItem);
+
+            return stringBuilder.ToString();
         }
     }
 }
