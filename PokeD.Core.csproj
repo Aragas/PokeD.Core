@@ -37,6 +37,7 @@
     <Compile Include="Data\Import\PK6.cs" />
     <Compile Include="Data\Import\PK6Wrapped.cs" />
     <Compile Include="Data\PokeD\Battle\BattleState.cs" />
+    <Compile Include="Data\PokeD\Battle\IBattleType.cs" />
     <Compile Include="Data\PokeD\Battle\IBattleInfo.cs" />
     <Compile Include="Data\PokeD\Monster\Interfaces\IMonsterTradeInfo.cs" />
     <Compile Include="Data\PokeD\Monster\Data\MonsterAbility.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Packets\PokeD\Overworld\PingPacket.cs" />
     <Compile Include="Packets\PokeD\Overworld\TrainerInfoPacket.cs" />
     <Compile Include="Packets\PokeD\Overworld\PositionPacket.cs" />
+    <Compile Include="Packets\PokeD\Overworld\WorldInfoPacketcs.cs" />
     <Compile Include="Packets\PokeD\Trade\TradeRefusePacket.cs" />
     <Compile Include="Packets\PokeD\Trade\TradeAcceptPacket.cs" />
     <Compile Include="Packets\PokeD\Trade\TradeOfferPacket.cs" />
