@@ -1,7 +1,11 @@
+using System.Collections.Generic;
+
 namespace PokeD.Core.Data.PokeD.Trainer.Interfaces
 {
     public interface IOpponentTeam
     {
+        IEnumerable<Monster.Monster> Team { get; }
+
         Monster.Monster Monster_1 { get; }
         Monster.Monster Monster_2 { get; }
         Monster.Monster Monster_3 { get; }

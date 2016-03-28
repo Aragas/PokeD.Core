@@ -36,19 +36,19 @@
   <ItemGroup>
     <Compile Include="Data\Import\PK6.cs" />
     <Compile Include="Data\Import\PK6Wrapped.cs" />
+    <Compile Include="Data\PokeApi\Languages.cs" />
+    <Compile Include="Data\PokeApi\Localization.cs" />
+    <Compile Include="Data\PokeApi\NamedAPIResource.cs" />
+    <Compile Include="Data\PokeApi\PokeApiException.cs" />
+    <Compile Include="Data\PokeApi\PokeApiV2.cs" />
+    <Compile Include="Data\PokeApi\PokeApiV2.Json.cs" />
+    <Compile Include="Data\PokeApi\ResourceUri.cs" />
     <Compile Include="Data\PokeD\Battle\BattleState.cs" />
     <Compile Include="Data\PokeD\Battle\IBattleType.cs" />
     <Compile Include="Data\PokeD\Battle\IBattleInfo.cs" />
     <Compile Include="Data\PokeD\Monster\Interfaces\IMonsterTradeInfo.cs" />
     <Compile Include="Data\PokeD\Monster\Data\MonsterAbility.cs" />
     <Compile Include="Data\PokeD\Monster\Data\MonsterHeldItem.cs" />
-    <Compile Include="Data\PokeApi\Languages.cs" />
-    <Compile Include="Data\PokeApi\NamedAPIResource.cs" />
-    <Compile Include="Data\PokeApi\Localization.cs" />
-    <Compile Include="Data\PokeApi\PokeApiException.cs" />
-    <Compile Include="Data\PokeApi\PokeApiV2.cs" />
-    <Compile Include="Data\PokeApi\PokeApiV2.Json.cs" />
-    <Compile Include="Data\PokeApi\ResourceUri.cs" />
     <Compile Include="Data\PokeD\Structs\MetaSwitch.cs" />
     <Compile Include="Data\PokeD\Structs\MetaPosition.cs" />
     <Compile Include="Data\PokeD\Monster\Data\MonsterEggGroup.cs" />
@@ -186,12 +186,21 @@
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\Newtonsoft.Json.8.0.2\lib\portable-net45+wp80+win8+wpa81+dnxcore50\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PCLStorage, Version=1.0.2.0, Culture=neutral, PublicKeyToken=286fe515a2c35b64, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\PCLStorage.1.0.2\lib\portable-net45+wp8+wpa81+win8+monoandroid+monotouch+Xamarin.iOS+Xamarin.Mac\PCLStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="PCLStorage.Abstractions, Version=1.0.2.0, Culture=neutral, PublicKeyToken=286fe515a2c35b64, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\PCLStorage.1.0.2\lib\portable-net45+wp8+wpa81+win8+monoandroid+monotouch+Xamarin.iOS+Xamarin.Mac\PCLStorage.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(SolutionDir)\Aragas.Core\Aragas.Core.csproj">
       <Project>{468d9d51-dfe7-47a8-b0d6-52d035fc714d}</Project>
       <Name>Aragas.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

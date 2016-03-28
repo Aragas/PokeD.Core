@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Aragas.Core.Data;
 
@@ -14,8 +14,8 @@ namespace PokeD.Core.Data.PokeD.Monster
 {
     public class MonsterStaticData
     {
-        public static Languages UsedLanguage { get; set; } = Languages.English; // TODO: Move it
-        private static Dictionary<int, MonsterStaticData> Cache { get; } = new Dictionary<int, MonsterStaticData>(); 
+        public static Languages Language { get; set; } = Languages.English; // TODO: Move it
+
 
         public short ID { get; }
         public string Name { get; private set; }
@@ -47,22 +47,19 @@ namespace PokeD.Core.Data.PokeD.Monster
         public MonsterStaticData(short id) { ID = id; }
 
 
-        public static MonsterStaticData LoadStaticDataPokeApiV2(short id)
+        private static bool GetLocalizedName(Localization name) => ((Languages) new ResourceUri(name.language).Id) == Language;
+        public static async Task<MonsterStaticData> LoadStaticDataPokeApiV2(short id)
         {
-            if (Cache.ContainsKey(id))
-                return Cache[id];
-
-
             var data = new MonsterStaticData(id);
 
-            var pokemon = PokeApiV2.GetPokemon(new ResourceUri($"api/v2/pokemon/{id}/", true));
-            var pokemonSpecies = PokeApiV2.GetPokemonSpecies(new ResourceUri($"api/v2/pokemon-species/{id}/", true));
+            var pokemon = await PokeApiV2.GetPokemon(new ResourceUri($"api/v2/pokemon/{id}/", true));
+            var pokemonSpecies = await PokeApiV2.GetPokemonSpecies(new ResourceUri($"api/v2/pokemon-species/{id}/", true));
 
-            var abilities = PokeApiV2.GetAbilities(pokemon.abilities.Select(ability => new ResourceUri(ability.ability)).ToArray());
-            var types = PokeApiV2.GetTypes(pokemon.types.Select(type => new ResourceUri(type.type)).ToArray());
-            var eggGroups = PokeApiV2.GetEggGroups(pokemonSpecies.egg_groups.Select(eggGroup => new ResourceUri(eggGroup)).ToArray());
-            var heldItems = PokeApiV2.GetItems(pokemon.held_items.Select(heldItem => new ResourceUri(heldItem.item)).ToArray());
-            //var moves = PokeApiV2.GetMoves(pokemon.moves.Select(move => new ResourceUri(move.move)).ToArray());
+            var abilities = await PokeApiV2.GetAbilities(pokemon.abilities.Select(ability => new ResourceUri(ability.ability)));
+            var types = await PokeApiV2.GetTypes(pokemon.types.Select(type => new ResourceUri(type.type)));
+            var eggGroups = await PokeApiV2.GetEggGroups(pokemonSpecies.egg_groups.Select(eggGroup => new ResourceUri(eggGroup)));
+            var heldItems = await PokeApiV2.GetItems(pokemon.held_items.Select(heldItem => new ResourceUri(heldItem.item)));
+            //var moves = await PokeApiV2.GetMoves(pokemon.moves.Select(move => new ResourceUri(move.move)));
 
             data.Name = pokemonSpecies.names.Find(GetLocalizedName).name;
             data.Types = new MonsterTypes(types.Select(type => new MonsterType(type.id, type.names.Find(GetLocalizedName).name)).ToArray());
@@ -102,10 +99,8 @@ namespace PokeD.Core.Data.PokeD.Monster
             data.EggGroups = new MonsterEggGroups(eggGroups.Select(eggGroup => new MonsterEggGroup(eggGroup.id, eggGroup.names.Find(GetLocalizedName).name)).ToArray());
 
 
-            Cache.Add(id, data);
             return data;
         }
-        private static bool GetLocalizedName(Localization name) => (Languages) new ResourceUri(name.language).Id == UsedLanguage;
     }
     public class MonsterInstanceData
     {
@@ -150,7 +145,7 @@ namespace PokeD.Core.Data.PokeD.Monster
         {
             Species = species;
 
-            StaticData = MonsterStaticData.LoadStaticDataPokeApiV2(Species);
+            StaticData = MonsterStaticData.LoadStaticDataPokeApiV2(Species).Result;
 
             var random = new MersenneTwisterRandom();
             var thirtyBits = (uint) random.Next(1 << 30);
@@ -172,14 +167,14 @@ namespace PokeD.Core.Data.PokeD.Monster
             Species = species;
             SecretID = secretId;
 
-            StaticData = MonsterStaticData.LoadStaticDataPokeApiV2(Species);
+            StaticData = MonsterStaticData.LoadStaticDataPokeApiV2(Species).Result;
 
             PersonalityValue = personalityValue;
             Nature = nature;
         }
         public MonsterInstanceData(short species, MonsterGender gender, bool isShiny, short ability, byte nature)
         {
-            StaticData = MonsterStaticData.LoadStaticDataPokeApiV2(species);
+            StaticData = MonsterStaticData.LoadStaticDataPokeApiV2(species).Result;
 
             Species = species;
             PersonalityValue = StaticData.Abilities.Contains(ability) ? GenerateRandom(gender, isShiny, ability) : 0;

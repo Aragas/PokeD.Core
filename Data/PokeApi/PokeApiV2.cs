@@ -1,135 +1,177 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
+
+using Aragas.Core.Wrappers;
 
 using Newtonsoft.Json;
+
+using PCLStorage;
 
 namespace PokeD.Core.Data.PokeApi
 {
     public static class PokeApiV2
     {
-        public static PokemonJsonV2 GetPokemon(ResourceUri uri)
+        public static bool CacheData { get; set; } = false;
+
+
+        #region Cache
+
+        private static ConcurrentDictionary<int, PokemonJsonV2> CachePokemonJsonV2 { get; } = new ConcurrentDictionary<int, PokemonJsonV2>();
+        private static ConcurrentDictionary<int, AbilitiesJsonV2> CacheAbilitiesJsonV2 { get; } = new ConcurrentDictionary<int, AbilitiesJsonV2>();
+        private static ConcurrentDictionary<int, MoveJsonV2> CacheMoveJsonV2 { get; } = new ConcurrentDictionary<int, MoveJsonV2>();
+        private static ConcurrentDictionary<int, PokemonTypeJsonV2> CachePokemonTypeJsonV2 { get; } = new ConcurrentDictionary<int, PokemonTypeJsonV2>();
+        private static ConcurrentDictionary<int, EggGroupJsonV2> CacheEggGroupJsonV2 { get; } = new ConcurrentDictionary<int, EggGroupJsonV2>();
+        private static ConcurrentDictionary<int, GenderJsonV2> CacheGenderJsonV2 { get; } = new ConcurrentDictionary<int, GenderJsonV2>();
+        private static ConcurrentDictionary<int, PokemonSpeciesJsonV2> CachePokemonSpeciesJsonV2 { get; } = new ConcurrentDictionary<int, PokemonSpeciesJsonV2>();
+        private static ConcurrentDictionary<int, ItemJsonV2> CacheItemJsonV2 { get; } = new ConcurrentDictionary<int, ItemJsonV2>();
+        private static ConcurrentDictionary<int, EvolutionTriggersJsonV2> CacheEvolutionTriggersJsonV2 { get; } = new ConcurrentDictionary<int, EvolutionTriggersJsonV2>();
+
+
+        private static async Task<T> CacheFunc<T>(ResourceUri uri, IDictionary<int, T> cache, Func<ResourceUri, Task<T>> func)
+        {
+            if (!CacheData)
+                return await func(uri);
+            
+
+            var folder = await FileSystemWrapper.ContentFolder.CreateFolderAsync("Cache", CreationCollisionOption.OpenIfExists);
+            var name = $"{uri.Type}_{uri.Id}.json";
+
+ 
+            if (await folder.CheckExistsAsync(name) == ExistenceCheckResult.FileExists)
+            {
+                var file = await folder.GetFileAsync(name);
+                var text = await file.ReadAllTextAsync();
+
+                if (!cache.ContainsKey(uri.Id))
+                    cache.Add(uri.Id, JsonConvert.DeserializeObject<T>(text));
+
+                return JsonConvert.DeserializeObject<T>(text);
+            }
+            else
+            {
+                var obj = await func(uri);
+
+                var file = await folder.CreateFileAsync(name, CreationCollisionOption.FailIfExists);
+                await file.WriteAllTextAsync(JsonConvert.SerializeObject(obj));
+
+                if (!cache.ContainsKey(uri.Id))
+                    cache.Add(uri.Id, obj);
+
+                return obj;
+            }
+        }
+        private static async Task<T> Cache<T>(ResourceUri uri, IDictionary<int, T> cache, Func<ResourceUri, Task<T>> func) where T : PokeApiV2Json
+        {
+            return await CacheFunc(uri, cache, func);
+        }
+        private static async Task<IReadOnlyList<T>> Cache<T>(IEnumerable<ResourceUri> uris, IDictionary<int, T> cache, Func<ResourceUri, Task<T>> func) where T : PokeApiV2Json
+        {
+            var list = new List<T>();
+            foreach (var uri in uris)
+                list.Add(await CacheFunc(uri, cache, func));
+            return list;
+        }
+
+        #endregion Cache
+
+        #region IEnumerable temp fix
+
+        public static async Task<IReadOnlyList<AbilitiesJsonV2>> GetAbilities(IEnumerable<ResourceUri> uris) => await GetAbilities(uris.ToArray());
+        public static async Task<IReadOnlyList<MoveJsonV2>> GetMoves(IEnumerable<ResourceUri> uris) => await GetMoves(uris.ToArray());
+        public static async Task<IReadOnlyList<PokemonTypeJsonV2>> GetTypes(IEnumerable<ResourceUri> uris) => await GetTypes(uris.ToArray());
+        public static async Task<IReadOnlyList<EggGroupJsonV2>> GetEggGroups(IEnumerable<ResourceUri> uris) => await GetEggGroups(uris.ToArray());
+        public static async Task<IReadOnlyList<GenderJsonV2>> GetGender(IEnumerable<ResourceUri> uris) => await GetGender(uris.ToArray());
+        public static async Task<IReadOnlyList<ItemJsonV2>> GetItems(IEnumerable<ResourceUri> uris) => await GetItems(uris.ToArray());
+        public static async Task<IReadOnlyList<EvolutionTriggersJsonV2>> GetEvolutionTriggers(IEnumerable<ResourceUri> uris) => await GetEvolutionTriggers(uris.ToArray());
+
+        #endregion IEnumerable temp fix
+
+
+        public static async Task<PokemonJsonV2> GetPokemon(ResourceUri uri)
         {
             if (uri.Type != ResourceUri.ApiType.Pokemon || uri.Version != ResourceUri.ApiVersion.V2)
                 throw new PokeApiException("ResourceUri Type not correct. Should be ResourceUri.ApiType.Pokemon, or request is not ResourceUri.ApiVersion.V2");
 
-            return GetPokemonNetwork(uri);
+            return await Cache(uri, CachePokemonJsonV2, GetNetworkJsonV2<PokemonJsonV2>);
         }
-        public static List<AbilitiesJsonV2> GetAbilities(params ResourceUri[] uris)
+        public static async Task<IReadOnlyList<AbilitiesJsonV2>> GetAbilities(params ResourceUri[] uris)
         {
             if (uris.Any(uri => uri.Type != ResourceUri.ApiType.Ability) || uris.Any(uri => uri.Version != ResourceUri.ApiVersion.V2))
                 throw new PokeApiException("ResourceUri Type not correct. Should be ResourceUri.ApiType.Ability, or request is not ResourceUri.ApiVersion.V2");
 
-            return GetAbilitiesNetwork(uris);
+            return await Cache(uris, CacheAbilitiesJsonV2, GetNetworkJsonV2<AbilitiesJsonV2>);
         }
-        public static List<MoveJsonV2> GetMoves(params ResourceUri[] uris)
+        public static async Task<IReadOnlyList<MoveJsonV2>> GetMoves(params ResourceUri[] uris)
         {
             if (uris.Any(uri => uri.Type != ResourceUri.ApiType.Move) || uris.Any(uri => uri.Version != ResourceUri.ApiVersion.V2))
                 throw new PokeApiException("ResourceUri Type not correct. Should be ResourceUri.ApiType.Move, or request is not ResourceUri.ApiVersion.V2");
 
-            return GetMovesNetwork(uris);
+            return await Cache(uris, CacheMoveJsonV2, GetNetworkJsonV2<MoveJsonV2>);
         }
-        public static List<PokemonTypeJsonV2> GetTypes(params ResourceUri[] uris)
+        public static async Task<IReadOnlyList<PokemonTypeJsonV2>> GetTypes(params ResourceUri[] uris)
         {
             if (uris.Any(uri => uri.Type != ResourceUri.ApiType.Type) || uris.Any(uri => uri.Version != ResourceUri.ApiVersion.V2))
                 throw new PokeApiException("ResourceUri Type not correct. Should be ResourceUri.ApiType.Type, or request is not ResourceUri.ApiVersion.V2");
 
-            return GetTypesNetwork(uris);
+            return await Cache(uris, CachePokemonTypeJsonV2, GetNetworkJsonV2<PokemonTypeJsonV2>);
         }
-        public static List<EggGroupJsonV2> GetEggGroups(params ResourceUri[] uris)
+        public static async Task<IReadOnlyList<EggGroupJsonV2>> GetEggGroups(params ResourceUri[] uris)
         {
             if (uris.Any(uri => uri.Type != ResourceUri.ApiType.EggGroup) || uris.Any(uri => uri.Version != ResourceUri.ApiVersion.V2))
                 throw new PokeApiException("ResourceUri Type not correct. Should be ResourceUri.ApiType.EggGroup, or request is not ResourceUri.ApiVersion.V2");
 
-            return GetEggGroupsNetwork(uris);
+            return await Cache(uris, CacheEggGroupJsonV2, GetNetworkJsonV2<EggGroupJsonV2>);
         }
-        public static GenderJsonV2 GetGender(ResourceUri uri)
+        public static async Task<IReadOnlyList<GenderJsonV2>> GetGender(params ResourceUri[] uris)
         {
-            if (uri.Type != ResourceUri.ApiType.Gender || uri.Version != ResourceUri.ApiVersion.V2)
-                throw new PokeApiException("ResourceUri Type not correct. Should be ResourceUri.ApiType.Type, or request is not ResourceUri.ApiVersion.V2");
+            if (uris.Any(uri => uri.Type != ResourceUri.ApiType.Gender) || uris.Any(uri => uri.Version != ResourceUri.ApiVersion.V2))
+                throw new PokeApiException("ResourceUri Type not correct. Should be ResourceUri.Gender.EvolutionTrigger, or request is not ResourceUri.ApiVersion.V2");
 
-            return GetGenderNetwork(uri);
+            return await Cache(uris, CacheGenderJsonV2, GetNetworkJsonV2<GenderJsonV2>);
         }
-        public static PokemonSpeciesJsonV2 GetPokemonSpecies(ResourceUri uri)
+        public static async Task<PokemonSpeciesJsonV2> GetPokemonSpecies(ResourceUri uri)
         {
             if (uri.Type != ResourceUri.ApiType.PokemonSpecies || uri.Version != ResourceUri.ApiVersion.V2)
                 throw new PokeApiException("ResourceUri Type not correct. Should be ResourceUri.ApiType.PokemonSpecies, or request is not ResourceUri.ApiVersion.V2");
 
-            return GetPokemonSpeciesNetwork(uri);
+            return await Cache(uri, CachePokemonSpeciesJsonV2, GetNetworkJsonV2<PokemonSpeciesJsonV2>);
         }
-        public static List<ItemJsonV2> GetItems(params ResourceUri[] uris)
+        public static async Task<IReadOnlyList<ItemJsonV2>> GetItems(params ResourceUri[] uris)
         {
             if (uris.Any(uri => uri.Type != ResourceUri.ApiType.Item) || uris.Any(uri => uri.Version != ResourceUri.ApiVersion.V2))
                 throw new PokeApiException("ResourceUri Type not correct. Should be ResourceUri.ApiType.Item, or request is not ResourceUri.ApiVersion.V2");
 
-            return GetItemsNetwork(uris);
+            return await Cache(uris, CacheItemJsonV2, GetNetworkJsonV2<ItemJsonV2>);
         }
-        public static EvolutionTriggersJsonV2 GetEvolutionTriggers(ResourceUri uri)
+        public static async Task<IReadOnlyList<EvolutionTriggersJsonV2>> GetEvolutionTriggers(params ResourceUri[] uris)
         {
-            if (uri.Type != ResourceUri.ApiType.EvolutionTrigger || uri.Version != ResourceUri.ApiVersion.V2)
+            if (uris.Any(uri => uri.Type != ResourceUri.ApiType.EvolutionTrigger) || uris.Any(uri => uri.Version != ResourceUri.ApiVersion.V2))
                 throw new PokeApiException("ResourceUri Type not correct. Should be ResourceUri.ApiType.EvolutionTrigger, or request is not ResourceUri.ApiVersion.V2");
 
-            return GetEvolutionTriggersNetwork(uri);
+            return await Cache(uris, CacheEvolutionTriggersJsonV2, GetNetworkJsonV2<EvolutionTriggersJsonV2>);
         }
 
-        private static PokemonJsonV2 GetPokemonNetwork(ResourceUri uri)
+
+        private static HttpClient Client { get; } = new HttpClient();
+        private static async Task<string> GetResponse(ResourceUri uri)
         {
-            var client = new HttpClient();
-            var response = client.GetStringAsync(new Uri(uri.RawString)).Result;
+            return await Client.GetStringAsync(uri.RawString);
 
-            return JsonConvert.DeserializeObject<PokemonJsonV2>(response);
-        }
-        private static List<AbilitiesJsonV2> GetAbilitiesNetwork(params ResourceUri[] uris)
-        {
-            var client = new HttpClient();
+            ///*
+            var request = (HttpWebRequest) WebRequest.Create(uri.RawString);
+            request.Proxy = null;
 
-            return uris.Select(uri => client.GetStringAsync(new Uri(uri.RawString)).Result).Select(JsonConvert.DeserializeObject<AbilitiesJsonV2>).ToList();
+            using (var response = (HttpWebResponse)await request.GetResponseAsync())
+            using (var reader = new StreamReader(response.GetResponseStream()))
+                return await reader.ReadToEndAsync();
+            //*/
         }
-        private static List<MoveJsonV2> GetMovesNetwork(params ResourceUri[] uris)
-        {
-            var client = new HttpClient();
-
-            return uris.Select(uri => client.GetStringAsync(new Uri(uri.RawString)).Result).Select(JsonConvert.DeserializeObject<MoveJsonV2>).ToList();
-        }
-        private static List<PokemonTypeJsonV2> GetTypesNetwork(params ResourceUri[] uris)
-        {
-            var client = new HttpClient();
-
-            return uris.Select(uri => client.GetStringAsync(new Uri(uri.RawString)).Result).Select(JsonConvert.DeserializeObject<PokemonTypeJsonV2>).ToList();
-        }
-        private static List<EggGroupJsonV2> GetEggGroupsNetwork(params ResourceUri[] uris)
-        {
-            var client = new HttpClient();
-
-            return uris.Select(uri => client.GetStringAsync(new Uri(uri.RawString)).Result).Select(JsonConvert.DeserializeObject<EggGroupJsonV2>).ToList();
-        }
-        private static GenderJsonV2 GetGenderNetwork(ResourceUri uri)
-        {
-            var client = new HttpClient();
-            var response = client.GetStringAsync(new Uri(uri.RawString)).Result;
-
-            return JsonConvert.DeserializeObject<GenderJsonV2>(response);
-        }
-        private static PokemonSpeciesJsonV2 GetPokemonSpeciesNetwork(ResourceUri uri)
-        {
-            var client = new HttpClient();
-            var response = client.GetStringAsync(new Uri(uri.RawString)).Result;
-
-            return JsonConvert.DeserializeObject<PokemonSpeciesJsonV2>(response);
-        }
-        private static List<ItemJsonV2> GetItemsNetwork(params ResourceUri[] uris)
-        {
-            var client = new HttpClient();
-
-            return uris.Select(uri => client.GetStringAsync(new Uri(uri.RawString)).Result).Select(JsonConvert.DeserializeObject<ItemJsonV2>).ToList();
-        }
-        private static EvolutionTriggersJsonV2 GetEvolutionTriggersNetwork(ResourceUri uri)
-        {
-            var client = new HttpClient();
-            var response = client.GetStringAsync(new Uri(uri.RawString)).Result;
-
-            return JsonConvert.DeserializeObject<EvolutionTriggersJsonV2>(response);
-        }
+        private static async Task<T> GetNetworkJsonV2<T>(ResourceUri uri) where T : PokeApiV2Json => JsonConvert.DeserializeObject<T>(await GetResponse(uri));
     }
 }

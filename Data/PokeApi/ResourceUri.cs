@@ -7,10 +7,64 @@ namespace PokeD.Core.Data.PokeApi
 {
     public class ResourceUri
     {
-        public static string URL { private get; set; } = "";
+        public static string URL { get; set; } = "http://pokeapi.co/";
 
-        public enum ApiVersion { V1, V2 }
-        public enum ApiType { Pokedex, Pokemon, PokemonSpecies, Type, Move, Ability, Egg, EggGroup, GrowthRate, Sprite, Language, Gender, Stat, Item, EvolutionTrigger }
+        public enum ApiVersion
+        {
+            V1,
+            V2
+        }
+
+        public enum ApiType
+        {
+            Berry,
+            BerryFirmness,
+            BerryFlavor,
+            ContestType,
+            ContestEffect,
+            SuperContestEffect,
+            EncounterMethod,
+            EncounterCondition,
+            EncounterConditionValue,
+            EvolutionChain,
+            EvolutionTrigger,
+            Generation,
+            Pokedex,
+            Version,
+            VersionGroup,
+            Item,
+            ItemAttribute,
+            ItemCategory,
+            ItemFlingEffect,
+            ItemPocket,
+            Move,
+            MoveAilment,
+            MoveBattleStyle,
+            MoveCategory,
+            MoveDamageClass,
+            MoveLearnMethod,
+            MoveTarget,
+            Location,
+            LocationArea,
+            PalParkArea,
+            Region,
+            Ability,
+            Characteristic,
+            EggGroup,
+            Gender,
+            GrowthRate,
+            Nature,
+            PokeathlonStat,
+            Pokemon,
+            PokemonColor,
+            PokemonForm,
+            PokemonHabitat,
+            PokemonShape,
+            PokemonSpecies,
+            Stat,
+            Type,
+            Language
+        }
 
         public string RawString { get; }
         public ApiVersion Version { get; }

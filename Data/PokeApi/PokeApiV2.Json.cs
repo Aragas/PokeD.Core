@@ -2,7 +2,9 @@
 
 namespace PokeD.Core.Data.PokeApi
 {
-    public class EvolutionChainsJsonV2
+    public interface PokeApiV2Json { }
+
+    public class EvolutionChainsJsonV2 : PokeApiV2Json
     {
         public class EvolutionDetails
         {
@@ -46,7 +48,7 @@ namespace PokeD.Core.Data.PokeApi
         public Chain chain { get; set; }
     }
 
-    public class EvolutionTriggersJsonV2
+    public class EvolutionTriggersJsonV2 : PokeApiV2Json
     {
         public int id { get; set; }
         public string name { get; set; }
@@ -54,7 +56,7 @@ namespace PokeD.Core.Data.PokeApi
         public List<NamedAPIResource> pokemon_species { get; set; }
     }
 
-    public class ItemJsonV2
+    public class ItemJsonV2 : PokeApiV2Json
     {
         public class EffectEntry
         {
@@ -92,7 +94,7 @@ namespace PokeD.Core.Data.PokeApi
         public int id { get; set; }
         public string name { get; set; }
         public int cost { get; set; }
-        public int fling_power { get; set; }
+        public int? fling_power { get; set; }
         public NamedAPIResource fling_effect { get; set; }
         public List<NamedAPIResource> attributes { get; set; }
         public NamedAPIResource category { get; set; }
@@ -104,7 +106,7 @@ namespace PokeD.Core.Data.PokeApi
         public BabyTriggerFor baby_trigger_for { get; set; }
     }
 
-    public class PokemonSpeciesJsonV2
+    public class PokemonSpeciesJsonV2 : PokeApiV2Json
     {
         public class PokedexNumber
         {
@@ -159,7 +161,7 @@ namespace PokeD.Core.Data.PokeApi
         public List<Variety> varieties { get; set; }
     }
 
-    public class GenderJsonV2
+    public class GenderJsonV2 : PokeApiV2Json
     {
         public class PokemonSpeciesDetail
         {
@@ -174,7 +176,7 @@ namespace PokeD.Core.Data.PokeApi
         public List<NamedAPIResource> required_for_evolution { get; set; }
     }
 
-    public class MoveJsonV2
+    public class MoveJsonV2 : PokeApiV2Json
     {
         public class Normal
         {
@@ -224,11 +226,11 @@ namespace PokeD.Core.Data.PokeApi
 
         public int id { get; set; }
         public string name { get; set; }
-        public int accuracy { get; set; }
+        public int? accuracy { get; set; }
         public object effect_chance { get; set; }
         public int pp { get; set; }
         public int priority { get; set; }
-        public int power { get; set; }
+        public int? power { get; set; }
         public ContestCombos contest_combos { get; set; }
         public NamedAPIResource contest_type { get; set; }
         public ContestEffect contest_effect { get; set; }
@@ -245,7 +247,7 @@ namespace PokeD.Core.Data.PokeApi
         public NamedAPIResource type { get; set; }
     }
     
-    public class EggGroupJsonV2
+    public class EggGroupJsonV2 : PokeApiV2Json
     {
         public int id { get; set; }
         public string name { get; set; }
@@ -253,7 +255,7 @@ namespace PokeD.Core.Data.PokeApi
         public List<NamedAPIResource> pokemon_species { get; set; }
     }
 
-    public class AbilitiesJsonV2
+    public class AbilitiesJsonV2 : PokeApiV2Json
     {
         public class EffectEntry
         {
@@ -298,7 +300,7 @@ namespace PokeD.Core.Data.PokeApi
         public List<Pokemon> pokemon { get; set; }
     }
 
-    public class PokemonTypeJsonV2
+    public class PokemonTypeJsonV2 : PokeApiV2Json
     {
         public class DamageRelations
         {
@@ -332,7 +334,7 @@ namespace PokeD.Core.Data.PokeApi
         public List<NamedAPIResource> moves { get; set; }
     }
 
-    public class PokemonJsonV2
+    public class PokemonJsonV2 : PokeApiV2Json
     {
         public class Ability
         {
