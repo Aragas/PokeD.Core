@@ -13,6 +13,9 @@ install:
 script:
   - xbuild /p:Configuration=Release PokeD.Core.sln
   - xbuild /p:Configuration=Debug PokeD.Core.sln
+  
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 
 notifications:
   email:
