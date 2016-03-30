@@ -6,7 +6,7 @@ namespace PokeD.Core.Packets.PokeD.Overworld.Map
 {
     public class TileSetRequestPacket : PokeDPacket
     {
-        public string[] TileSetNames { get; set; }
+        public string[] TileSetNames { get; set; } = new string[0];
 
 
         public override VarInt ID => PokeDPacketTypes.TileSetRequest;

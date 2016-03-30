@@ -32,6 +32,7 @@ namespace PokeD.Core.Packets.P3D.Shared
         public Vector3 GetPokemonPosition(char separator) { return Vector3Extensions.FromPokeString(PokemonPosition, separator, CultureInfo); }
         public void SetPokemonPosition(Vector3 position, char separator) { PokemonPosition = position.ToPokeString(separator, CultureInfo); }
 
+
         public override int ID => (int) P3DPacketTypes.GameData;
 
         public override P3DPacket ReadPacket(P3DDataReader reader) { return this; }

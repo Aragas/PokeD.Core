@@ -2,7 +2,7 @@ using Aragas.Core.Extensions;
 
 namespace PokeD.Core.Data.PokeD.Structs
 {
-    public class MetaSwitch
+    public struct MetaSwitch
     {
         public byte Meta { get; private set; }
 
@@ -19,7 +19,7 @@ namespace PokeD.Core.Data.PokeD.Structs
         public byte SwitchMonster { get { return Meta.BitsGet(2, 5); } set { Meta = Meta.BitsSet(value, 2, 5); } }
 
 
-        public MetaSwitch(byte currentMonster, byte switchMonster) { CurrentMonster = currentMonster; SwitchMonster = switchMonster; }
+        public MetaSwitch(byte currentMonster, byte switchMonster) : this() { CurrentMonster = currentMonster; SwitchMonster = switchMonster; }
         public MetaSwitch(byte meta) { Meta = meta; }
     }
 }

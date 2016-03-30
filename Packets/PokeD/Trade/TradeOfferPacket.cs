@@ -9,7 +9,7 @@ namespace PokeD.Core.Packets.PokeD.Trade
     public class TradeOfferPacket : PokeDPacket
     {
         public VarInt DestinationID { get; set; }
-        public MonsterInstanceData MonsterData { get; set; }
+        public MonsterInstanceData MonsterData { get; set; } = new MonsterInstanceData(1);
 
 
         public override VarInt ID => PokeDPacketTypes.TradeOffer;

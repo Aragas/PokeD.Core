@@ -12,8 +12,8 @@ namespace PokeD.Core.Packets.PokeD.Battle
     public class BattleSwitchPacket : PokeDPacket
     {
         private MetaSwitch Info { get; set; }
-        public byte CurrentMonster { get { return Info.CurrentMonster; } set { Info.CurrentMonster = value; } }
-        public byte SwitchMonster { get { return Info.SwitchMonster; } set { Info.SwitchMonster = value; } }
+        public byte CurrentMonster { get { return Info.CurrentMonster; } set { Info = new MetaSwitch(value, SwitchMonster); } }
+        public byte SwitchMonster { get { return Info.SwitchMonster; } set { Info = new MetaSwitch(CurrentMonster, value); } }
 
 
         public override VarInt ID => PokeDPacketTypes.BattleSwitch;

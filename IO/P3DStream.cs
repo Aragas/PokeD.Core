@@ -56,17 +56,17 @@ namespace PokeD.Core.IO
         }
 
 
-        public string ReadLine() { return Reader.ReadLine(); }
+        public string ReadLine() => Reader.ReadLine();
 
 
         public void Send(byte[] buffer)
         {
-            TCPClient.Write(buffer, 0, buffer.Length);
+            BaseStream.Write(buffer, 0, buffer.Length);
         }
         public byte[] Receive(int length)
         {
             var buffer = new byte[length];
-            TCPClient.Read(buffer, 0, buffer.Length);
+            BaseStream.Read(buffer, 0, buffer.Length);
             return buffer;
         }
 

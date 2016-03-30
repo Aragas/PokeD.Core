@@ -6,8 +6,9 @@ namespace PokeD.Core.Packets.SCON.Chat
 {
     public class ChatMessagePacket : SCONPacket
     {
-        public string Player { get; set; }
-        public string Message { get; set; }
+        public string Player { get; set; } = string.Empty;
+        public string Message { get; set; } = string.Empty;
+
 
         public override VarInt ID => SCONPacketTypes.ChatMessage;
 

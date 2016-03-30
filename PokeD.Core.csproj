@@ -74,6 +74,8 @@
     <Compile Include="Data\SCON\Ban.cs" />
     <Compile Include="Data\SCON\PlayerDatabase.cs" />
     <Compile Include="Data\PokeD\Trainer\Trainer.cs" />
+    <Compile Include="Extensions\DataItemsExtensions.cs" />
+    <Compile Include="Extensions\MonsterExtensions.cs" />
     <Compile Include="Extensions\PacketExtensions.cs" />
     <Compile Include="Extensions\Vector3Extensions.cs" />
     <Compile Include="Extensions\BouncyCastleExtensions.cs" />
@@ -198,9 +200,6 @@
       <Project>{468d9d51-dfe7-47a8-b0d6-52d035fc714d}</Project>
       <Name>Aragas.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

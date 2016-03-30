@@ -6,8 +6,9 @@ namespace PokeD.Core.Packets.SCON.Authorization
 {
     public class EncryptionRequestPacket : SCONPacket
     {
-        public byte[] PublicKey { get; set; }
-        public byte[] VerificationToken { get; set; }
+        public byte[] PublicKey { get; set; } = new byte[0];
+        public byte[] VerificationToken { get; set; } = new byte[0];
+
 
         public override VarInt ID => SCONPacketTypes.EncryptionRequest;
 

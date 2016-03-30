@@ -6,8 +6,9 @@ namespace PokeD.Core.Packets.SCON.Logs
 {
     public class CrashLogFileResponsePacket : SCONPacket
     {
-        public string CrashLogFilename { get; set; }
-        public string CrashLogFile { get; set; }
+        public string CrashLogFilename { get; set; } = string.Empty;
+        public string CrashLogFile { get; set; } = string.Empty;
+
 
         public override VarInt ID => SCONPacketTypes.CrashLogFileResponse;
 

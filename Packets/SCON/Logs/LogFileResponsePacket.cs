@@ -6,8 +6,9 @@ namespace PokeD.Core.Packets.SCON.Logs
 {
     public class LogFileResponsePacket : SCONPacket
     {
-        public string LogFilename { get; set; }
-        public string LogFile { get; set; }
+        public string LogFilename { get; set; } = string.Empty;
+        public string LogFile { get; set; } = string.Empty;
+
 
         public override VarInt ID => SCONPacketTypes.LogFileResponse;
 

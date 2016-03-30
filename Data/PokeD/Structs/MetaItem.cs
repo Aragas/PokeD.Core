@@ -2,7 +2,7 @@ using Aragas.Core.Extensions;
 
 namespace PokeD.Core.Data.PokeD.Structs
 {
-    public class MetaItem
+    public struct MetaItem
     {
         public short Meta { get; private set; }
 
@@ -19,7 +19,7 @@ namespace PokeD.Core.Data.PokeD.Structs
         public short Monster { get { return Meta.BitsGet(14, 16); } set { Meta = Meta.BitsSet(value, 14, 16); } }
 
 
-        public MetaItem(short item, short monster) { Item = item; Monster = monster; }
+        public MetaItem(short item, short monster) : this() { Item = item; Monster = monster; }
         public MetaItem(short meta) { Meta = meta; }
     }
 }

@@ -6,12 +6,13 @@ using Aragas.Core.Packets;
 
 namespace PokeD.Core.Packets.PokeD.Overworld
 {
-    public class WorldInfoPacketcs : PokeDPacket
+    public class WorldInfoPacket : PokeDPacket
     {
         public TimeSpan Time { get; set; }
         public byte Season { get; set; }
         public byte Weather { get; set; }
         public byte Event { get; set; }
+
 
         public override VarInt ID => PokeDPacketTypes.WorldInfo;
 

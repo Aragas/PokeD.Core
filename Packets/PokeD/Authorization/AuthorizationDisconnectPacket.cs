@@ -6,7 +6,7 @@ namespace PokeD.Core.Packets.PokeD.Authorization
 {
     public class AuthorizationDisconnectPacket : PokeDPacket
     {
-        public string Reason { get; set; }
+        public string Reason { get; set; } = string.Empty;
 
 
         public override VarInt ID => PokeDPacketTypes.AuthorizationDisconnect;

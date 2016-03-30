@@ -2,7 +2,7 @@
 using Aragas.Core.Extensions;
 using Aragas.Core.IO;
 using Aragas.Core.Packets;
-
+using PokeD.Core.Data.PokeD.Trainer;
 using PokeD.Core.Data.PokeD.Trainer.Interfaces;
 
 namespace PokeD.Core.Packets.PokeD.Overworld
@@ -40,12 +40,12 @@ namespace PokeD.Core.Packets.PokeD.Overworld
     {
         public VarInt PlayerID { get; set; }
         public short TrainerSprite { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         public short TrainerID { get; set; }
         public byte Gender { get; set; }
 
-        public IOpponentTeam MonsterTeam { get; set; }
+        public IOpponentTeam MonsterTeam { get; set; } = new MonsterParty();
 
 
         public override VarInt ID => PokeDPacketTypes.TrainerInfo;

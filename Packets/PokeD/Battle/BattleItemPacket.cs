@@ -13,8 +13,8 @@ namespace PokeD.Core.Packets.PokeD.Battle
     {
         private MetaItem Info { get; set; }
 
-        public short Monster { get { return Info.Monster; } set { Info.Monster = value; } }
-        public short Item { get { return Info.Item; } set { Info.Item = value; } }
+        public short Monster { get { return Info.Monster; } set { Info = new MetaItem(value, Item); } }
+        public short Item { get { return Info.Item; } set { Info = new MetaItem(Monster, value); } }
 
 
         public override VarInt ID => PokeDPacketTypes.BattleItem;

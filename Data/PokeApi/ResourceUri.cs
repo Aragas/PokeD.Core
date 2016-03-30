@@ -75,21 +75,21 @@ namespace PokeD.Core.Data.PokeApi
         {
             RawString = partial ? URL + str : str;
             
-            var array = RawString.Split('/').Reverse().ToArray();
+            var array = RawString.Split('/').Where(x => !string.IsNullOrEmpty(x)).Reverse().ToArray();
 
-            Version = (ApiVersion) Enum.Parse(typeof (ApiVersion), array[3].RemoveWhitespace(), true);
-            Type = (ApiType) Enum.Parse(typeof (ApiType), array[2].Replace("-", "").RemoveWhitespace(), true);
-            Id = int.Parse(array[1]);
+            Version = (ApiVersion) Enum.Parse(typeof (ApiVersion), array[2].RemoveWhitespace(), true);
+            Type = (ApiType) Enum.Parse(typeof (ApiType), array[1].Replace("-", "").RemoveWhitespace(), true);
+            Id = int.Parse(array[0]);
         }
         public ResourceUri(NamedAPIResource namedApiResource)
         {
             RawString = namedApiResource.url;
 
-            var array = RawString.Split('/').Reverse().ToArray();
+            var array = RawString.Split('/').Where(x => !string.IsNullOrEmpty(x)).Reverse().ToArray();
 
-            Version = (ApiVersion) Enum.Parse(typeof (ApiVersion), array[3].RemoveWhitespace(), true);
-            Type = (ApiType) Enum.Parse(typeof (ApiType), array[2].Replace("-", "").RemoveWhitespace(), true);
-            Id = int.Parse(array[1]);
+            Version = (ApiVersion) Enum.Parse(typeof (ApiVersion), array[2].RemoveWhitespace(), true);
+            Type = (ApiType) Enum.Parse(typeof (ApiType), array[1].Replace("-", "").RemoveWhitespace(), true);
+            Id = int.Parse(array[0]);
         }
     }
 }

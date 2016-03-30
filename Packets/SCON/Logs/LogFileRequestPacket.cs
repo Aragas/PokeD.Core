@@ -6,7 +6,8 @@ namespace PokeD.Core.Packets.SCON.Logs
 {
     public class LogFileRequestPacket : SCONPacket
     {
-        public string LogFilename { get; set; }
+        public string LogFilename { get; set; } = string.Empty;
+
 
         public override VarInt ID => SCONPacketTypes.LogFileRequest;
 

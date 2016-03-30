@@ -8,7 +8,8 @@ namespace PokeD.Core.Packets.SCON.Status
 {
     public class BanListResponsePacket : SCONPacket
     {
-        public Ban[] Bans { get; set; }
+        public Ban[] Bans { get; set; } = new Ban[0];
+
 
         public override VarInt ID => SCONPacketTypes.BanListResponse;
 

@@ -3,7 +3,7 @@ using Aragas.Core.Extensions;
 
 namespace PokeD.Core.Data.PokeD.Structs
 {
-    public class MetaPosition
+    public struct MetaPosition
     {
         public long Meta { get; private set; }
         
@@ -19,7 +19,7 @@ namespace PokeD.Core.Data.PokeD.Structs
         }
 
 
-        public MetaPosition(Vector3 position) { Position = position; }
+        public MetaPosition(Vector3 position) : this() { Position = position; }
         public MetaPosition(long meta) { Meta = meta; }
     }
 }

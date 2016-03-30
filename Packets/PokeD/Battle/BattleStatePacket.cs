@@ -11,7 +11,7 @@ namespace PokeD.Core.Packets.PokeD.Battle
     /// </summary>
     public class BattleStatePacket : PokeDPacket
     {
-        public BattleState BattleState { get; set; }
+        public BattleState BattleState { get; set; } = new BattleState();
 
 
         public override VarInt ID => PokeDPacketTypes.BattleState;

@@ -6,8 +6,8 @@ namespace PokeD.Core.Packets.PokeD.Authorization
 {
     public class EncryptionRequestPacket : PokeDPacket
     {
-        public byte[] PublicKey;
-        public byte[] VerificationToken;
+        public byte[] PublicKey { get; set; } = new byte[0];
+        public byte[] VerificationToken { get; set; } = new byte[0];
 
 
         public override VarInt ID => PokeDPacketTypes.EncryptionRequest;

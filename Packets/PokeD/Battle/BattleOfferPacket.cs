@@ -9,8 +9,8 @@ namespace PokeD.Core.Packets.PokeD.Battle
     /// </summary>
     public class BattleOfferPacket : PokeDPacket
     {
-        public VarInt[] PlayerIDs { get; set; } // First is Player that has offered battle
-        public string Message { get; set; }
+        public VarInt[] PlayerIDs { get; set; } = new VarInt[0];
+        public string Message { get; set; } = string.Empty;
 
 
         public override VarInt ID => PokeDPacketTypes.BattleOffer;

@@ -8,7 +8,8 @@ namespace PokeD.Core.Packets.SCON.Status
 {
     public class PlayerInfoListResponsePacket : SCONPacket
     {
-        public PlayerInfo[] PlayerInfos { get; set; }
+        public PlayerInfo[] PlayerInfos { get; set; } = new PlayerInfo[0];
+
 
         public override VarInt ID => SCONPacketTypes.PlayerInfoListResponse;
 

@@ -2,7 +2,7 @@ using Aragas.Core.Extensions;
 
 namespace PokeD.Core.Data.PokeD.Structs
 {
-    public class MetaAttack
+    public struct MetaAttack
     {
         public byte Meta { get; private set; }
 
@@ -25,7 +25,7 @@ namespace PokeD.Core.Data.PokeD.Structs
         public byte TargetMonster { get { return Meta.BitsGet(4, 8); } set { Meta = Meta.BitsSet(value, 4, 8); } }
 
 
-        public MetaAttack(byte currentMonster, byte move, byte targetMonster) { CurrentMonster = currentMonster; Move = move; TargetMonster = targetMonster; }
+        public MetaAttack(byte currentMonster, byte move, byte targetMonster) : this() { CurrentMonster = currentMonster; Move = move; TargetMonster = targetMonster; }
         public MetaAttack(byte meta) { Meta = meta; }
     }
 }

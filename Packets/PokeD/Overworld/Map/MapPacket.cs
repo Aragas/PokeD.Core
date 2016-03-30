@@ -6,15 +6,15 @@ namespace PokeD.Core.Packets.PokeD.Overworld.Map
 {
     public class FileHash
     {
-        public string Name { get; set; }
-        public string Hash { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Hash { get; set; } = string.Empty;
     }
 
     public class MapPacket : PokeDPacket
     {
-        public string MapData { get; set; }
-        public FileHash[] TileSetHashes { get; set; }
-        public FileHash[] ImageHashes { get; set; }
+        public string MapData { get; set; } = string.Empty;
+        public FileHash[] TileSetHashes { get; set; } = new FileHash[0];
+        public FileHash[] ImageHashes { get; set; } = new FileHash[0];
 
 
         public override VarInt ID => PokeDPacketTypes.Map;

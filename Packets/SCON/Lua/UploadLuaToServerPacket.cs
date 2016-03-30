@@ -6,7 +6,8 @@ namespace PokeD.Core.Packets.SCON.Lua
 {
     public class UploadLuaToServerPacket : SCONPacket
     {
-        public string LuaFile { get; set; }
+        public string LuaFile { get; set; } = string.Empty;
+
 
         public override VarInt ID => SCONPacketTypes.UploadLuaToServer;
 

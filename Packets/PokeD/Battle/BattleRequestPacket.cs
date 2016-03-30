@@ -1,6 +1,7 @@
 ﻿using Aragas.Core.Data;
 using Aragas.Core.IO;
 using Aragas.Core.Packets;
+
 using PokeD.Core.Data.PokeD.Battle;
 
 namespace PokeD.Core.Packets.PokeD.Battle
@@ -10,9 +11,9 @@ namespace PokeD.Core.Packets.PokeD.Battle
     /// </summary>
     public class BattleRequestPacket : PokeDPacket
     {
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
         public byte Type { get; set; }
-        public IBattleInfo Battle { get; set; }
+        public IBattleInfo Battle { get; set; } = new BattleInfo1x1();
 
 
         public override VarInt ID => PokeDPacketTypes.BattleRequest;

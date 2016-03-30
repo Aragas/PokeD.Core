@@ -16,6 +16,7 @@ namespace PokeD.Core.Packets.SCON.Authorization
     {
         public AuthorizationStatus AuthorizationStatus { get; set; }
 
+
         public override VarInt ID => SCONPacketTypes.AuthorizationResponse;
 
         public override ProtobufPacket ReadPacket(ProtobufDataReader reader)

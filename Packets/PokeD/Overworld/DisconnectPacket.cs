@@ -6,7 +6,7 @@ namespace PokeD.Core.Packets.PokeD.Overworld
 {
     public class DisconnectPacket : PokeDPacket
     {
-        public string Reason { get; set; }
+        public string Reason { get; set; } = string.Empty;
 
 
         public override VarInt ID => PokeDPacketTypes.Disconnect;

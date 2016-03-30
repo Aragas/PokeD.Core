@@ -7,7 +7,7 @@ namespace PokeD.Core.Packets.PokeD.Chat
     public class ChatPrivateMessagePacket : PokeDPacket
     {
         public VarInt PlayerID { get; set; }
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
 
 
         public override VarInt ID => PokeDPacketTypes.ChatPrivateMessage;

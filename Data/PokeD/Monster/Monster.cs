@@ -222,15 +222,15 @@ namespace PokeD.Core.Data.PokeD.Monster
         public MonsterAbility Ability => InstanceData.Ability;
         public byte Nature => InstanceData.Nature;
         public bool IsShiny => InstanceData.IsShiny;
-        //public byte Characteristic => InstanceData.Characteristic;
+        private byte Characteristic => InstanceData.Characteristic;
         
         public int Experience { get { return InstanceData.Experience; } set { InstanceData.Experience = value; } }
         public byte Level => InstanceData.Level;
         public int EggSteps { get { return InstanceData.EggSteps; } set { InstanceData.EggSteps = value; } }
 
-        //internal MonsterStats BaseStats => InstanceData.BaseStats;
-        //internal MonsterStats EV { get { return InstanceData.EV; } set { InstanceData.EV = value; } }
-        //internal MonsterStats IV { get { return InstanceData.IV; } set { InstanceData.IV = value; } }
+        private MonsterStats BaseStats => StaticData.BaseStats;
+        private MonsterStats EV { get { return InstanceData.EV; } set { InstanceData.EV = value; } }
+        private MonsterStats IV { get { return InstanceData.IV; } set { InstanceData.IV = value; } }
         public MonsterStats Stats => MonsterStatCalculator.CalculateStats(InstanceData);
 
         public short CurrentHP { get { return InstanceData.CurrentHP; } set { InstanceData.CurrentHP = value; } }
@@ -243,34 +243,48 @@ namespace PokeD.Core.Data.PokeD.Monster
         
         public short HeldItem { get { return InstanceData.HeldItem; } set { InstanceData.HeldItem = value; } }
 
-        public Monster(short id)
+        public Monster(short id) { InstanceData = new MonsterInstanceData(id); }
+        public Monster(Monster maleParent, Monster femaleParent) { }
+        public Monster(IMonsterBaseInfo info) { }
+        public Monster(MonsterInstanceData instanceData) { InstanceData = instanceData; }
+
+        public bool IsValid() => InstanceData.IsValid();
+
+
+        public static bool operator !=(Monster a, Monster b) => !a.Equals(b);
+        public static bool operator ==(Monster a, Monster b) => a.Equals(b);
+
+        public bool Equals(Monster value)
         {
-            InstanceData = new MonsterInstanceData(id);
+             return value.Species.Equals(Species) &&
+                   //value.CatchInfo.Equals(CatchInfo) &&
+                   value.Gender.Equals(Gender) &&
+                   value.Ability.Equals(Ability) &&
+                   value.Nature.Equals(Nature) &&
+                   value.IsShiny.Equals(IsShiny) &&
+                   value.Characteristic.Equals(Characteristic) &&
+                   value.Experience.Equals(Experience) &&
+                   value.Level.Equals(Level) &&
+                   value.EggSteps.Equals(EggSteps) &&
+                   //value.EV.Equals(EV) &&
+                   //value.IV.Equals(IV) &&
+                   value.CurrentHP.Equals(CurrentHP) &&
+                   value.StatusEffect.Equals(StatusEffect) &&
+                   value.Affection.Equals(Affection) &&
+                   value.Friendship.Equals(Friendship) &&
+                   //value.Moves.Equals(Moves) &&
+                   value.HeldItem.Equals(HeldItem);
+
         }
-
-        public Monster(Monster maleParent, Monster femaleParent)
+        public override bool Equals(object obj)
         {
+            if (obj == null)
+                return false;
 
-        }
+            if (obj.GetType() != GetType())
+                return false;
 
-
-        public Monster(IMonsterBaseInfo info)
-        {
-
-        }
-
-        public Monster(MonsterInstanceData instanceData)
-        {
-            InstanceData = instanceData;
-        }
-
-        public bool IsValid()
-        {
-#if NOPOKEAPI
-            return true;
-#else
-            return InstanceData.IsValid();
-#endif
+            return Equals((Monster) obj);
         }
     }
 }

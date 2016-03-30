@@ -13,9 +13,9 @@ namespace PokeD.Core.Packets.PokeD.Battle
     {
         private MetaAttack Info { get; set; }
 
-        public byte CurrentMonster { get { return Info.CurrentMonster; } set { Info.CurrentMonster = value; } }
-        public byte Move { get { return Info.Move; } set { Info.Move = value; } }
-        public byte TargetMonster { get { return Info.TargetMonster; } set { Info.TargetMonster = value; } }
+        public byte CurrentMonster { get { return Info.CurrentMonster; } set { Info = new MetaAttack(value, Move, TargetMonster); } }
+        public byte Move { get { return Info.Move; } set { Info = new MetaAttack(CurrentMonster, value, TargetMonster); } }
+        public byte TargetMonster { get { return Info.TargetMonster; } set { Info = new MetaAttack(CurrentMonster, Move, value); } }
 
 
         public override VarInt ID => PokeDPacketTypes.BattleAttack;

@@ -9,7 +9,7 @@ namespace PokeD.Core.Packets.PokeD.Battle
     /// </summary>
     public class BattleCancelledPacket : PokeDPacket
     {
-        public string Reason { get; set; }
+        public string Reason { get; set; } = string.Empty;
 
 
         public override VarInt ID => PokeDPacketTypes.BattleCancelled;

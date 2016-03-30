@@ -6,7 +6,8 @@ namespace PokeD.Core.Packets.SCON
 {
     public class ExecuteCommandPacket : SCONPacket
     {
-        public string Command { get; set; }
+        public string Command { get; set; } = string.Empty;
+
 
         public override VarInt ID => SCONPacketTypes.ExecuteCommand;
 

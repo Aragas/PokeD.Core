@@ -16,12 +16,12 @@ namespace PokeD.Core.Data.PokeD.Battle
 
     public class BattleInfo1x5 : IBattleInfo
     {
-        public VarInt Opponent_0 { get; set; }
-        public VarInt Opponent_1 { get; set; }
-        public VarInt Opponent_2 { get; set; }
-        public VarInt Opponent_3 { get; set; }
-        public VarInt Opponent_4 { get; set; }
-        public VarInt Opponent_5 { get; set; }
+        public VarInt Opponent_0 { get; set; } = new VarInt(0);
+        public VarInt Opponent_1 { get; set; } = new VarInt(0);
+        public VarInt Opponent_2 { get; set; } = new VarInt(0);
+        public VarInt Opponent_3 { get; set; } = new VarInt(0);
+        public VarInt Opponent_4 { get; set; } = new VarInt(0);
+        public VarInt Opponent_5 { get; set; } = new VarInt(0);
 
         public IEnumerable<VarInt> IDs => new[] { Opponent_0, Opponent_1, Opponent_2, Opponent_3, Opponent_4, Opponent_5 };
         public int Count => 6;
@@ -51,12 +51,12 @@ namespace PokeD.Core.Data.PokeD.Battle
     }
     public class BattleInfo3x3 : IBattleInfo
     {
-        public VarInt Opponent_0 { get; set; }
-        public VarInt Opponent_1 { get; set; }
-        public VarInt Opponent_2 { get; set; }
-        public VarInt Opponent_3 { get; set; }
-        public VarInt Opponent_4 { get; set; }
-        public VarInt Opponent_5 { get; set; }
+        public VarInt Opponent_0 { get; set; } = new VarInt(0);
+        public VarInt Opponent_1 { get; set; } = new VarInt(0);
+        public VarInt Opponent_2 { get; set; } = new VarInt(0);
+        public VarInt Opponent_3 { get; set; } = new VarInt(0);
+        public VarInt Opponent_4 { get; set; } = new VarInt(0);
+        public VarInt Opponent_5 { get; set; } = new VarInt(0);
 
         public IEnumerable<VarInt> IDs => new[] { Opponent_0, Opponent_1, Opponent_2, Opponent_3, Opponent_4, Opponent_5 };
         public int Count => 6;
@@ -86,10 +86,10 @@ namespace PokeD.Core.Data.PokeD.Battle
     }
     public class BattleInfo2x2 : IBattleInfo
     {
-        public VarInt Opponent_0 { get; set; }
-        public VarInt Opponent_1 { get; set; }
-        public VarInt Opponent_2 { get; set; }
-        public VarInt Opponent_3 { get; set; }
+        public VarInt Opponent_0 { get; set; } = new VarInt(0);
+        public VarInt Opponent_1 { get; set; } = new VarInt(0);
+        public VarInt Opponent_2 { get; set; } = new VarInt(0);
+        public VarInt Opponent_3 { get; set; } = new VarInt(0);
 
         public IEnumerable<VarInt> IDs => new[] { Opponent_0, Opponent_1, Opponent_2, Opponent_3 };
         public int Count => 4;
@@ -115,8 +115,8 @@ namespace PokeD.Core.Data.PokeD.Battle
     }
     public class BattleInfo1x1 : IBattleInfo
     {
-        public VarInt Opponent_0 { get; set; }
-        public VarInt Opponent_1 { get; set; }
+        public VarInt Opponent_0 { get; set; } = new VarInt(0);
+        public VarInt Opponent_1 { get; set; } = new VarInt(0);
 
         public IEnumerable<VarInt> IDs => new[] { Opponent_0, Opponent_1 };
         public int Count => 2;

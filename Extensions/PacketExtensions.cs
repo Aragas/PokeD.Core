@@ -3,7 +3,6 @@
 using Aragas.Core.Data;
 using Aragas.Core.IO;
 
-using PokeD.Core.Data.PokeD.Battle;
 using PokeD.Core.Data.PokeD.Monster;
 using PokeD.Core.Data.PokeD.Monster.Data;
 using PokeD.Core.Data.PokeD.Monster.Interfaces;
