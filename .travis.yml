@@ -13,9 +13,8 @@ install:
 script:
   - xbuild /p:Configuration=Release PokeD.Core.sln
   - xbuild /p:Configuration=Debug PokeD.Core.sln
-  
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - mono ./packages/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./PokeD.Core.Test/bin/Release/PokeD.Core.Test.dll
+ 
 
 notifications:
   email:

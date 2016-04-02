@@ -11,6 +11,12 @@ install:
 before_build:
 - nuget restore
 
+after_test: 
+- .\packages\OpenCover.*\tools\OpenCover.Console.exe -register:user -target:".\packages\NUnit.ConsoleRunner.*\tools\nunit3-console.exe" -targetargs:".\PokeD.Core.Test\bin\Debug\PokeD.Core.Test.dll" -filter:"+[PokeD.Core*]*" -excludebyattribute:*.ExcludeFromCodeCoverage* -hideskipped:All -output:.\PokeD.Core_coverage.xml
+- "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
+- pip install codecov
+- codecov -f "PokeD.Core_coverage.xml"
+
 build:
   project: PokeD.Core.sln
   verbosity: minimal

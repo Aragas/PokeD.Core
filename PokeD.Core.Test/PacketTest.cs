@@ -8,7 +8,7 @@ using Aragas.Core.IO;
 using Aragas.Core.Packets;
 using Aragas.Core.Wrappers;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 using PokeD.Core.Data.PokeApi;
 using PokeD.Core.IO;
@@ -16,7 +16,7 @@ using PokeD.Core.Packets;
 
 namespace PokeD.Core.Test
 {
-    [TestClass]
+    [TestFixture]
     public class PacketTest
     {
         public PacketTest()
@@ -28,7 +28,7 @@ namespace PokeD.Core.Test
         }
 
 
-        [TestMethod]
+        [Test]
         public void TestP3DProtobufSerializationDeserialization()
         {
             var packets = P3DPacketResponses.Packets.Where(packetFunc => packetFunc != null).Select(packetFunc => packetFunc()).ToList();
@@ -86,10 +86,10 @@ namespace PokeD.Core.Test
         }
 
 
-        [TestMethod]
+        [Test]
         public void TestPokeDProtobufSerializationDeserialization() { SerializationDeserialization(PokeDPacketResponses.Packets); }
 
-        [TestMethod]
+        [Test]
         public void TestSCONProtobufSerializationDeserialization() { SerializationDeserialization(SCONPacketResponses.Packets); }
         
         private void SerializationDeserialization<TPacketType>(Func<TPacketType>[] packetFuncs) where TPacketType : ProtobufPacket

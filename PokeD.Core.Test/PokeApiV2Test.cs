@@ -1,35 +1,35 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace PokeD.Core.Test
 {
-    [TestClass]
+    [TestFixture]
     public class PokeApiV2Test
     {
-        [TestMethod]
+        [Test]
         public void TestGetPokemon() { PokeApiV2Class.GetPokemon(); }
 
-        [TestMethod]
+        [Test]
         public void TestGetPokemonSpecies() { PokeApiV2Class.GetPokemonSpecies(); }
 
-        [TestMethod]
+        [Test]
         public void TestGetTypes() { PokeApiV2Class.GetTypes(); }
 
-        [TestMethod]
+        [Test]
         public void TestGetGender() { PokeApiV2Class.GetGender(); }
 
-        [TestMethod]
+        [Test]
         public void TestGetAbilities() { PokeApiV2Class.GetAbilities(); }
 
-        [TestMethod]
+        [Test]
         public void TestGetEggGroups() { PokeApiV2Class.GetEggGroups(); }
 
-        [TestMethod]
+        [Test]
         public void TestGetItems() { PokeApiV2Class.GetItems(); }
 
-        [TestMethod]
+        [Test]
         public void TestGetMoves() { PokeApiV2Class.GetMoves(); }
 
-        [TestMethod]
+        [Test]
         public void TestGetEvolutionTriggers() { PokeApiV2Class.GetEvolutionTriggers(); }
     }
 }

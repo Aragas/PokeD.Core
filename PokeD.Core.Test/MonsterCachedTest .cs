@@ -1,12 +1,12 @@
 ﻿using Aragas.Core.Wrappers;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 using PokeD.Core.Data.PokeApi;
 
 namespace PokeD.Core.Test
 {
-    [TestClass]
+    [TestFixture]
     public class MonsterCachedTest
     {
         public MonsterCachedTest()
@@ -18,10 +18,10 @@ namespace PokeD.Core.Test
         }
 
 
-        [TestMethod]
+        [Test]
         public void TestMonsterDataItems() { MonsterClass.MonsterDataItems(); }
 
-        [TestMethod]
+        [Test]
         public void TestLoadStaticData() { MonsterClass.LoadStaticData(); }
     }
 }

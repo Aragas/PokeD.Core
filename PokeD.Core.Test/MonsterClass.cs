@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 using PokeD.Core.Data.P3D;
 using PokeD.Core.Data.PokeD.Monster;
