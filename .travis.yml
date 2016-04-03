@@ -9,11 +9,13 @@ before_install:
   
 install:
   - nuget restore PokeD.Core.sln
+  - nuget install NUnit.Runners -Version 3.2.0 -OutputDirectory tools
+#  - nuget install OpenCover -Version 4.6.519 -OutputDirectory tools
 
 script:
   - xbuild /p:Configuration=Release PokeD.Core.sln
   - xbuild /p:Configuration=Debug PokeD.Core.sln
-  - mono ./packages/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./PokeD.Core.Test/bin/Release/PokeD.Core.Test.dll
+  - mono ./tools/NUnit.ConsoleRunner.3.2.0/tools/nunit3-console.exe ./PokeD.Core.Test/bin/Release/PokeD.Core.Test.dll
  
 
 notifications:

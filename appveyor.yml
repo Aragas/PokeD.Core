@@ -7,12 +7,14 @@ platform: Any CPU
 
 install:
 - git submodule update --init --recursive
+- cmd: nuget install NUnit.Runners -Version 3.2.0 -OutputDirectory tools
+- cmd: nuget install OpenCover -Version 4.6.519 -OutputDirectory tools
 
 before_build:
 - nuget restore
 
-after_test: 
-- .\packages\OpenCover.*\tools\OpenCover.Console.exe -register:user -target:".\packages\NUnit.ConsoleRunner.*\tools\nunit3-console.exe" -targetargs:".\PokeD.Core.Test\bin\Debug\PokeD.Core.Test.dll" -filter:"+[PokeD.Core*]*" -excludebyattribute:*.ExcludeFromCodeCoverage* -hideskipped:All -output:.\PokeD.Core_coverage.xml
+test_script: 
+- .\tools\OpenCover.4.6.519\tools\OpenCover.Console.exe -target:".\tools\NUnit.ConsoleRunner.3.2.0\tools\nunit3-console.exe" -targetargs:".\PokeD.Core.Test\bin\Debug\PokeD.Core.Test.dll .\PokeD.Core.Test\bin\Release\PokeD.Core.Test.dll" -register:user -filter:"+[PokeD.Core*]*" -excludebyattribute:*.ExcludeFromCodeCoverage* -hideskipped:All -output:.\PokeD.Core_coverage.xml
 - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
 - pip install codecov
 - codecov -f "PokeD.Core_coverage.xml"
