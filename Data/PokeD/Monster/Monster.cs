@@ -104,6 +104,8 @@ namespace PokeD.Core.Data.PokeD.Monster
     }
     public class MonsterInstanceData
     {
+        public static MonsterInstanceData Empty => new MonsterInstanceData();
+
         public MonsterStaticData StaticData { get; }
 
         public short Species { get; }
@@ -141,6 +143,7 @@ namespace PokeD.Core.Data.PokeD.Monster
         public Vector2[] SpindaSpots => BitConverter.GetBytes(PersonalityValue).Select(b => new Vector2(b & 0x0F, b >> 4)).ToArray();
         public byte WurmplesEvolution => (byte) (PersonalityValue / 65536);
 
+        private MonsterInstanceData() { }
         public MonsterInstanceData(short species)
         {
             Species = species;
@@ -209,6 +212,9 @@ namespace PokeD.Core.Data.PokeD.Monster
 
     public class Monster : IMonsterInfo, IMonsterBaseInfo, IMonsterBattleInfo
     {
+        public static Monster Empty => new Monster(MonsterInstanceData.Empty);
+
+
         public MonsterInstanceData InstanceData { get; }
         public MonsterStaticData StaticData => InstanceData.StaticData;
 

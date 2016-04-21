@@ -2,7 +2,7 @@
 
 using Aragas.Core.Data;
 using Aragas.Core.IO;
-
+using PokeD.Core.Data.PokeD.Battle;
 using PokeD.Core.Data.PokeD.Monster;
 using PokeD.Core.Data.PokeD.Monster.Data;
 using PokeD.Core.Data.PokeD.Monster.Interfaces;
@@ -42,14 +42,19 @@ namespace PokeD.Core.Extensions
             Extend<MonsterStats>(ReadMonsterStats, WriteMonsterStats);
             Extend<MonsterInstanceData>(ReadMonsterInstanceData, WriteMonsterInstanceData);
             
-            Extend<IMonsterBaseInfo>(ReadIMonsterBaseInfo, WriteIMonsterBaseInfo);
-            Extend<IOpponentTeam>(ReadIOpponentTeam, WriteIOpponentTeam);
+            Extend<IMonsterBaseInfo>(ReadMonster, WriteIMonsterBaseInfo);
+            Extend<Monster>(ReadMonster, WriteIMonsterBaseInfo);
+
+            Extend<MonsterCatchInfo>(ReadMonsterCatchInfo, WriteMonsterCatchInfo);
+
+            Extend<IOpponentTeam>(ReadMonsterParty, WriteIOpponentTeam);
+            Extend<MonsterParty>(ReadMonsterParty, WriteIOpponentTeam);
             
             Extend<MetaSwitch>(ReadMetaSwitch, WriteMetaSwitch);
             Extend<MetaPosition>(ReadMetaPosition, WriteMetaPosition);
             Extend<MetaAttack>(ReadMetaAttack, WriteMetaAttack);
             Extend<MetaItem>(ReadMetaItem, WriteMetaItem);
-            //Extend<BattleState>(ReadBattleState, WriteBattleState);
+            Extend<BattleState>(ReadBattleState, WriteBattleState);
             
             Extend<Ban>(ReadBan, WriteBan);
             Extend<Log>(ReadLog, WriteLog);
@@ -273,25 +278,8 @@ namespace PokeD.Core.Extensions
         #endregion MonsterInstanceData
 
         
-        private static void WriteIMonsterBaseInfo(PacketStream stream, IMonsterBaseInfo value, bool writeDefaultLength = true)
-        {
-            stream.Write(value.Species);
-            stream.Write(value.DisplayName);
-            stream.Write((byte) value.Gender);
-            stream.Write(value.Level);
-            stream.Write(value.IsShiny);
-        }
-        private static IMonsterBaseInfo ReadIMonsterBaseInfo(PacketDataReader reader, int length = 0)
-        {
-            var id = reader.Read<short>();
-            var nickname = reader.Read<string>();
-            var gender = reader.Read<byte>();
-            var level = reader.Read<byte>();
-            var isShiny = reader.Read<bool>();
-
-            //return new Monster(id, nickname, (MonsterGender) gender, level, isShiny);
-            return null;
-        }
+        private static void WriteIMonsterBaseInfo(PacketStream stream, IMonsterBaseInfo value, bool writeDefaultLength = true) { }
+        private static Monster ReadMonster(PacketDataReader reader, int length = 0) { return Monster.Empty; }
 
         private static void WriteIOpponentTeam(PacketStream stream, IOpponentTeam value, bool writeDefaultLength = true)
         {
@@ -302,9 +290,9 @@ namespace PokeD.Core.Extensions
             stream.Write((IMonsterBaseInfo) value.Monster_5);
             stream.Write((IMonsterBaseInfo) value.Monster_6);
         }
-        private static IOpponentTeam ReadIOpponentTeam(PacketDataReader reader, int length = 0)
+        private static MonsterParty ReadMonsterParty(PacketDataReader reader, int length = 0)
         {
-            return new MonsterParty()
+            return new MonsterParty
             {
                 Monster_1 = new Monster(reader.Read<IMonsterBaseInfo>()),
                 Monster_2 = new Monster(reader.Read<IMonsterBaseInfo>()),
@@ -322,8 +310,8 @@ namespace PokeD.Core.Extensions
         private static void WriteMetaPosition(PacketStream stream, MetaPosition value, bool writeDefaultLength = true) { stream.Write(value.Meta); }
         private static MetaPosition ReadMetaPosition(PacketDataReader reader, int length = 0) => new MetaPosition(reader.Read<long>());
 
-        //private static void WriteBattleState(PacketStream stream, BattleState value, bool writeDefaultLength = true) { stream.Write(value.Meta); }
-        //private static BattleState ReadBattleState(PacketDataReader reader, int length = 0) => new BattleState();
+        private static void WriteBattleState(PacketStream stream, BattleState value, bool writeDefaultLength = true) {  }
+        private static BattleState ReadBattleState(PacketDataReader reader, int length = 0) { return null; }
 
         private static void WriteMetaAttack(PacketStream stream, MetaAttack value, bool writeDefaultLength = true) { stream.Write(value.Meta); }
         private static MetaAttack ReadMetaAttack(PacketDataReader reader, int length = 0) => new MetaAttack(reader.Read<byte>());

@@ -11,6 +11,7 @@ using Aragas.Core.Wrappers;
 using NUnit.Framework;
 
 using PokeD.Core.Data.PokeApi;
+using PokeD.Core.Extensions;
 using PokeD.Core.IO;
 using PokeD.Core.Packets;
 
@@ -25,6 +26,8 @@ namespace PokeD.Core.Test
             FileSystemWrapper.Instance = new TestIFileSystem();
 
             PokeApiV2.CacheData = true;
+
+            PacketExtensions.Init();
         }
 
 

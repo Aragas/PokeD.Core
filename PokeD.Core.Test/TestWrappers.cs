@@ -16,7 +16,7 @@ namespace PokeD.Core.Test
         public string IP => "NONE";
         public ushort Port => 0;
         public bool Connected => true;
-        public int DataAvailable => (int)(Stream.Position - Stream.Length);
+        public int DataAvailable => (int) (Stream.Length - Stream.Position);
 
 
         public Stream GetStream() => Stream;
