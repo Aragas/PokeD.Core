@@ -175,7 +175,6 @@
     <Compile Include="Packets\P3D\Trade\TradeStartPacket.cs" />
     <Compile Include="Packets\P3D\Shared\GameDataPacket.cs" />
     <Compile Include="Packets\P3D\Server\ServerInfoDataPacket.cs" />
-    <Compile Include="PKCS1Signer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -159,19 +159,7 @@ namespace PokeD.Core.Data.PokeApi
 
 
         private static HttpClient Client { get; } = new HttpClient();
-        private static async Task<string> GetResponse(ResourceUri uri)
-        {
-            return await Client.GetStringAsync(uri.RawString);
-
-            ///*
-            var request = (HttpWebRequest) WebRequest.Create(uri.RawString);
-            request.Proxy = null;
-
-            using (var response = (HttpWebResponse)await request.GetResponseAsync())
-            using (var reader = new StreamReader(response.GetResponseStream()))
-                return await reader.ReadToEndAsync();
-            //*/
-        }
+        private static async Task<string> GetResponse(ResourceUri uri) => await Client.GetStringAsync(uri.RawString);
         private static async Task<T> GetNetworkJsonV2<T>(ResourceUri uri) where T : PokeApiV2Json => JsonConvert.DeserializeObject<T>(await GetResponse(uri));
     }
 }

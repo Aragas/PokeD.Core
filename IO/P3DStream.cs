@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 using Aragas.Core.IO;
@@ -25,15 +27,11 @@ namespace PokeD.Core.IO
         protected override Stream BaseStream => TCPClient.GetStream();
         private byte[] _buffer;
 
-        private StreamReader Reader { get; }
-
 
         public P3DStream(ITCPClient tcp, bool isServer = false)
         {
             TCPClient = tcp;
             IsServer = isServer;
-
-            Reader = new StreamReader(BaseStream, Encoding.UTF8, true, 1024, true);
         }
 
 
@@ -42,7 +40,7 @@ namespace PokeD.Core.IO
 
 
         // -- Anything 
-        public override void Write<T>(T value = default(T)) { }
+        public override void Write<T>(T value = default(T), bool writeDefaultLength = true) { }
 
         private void ToBuffer(byte[] value)
         {
@@ -56,7 +54,60 @@ namespace PokeD.Core.IO
         }
 
 
-        public string ReadLine() => Reader.ReadLine();
+        public override byte[] GetBuffer() => _buffer;
+
+        private StringBuilder StringBuilder { get; } = new StringBuilder();
+        private IEnumerable<string> ReadLineEnumerable()
+        {
+            var symbol = ReadByte();
+            while (symbol != -1)
+            {
+                /*
+                var nextSymbol = 0;
+                if (symbol == 13 && DataAvailable == 0)
+                {
+                    var line = StringBuilder.ToString();
+                    StringBuilder.Clear();
+
+                    yield return line;
+                }
+                else if ((nextSymbol = ReadByte()) == 10 && symbol == 13)
+                {
+                    var line = StringBuilder.ToString();
+                    StringBuilder.Clear();
+
+                    yield return line;
+                }
+                else if(nextSymbol == -1)
+                    yield return string.Empty;
+                else
+                {
+                    StringBuilder.Append((char)symbol);
+                    symbol = nextSymbol;
+                }
+                */
+
+
+                var nextSymbol = ReadByte();
+                if(nextSymbol == -1)
+                    yield return string.Empty;
+
+                if (symbol == 13 && nextSymbol == 10)
+                {
+                    var line = StringBuilder.ToString();
+                    StringBuilder.Clear();
+
+                    yield return line;
+                }
+                else
+                {
+                    StringBuilder.Append((char) symbol);
+                    symbol = nextSymbol;
+                }
+            }
+            yield return string.Empty;
+        }
+        public string ReadLine() => ReadLineEnumerable().First();
 
 
         public void Send(byte[] buffer)
@@ -84,9 +135,6 @@ namespace PokeD.Core.IO
         }
 
 
-        public override void Dispose()
-        {
-            Reader.Dispose();
-        }
+        public override void Dispose() { }
     }
 }

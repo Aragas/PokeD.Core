@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Aragas.Core;
+
 using NUnit.Framework;
 
 using Org.BouncyCastle.Crypto;

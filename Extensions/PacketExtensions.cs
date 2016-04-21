@@ -19,7 +19,7 @@ namespace PokeD.Core.Extensions
 {
     public static class PacketExtensions
     {
-        private static void Extend<T>(Func<PacketDataReader, int, T> readFunc, Action<PacketStream, T> writeAction)
+        private static void Extend<T>(Func<PacketDataReader, int, T> readFunc, Action<PacketStream, T, bool> writeAction)
         {
             ExtendRead(readFunc);
             ExtendWrite(writeAction);
@@ -63,7 +63,7 @@ namespace PokeD.Core.Extensions
         }
 
 
-        private static void WriteFileHashArray(PacketStream stream, FileHash[] value)
+        private static void WriteFileHashArray(PacketStream stream, FileHash[] value, bool writeDefaultLength = true)
         {
             stream.Write(new VarInt(value.Length));
 
@@ -83,7 +83,7 @@ namespace PokeD.Core.Extensions
             return array;
         }
 
-        private static void WriteFileHash(PacketStream stream, FileHash value)
+        private static void WriteFileHash(PacketStream stream, FileHash value, bool writeDefaultLength = true)
         {
             stream.Write(value.Name);
             stream.Write(value.Hash);
@@ -94,7 +94,7 @@ namespace PokeD.Core.Extensions
         }
 
         
-        private static void WriteImageResponseArray(PacketStream stream, ImageResponse[] value)
+        private static void WriteImageResponseArray(PacketStream stream, ImageResponse[] value, bool writeDefaultLength = true)
         {
             stream.Write(new VarInt(value.Length));
 
@@ -114,7 +114,7 @@ namespace PokeD.Core.Extensions
             return array;
         }
 
-        private static void WriteTileSetResponseArray(PacketStream stream, TileSetResponse[] value)
+        private static void WriteTileSetResponseArray(PacketStream stream, TileSetResponse[] value, bool writeDefaultLength = true)
         {
             stream.Write(new VarInt(value.Length));
 
@@ -134,7 +134,7 @@ namespace PokeD.Core.Extensions
             return array;
         }
 
-        private static void WriteImageResponse(PacketStream stream, ImageResponse value)
+        private static void WriteImageResponse(PacketStream stream, ImageResponse value, bool writeDefaultLength = true)
         {
             stream.Write(value.Name);
             stream.Write(value.ImageData);
@@ -144,7 +144,7 @@ namespace PokeD.Core.Extensions
             return new ImageResponse() { Name = reader.Read<string>(), ImageData = reader.Read<byte[]>() };
         }
 
-        private static void WriteTileSetResponse(PacketStream stream, TileSetResponse value)
+        private static void WriteTileSetResponse(PacketStream stream, TileSetResponse value, bool writeDefaultLength = true)
         {
             stream.Write(value.Name);
             stream.Write(value.TileSetData);
@@ -157,7 +157,7 @@ namespace PokeD.Core.Extensions
 
         #region MonsterInstanceData
 
-        private static void WriteMonsterMove(PacketStream stream, MonsterMove value)
+        private static void WriteMonsterMove(PacketStream stream, MonsterMove value, bool writeDefaultLength = true)
         {
             stream.Write(value.ID);
             stream.Write(value.PPUPs);
@@ -169,7 +169,7 @@ namespace PokeD.Core.Extensions
                 reader.Read<int>());
         }
 
-        private static void WriteMonsterMoves(PacketStream stream, MonsterMoves value)
+        private static void WriteMonsterMoves(PacketStream stream, MonsterMoves value, bool writeDefaultLength = true)
         {
             stream.Write(value.Move_0);
             stream.Write(value.Move_1);
@@ -185,7 +185,7 @@ namespace PokeD.Core.Extensions
                 reader.Read<MonsterMove>());
         }
 
-        private static void WriteMonsterStats(PacketStream stream, MonsterStats value)
+        private static void WriteMonsterStats(PacketStream stream, MonsterStats value, bool writeDefaultLength = true)
         {
             stream.Write(value.HP);
             stream.Write(value.Attack);
@@ -205,7 +205,7 @@ namespace PokeD.Core.Extensions
                 reader.Read<short>());
         }
 
-        private static void WriteMonsterCatchInfo(PacketStream stream, MonsterCatchInfo value)
+        private static void WriteMonsterCatchInfo(PacketStream stream, MonsterCatchInfo value, bool writeDefaultLength = true)
         {
             stream.Write(value.Method);
             stream.Write(value.Location);
@@ -227,7 +227,7 @@ namespace PokeD.Core.Extensions
             };
         }
 
-        private static void WriteMonsterInstanceData(PacketStream stream, MonsterInstanceData value)
+        private static void WriteMonsterInstanceData(PacketStream stream, MonsterInstanceData value, bool writeDefaultLength = true)
         {
             stream.Write(value.Species);
             stream.Write(value.SecretID);
@@ -273,7 +273,7 @@ namespace PokeD.Core.Extensions
         #endregion MonsterInstanceData
 
         
-        private static void WriteIMonsterBaseInfo(PacketStream stream, IMonsterBaseInfo value)
+        private static void WriteIMonsterBaseInfo(PacketStream stream, IMonsterBaseInfo value, bool writeDefaultLength = true)
         {
             stream.Write(value.Species);
             stream.Write(value.DisplayName);
@@ -293,7 +293,7 @@ namespace PokeD.Core.Extensions
             return null;
         }
 
-        private static void WriteIOpponentTeam(PacketStream stream, IOpponentTeam value)
+        private static void WriteIOpponentTeam(PacketStream stream, IOpponentTeam value, bool writeDefaultLength = true)
         {
             stream.Write((IMonsterBaseInfo) value.Monster_1);
             stream.Write((IMonsterBaseInfo) value.Monster_2);
@@ -316,23 +316,23 @@ namespace PokeD.Core.Extensions
         }
 
 
-        private static void WriteMetaSwitch(PacketStream stream, MetaSwitch value) { stream.Write(value.Meta); }
+        private static void WriteMetaSwitch(PacketStream stream, MetaSwitch value, bool writeDefaultLength = true) { stream.Write(value.Meta); }
         private static MetaSwitch ReadMetaSwitch(PacketDataReader reader, int length = 0) => new MetaSwitch(reader.Read<byte>());
 
-        private static void WriteMetaPosition(PacketStream stream, MetaPosition value) { stream.Write(value.Meta); }
+        private static void WriteMetaPosition(PacketStream stream, MetaPosition value, bool writeDefaultLength = true) { stream.Write(value.Meta); }
         private static MetaPosition ReadMetaPosition(PacketDataReader reader, int length = 0) => new MetaPosition(reader.Read<long>());
 
-        //private static void WriteBattleState(PacketStream stream, BattleState value) { stream.Write(value.Meta); }
+        //private static void WriteBattleState(PacketStream stream, BattleState value, bool writeDefaultLength = true) { stream.Write(value.Meta); }
         //private static BattleState ReadBattleState(PacketDataReader reader, int length = 0) => new BattleState();
 
-        private static void WriteMetaAttack(PacketStream stream, MetaAttack value) { stream.Write(value.Meta); }
+        private static void WriteMetaAttack(PacketStream stream, MetaAttack value, bool writeDefaultLength = true) { stream.Write(value.Meta); }
         private static MetaAttack ReadMetaAttack(PacketDataReader reader, int length = 0) => new MetaAttack(reader.Read<byte>());
 
-        private static void WriteMetaItem(PacketStream stream, MetaItem value) { stream.Write(value.Meta); }
+        private static void WriteMetaItem(PacketStream stream, MetaItem value, bool writeDefaultLength = true) { stream.Write(value.Meta); }
         private static MetaItem ReadMetaItem(PacketDataReader reader, int length = 0) => new MetaItem(reader.Read<short>());
 
 
-        private static void WriteBan(PacketStream stream, Ban value)
+        private static void WriteBan(PacketStream stream, Ban value, bool writeDefaultLength = true)
         {
             stream.Write(value.Name);
             stream.Write(value.IP);
@@ -352,7 +352,7 @@ namespace PokeD.Core.Extensions
             return value;
         }
 
-        private static void WriteLog(PacketStream stream, Log value)
+        private static void WriteLog(PacketStream stream, Log value, bool writeDefaultLength = true)
         {
             stream.Write(value.LogFileName);
         }
@@ -364,7 +364,7 @@ namespace PokeD.Core.Extensions
             return value;
         }
 
-        private static void WritePlayerDatabase(PacketStream stream, PlayerDatabase value)
+        private static void WritePlayerDatabase(PacketStream stream, PlayerDatabase value, bool writeDefaultLength = true)
         {
             stream.Write(value.Name);
             stream.Write(value.LastIP);
@@ -380,7 +380,7 @@ namespace PokeD.Core.Extensions
             return value;
         }
 
-        private static void WritePlayerInfo(PacketStream stream, PlayerInfo value)
+        private static void WritePlayerInfo(PacketStream stream, PlayerInfo value, bool writeDefaultLength = true)
         {
             stream.Write(value.Name);
             stream.Write(value.IP);
@@ -403,7 +403,7 @@ namespace PokeD.Core.Extensions
         }
 
 
-        private static void WriteBanArray(PacketStream stream, Ban[] value)
+        private static void WriteBanArray(PacketStream stream, Ban[] value, bool writeDefaultLength = true)
         {
             stream.Write(new VarInt(value.Length));
 
@@ -423,7 +423,7 @@ namespace PokeD.Core.Extensions
             return array;
         }
 
-        private static void WriteLogArray(PacketStream stream, Log[] value)
+        private static void WriteLogArray(PacketStream stream, Log[] value, bool writeDefaultLength = true)
         {
             stream.Write(new VarInt(value.Length));
 
@@ -443,7 +443,7 @@ namespace PokeD.Core.Extensions
             return array;
         }
 
-        private static void WritePlayerDatabaseArray(PacketStream stream, PlayerDatabase[] value)
+        private static void WritePlayerDatabaseArray(PacketStream stream, PlayerDatabase[] value, bool writeDefaultLength = true)
         {
             stream.Write(new VarInt(value.Length));
 
@@ -463,7 +463,7 @@ namespace PokeD.Core.Extensions
             return array;
         }
 
-        private static void WritePlayerInfoArray(PacketStream stream, PlayerInfo[] value)
+        private static void WritePlayerInfoArray(PacketStream stream, PlayerInfo[] value, bool writeDefaultLength = true)
         {
             stream.Write(new VarInt(value.Length));
 
