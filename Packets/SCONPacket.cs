@@ -1,4 +1,4 @@
-﻿using Aragas.Core.Packets;
+﻿using Aragas.Network.Packets;
 
 namespace PokeD.Core.Packets
 {

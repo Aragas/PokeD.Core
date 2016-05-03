@@ -1,7 +1,8 @@
 ﻿using System;
 
-using Aragas.Core.Extensions;
-using Aragas.Core.Wrappers;
+using Aragas.Network.Extensions;
+
+using PCLExt.AppDomain;
 
 namespace PokeD.Core.Packets
 {
@@ -57,7 +58,7 @@ namespace PokeD.Core.Packets
 
         static SCONPacketResponses()
         {
-            new SCONPacketTypes().CreatePacketInstancesOut(out Packets, AppDomainWrapper.GetAssembly(typeof(SCONPacketResponses)));
+            new SCONPacketTypes().CreatePacketInstancesOut(out Packets, AppDomain.GetAssembly(typeof(SCONPacketResponses)));
         }
     }
 }

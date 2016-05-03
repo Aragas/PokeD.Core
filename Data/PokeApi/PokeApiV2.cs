@@ -1,17 +1,15 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-using Aragas.Core.Wrappers;
-
 using Newtonsoft.Json;
 
-using PCLStorage;
+using PCLExt.FileStorage;
+
+using PokeD.Core.IO;
 
 namespace PokeD.Core.Data.PokeApi
 {
@@ -39,7 +37,7 @@ namespace PokeD.Core.Data.PokeApi
                 return await func(uri);
             
 
-            var folder = await FileSystemWrapper.ContentFolder.CreateFolderAsync("Cache", CreationCollisionOption.OpenIfExists);
+            var folder = await Storage.ContentFolder.CreateFolderAsync("Cache", CreationCollisionOption.OpenIfExists);
             var name = $"{uri.Type}_{uri.Id}.json";
 
  

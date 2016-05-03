@@ -1,9 +1,9 @@
 ﻿using System;
 
-using Aragas.Core.Data;
-
 using PokeD.Core.Extensions;
 using PokeD.Core.IO;
+
+using Aragas.Network.Data;
 
 namespace PokeD.Core.Packets.P3D.Shared
 {

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-using Aragas.Core.Data;
-using Aragas.Core.IO;
-using Aragas.Core.Packets;
-using Aragas.Core.Wrappers;
+using Aragas.Network.Data;
+using Aragas.Network.IO;
+using Aragas.Network.Packets;
 
 using NUnit.Framework;
 
@@ -22,9 +21,6 @@ namespace PokeD.Core.Test
     {
         public PacketTest()
         {
-            AppDomainWrapper.Instance = new TestIAppDomain();
-            FileSystemWrapper.Instance = new TestIFileSystem();
-
             PokeApiV2.CacheData = true;
 
             PacketExtensions.Init();
@@ -44,7 +40,7 @@ namespace PokeD.Core.Test
                     write.SendPacket(packet);
 
 
-                write.Seek(0, SeekOrigin.Begin);
+                tcpClient.Stream.Seek(0, SeekOrigin.Begin);
 
 
                 string data;
@@ -107,10 +103,10 @@ namespace PokeD.Core.Test
                     write.SendPacket(packet);
 
 
-                write.Seek(0, SeekOrigin.Begin);
+                tcpClient.Stream.Seek(0, SeekOrigin.Begin);
 
 
-                while (write.Position != write.Length)
+                while (tcpClient.Stream.Position != tcpClient.Stream.Length)
                 {
                     int length = write.ReadVarInt();
                     var byteArray = write.Receive(length);

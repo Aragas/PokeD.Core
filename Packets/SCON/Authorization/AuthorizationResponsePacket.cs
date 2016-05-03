@@ -1,8 +1,8 @@
 ﻿using System;
 
-using Aragas.Core.Data;
-using Aragas.Core.IO;
-using Aragas.Core.Packets;
+using Aragas.Network.Data;
+using Aragas.Network.IO;
+using Aragas.Network.Packets;
 
 namespace PokeD.Core.Packets.SCON.Authorization
 {

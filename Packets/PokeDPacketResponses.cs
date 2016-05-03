@@ -1,7 +1,8 @@
 ﻿using System;
 
-using Aragas.Core.Extensions;
-using Aragas.Core.Wrappers;
+using Aragas.Network.Extensions;
+
+using PCLExt.AppDomain;
 
 namespace PokeD.Core.Packets
 {
@@ -55,7 +56,7 @@ namespace PokeD.Core.Packets
 
         static PokeDPacketResponses()
         {
-            new PokeDPacketTypes().CreatePacketInstancesOut(out Packets, AppDomainWrapper.GetAssembly(typeof(PokeDPacketResponses)));
+            new PokeDPacketTypes().CreatePacketInstancesOut(out Packets, AppDomain.GetAssembly(typeof(PokeDPacketResponses)));
         }
     }
 }

@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Text;
 
-using Aragas.Core.Data;
+using Aragas.Network.Data;
 
 namespace PokeD.Core.Extensions
 {

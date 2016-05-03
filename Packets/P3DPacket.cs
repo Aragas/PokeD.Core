@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-using Aragas.Core.Packets;
-
 using PokeD.Core.Data.P3D;
 using PokeD.Core.IO;
+
+using Aragas.Network.Packets;
 
 namespace PokeD.Core.Packets
 {

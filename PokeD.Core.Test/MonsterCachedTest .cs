@@ -1,6 +1,4 @@
-﻿using Aragas.Core.Wrappers;
-
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 using PokeD.Core.Data.PokeApi;
 
@@ -11,9 +9,6 @@ namespace PokeD.Core.Test
     {
         public MonsterCachedTest()
         {
-            AppDomainWrapper.Instance = new TestIAppDomain();
-            FileSystemWrapper.Instance = new TestIFileSystem();
-
             PokeApiV2.CacheData = true;
         }
 

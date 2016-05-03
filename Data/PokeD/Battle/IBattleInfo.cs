@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
-using Aragas.Core.Data;
-using Aragas.Core.IO;
+using Aragas.Network.Data;
+using Aragas.Network.IO;
 
 namespace PokeD.Core.Data.PokeD.Battle
 {

@@ -1,5 +1,3 @@
-using Aragas.Core.Data;
-
 using PokeD.Core.Data.PokeD.Monster.Interfaces;
 
 namespace PokeD.Core.Data.PokeD.Trainer.Interfaces

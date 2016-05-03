@@ -4,9 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-using Aragas.Core.IO;
-using Aragas.Core.Packets;
-using Aragas.Core.Wrappers;
+using Aragas.Network.IO;
+using Aragas.Network.Packets;
+
+using PCLExt.Network;
 
 using PokeD.Core.Packets;
 
@@ -23,14 +24,16 @@ namespace PokeD.Core.IO
 
 
         private ITCPClient TCPClient { get; }
+        private TCPClientStream TCPClientStream { get; }
 
-        protected override Stream BaseStream => TCPClient.GetStream();
+        protected override Stream BaseStream => TCPClientStream;
         private byte[] _buffer;
 
 
         public P3DStream(ITCPClient tcp, bool isServer = false)
         {
             TCPClient = tcp;
+            TCPClientStream = new TCPClientStream(TCPClient);
             IsServer = isServer;
         }
 

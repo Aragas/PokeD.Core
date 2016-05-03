@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using Aragas.Core.Data;
+using Aragas.Network.Data;
 
 using MersenneTwister;
 

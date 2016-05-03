@@ -1,7 +1,8 @@
 ﻿using System;
 
-using Aragas.Core.Data;
-using Aragas.Core.IO;
+using Aragas.Network.Data;
+using Aragas.Network.IO;
+
 using PokeD.Core.Data.PokeD.Battle;
 using PokeD.Core.Data.PokeD.Monster;
 using PokeD.Core.Data.PokeD.Monster.Data;
@@ -12,8 +13,8 @@ using PokeD.Core.Data.PokeD.Trainer.Interfaces;
 using PokeD.Core.Data.SCON;
 using PokeD.Core.Packets.PokeD.Overworld.Map;
 
-using static Aragas.Core.IO.PacketStream;
-using static Aragas.Core.IO.PacketDataReader;
+using static Aragas.Network.IO.PacketStream;
+using static Aragas.Network.IO.PacketDataReader;
 
 namespace PokeD.Core.Extensions
 {
@@ -27,7 +28,7 @@ namespace PokeD.Core.Extensions
 
         public static void Init()
         {
-            Aragas.Core.Extensions.PacketExtensions.Init();
+            Aragas.Network.Extensions.PacketExtensions.Init();
 
             Extend<FileHash[]>(ReadFileHashArray, WriteFileHashArray);
             Extend<FileHash>(ReadFileHash, WriteFileHash);

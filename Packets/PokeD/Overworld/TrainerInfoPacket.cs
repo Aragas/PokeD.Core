@@ -1,9 +1,10 @@
-﻿using Aragas.Core.Data;
-using Aragas.Core.Extensions;
-using Aragas.Core.IO;
-using Aragas.Core.Packets;
+﻿using Aragas.Network.Data;
+using Aragas.Network.IO;
+using Aragas.Network.Packets;
+
 using PokeD.Core.Data.PokeD.Trainer;
 using PokeD.Core.Data.PokeD.Trainer.Interfaces;
+using PokeD.Core.Extensions;
 
 namespace PokeD.Core.Packets.PokeD.Overworld
 {

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-using Aragas.Core.IO;
+using Aragas.Network.IO;
 
 namespace PokeD.Core.IO
 {

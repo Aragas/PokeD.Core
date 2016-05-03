@@ -1,4 +1,4 @@
-﻿using Aragas.Core.Data;
+﻿using Aragas.Network.Data;
 
 using PokeD.Core.Data.PokeD.Monster.Interfaces;
 using PokeD.Core.Data.PokeD.Trainer.Data;

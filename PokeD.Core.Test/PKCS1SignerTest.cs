@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Aragas.Core;
-
 using NUnit.Framework;
 
 using Org.BouncyCastle.Crypto;
@@ -9,6 +7,8 @@ using Org.BouncyCastle.Crypto.Digests;
 using Org.BouncyCastle.Crypto.Generators;
 using Org.BouncyCastle.Crypto.Prng;
 using Org.BouncyCastle.Security;
+
+using Aragas.Network;
 
 namespace PokeD.Core.Test
 {
