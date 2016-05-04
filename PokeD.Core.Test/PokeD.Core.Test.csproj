@@ -100,7 +100,7 @@
     <Compile Include="PKCS1SignerTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PokeD.Core.csproj">
+    <ProjectReference Include="$(SolutionDir)\PokeD.Core.csproj">
       <Project>{1cf84e56-3bbe-4a3a-9234-5951bf2558c3}</Project>
       <Name>PokeD.Core</Name>
     </ProjectReference>
