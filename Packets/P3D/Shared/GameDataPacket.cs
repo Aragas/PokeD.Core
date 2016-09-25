@@ -1,12 +1,14 @@
 ﻿using System;
 
+using Aragas.Network.Attributes;
+using Aragas.Network.Data;
+
 using PokeD.Core.Extensions;
 using PokeD.Core.IO;
 
-using Aragas.Network.Data;
-
 namespace PokeD.Core.Packets.P3D.Shared
 {
+    [Packet((int) P3DPacketTypes.GameData)]
     public class GameDataPacket : P3DPacket
     {
         public string GameMode { get { return DataItems[0]; } set { DataItems[0] = value; } }
@@ -32,8 +34,6 @@ namespace PokeD.Core.Packets.P3D.Shared
         public Vector3 GetPokemonPosition(char separator) { return Vector3Extensions.FromPokeString(PokemonPosition, separator, CultureInfo); }
         public void SetPokemonPosition(Vector3 position, char separator) { PokemonPosition = position.ToPokeString(separator, CultureInfo); }
 
-
-        public override int ID => (int) P3DPacketTypes.GameData;
 
         public override P3DPacket ReadPacket(P3DDataReader reader) { return this; }
         public override P3DPacket WritePacket(P3DStream writer) { return this; }

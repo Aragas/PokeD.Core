@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 
-using Aragas.Network.Extensions;
+using Aragas.Network.Packets;
 
 using PCLExt.AppDomain;
 
-namespace PokeD.Core.Packets
+namespace PokeD.Core.Packets.SCON
 {
     public enum SCONPacketTypes
     {
@@ -54,11 +56,8 @@ namespace PokeD.Core.Packets
 
     public static class SCONPacketResponses
     {
-        public static readonly Func<SCONPacket>[] Packets;
+        private static readonly Dictionary<int, Func<SCONPacket>> Packets = Packet.CreateIDList<SCONPacket>(typeof(SCONPacketTypes), new Assembly[] { AppDomain.GetAssembly(typeof(SCONPacketResponses)) });
 
-        static SCONPacketResponses()
-        {
-            new SCONPacketTypes().CreatePacketInstancesOut(out Packets, AppDomain.GetAssembly(typeof(SCONPacketResponses)));
-        }
+        public static bool TryGetPacketFunc(int key, out Func<SCONPacket> func) => Packets.TryGetValue(key, out func);
     }
 }

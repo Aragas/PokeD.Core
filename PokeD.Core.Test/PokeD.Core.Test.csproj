@@ -58,14 +58,14 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Reference Include="Aragas.Network, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\Aragas.Network.1.0.0\lib\portable-net45+netcore45+wpa81\Aragas.Network.dll</HintPath>
+    <Reference Include="Aragas.Network, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Aragas.Network.1.0.3\lib\portable-net45+netcore45+wpa81\Aragas.Network.dll</HintPath>
     </Reference>
     <Reference Include="crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\Portable.BouncyCastle.1.8.1\lib\net45\crypto.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\Portable.BouncyCastle.1.8.1.1\lib\netstandard1.0\crypto.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=3.2.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\NUnit.3.2.1\lib\net45\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="PCLExt.AppDomain, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\PCLExt.AppDomain.1.0.8\lib\net45\PCLExt.AppDomain.dll</HintPath>
@@ -79,11 +79,11 @@
     <Reference Include="PCLExt.FileStorage.Abstractions, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\PCLExt.FileStorage.1.0.5\lib\net45\PCLExt.FileStorage.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="PCLExt.Network, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\PCLExt.Network.1.0.8\lib\net45\PCLExt.Network.dll</HintPath>
+    <Reference Include="PCLExt.Network, Version=1.0.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\PCLExt.Network.1.0.12\lib\net45\PCLExt.Network.dll</HintPath>
     </Reference>
-    <Reference Include="PCLExt.Network.Abstractions, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\PCLExt.Network.1.0.8\lib\net45\PCLExt.Network.Abstractions.dll</HintPath>
+    <Reference Include="PCLExt.Network.Abstractions, Version=1.0.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\PCLExt.Network.1.0.12\lib\net45\PCLExt.Network.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>

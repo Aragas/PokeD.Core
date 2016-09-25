@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 using PCLExt.AppDomain;
 
-using Aragas.Network.Extensions;
+using Aragas.Network.Packets;
 
-namespace PokeD.Core.Packets
+namespace PokeD.Core.Packets.P3D
 {
     public enum P3DPacketTypes
     {
         GameData                    = 0x00,
-        PlayData                    = 0x01,
+        NOT_USED                    = 0x01,
         ChatMessagePrivate          = 0x02,
         ChatMessageGlobal           = 0x03,
         Kicked                      = 0x04,
@@ -47,11 +49,8 @@ namespace PokeD.Core.Packets
 
     public static class P3DPacketResponses
     {
-        public static readonly Func<P3DPacket>[] Packets;
+        private static Dictionary<int, Func<P3DPacket>> Packets { get; } = Packet.CreateIDListByAttribute<P3DPacket>(new Assembly[] { AppDomain.GetAssembly(typeof(P3DPacketResponses)) });
 
-        static P3DPacketResponses()
-        {
-            new P3DPacketTypes().CreatePacketInstancesOut(out Packets, AppDomain.GetAssembly(typeof(P3DPacketResponses)));
-        }
+        public static bool TryGetPacketFunc(int key, out Func<P3DPacket> func) => Packets.TryGetValue(key, out func);
     }
 }

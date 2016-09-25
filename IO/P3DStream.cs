@@ -9,37 +9,37 @@ using Aragas.Network.Packets;
 
 using PCLExt.Network;
 
-using PokeD.Core.Packets;
+using PokeD.Core.Packets.P3D;
 
 namespace PokeD.Core.IO
 {
-    public sealed class P3DStream : PacketStream
+    public class P3DStream : PacketStream
     {
         public override bool IsServer { get; }
 
-        public override string Host => TCPClient.IP;
-        public override ushort Port => TCPClient.Port;
-        public override bool Connected => TCPClient != null && TCPClient.Connected;
-        public override int DataAvailable => TCPClient?.DataAvailable ?? 0;
+        public override string Host => Socket.RemoteEndPoint.IP;
+        public override ushort Port => Socket.RemoteEndPoint.Port;
+        public override bool IsConnected => Socket != null && Socket.IsConnected;
+        public override int DataAvailable => Socket?.DataAvailable ?? 0;
 
 
-        private ITCPClient TCPClient { get; }
-        private TCPClientStream TCPClientStream { get; }
+        private ISocketClient Socket { get; }
+        private SocketClientStream SocketStream { get; }
 
-        protected override Stream BaseStream => TCPClientStream;
+        protected override Stream BaseStream => SocketStream;
         private byte[] _buffer;
 
 
-        public P3DStream(ITCPClient tcp, bool isServer = false)
+        public P3DStream(ISocketClient socket, bool isServer = false)
         {
-            TCPClient = tcp;
-            TCPClientStream = new TCPClientStream(TCPClient);
+            Socket = socket;
+            SocketStream = new SocketClientStream(Socket);
             IsServer = isServer;
         }
 
 
-        public override void Connect(string ip, ushort port) { TCPClient.Connect(ip, port); }
-        public override void Disconnect() { TCPClient.Disconnect(); }
+        public override void Connect(string ip, ushort port) { Socket.Connect(ip, port); }
+        public override void Disconnect() { Socket.Disconnect(); }
 
 
         // -- Anything 

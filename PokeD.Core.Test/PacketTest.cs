@@ -12,7 +12,9 @@ using NUnit.Framework;
 using PokeD.Core.Data.PokeApi;
 using PokeD.Core.Extensions;
 using PokeD.Core.IO;
-using PokeD.Core.Packets;
+using PokeD.Core.Packets.P3D;
+using PokeD.Core.Packets.PokeD;
+using PokeD.Core.Packets.SCON;
 
 namespace PokeD.Core.Test
 {
@@ -27,6 +29,7 @@ namespace PokeD.Core.Test
         }
 
 
+        /*
         [Test]
         public void TestP3DProtobufSerializationDeserialization()
         {
@@ -59,11 +62,12 @@ namespace PokeD.Core.Test
                 int id;
                 if (P3DPacket.TryParseID(data, out id))
                 {
-                    if (P3DPacketResponses.Packets.Length > id)
+                    Func<P3DPacket> func;
+                    if (P3DPacketResponses.TryGetValue(id, out func))
                     {
-                        if (P3DPacketResponses.Packets[id] != null)
+                        if (func != null)
                         {
-                            var packet = P3DPacketResponses.Packets[id]();
+                            var packet = func();
                             if (packet.TryParseData(data))
                                 return packet;
                             else
@@ -83,6 +87,7 @@ namespace PokeD.Core.Test
 
             return null;
         }
+        */
 
 
         [Test]

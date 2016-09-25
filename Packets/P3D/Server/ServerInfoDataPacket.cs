@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 
+using Aragas.Network.Attributes;
+
 using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.P3D.Server
 {
+    [Packet((int) P3DPacketTypes.ServerInfoData)]
     public class ServerInfoDataPacket : P3DPacket
     {
         public int CurrentPlayers { get { return int.Parse(DataItems[0] == string.Empty ? 0.ToString() : DataItems[0]); } set { DataItems[0] = value.ToString(); } }
@@ -35,8 +38,6 @@ namespace PokeD.Core.Packets.P3D.Server
             }
         }
 
-
-        public override int ID => (int) P3DPacketTypes.ServerInfoData;
 
         public override P3DPacket ReadPacket(P3DDataReader reader) { return this; }
         public override P3DPacket WritePacket(P3DStream writer) { return this; }

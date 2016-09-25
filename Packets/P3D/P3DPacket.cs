@@ -8,9 +8,9 @@ using PokeD.Core.IO;
 
 using Aragas.Network.Packets;
 
-namespace PokeD.Core.Packets
+namespace PokeD.Core.Packets.P3D
 {
-    public abstract class P3DPacket : Packet<int, P3DPacket, P3DDataReader, P3DStream>
+    public abstract class P3DPacket : PacketWithAttribute<P3DPacket, P3DDataReader, P3DStream>
     {
         public int Origin { get; set; }
 
