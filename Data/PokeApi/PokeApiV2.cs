@@ -9,8 +9,6 @@ using Newtonsoft.Json;
 
 using PCLExt.FileStorage;
 
-using PokeD.Core.IO;
-
 namespace PokeD.Core.Data.PokeApi
 {
     public static class PokeApiV2

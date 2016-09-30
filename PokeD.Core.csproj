@@ -81,8 +81,9 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\Vector3Extensions.cs" />
     <Compile Include="Extensions\BouncyCastleExtensions.cs" />
-    <Compile Include="IO\P3DStreamEvent.cs" />
     <Compile Include="IO\P3DStream.cs" />
+    <Compile Include="IO\P3DStreamEvent.cs" />
+    <Compile Include="IO\VBAStream.cs" />
     <Compile Include="IO\P3DDataReader.cs" />
     <Compile Include="IUpdatable.cs" />
     <Compile Include="MersenneTwisterRandom.cs" />
@@ -179,6 +180,12 @@
     <Compile Include="Packets\P3D\Trade\TradeStartPacket.cs" />
     <Compile Include="Packets\P3D\Shared\GameDataPacket.cs" />
     <Compile Include="Packets\P3D\Server\ServerInfoDataPacket.cs" />
+    <Compile Include="Packets\VBA\DisconnectPacket.cs" />
+    <Compile Include="Packets\VBA\E4Packet.cs" />
+    <Compile Include="Packets\VBA\E1Packet.cs" />
+    <Compile Include="Packets\VBA\ConnectPacket.cs" />
+    <Compile Include="Packets\VBA\VBAPacket.cs" />
+    <Compile Include="Packets\VBA\VBAPacketResponses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -210,6 +217,12 @@
     <Reference Include="PCLExt.Network.Abstractions, Version=1.0.12.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\PCLExt.Network.1.0.12\lib\portable-net45+wp8+wpa81+win8+monoandroid+monotouch+Xamarin.iOS+Xamarin.Mac\PCLExt.Network.Abstractions.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(SolutionDir)\PokeD.BattleEngine\PokeD.BattleEngine.csproj">
+      <Project>{a90f84df-ccfa-4722-9490-a3df98daec95}</Project>
+      <Name>PokeD.BattleEngine</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
