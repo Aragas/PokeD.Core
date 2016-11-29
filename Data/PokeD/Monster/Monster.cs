@@ -204,7 +204,7 @@ namespace PokeD.Core.Data.PokeD.Monster
         private static byte GenerateNature() => (byte) new MersenneTwisterRandom().Next(25);
 
 
-        public bool IsValid() => (PersonalityValue != 0) ||
+        public bool IsValid => (PersonalityValue != 0) ||
                                  StaticData.Abilities.Contains(Ability) ||
                                  IV.IsValidIV() ||
                                  EV.IsValidEV();
@@ -254,7 +254,7 @@ namespace PokeD.Core.Data.PokeD.Monster
         public Monster(IMonsterBaseInfo info) { }
         public Monster(MonsterInstanceData instanceData) { InstanceData = instanceData; }
 
-        public bool IsValid() => InstanceData.IsValid();
+        public bool IsValid => InstanceData.IsValid;
 
 
         public static bool operator !=(Monster a, Monster b) => !a.Equals(b);

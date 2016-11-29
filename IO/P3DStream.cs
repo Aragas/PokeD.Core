@@ -62,19 +62,18 @@ namespace PokeD.Core.IO
         private StringBuilder StringBuilder { get; } = new StringBuilder();
         private IEnumerable<string> ReadLineEnumerable()
         {
-            var symbol = ReadByte();
+            var symbol = (char) ReadByte();
             while (symbol != -1)
             {
-                /*
-                var nextSymbol = 0;
-                if (symbol == 13 && DataAvailable == 0)
+                char nextSymbol;
+                if (symbol == '\r' && DataAvailable == 0)
                 {
                     var line = StringBuilder.ToString();
                     StringBuilder.Clear();
 
                     yield return line;
                 }
-                else if ((nextSymbol = ReadByte()) == 10 && symbol == 13)
+                else if ((nextSymbol = (char) ReadByte()) == '\n' && symbol == '\r')
                 {
                     var line = StringBuilder.ToString();
                     StringBuilder.Clear();
@@ -85,17 +84,18 @@ namespace PokeD.Core.IO
                     yield return string.Empty;
                 else
                 {
-                    StringBuilder.Append((char)symbol);
+                    StringBuilder.Append(symbol);
                     symbol = nextSymbol;
                 }
-                */
+                
 
 
-                var nextSymbol = ReadByte();
+                /*
+                var nextSymbol = (char) ReadByte();
                 if(nextSymbol == -1)
                     yield return string.Empty;
 
-                if (symbol == 13 && nextSymbol == 10)
+                if (symbol == '\r' && nextSymbol == '\n')
                 {
                     var line = StringBuilder.ToString();
                     StringBuilder.Clear();
@@ -104,9 +104,10 @@ namespace PokeD.Core.IO
                 }
                 else
                 {
-                    StringBuilder.Append((char) symbol);
+                    StringBuilder.Append(symbol);
                     symbol = nextSymbol;
                 }
+                */
             }
             yield return string.Empty;
         }
