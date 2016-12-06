@@ -18,7 +18,7 @@ namespace PokeD.Core.Data.PokeD.Monster
     {
         public static int GainExperience(IOpponentInfo trainer, Monster victorious, Monster fainted, bool hasParticipatedAndExpShare = false, bool useScaled = false)
         {
-            double a = fainted.CatchInfo.TrainerID == 0 ? 1 : 1.5; // is wild
+            double a = fainted.CatchInfo.TrainerId == 0 ? 1 : 1.5; // is wild
             double b = fainted.StaticData.RewardExperience;
             double e = victorious.HeldItem == 0 ? 1.5 : 0;
             double f = victorious.Affection >= 2 ? 1.2 : 1;
@@ -26,7 +26,7 @@ namespace PokeD.Core.Data.PokeD.Monster
             double lp = victorious.Level;
             double p = 1;
             double s = hasParticipatedAndExpShare ? 2 : 1;
-            double t = trainer.TrainerID == victorious.CatchInfo.TrainerID ? 1.5 : 1;
+            double t = trainer.TrainerId == victorious.CatchInfo.TrainerId ? 1.5 : 1;
             double v = victorious.Level > victorious.StaticData.LevelEvolveRequirement ? 1.2 : 1;
 
             if (!useScaled)

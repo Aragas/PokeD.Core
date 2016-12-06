@@ -165,7 +165,7 @@ namespace PokeD.Core.Extensions
 
         private static void WriteMonsterMove(PacketStream stream, MonsterMove value, bool writeDefaultLength = true)
         {
-            stream.Write(value.ID);
+            stream.Write(value.Id);
             stream.Write(value.PPUPs);
         }
         private static MonsterMove ReadMonsterMove(PacketDataReader reader, int length = 0)
@@ -216,8 +216,8 @@ namespace PokeD.Core.Extensions
             stream.Write(value.Method);
             stream.Write(value.Location);
             stream.Write(value.TrainerName);
-            stream.Write(value.TrainerID);
-            stream.Write(value.PokeballID);
+            stream.Write(value.TrainerId);
+            stream.Write(value.PokeballId);
             stream.Write(value.Nickname);
         }
         private static MonsterCatchInfo ReadMonsterCatchInfo(PacketDataReader reader, int length = 0)
@@ -227,8 +227,8 @@ namespace PokeD.Core.Extensions
                 Method = reader.Read<string>(),
                 Location = reader.Read<string>(),
                 TrainerName = reader.Read<string>(),
-                TrainerID = reader.Read<ushort>(),
-                PokeballID = reader.Read<byte>(),
+                TrainerId = reader.Read<ushort>(),
+                PokeballId = reader.Read<byte>(),
                 Nickname = reader.Read<string>()
             };
         }
@@ -236,7 +236,7 @@ namespace PokeD.Core.Extensions
         private static void WriteMonsterInstanceData(PacketStream stream, MonsterInstanceData value, bool writeDefaultLength = true)
         {
             stream.Write(value.Species);
-            stream.Write(value.SecretID);
+            stream.Write(value.SecretId);
             stream.Write(value.PersonalityValue);
             stream.Write(value.Nature);
             stream.Write(value.CatchInfo);

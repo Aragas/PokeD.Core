@@ -8,7 +8,7 @@ namespace PokeD.Core.Packets.PokeD.Trade
 {
     public class TradeOfferPacket : PokeDPacket
     {
-        public VarInt DestinationID { get; set; }
+        public VarInt DestinationId { get; set; }
         public MonsterInstanceData MonsterData { get; set; } = new MonsterInstanceData(1);
 
 
@@ -16,7 +16,7 @@ namespace PokeD.Core.Packets.PokeD.Trade
 
         public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
-            DestinationID = reader.Read(DestinationID);
+            DestinationId = reader.Read(DestinationId);
             MonsterData = reader.Read(MonsterData);
 
             return this;
@@ -24,7 +24,7 @@ namespace PokeD.Core.Packets.PokeD.Trade
 
         public override ProtobufPacket WritePacket(ProtobufStream writer)
         {
-            writer.Write(DestinationID);
+            writer.Write(DestinationId);
             writer.Write(MonsterData);
 
             return this;

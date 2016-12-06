@@ -6,12 +6,12 @@ namespace PokeD.Core.Data.PokeD.Monster.Data
     {
         public static MonsterAbility Empty => new MonsterAbility(0, "EMPTY");
 
-        public int ID { get; }
+        public int Id { get; }
         public string Name { get; }
 
-        public MonsterAbility(int id, string name) { ID = id; Name = name; }
+        public MonsterAbility(int id, string name) { Id = id; Name = name; }
 
-        public override string ToString() => $"{Name}, ID: {ID}";
+        public override string ToString() => $"{Name}, Id: {Id}";
     }
 
     public class MonsterAbilities
@@ -45,6 +45,6 @@ namespace PokeD.Core.Data.PokeD.Monster.Data
 
 
         public bool Contains(MonsterAbility ability) => Ability_0 == ability || Ability_1 == ability || Ability_2 == ability;
-        public bool Contains(short ability) => Ability_0.ID == ability || Ability_1.ID == ability || Ability_2.ID == ability;
+        public bool Contains(short ability) => Ability_0.Id == ability || Ability_1.Id == ability || Ability_2.Id == ability;
     }
 }

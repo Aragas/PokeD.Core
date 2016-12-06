@@ -33,11 +33,11 @@ namespace PokeD.Core.Extensions
                 CatchInfo = new MonsterCatchInfo()
                 {
                     Nickname = string.IsNullOrEmpty(dict["NickName"]) ? string.Empty : dict["NickName"],
-                    PokeballID = byte.Parse(dict["CatchBall"]),
+                    PokeballId = byte.Parse(dict["CatchBall"]),
                     Method = dict["CatchMethod"],
                     Location = dict["CatchLocation"],
                     TrainerName = dict["CatchTrainer"],
-                    TrainerID = (ushort) int.Parse(dict["OT"]).BitsGet(0, 16) == ushort.MaxValue
+                    TrainerId = (ushort) int.Parse(dict["OT"]).BitsGet(0, 16) == ushort.MaxValue
                                 ? (ushort) int.Parse(dict["OT"]).BitsGet(16, 32)
                                 : (ushort) int.Parse(dict["OT"]).BitsGet(0, 16)
                 }

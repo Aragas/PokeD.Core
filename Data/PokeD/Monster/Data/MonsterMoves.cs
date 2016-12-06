@@ -6,13 +6,13 @@ namespace PokeD.Core.Data.PokeD.Monster.Data
     {
         public static MonsterMove Empty => new MonsterMove(0, 0);
 
-        public int ID { get; }
+        public int Id { get; }
         public int PPUPs { get; }
 
 
         public MonsterMove(int id, int ppUPs)
         {
-            ID = id;
+            Id = id;
             PPUPs = ppUPs;
         }
     }
@@ -53,6 +53,6 @@ namespace PokeD.Core.Data.PokeD.Monster.Data
 
 
         public bool Contains(MonsterMove move) => Move_0 == move || Move_1 == move || Move_2 == move || Move_3 == move;
-        public bool Contains(short move) => Move_0.ID == move || Move_1.ID == move || Move_2.ID == move || Move_3.ID == move;
+        public bool Contains(short move) => Move_0.Id == move || Move_1.Id == move || Move_2.Id == move || Move_3.Id == move;
     }
 }

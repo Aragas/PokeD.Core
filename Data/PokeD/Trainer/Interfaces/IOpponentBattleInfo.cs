@@ -4,7 +4,7 @@ namespace PokeD.Core.Data.PokeD.Trainer.Interfaces
 {
     public interface IOpponentBattleInfo
     {
-        int EntityID { get; }
+        int EntityId { get; }
         short TrainerSprite { get; }
 
         IMonsterBattleInfo MainMonster { get; }

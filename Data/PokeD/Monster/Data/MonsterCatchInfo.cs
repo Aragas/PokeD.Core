@@ -9,9 +9,9 @@ namespace PokeD.Core.Data.PokeD.Monster.Data
         public string Location { get; set; } = string.Empty;
 
         public string TrainerName { get; set; } = string.Empty;
-        public ushort TrainerID { get; set; }
+        public ushort TrainerId { get; set; }
 
-        public byte PokeballID { get; set; }
+        public byte PokeballId { get; set; }
 
         public string Nickname { get; set; } = string.Empty;
     }

@@ -6,12 +6,12 @@ namespace PokeD.Core.Data.PokeD.Monster.Data
     {
         public static MonsterType Empty => new MonsterType(0, "EMPTY");
 
-        public int ID { get; }
+        public int Id { get; }
         public string Name { get; }
 
-        public MonsterType(int id, string name) { ID = id; Name = name; }
+        public MonsterType(int id, string name) { Id = id; Name = name; }
 
-        public override string ToString() => $"{Name}, ID: {ID}";
+        public override string ToString() => $"{Name}, Id: {Id}";
     }
     public class MonsterTypes
     {
@@ -41,6 +41,6 @@ namespace PokeD.Core.Data.PokeD.Monster.Data
 
 
         public bool Contains(MonsterType type) => Type_0 == type || Type_1 == type;
-        public bool Contains(short type) => Type_0.ID == type || Type_1.ID == type;
+        public bool Contains(short type) => Type_0.Id == type || Type_1.Id == type;
     }
 }

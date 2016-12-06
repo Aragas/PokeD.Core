@@ -6,12 +6,12 @@ namespace PokeD.Core.Data.PokeD.Monster.Data
     {
         public static MonsterEggGroup Empty => new MonsterEggGroup(0, "EMPTY");
 
-        public int ID { get; }
+        public int Id { get; }
         public string Name { get; }
 
-        public MonsterEggGroup(int id, string name) { ID = id; Name = name; }
+        public MonsterEggGroup(int id, string name) { Id = id; Name = name; }
 
-        public override string ToString() => $"{Name}, ID: {ID}";
+        public override string ToString() => $"{Name}, Id: {Id}";
     }
 
     public class MonsterEggGroups
@@ -41,6 +41,6 @@ namespace PokeD.Core.Data.PokeD.Monster.Data
 
 
         public bool Contains(MonsterEggGroup eggGroup) => Type_0 == eggGroup || Type_1 == eggGroup;
-        public bool Contains(short eggGroup) => Type_0.ID == eggGroup || Type_1.ID == eggGroup;
+        public bool Contains(short eggGroup) => Type_0.Id == eggGroup || Type_1.Id == eggGroup;
     }
 }

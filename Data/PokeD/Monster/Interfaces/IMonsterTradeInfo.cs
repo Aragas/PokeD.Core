@@ -4,7 +4,7 @@ namespace PokeD.Core.Data.PokeD.Monster.Interfaces
 {
     public interface IMonsterTradeInfo
     {
-        short ID { get; }
+        short Id { get; }
         string DisplayName { get; }
         MonsterCatchInfo CatchInfo { get; }
 

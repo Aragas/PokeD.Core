@@ -39,11 +39,11 @@ namespace PokeD.Core.Packets.PokeD.Overworld
 
     public class TrainerInfoPacket : PokeDPacket
     {
-        public VarInt PlayerID { get; set; }
+        public VarInt PlayerId { get; set; }
         public short TrainerSprite { get; set; }
         public string Name { get; set; } = string.Empty;
 
-        public short TrainerID { get; set; }
+        public short TrainerId { get; set; }
         public byte Gender { get; set; }
 
         public IOpponentTeam MonsterTeam { get; set; } = new MonsterParty();
@@ -53,11 +53,11 @@ namespace PokeD.Core.Packets.PokeD.Overworld
 
         public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
-            PlayerID = reader.Read(PlayerID);
+            PlayerId = reader.Read(PlayerId);
             TrainerSprite = reader.Read(TrainerSprite);
             Name = reader.Read(Name);
 
-            TrainerID = reader.Read(TrainerID);
+            TrainerId = reader.Read(TrainerId);
             Gender = reader.Read(Gender);
 
             MonsterTeam = reader.Read(MonsterTeam);
@@ -67,11 +67,11 @@ namespace PokeD.Core.Packets.PokeD.Overworld
 
         public override ProtobufPacket WritePacket(ProtobufStream writer)
         {
-            writer.Write(PlayerID);
+            writer.Write(PlayerId);
             writer.Write(TrainerSprite);
             writer.Write(Name);
 
-            writer.Write(TrainerID);
+            writer.Write(TrainerId);
             writer.Write(Gender);
 
             writer.Write(MonsterTeam);

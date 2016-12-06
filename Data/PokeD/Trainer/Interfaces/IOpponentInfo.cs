@@ -4,11 +4,11 @@ namespace PokeD.Core.Data.PokeD.Trainer.Interfaces
 {
     public interface IOpponentInfo
     {
-        int EntityID { get; }
+        int EntityId { get; }
         short TrainerSprite { get; }
 
         string Name { get; }
-        short TrainerID { get; }
+        short TrainerId { get; }
 
         TrainerGender Gender { get; }
     }

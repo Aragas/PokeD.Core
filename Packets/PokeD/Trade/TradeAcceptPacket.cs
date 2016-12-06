@@ -6,21 +6,21 @@ namespace PokeD.Core.Packets.PokeD.Trade
 {
     public class TradeAcceptPacket : PokeDPacket
     {
-        public VarInt DestinationID { get; set; }
+        public VarInt DestinationId { get; set; }
 
 
         public override VarInt ID => PokeDPacketTypes.TradeAccept;
 
         public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
-            DestinationID = reader.Read(DestinationID);
+            DestinationId = reader.Read(DestinationId);
 
             return this;
         }
 
         public override ProtobufPacket WritePacket(ProtobufStream writer)
         {
-            writer.Write(DestinationID);
+            writer.Write(DestinationId);
 
             return this;
         }

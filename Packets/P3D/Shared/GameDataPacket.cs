@@ -13,7 +13,7 @@ namespace PokeD.Core.Packets.P3D.Shared
     {
         public string GameMode { get { return DataItems[0]; } set { DataItems[0] = value; } }
         public bool IsGameJoltPlayer { get { return int.Parse(DataItems[1], CultureInfo) == 1; } set { DataItems[1] = (value ? 1 : 2).ToString(CultureInfo); } }
-        public long GameJoltID { get { return long.Parse(DataItems[2], CultureInfo); } set { DataItems[2] = value.ToString(CultureInfo); } }
+        public long GameJoltId { get { return long.Parse(DataItems[2], CultureInfo); } set { DataItems[2] = value.ToString(CultureInfo); } }
         public char DecimalSeparator { get { return DataItems[3][0]; } set { DataItems[3] = value.ToString(); } }
         public string Name { get { return DataItems[4]; } set { DataItems[4] = value; } }
         public string LevelFile { get { return DataItems[5]; } set { DataItems[5] = value; } }

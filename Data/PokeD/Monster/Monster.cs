@@ -17,7 +17,7 @@ namespace PokeD.Core.Data.PokeD.Monster
         public static Languages Language { get; set; } = Languages.English; // TODO: Move it
 
 
-        public short ID { get; }
+        public short Id { get; }
         public string Name { get; private set; }
         public MonsterTypes Types { get; private set; }
 
@@ -44,7 +44,7 @@ namespace PokeD.Core.Data.PokeD.Monster
         //public EvolutionConditionModel[] EvolutionConditions;
 
 
-        public MonsterStaticData(short id) { ID = id; }
+        public MonsterStaticData(short id) { Id = id; }
 
 
         private static bool GetLocalizedName(Localization name) => ((Languages) new ResourceUri(name.language).Id) == Language;
@@ -109,7 +109,7 @@ namespace PokeD.Core.Data.PokeD.Monster
         public MonsterStaticData StaticData { get; }
 
         public short Species { get; }
-        public ushort SecretID { get; }
+        public ushort SecretId { get; }
         public MonsterCatchInfo CatchInfo { get; set; } = MonsterCatchInfo.Empty;
 
         public uint PersonalityValue { get; }
@@ -168,7 +168,7 @@ namespace PokeD.Core.Data.PokeD.Monster
         public MonsterInstanceData(short species, ushort secretId, uint personalityValue, byte nature)
         {
             Species = species;
-            SecretID = secretId;
+            SecretId = secretId;
 
             StaticData = MonsterStaticData.LoadStaticDataPokeApiV2(Species).Result;
 
@@ -196,7 +196,7 @@ namespace PokeD.Core.Data.PokeD.Monster
             var FirstAbility = (result / 65536 % 2) == 0;
             var IsShiny = (result % 65536) < 16;
 
-            if(gender != Gender || ((ability == StaticData.Abilities.Ability_0.ID) != FirstAbility) || isShiny != IsShiny)
+            if(gender != Gender || ((ability == StaticData.Abilities.Ability_0.Id) != FirstAbility) || isShiny != IsShiny)
                 goto Generate;
 
             return result;

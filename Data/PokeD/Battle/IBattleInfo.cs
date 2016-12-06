@@ -7,7 +7,7 @@ namespace PokeD.Core.Data.PokeD.Battle
 {
     public interface IBattleInfo
     {
-        IEnumerable<VarInt> IDs { get; } 
+        IEnumerable<VarInt> Ids { get; } 
         int Count { get; }
         
         IBattleInfo FromReader(ProtobufDataReader reader);
@@ -23,7 +23,7 @@ namespace PokeD.Core.Data.PokeD.Battle
         public VarInt Opponent_4 { get; set; } = new VarInt(0);
         public VarInt Opponent_5 { get; set; } = new VarInt(0);
 
-        public IEnumerable<VarInt> IDs => new[] { Opponent_0, Opponent_1, Opponent_2, Opponent_3, Opponent_4, Opponent_5 };
+        public IEnumerable<VarInt> Ids => new[] { Opponent_0, Opponent_1, Opponent_2, Opponent_3, Opponent_4, Opponent_5 };
         public int Count => 6;
 
         public IBattleInfo FromReader(ProtobufDataReader reader)
@@ -58,7 +58,7 @@ namespace PokeD.Core.Data.PokeD.Battle
         public VarInt Opponent_4 { get; set; } = new VarInt(0);
         public VarInt Opponent_5 { get; set; } = new VarInt(0);
 
-        public IEnumerable<VarInt> IDs => new[] { Opponent_0, Opponent_1, Opponent_2, Opponent_3, Opponent_4, Opponent_5 };
+        public IEnumerable<VarInt> Ids => new[] { Opponent_0, Opponent_1, Opponent_2, Opponent_3, Opponent_4, Opponent_5 };
         public int Count => 6;
 
         public IBattleInfo FromReader(ProtobufDataReader reader)
@@ -91,7 +91,7 @@ namespace PokeD.Core.Data.PokeD.Battle
         public VarInt Opponent_2 { get; set; } = new VarInt(0);
         public VarInt Opponent_3 { get; set; } = new VarInt(0);
 
-        public IEnumerable<VarInt> IDs => new[] { Opponent_0, Opponent_1, Opponent_2, Opponent_3 };
+        public IEnumerable<VarInt> Ids => new[] { Opponent_0, Opponent_1, Opponent_2, Opponent_3 };
         public int Count => 4;
 
         public IBattleInfo FromReader(ProtobufDataReader reader)
@@ -118,7 +118,7 @@ namespace PokeD.Core.Data.PokeD.Battle
         public VarInt Opponent_0 { get; set; } = new VarInt(0);
         public VarInt Opponent_1 { get; set; } = new VarInt(0);
 
-        public IEnumerable<VarInt> IDs => new[] { Opponent_0, Opponent_1 };
+        public IEnumerable<VarInt> Ids => new[] { Opponent_0, Opponent_1 };
         public int Count => 2;
 
         public IBattleInfo FromReader(ProtobufDataReader reader)

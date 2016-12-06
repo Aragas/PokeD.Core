@@ -19,7 +19,7 @@ namespace PokeD.Core.Packets.P3D
 
         protected static CultureInfo CultureInfo => CultureInfo.InvariantCulture;
 
-        public static bool TryParseID(string fullData, out int id)
+        public static bool TryParseId(string fullData, out int id)
         {
             id = 0;
 

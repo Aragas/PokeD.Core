@@ -328,8 +328,8 @@ namespace PokeD.Core.Data.Import
         public short Species => checked((short) Data.Species);
 
         public string Nickname => Data.Nickname;
-        public uint PID => Data.PID;
-        public ushort SID => checked((ushort) Data.SID);
+        public uint PId => Data.PID;
+        public ushort SId => checked((ushort) Data.SID);
         public short Ability => checked((short) Data.Ability);
         public byte Nature => checked((byte) Data.Nature);
         public bool IsEgg => Data.IsEgg;
@@ -374,7 +374,7 @@ namespace PokeD.Core.Data.Import
 
 
         public string OT_Name => Data.OT_Name;
-        public ushort OT_ID => checked((ushort) Data.TID);
+        public ushort OT_Id => checked((ushort) Data.TID);
         public byte OT_Gender => checked((byte) Data.OT_Gender);
         public byte OT_Friendship => checked((byte) Data.OT_Friendship);
         public byte OT_Affection => checked((byte) Data.OT_Affection);
@@ -404,7 +404,7 @@ namespace PokeD.Core.Data.Import
             Data.FixRelearn();
             Data.RefreshChecksum();
 
-            var data = new MonsterInstanceData(Species, SID, PID, Nature)
+            var data = new MonsterInstanceData(Species, SId, PId, Nature)
             {
                 Affection = OT_Affection,
                 CatchInfo = new MonsterCatchInfo()
@@ -412,8 +412,8 @@ namespace PokeD.Core.Data.Import
                     Method = "converted from a Pokémon Game",// "converted from Pokémon Game",// EncounterType.ToString(),
                     Location = $"on {MetLocationTypes.MetLocation[Met_Location]}",//"at PokéD's Server",//Met_Location.ToString(),
                     TrainerName = OT_Name,
-                    TrainerID = OT_ID,
-                    PokeballID = Ball,
+                    TrainerId = OT_Id,
+                    PokeballId = Ball,
                     Nickname = IsNicknamed ? Nickname : string.Empty
                 },
                 CurrentHP = HPCurrent,

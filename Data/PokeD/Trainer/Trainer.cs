@@ -8,7 +8,7 @@ namespace PokeD.Core.Data.PokeD.Trainer
 {
     public class TrainerStaticData
     {
-        public string ID;
+        public string Id;
         public string Name;
 
     }
@@ -17,8 +17,8 @@ namespace PokeD.Core.Data.PokeD.Trainer
         public TrainerStaticData StaticData { get; }
 
         public string Name { get; }
-        public short TrainerID { get; }
-        public short SecretID { get; }
+        public short TrainerId { get; }
+        public short SecretId { get; }
 
         public TrainerGender Gender { get; }
 
@@ -32,7 +32,7 @@ namespace PokeD.Core.Data.PokeD.Trainer
             Name = name;
         }
 
-        public static TrainernInstanceData LoadData(int entityID)
+        public static TrainernInstanceData LoadData(int entityId)
         {
             return null;
         }
@@ -40,7 +40,7 @@ namespace PokeD.Core.Data.PokeD.Trainer
 
     public class Trainer : IOpponentInfo, IOpponentServerInfo, IOpponentTeamInfo, IOpponentBattleInfo
     {
-        public int EntityID { get; set; } = -1;
+        public int EntityId { get; set; } = -1;
         public short TrainerSprite { get; }
         private TrainernInstanceData TrainernInstanceData { get; }
 
@@ -50,8 +50,8 @@ namespace PokeD.Core.Data.PokeD.Trainer
             set { throw new System.NotImplementedException(); }
         }
 
-        public short TrainerID => TrainernInstanceData.TrainerID;
-        public short SecretID => TrainernInstanceData.SecretID;
+        public short TrainerId => TrainernInstanceData.TrainerId;
+        public short SecretId => TrainernInstanceData.SecretId;
 
         public TrainerGender Gender => TrainernInstanceData.Gender;
 
@@ -72,15 +72,15 @@ namespace PokeD.Core.Data.PokeD.Trainer
         {
             TrainernInstanceData = new TrainernInstanceData(name);
         }
-        private Trainer(int entityID)
+        private Trainer(int entityId)
         {
-            EntityID = entityID;
+            EntityId = entityId;
 
-            TrainernInstanceData = TrainernInstanceData.LoadData(EntityID);
+            TrainernInstanceData = TrainernInstanceData.LoadData(EntityId);
         }
-        public static Trainer Load(int entityID)
+        public static Trainer Load(int entityId)
         {
-            return new Trainer(entityID);
+            return new Trainer(entityId);
         }
     }
 }
