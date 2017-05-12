@@ -1,9 +1,7 @@
 ﻿using Aragas.Network.Data;
 using Aragas.Network.IO;
 using Aragas.Network.Packets;
-
-using PokeD.Core.Data.PokeD.Trainer;
-using PokeD.Core.Data.PokeD.Trainer.Interfaces;
+using PokeD.BattleEngine.Trainer.Data;
 using PokeD.Core.Extensions;
 
 namespace PokeD.Core.Packets.PokeD.Overworld
@@ -39,25 +37,25 @@ namespace PokeD.Core.Packets.PokeD.Overworld
 
     public class TrainerInfoPacket : PokeDPacket
     {
-        public VarInt PlayerId { get; set; }
+        public VarInt PlayerID { get; set; }
         public short TrainerSprite { get; set; }
         public string Name { get; set; } = string.Empty;
 
-        public short TrainerId { get; set; }
+        public short TrainerID { get; set; }
         public byte Gender { get; set; }
 
-        public IOpponentTeam MonsterTeam { get; set; } = new MonsterParty();
+        public MonsterTeam MonsterTeam { get; set; } = new MonsterTeam();
 
 
         public override VarInt ID => PokeDPacketTypes.TrainerInfo;
 
         public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
-            PlayerId = reader.Read(PlayerId);
+            PlayerID = reader.Read(PlayerID);
             TrainerSprite = reader.Read(TrainerSprite);
             Name = reader.Read(Name);
 
-            TrainerId = reader.Read(TrainerId);
+            TrainerID = reader.Read(TrainerID);
             Gender = reader.Read(Gender);
 
             MonsterTeam = reader.Read(MonsterTeam);
@@ -67,11 +65,11 @@ namespace PokeD.Core.Packets.PokeD.Overworld
 
         public override ProtobufPacket WritePacket(ProtobufStream writer)
         {
-            writer.Write(PlayerId);
+            writer.Write(PlayerID);
             writer.Write(TrainerSprite);
             writer.Write(Name);
 
-            writer.Write(TrainerId);
+            writer.Write(TrainerID);
             writer.Write(Gender);
 
             writer.Write(MonsterTeam);

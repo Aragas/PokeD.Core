@@ -9,7 +9,7 @@ namespace PokeD.Core.Packets.PokeD.Battle
     /// </summary>
     public class BattleOfferPacket : PokeDPacket
     {
-        public VarInt[] PlayerIds { get; set; } = new VarInt[0];
+        public VarInt[] PlayerIDs { get; set; } = new VarInt[0];
         public string Message { get; set; } = string.Empty;
 
 
@@ -17,7 +17,7 @@ namespace PokeD.Core.Packets.PokeD.Battle
 
         public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
         {
-            PlayerIds = reader.Read(PlayerIds);
+            PlayerIDs = reader.Read(PlayerIDs);
             Message = reader.Read(Message);
 
             return this;
@@ -25,7 +25,7 @@ namespace PokeD.Core.Packets.PokeD.Battle
 
         public override ProtobufPacket WritePacket(ProtobufStream writer)
         {
-            writer.Write(PlayerIds);
+            writer.Write(PlayerIDs);
             writer.Write(Message);
 
             return this;

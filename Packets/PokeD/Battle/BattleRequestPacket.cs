@@ -2,8 +2,6 @@
 using Aragas.Network.IO;
 using Aragas.Network.Packets;
 
-using PokeD.Core.Data.PokeD.Battle;
-
 namespace PokeD.Core.Packets.PokeD.Battle
 {
     /// <summary>
@@ -13,7 +11,7 @@ namespace PokeD.Core.Packets.PokeD.Battle
     {
         public string Message { get; set; } = string.Empty;
         public byte Type { get; set; }
-        public IBattleInfo Battle { get; set; } = new BattleInfo1x1();
+        //public IBattleInfo Battle { get; set; } = new BattleInfo1x1();
 
 
         public override VarInt ID => PokeDPacketTypes.BattleRequest;
@@ -22,6 +20,8 @@ namespace PokeD.Core.Packets.PokeD.Battle
         {
             Message = reader.Read(Message);
             Type = reader.Read(Type);
+
+            /*
             switch ((BattleType) Type)
             {
                 case BattleType.PvP_1:
@@ -49,6 +49,7 @@ namespace PokeD.Core.Packets.PokeD.Battle
                     Battle = new BattleInfo1x5().FromReader(reader);
                     break;
             }
+            */
             
             return this;
         }
@@ -57,7 +58,9 @@ namespace PokeD.Core.Packets.PokeD.Battle
         {
             writer.Write(Message);
             writer.Write(Type);
+            /*
             Battle.ToStream(writer);
+            */
             
             return this;
         }

@@ -2,7 +2,7 @@
 using Aragas.Network.IO;
 using Aragas.Network.Packets;
 
-using PokeD.Core.Data.PokeD.Battle;
+using PokeD.BattleEngine.Battle;
 
 namespace PokeD.Core.Packets.PokeD.Battle
 {
@@ -11,7 +11,7 @@ namespace PokeD.Core.Packets.PokeD.Battle
     /// </summary>
     public class BattleStatePacket : PokeDPacket
     {
-        public BattleState BattleState { get; set; } = new BattleState();
+        public BattleState BattleState { get; set; }
 
 
         public override VarInt ID => PokeDPacketTypes.BattleState;
@@ -25,7 +25,7 @@ namespace PokeD.Core.Packets.PokeD.Battle
 
         public override ProtobufPacket WritePacket(ProtobufStream writer)
         {
-            //writer.Write(BattleState);
+            writer.Write(BattleState);
 
             return this;
         }

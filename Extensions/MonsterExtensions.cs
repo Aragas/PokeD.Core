@@ -2,8 +2,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using PokeD.Core.Data.P3D;
-using PokeD.Core.Data.PokeApi;
-using PokeD.Core.Data.PokeD.Monster;
+using PokeD.Core.Data.PokeD;
 
 namespace PokeD.Core.Extensions
 {
@@ -12,39 +11,63 @@ namespace PokeD.Core.Extensions
         public static DataItems ToDataItems(this Monster monster)
         {
             var dict = new Dictionary<string, string>();
-            dict.Add("Pokemon", $"[{monster.Species}]");
+            dict.Add("Pokemon", $"[{monster.StaticData.ID}]");
             dict.Add("Experience", $"[{monster.Experience}]");
-            dict.Add("Gender", $"[{((int)monster.Gender)}]");
+            dict.Add("Gender", $"[{((int) monster.Gender)}]");
             dict.Add("EggSteps", $"[{monster.EggSteps}]");
             dict.Add("Item", $"[{monster.HeldItem}]");
             dict.Add("ItemData", $"[]");
             dict.Add("NickName", $"[{monster.DisplayName}]");
-            dict.Add("Level", $"[{(monster.Level > 0 ? monster.Level - 1 : monster.Level)}]");
-            dict.Add("OT", $"[{monster.CatchInfo.TrainerId}]");
-            dict.Add("Ability", $"[{string.Join(",", monster.Ability.Id)}]");
+            dict.Add("Level", $"[{monster.Level}]");
+            dict.Add("OT", $"[{monster.CatchInfo.TrainerID}]");
+            dict.Add("Ability", $"[{string.Join(",", monster.Ability.StaticData.ID)}]");
             dict.Add("Status", $"[]"); // TODO
             dict.Add("Nature", $"[{monster.Nature}]");
             dict.Add("CatchLocation", $"[{monster.CatchInfo.Location}]");
             dict.Add("CatchTrainer", $"[{monster.CatchInfo.TrainerName}]");
-            dict.Add("CatchBall", $"[{monster.CatchInfo.PokeballId}]");
+            dict.Add("CatchBall", $"[{monster.CatchInfo.PokeballID}]");
             dict.Add("CatchMethod", $"[{monster.CatchInfo.Method}]");
             dict.Add("Friendship", $"[{monster.Friendship}]");
             dict.Add("isShiny", $"[{(monster.IsShiny ? 1 : 0)}]");
 
-            var pp0 = monster.Moves.Move_0.Id == 0 ? 0 : PokeApiV2.GetMoves(new ResourceUri($"api/v2/move/{monster.Moves.Move_0.Id}/", true)).Result[0].pp;
-            var pp1 = monster.Moves.Move_1.Id == 0 ? 0 : PokeApiV2.GetMoves(new ResourceUri($"api/v2/move/{monster.Moves.Move_1.Id}/", true)).Result[0].pp;
-            var pp2 = monster.Moves.Move_2.Id == 0 ? 0 : PokeApiV2.GetMoves(new ResourceUri($"api/v2/move/{monster.Moves.Move_2.Id}/", true)).Result[0].pp;
-            var pp3 = monster.Moves.Move_3.Id == 0 ? 0 : PokeApiV2.GetMoves(new ResourceUri($"api/v2/move/{monster.Moves.Move_3.Id}/", true)).Result[0].pp;
-            dict.Add("Attack1", monster.Moves.Move_0.Id == 0 ? $"[]" : $"[{monster.Moves.Move_0.Id},{pp0},{pp0}]");
-            dict.Add("Attack2", monster.Moves.Move_1.Id == 0 ? $"[]" : $"[{monster.Moves.Move_1.Id},{pp1},{pp1}]");
-            dict.Add("Attack3", monster.Moves.Move_2.Id == 0 ? $"[]" : $"[{monster.Moves.Move_2.Id},{pp2},{pp2}]");
-            dict.Add("Attack4", monster.Moves.Move_3.Id == 0 ? $"[]" : $"[{monster.Moves.Move_3.Id},{pp3},{pp3}]");
+            if (monster.Moves.Count > 0)
+            {
+                var pp = monster.Moves[0].StaticData.PP;
+                var ppMax = (int) (monster.Moves[0].PPUps > 0 ? pp + pp * 0.2D * monster.Moves[0].PPUps : pp);
+                dict.Add("Attack1", $"[{monster.Moves[0].StaticData.ID},{ppMax},{monster.Moves[0].PPCurrent}]");
+            }
+            else
+                dict.Add("Attack1", "[]");
+            if (monster.Moves.Count > 1)
+            {
+                var pp = monster.Moves[1].StaticData.PP;
+                var ppMax = (int) (monster.Moves[1].PPUps > 0 ? pp + pp * 0.2D * monster.Moves[1].PPUps : pp);
+                dict.Add("Attack2", $"[{monster.Moves[1].StaticData.ID},{ppMax},{monster.Moves[1].PPCurrent}]");
+            }
+            else
+                dict.Add("Attack2", "[]");
+            if (monster.Moves.Count > 2)
+            {
+                var pp = monster.Moves[2].StaticData.PP;
+                var ppMax = (int) (monster.Moves[2].PPUps > 0 ? pp + pp * 0.2D * monster.Moves[2].PPUps : pp);
+                dict.Add("Attack3", $"[{monster.Moves[2].StaticData.ID},{ppMax},{monster.Moves[2].PPCurrent}]");
+            }
+            else
+                dict.Add("Attack3", "[]");
+            if (monster.Moves.Count > 3)
+            {
+                var pp = monster.Moves[3].StaticData.PP;
+                var ppMax =  (int) (monster.Moves[3].PPUps > 0 ? pp + pp * 0.2D * monster.Moves[3].PPUps : pp);
+                dict.Add("Attack4", $"[{monster.Moves[3].StaticData.ID},{ppMax},{monster.Moves[3].PPCurrent}]");
+            }
+            else
+                dict.Add("Attack4", "[]");
 
             dict.Add("HP", $"[{monster.CurrentHP}]");
-            dict.Add("EVs", $"[{monster.InstanceData.EV.HP},{monster.InstanceData.EV.Attack},{monster.InstanceData.EV.Defense},{monster.InstanceData.EV.SpecialAttack},{monster.InstanceData.EV.SpecialDefense},{monster.InstanceData.EV.Speed}]");
-            dict.Add("IVs", $"[{monster.InstanceData.IV.HP},{monster.InstanceData.IV.Attack},{monster.InstanceData.IV.Defense},{monster.InstanceData.IV.SpecialAttack},{monster.InstanceData.IV.SpecialDefense},{monster.InstanceData.IV.Speed}]");
+            dict.Add("EVs", $"[{monster.EV.HP},{monster.EV.Attack},{monster.EV.Defense},{monster.EV.SpecialAttack},{monster.EV.SpecialDefense},{monster.EV.Speed}]");
+            dict.Add("IVs", $"[{monster.IV.HP},{monster.IV.Attack},{monster.IV.Defense},{monster.IV.SpecialAttack},{monster.IV.SpecialDefense},{monster.IV.Speed}]");
             dict.Add("AdditionalData", $"[]");
-            dict.Add("IdValue", $"[PokeD01Conv]");
+            dict.Add("IDValue", $"[PokeD01Conv]");
 
             return DictionaryToDataItems(dict);
         }

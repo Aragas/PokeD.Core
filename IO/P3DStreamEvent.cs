@@ -29,7 +29,7 @@ namespace PokeD.Core.IO
         }
 
 
-        public void Send(byte[] buffer) { Socket.Write(buffer, 0, buffer.Length); }
-        public byte[] Receive(int length) { throw new NotSupportedException(); }
+        public new void Send(byte[] buffer) { Socket.Write(buffer, 0, buffer.Length); }
+        public new byte[] Receive(int length) { throw new NotSupportedException(); }
     }
 }

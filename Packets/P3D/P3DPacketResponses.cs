@@ -16,7 +16,7 @@ namespace PokeD.Core.Packets.P3D
         ChatMessageGlobal           = 0x03,
         Kicked                      = 0x04,
 
-        Id                          = 0x07,
+        ID                          = 0x07,
         CreatePlayer                = 0x08,
         DestroyPlayer               = 0x09,
         ServerClose                 = 0x0A,

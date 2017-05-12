@@ -1,51 +1,127 @@
 ﻿using System.Collections.Generic;
 
+using Newtonsoft.Json;
+
 namespace PokeD.Core.Data.PokeApi
 {
-    public interface PokeApiV2Json { }
-
-    public class EvolutionChainsJsonV2 : PokeApiV2Json
+    public abstract class PokeApiV2Json
     {
-        public class EvolutionDetails
+        public static PokeApiV2Json Deserialize(string id, string json) => Deserialize(new ResourceUri($"api/v2/{id}", true), json);
+        public static PokeApiV2Json Deserialize(ResourceUri uri, string json)
         {
-            public object item { get; set; }
-            public NamedAPIResource trigger { get; set; }
-            public object gender { get; set; }
-            public object held_item { get; set; }
-            public object known_move { get; set; }
-            public object known_move_type { get; set; }
-            public object location { get; set; }
-            public int min_level { get; set; }
-            public object min_happiness { get; set; }
-            public object min_beauty { get; set; }
-            public object min_affection { get; set; }
-            public bool needs_overworld_rain { get; set; }
-            public object party_species { get; set; }
-            public object party_type { get; set; }
-            public object relative_physical_stats { get; set; }
-            public string time_of_day { get; set; }
-            public object trade_species { get; set; }
-            public bool turn_upside_down { get; set; }
+            switch (uri.Type)
+            {
+                case ResourceUri.ApiType.Ability:
+                    return JsonConvert.DeserializeObject<AbilitiesJsonV2>(json);
+
+                case ResourceUri.ApiType.EggGroup:
+                    return JsonConvert.DeserializeObject<EggGroupJsonV2>(json);
+
+                case ResourceUri.ApiType.Item:
+                    return JsonConvert.DeserializeObject<ItemJsonV2>(json);
+
+                case ResourceUri.ApiType.Move:
+                    return JsonConvert.DeserializeObject<MoveJsonV2>(json);
+
+                case ResourceUri.ApiType.Pokemon:
+                    return JsonConvert.DeserializeObject<PokemonJsonV2>(json);
+
+                case ResourceUri.ApiType.PokemonSpecies:
+                    return JsonConvert.DeserializeObject<PokemonSpeciesJsonV2>(json);
+
+                case ResourceUri.ApiType.Type:
+                    return JsonConvert.DeserializeObject<PokemonTypeJsonV2>(json);
+
+                case ResourceUri.ApiType.PokemonHabitat:
+                    return JsonConvert.DeserializeObject<PokemonHabitatJsonV2>(json);
+
+                case ResourceUri.ApiType.PokemonShape:
+                    return JsonConvert.DeserializeObject<PokemonShapeV2Json>(json);
+
+                case ResourceUri.ApiType.EvolutionChain:
+                    return JsonConvert.DeserializeObject<EvolutionChainJsonV2>(json);
+
+                case ResourceUri.ApiType.PokemonColor:
+                    return JsonConvert.DeserializeObject<PokemonColorV2Json>(json);
+
+                case ResourceUri.ApiType.ItemAttribute:
+                    return JsonConvert.DeserializeObject<ItemAttributeV2Json>(json);
+            }
+
+            return null;
         }
+    }
+
+    public class ItemAttributeV2Json : PokeApiV2Json
+    {
+        public List<Localization> descriptions { get; set; }
+        public List<NamedAPIResource> items { get; set; }
+        public List<Localization> names { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+    }
+
+    public class PokemonColorV2Json : PokeApiV2Json
+    {
+        public List<NamedAPIResource> pokemon_species { get; set; }
+        public List<Localization> names { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+    }
+
+    public class PokemonShapeV2Json : PokeApiV2Json
+    {
+        public List<NamedAPIResource> pokemon_species { get; set; }
+        public List<Localization> names { get; set; }
+        public int id { get; set; }
+        public List<Localization> awesome_names { get; set; }
+        public string name { get; set; }
+    }
+
+    public class PokemonHabitatJsonV2 : PokeApiV2Json
+    {
+        public List<NamedAPIResource> pokemon_species { get; set; }
+        public List<Localization> names { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+    }
+
+    public class EvolutionChainJsonV2 : PokeApiV2Json
+    {
+        public class EvolutionDetail
+        {
+            public int? min_level { get; set; }
+            public int? min_beauty { get; set; }
+            public string time_of_day { get; set; }
+            public int? gender { get; set; }
+            public object relative_physical_stats { get; set; }
+            public bool needs_overworld_rain { get; set; }
+            public bool turn_upside_down { get; set; }
+            public NamedAPIResource item { get; set; }
+            public NamedAPIResource trigger { get; set; }
+            public NamedAPIResource known_move_type { get; set; }
+            public int? min_affection { get; set; }
+            public NamedAPIResource party_type { get; set; }
+            public NamedAPIResource trade_species { get; set; }
+            public NamedAPIResource party_species { get; set; }
+            public int? min_happiness { get; set; }
+            public NamedAPIResource held_item { get; set; }
+            public NamedAPIResource known_move { get; set; }
+            public object location { get; set; }
+        }
+
         public class EvolvesTo
         {
-            public bool is_baby { get; set; }
-            public NamedAPIResource species { get; set; }
-            public EvolutionDetails evolution_details { get; set; }
-            public List<object> evolves_to { get; set; }
-        }
-        public class Chain
-        {
-            public bool is_baby { get; set; }
-            public NamedAPIResource species { get; set; }
-            public object evolution_details { get; set; }
+            public List<EvolutionDetail> evolution_details { get; set; }
             public List<EvolvesTo> evolves_to { get; set; }
+            public bool is_baby { get; set; }
+            public NamedAPIResource species { get; set; }
         }
 
 
+        public object baby_trigger_item { get; set; }
         public int id { get; set; }
-        public NamedAPIResource baby_trigger_item { get; set; }
-        public Chain chain { get; set; }
+        public EvolvesTo chain { get; set; }
     }
 
     public class EvolutionTriggersJsonV2 : PokeApiV2Json
@@ -228,7 +304,7 @@ namespace PokeD.Core.Data.PokeApi
         public string name { get; set; }
         public int? accuracy { get; set; }
         public object effect_chance { get; set; }
-        public int pp { get; set; }
+        public int? pp { get; set; }
         public int priority { get; set; }
         public int? power { get; set; }
         public ContestCombos contest_combos { get; set; }
@@ -246,7 +322,7 @@ namespace PokeD.Core.Data.PokeApi
         public NamedAPIResource target { get; set; }
         public NamedAPIResource type { get; set; }
     }
-    
+
     public class EggGroupJsonV2 : PokeApiV2Json
     {
         public int id { get; set; }
@@ -306,9 +382,9 @@ namespace PokeD.Core.Data.PokeApi
         {
             public List<NamedAPIResource> no_damage_to { get; set; }
             public List<NamedAPIResource> half_damage_to { get; set; }
-            public List<object> double_damage_to { get; set; }
+            public List<NamedAPIResource> double_damage_to { get; set; }
             public List<NamedAPIResource> no_damage_from { get; set; }
-            public List<object> half_damage_from { get; set; }
+            public List<NamedAPIResource> half_damage_from { get; set; }
             public List<NamedAPIResource> double_damage_from { get; set; }
         }
         public class GameIndice

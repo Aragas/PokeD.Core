@@ -69,7 +69,7 @@ namespace PokeD.Core.Data.PokeApi
         public string RawString { get; }
         public ApiVersion Version { get; }
         public ApiType Type { get; }
-        public int Id { get; }
+        public int ID { get; }
 
         public ResourceUri(string str, bool partial = false)
         {
@@ -79,7 +79,7 @@ namespace PokeD.Core.Data.PokeApi
 
             Version = (ApiVersion) Enum.Parse(typeof (ApiVersion), array[2].RemoveWhitespace(), true);
             Type = (ApiType) Enum.Parse(typeof (ApiType), array[1].Replace("-", "").RemoveWhitespace(), true);
-            Id = int.Parse(array[0]);
+            ID = int.Parse(array[0]);
         }
         public ResourceUri(NamedAPIResource namedApiResource)
         {
@@ -89,7 +89,7 @@ namespace PokeD.Core.Data.PokeApi
 
             Version = (ApiVersion) Enum.Parse(typeof (ApiVersion), array[2].RemoveWhitespace(), true);
             Type = (ApiType) Enum.Parse(typeof (ApiType), array[1].Replace("-", "").RemoveWhitespace(), true);
-            Id = int.Parse(array[0]);
+            ID = int.Parse(array[0]);
         }
     }
 }

@@ -3,13 +3,11 @@
 using Aragas.Network.Data;
 using Aragas.Network.IO;
 
-using PokeD.Core.Data.PokeD.Battle;
-using PokeD.Core.Data.PokeD.Monster;
-using PokeD.Core.Data.PokeD.Monster.Data;
-using PokeD.Core.Data.PokeD.Monster.Interfaces;
+using PokeD.BattleEngine.Battle;
+using PokeD.BattleEngine.Monster.Data;
+using PokeD.BattleEngine.Trainer.Data;
+using PokeD.Core.Data.PokeD;
 using PokeD.Core.Data.PokeD.Structs;
-using PokeD.Core.Data.PokeD.Trainer;
-using PokeD.Core.Data.PokeD.Trainer.Interfaces;
 using PokeD.Core.Data.SCON;
 using PokeD.Core.Packets.PokeD.Overworld.Map;
 
@@ -38,18 +36,17 @@ namespace PokeD.Core.Extensions
             Extend<ImageResponse>(ReadImageResponse, WriteImageResponse);
             Extend<TileSetResponse>(ReadTileSetResponse, WriteTileSetResponse);
 
-            Extend<MonsterMove>(ReadMonsterMove, WriteMonsterMove);
-            Extend<MonsterMoves>(ReadMonsterMoves, WriteMonsterMoves);
-            Extend<MonsterStats>(ReadMonsterStats, WriteMonsterStats);
-            Extend<MonsterInstanceData>(ReadMonsterInstanceData, WriteMonsterInstanceData);
-            
-            Extend<IMonsterBaseInfo>(ReadMonster, WriteIMonsterBaseInfo);
-            Extend<Monster>(ReadMonster, WriteIMonsterBaseInfo);
+            Extend<Attack>(ReadAttack, WriteAttack);
+            //Extend<MonsterMoves>(ReadMonsterMoves, WriteMonsterMoves);
+            Extend<Stats>(ReadStats, WriteStats);
+            Extend<Monster>(ReadMonster, WriteMonster);
 
-            Extend<MonsterCatchInfo>(ReadMonsterCatchInfo, WriteMonsterCatchInfo);
+            //Extend<IMonsterBaseInfo>(ReadIMonsterBaseInfo, WriteIMonsterBaseInfo);
 
-            Extend<IOpponentTeam>(ReadMonsterParty, WriteIOpponentTeam);
-            Extend<MonsterParty>(ReadMonsterParty, WriteIOpponentTeam);
+            Extend<CatchInfo>(ReadCatchInfo, WriteCatchInfo);
+
+            Extend<MonsterTeam>(ReadMonsterTeam, WriteMonsterTeam);
+            //Extend<MonsterParty>(ReadMonsterParty, WriteIOpponentTeam);
             
             Extend<MetaSwitch>(ReadMetaSwitch, WriteMetaSwitch);
             Extend<MetaPosition>(ReadMetaPosition, WriteMetaPosition);
@@ -163,18 +160,18 @@ namespace PokeD.Core.Extensions
 
         #region MonsterInstanceData
 
-        private static void WriteMonsterMove(PacketStream stream, MonsterMove value, bool writeDefaultLength = true)
+        private static void WriteAttack(PacketStream stream, Attack value, bool writeDefaultLength = true)
         {
-            stream.Write(value.Id);
-            stream.Write(value.PPUPs);
+            stream.Write(value.StaticData.ID);
+            stream.Write(value.PPCurrent);
+            stream.Write(value.PPUps);
         }
-        private static MonsterMove ReadMonsterMove(PacketDataReader reader, int length = 0)
+        private static Attack ReadAttack(PacketDataReader reader, int length = 0)
         {
-            return new MonsterMove(
-                reader.Read<int>(),
-                reader.Read<int>());
+            return new Attack(reader.Read<short>(), reader.Read<byte>(), reader.Read<byte>());
         }
 
+        /*
         private static void WriteMonsterMoves(PacketStream stream, MonsterMoves value, bool writeDefaultLength = true)
         {
             stream.Write(value.Move_0);
@@ -190,8 +187,9 @@ namespace PokeD.Core.Extensions
                 reader.Read<MonsterMove>(),
                 reader.Read<MonsterMove>());
         }
+        */
 
-        private static void WriteMonsterStats(PacketStream stream, MonsterStats value, bool writeDefaultLength = true)
+        private static void WriteStats(PacketStream stream, Stats value, bool writeDefaultLength = true)
         {
             stream.Write(value.HP);
             stream.Write(value.Attack);
@@ -200,9 +198,9 @@ namespace PokeD.Core.Extensions
             stream.Write(value.SpecialDefense);
             stream.Write(value.Speed);
         }
-        private static MonsterStats ReadMonsterStats(PacketDataReader reader, int length = 0)
+        private static Stats ReadStats(PacketDataReader reader, int length = 0)
         {
-            return new MonsterStats(
+            return new Stats(
                 reader.Read<short>(),
                 reader.Read<short>(),
                 reader.Read<short>(),
@@ -211,32 +209,33 @@ namespace PokeD.Core.Extensions
                 reader.Read<short>());
         }
 
-        private static void WriteMonsterCatchInfo(PacketStream stream, MonsterCatchInfo value, bool writeDefaultLength = true)
+        private static void WriteCatchInfo(PacketStream stream, CatchInfo value, bool writeDefaultLength = true)
         {
             stream.Write(value.Method);
             stream.Write(value.Location);
             stream.Write(value.TrainerName);
-            stream.Write(value.TrainerId);
-            stream.Write(value.PokeballId);
+            stream.Write(value.TrainerID);
+            stream.Write(value.PokeballID);
             stream.Write(value.Nickname);
         }
-        private static MonsterCatchInfo ReadMonsterCatchInfo(PacketDataReader reader, int length = 0)
+        private static CatchInfo ReadCatchInfo(PacketDataReader reader, int length = 0)
         {
-            return new MonsterCatchInfo
+            return new CatchInfo
             {
                 Method = reader.Read<string>(),
                 Location = reader.Read<string>(),
                 TrainerName = reader.Read<string>(),
-                TrainerId = reader.Read<ushort>(),
-                PokeballId = reader.Read<byte>(),
+                TrainerID = reader.Read<ushort>(),
+                PokeballID = reader.Read<byte>(),
                 Nickname = reader.Read<string>()
             };
         }
 
-        private static void WriteMonsterInstanceData(PacketStream stream, MonsterInstanceData value, bool writeDefaultLength = true)
+        private static void WriteMonster(PacketStream stream, Monster value, bool writeDefaultLength = true)
         {
-            stream.Write(value.Species);
-            stream.Write(value.SecretId);
+            /*
+            stream.Write(value.StaticData.ID);
+            stream.Write(value.SecretID);
             stream.Write(value.PersonalityValue);
             stream.Write(value.Nature);
             stream.Write(value.CatchInfo);
@@ -244,65 +243,46 @@ namespace PokeD.Core.Extensions
             stream.Write(value.EggSteps);
             stream.Write(value.IV);
             stream.Write(value.EV);
-            stream.Write(value.HiddenEV);
             stream.Write(value.CurrentHP);
             stream.Write(value.StatusEffect);
             stream.Write(value.Affection);
             stream.Write(value.Friendship);
             stream.Write(value.Moves);
             stream.Write(value.HeldItem);
+            */
         }
-        private static MonsterInstanceData ReadMonsterInstanceData(PacketDataReader reader, int length = 0)
+        private static Monster ReadMonster(PacketDataReader reader, int length = 0)
         {
+            return null;
+            /*
             var species = reader.Read<short>();
-            var secretId = reader.Read<ushort>();
+            var secretID = reader.Read<ushort>();
             var personalityValue = reader.Read<uint>();
             var nature = reader.Read<byte>();
 
-            return new MonsterInstanceData(species, secretId, personalityValue, nature)
+            return new Monster(species, secretID, personalityValue, nature)
             {
-                CatchInfo = reader.Read<MonsterCatchInfo>(),
+                CatchInfo = reader.Read<CatchInfo>(),
                 Experience = reader.Read<int>(),
                 EggSteps = reader.Read<int>(),
-                IV = reader.Read<MonsterStats>(),
-                EV = reader.Read<MonsterStats>(),
-                HiddenEV = reader.Read<MonsterStats>(),
+                IV = reader.Read<Stats>(),
+                EV = reader.Read<Stats>(),
                 CurrentHP = reader.Read<short>(),
                 StatusEffect = reader.Read<short>(),
                 Affection = reader.Read<byte>(),
                 Friendship = reader.Read<byte>(),
-                Moves = reader.Read<MonsterMoves>(),
+                Moves = reader.Read<Moves>(),
                 HeldItem = reader.Read<short>(),
             };
+            */
         }
 
         #endregion MonsterInstanceData
 
-        
-        private static void WriteIMonsterBaseInfo(PacketStream stream, IMonsterBaseInfo value, bool writeDefaultLength = true) { }
-        private static Monster ReadMonster(PacketDataReader reader, int length = 0) { return Monster.Empty; }
 
-        private static void WriteIOpponentTeam(PacketStream stream, IOpponentTeam value, bool writeDefaultLength = true)
-        {
-            stream.Write((IMonsterBaseInfo) value.Monster_1);
-            stream.Write((IMonsterBaseInfo) value.Monster_2);
-            stream.Write((IMonsterBaseInfo) value.Monster_3);
-            stream.Write((IMonsterBaseInfo) value.Monster_4);
-            stream.Write((IMonsterBaseInfo) value.Monster_5);
-            stream.Write((IMonsterBaseInfo) value.Monster_6);
-        }
-        private static MonsterParty ReadMonsterParty(PacketDataReader reader, int length = 0)
-        {
-            return new MonsterParty
-            {
-                Monster_1 = new Monster(reader.Read<IMonsterBaseInfo>()),
-                Monster_2 = new Monster(reader.Read<IMonsterBaseInfo>()),
-                Monster_3 = new Monster(reader.Read<IMonsterBaseInfo>()),
-                Monster_4 = new Monster(reader.Read<IMonsterBaseInfo>()),
-                Monster_5 = new Monster(reader.Read<IMonsterBaseInfo>()),
-                Monster_6 = new Monster(reader.Read<IMonsterBaseInfo>()),
-            };
-        }
+
+        private static void WriteMonsterTeam(PacketStream stream, MonsterTeam value, bool writeDefaultLength = true) { }
+        private static MonsterTeam ReadMonsterTeam(PacketDataReader reader, int length = 0) { return default(MonsterTeam); }
 
 
         private static void WriteMetaSwitch(PacketStream stream, MetaSwitch value, bool writeDefaultLength = true) { stream.Write(value.Meta); }
@@ -312,7 +292,7 @@ namespace PokeD.Core.Extensions
         private static MetaPosition ReadMetaPosition(PacketDataReader reader, int length = 0) => new MetaPosition(reader.Read<long>());
 
         private static void WriteBattleState(PacketStream stream, BattleState value, bool writeDefaultLength = true) {  }
-        private static BattleState ReadBattleState(PacketDataReader reader, int length = 0) { return null; }
+        private static BattleState ReadBattleState(PacketDataReader reader, int length = 0) { return default(BattleState); }
 
         private static void WriteMetaAttack(PacketStream stream, MetaAttack value, bool writeDefaultLength = true) { stream.Write(value.Meta); }
         private static MetaAttack ReadMetaAttack(PacketDataReader reader, int length = 0) => new MetaAttack(reader.Read<byte>());
