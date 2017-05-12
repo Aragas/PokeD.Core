@@ -9,7 +9,7 @@ namespace PokeD.Core.Test
     {
         public MonsterCachedTest()
         {
-            PokeApiV2.CacheData = true;
+            PokeApiV2.CacheType = PokeApiV2.CacheTypeEnum.None;
         }
 
 

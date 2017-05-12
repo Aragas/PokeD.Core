@@ -23,7 +23,7 @@ namespace PokeD.Core.Test
     {
         public PacketTest()
         {
-            PokeApiV2.CacheData = true;
+            PokeApiV2.CacheType = PokeApiV2.CacheTypeEnum.None;
 
             PacketExtensions.Init();
         }

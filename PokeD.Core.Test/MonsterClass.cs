@@ -1,11 +1,4 @@
-﻿using System;
-
-using NUnit.Framework;
-
-using PokeD.Core.Data.P3D;
-using PokeD.Core.Data.PokeD.Monster;
-using PokeD.Core.Data.PokeD.Monster.Data;
-using PokeD.Core.Extensions;
+﻿using PokeD.Core.Data.P3D;
 
 namespace PokeD.Core.Test
 {
