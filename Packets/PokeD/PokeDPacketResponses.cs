@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-using Aragas.Network.Packets;
-
 using PCLExt.AppDomain;
+
+using Aragas.Network.Packets;
 
 namespace PokeD.Core.Packets.PokeD
 {

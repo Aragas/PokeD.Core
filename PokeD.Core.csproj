@@ -118,8 +118,7 @@
     <Compile Include="Packets\SCON\Authorization\AuthorizationResponsePacket.cs" />
     <Compile Include="Packets\SCON\ExecuteCommandPacket.cs" />
     <Compile Include="Packets\SCON\Chat\ChatMessagePacket.cs" />
-    <Compile Include="Packets\SCON\Chat\StopChatReceivingPacket.cs" />
-    <Compile Include="Packets\SCON\Chat\StartChatReceivingPacket.cs" />
+    <Compile Include="Packets\SCON\Chat\ChatReceivePacket.cs" />
     <Compile Include="Packets\SCON\Logs\LogFileRequestPacket.cs" />
     <Compile Include="Packets\SCON\Logs\CrashLogFileRequestPacket.cs" />
     <Compile Include="Packets\SCON\Logs\LogFileResponsePacket.cs" />

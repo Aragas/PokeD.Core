@@ -1,6 +1,7 @@
 ﻿using Aragas.Network.Data;
 using Aragas.Network.IO;
 using Aragas.Network.Packets;
+
 using PokeD.BattleEngine.Trainer.Data;
 using PokeD.Core.Extensions;
 

@@ -1,6 +1,6 @@
-using PokeD.Core.Extensions;
-
 using Aragas.Network.Data;
+
+using PokeD.Core.Extensions;
 
 namespace PokeD.Core.Data.PokeD.Structs
 {

@@ -25,33 +25,32 @@ namespace PokeD.Core.Packets.SCON
         BanListRequest              = 0x08,
         BanListResponse             = 0x09,
 
-        StartChatReceiving          = 0x0A,
-        StopChatReceiving           = 0x0B,
-        ChatMessage                 = 0x0C,
+        ChatReceivePacket           = 0x0A,
+        ChatMessage                 = 0x0B,
 
-        PlayerInfoListRequest       = 0x0D,
-        PlayerInfoListResponse      = 0x0E,
+        PlayerInfoListRequest       = 0x0C,
+        PlayerInfoListResponse      = 0x0D,
 
-        LogListRequest              = 0x0F,
-        LogListResponse             = 0x10,
+        LogListRequest              = 0x0E,
+        LogListResponse             = 0x0F,
 
-        LogFileRequest              = 0x11,
-        LogFileResponse             = 0x12,
+        LogFileRequest              = 0x10,
+        LogFileResponse             = 0x11,
 
-        CrashLogListRequest         = 0x13,
-        CrashLogListResponse        = 0x14,
+        CrashLogListRequest         = 0x12,
+        CrashLogListResponse        = 0x13,
 
-        CrashLogFileRequest         = 0x15,
-        CrashLogFileResponse        = 0x16,
+        CrashLogFileRequest         = 0x14,
+        CrashLogFileResponse        = 0x15,
 
-        BanPlayer                   = 0x17,
-        UnBanPlayer                 = 0x18,
+        BanPlayer                   = 0x16,
+        UnBanPlayer                 = 0x17,
 
-        PlayerDatabaseListRequest   = 0x19,
-        PlayerDatabaseListResponse  = 0x1A,
+        PlayerDatabaseListRequest   = 0x18,
+        PlayerDatabaseListResponse  = 0x19,
 
-        UploadLuaToServer           = 0x1B,
-        ReloadNPCs                  = 0x1C,
+        UploadLuaToServer           = 0x1A,
+        ReloadNPCs                  = 0x1B,
     }
 
     public static class SCONPacketResponses

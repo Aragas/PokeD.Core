@@ -1,6 +1,5 @@
 ﻿using PokeD.BattleEngine.Attack;
-using PokeD.BattleEngine.Attack.Data;
-using PokeD.BattleEngine.Monster;
+using PokeD.BattleEngine.Attack.Enums;
 using PokeD.BattleEngine.Type;
 using PokeD.Core.Data.PokeApi;
 

@@ -13,6 +13,7 @@ using PokeD.BattleEngine.Item;
 using PokeD.BattleEngine.Item.Data;
 using PokeD.BattleEngine.Monster;
 using PokeD.BattleEngine.Monster.Data;
+using PokeD.BattleEngine.Monster.Enums;
 using PokeD.BattleEngine.Type;
 using PokeD.Core.Data.P3D;
 using PokeD.Core.Data.PokeApi;
