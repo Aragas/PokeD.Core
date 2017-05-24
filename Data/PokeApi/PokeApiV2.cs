@@ -19,7 +19,27 @@ namespace PokeD.Core.Data.PokeApi
 {
     public static class PokeApiV2
     {
-        public enum CacheTypeEnum { Zip, ZipInMemory, Standard, StandardCompressed, None, }
+        public enum CacheTypeEnum
+        {
+            /// <summary>
+            /// Slow, but uses small amount of RAM
+            /// </summary>
+            Zip,
+
+            /// <summary>
+            /// Fast, but expect x4 of the whole app RAM usage
+            /// </summary>
+            ZipInMemory,
+            
+
+            Standard,
+            StandardCompressed,
+
+            /// <summary>
+            /// Uses the specified website for data access.
+            /// </summary>
+            None,
+        }
 
         private static CacheTypeEnum _cacheType;
         public static CacheTypeEnum CacheType

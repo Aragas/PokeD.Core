@@ -33,7 +33,8 @@ namespace PokeD.Core.Storage.Files
 
             public PokeApiV2Json Get(ResourceUri resourceUri)
             {
-                var zipEntry = Zip.Entries.SingleOrDefault(entry => PortablePath.GetFileNameWithoutExtension(entry.Name).Replace('_', '/') == $"{resourceUri.Type}/{resourceUri.ID}");
+                var resourceName = $"{resourceUri.Type}_{resourceUri.ID}";
+                var zipEntry = Zip.Entries.SingleOrDefault(entry => PortablePath.GetFileNameWithoutExtension(entry.Name) == resourceName);
                 if (zipEntry == null)
                     return null;
 
@@ -59,12 +60,7 @@ namespace PokeD.Core.Storage.Files
         {
             InMemory = inMemory;
 
-            if (!InMemory)
-            {
-                using (var fs = Open(FileAccess.ReadAndWrite))
-                    Zip = new ZipStruct(fs);
-            }
-            else
+            if (InMemory)
             {
                 using (var fs = Open(FileAccess.ReadAndWrite))
                 using (var zip = new ZipArchive(fs))
@@ -83,6 +79,11 @@ namespace PokeD.Core.Storage.Files
                         }
                     }
                 }
+            }
+            else
+            {
+                using (var fs = Open(FileAccess.ReadAndWrite))
+                    Zip = new ZipStruct(fs);
             }
         }
 

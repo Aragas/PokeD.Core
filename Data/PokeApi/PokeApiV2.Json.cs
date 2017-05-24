@@ -52,6 +52,8 @@ namespace PokeD.Core.Data.PokeApi
         }
     }
 
+#pragma warning disable IDE1006 // Naming Styles
+
     public class ItemAttributeV2Json : PokeApiV2Json
     {
         public List<Localization> descriptions { get; set; }
@@ -478,4 +480,6 @@ namespace PokeD.Core.Data.PokeApi
         public List<Stat> stats { get; set; }
         public List<PokeType> types { get; set; }
     }
+
+#pragma warning restore IDE1006 // Naming Styles
 }

@@ -50,11 +50,14 @@ namespace PokeD.Core.Data.PokeD
 
     public class Attack : BaseAttackInstance
     {
-
         //public Attack(short id, IMonsterStaticData user) : base(new AttackStaticData(id)) { }
         //public Attack(short id, byte pp, byte ppUps, IMonsterStaticData user) : base(new AttackStaticData(id), pp, ppUps) { }
+
         public Attack(short id) : base(Cached<AttackStaticData>.Get(id)) { }
         public Attack(short id, byte pp, byte ppUps) : base(Cached<AttackStaticData>.Get(id), pp, ppUps) { }
+
+        public Attack(ResourceUri uri) : base(Cached<AttackStaticData>.Get((short) uri.ID)) { }
+        public Attack(ResourceUri uri, byte pp, byte ppUps) : base(Cached<AttackStaticData>.Get((short) uri.ID), pp, ppUps) { }
 
         public Attack(AttackStaticData staticData) : base(staticData) { }
         public Attack(AttackStaticData staticData, byte pp, byte ppUps) : base(staticData, pp, ppUps) { }

@@ -215,8 +215,7 @@ namespace PokeD.Core.Data.PokeD
 
                             if (!string.IsNullOrEmpty(evolutionDetail.time_of_day))
                             {
-                                EvolvesTo.ByTimeOfDay.TimeOfDay @enum;
-                                if (Enum.TryParse(evolutionDetail.time_of_day, true, out @enum))
+                                if (Enum.TryParse(evolutionDetail.time_of_day, true, out EvolvesTo.ByTimeOfDay.TimeOfDay @enum))
                                     evolutionConditions.Add(new EvolvesTo.ByTimeOfDay(@enum));
                                 else
                                     throw new Exception();
@@ -245,7 +244,7 @@ namespace PokeD.Core.Data.PokeD
                             }
                         }
 
-                        EvolvesTo.Add(new EvolvesTo(new MonsterStaticData((short) new ResourceUri(evolvesTo.species).ID), list));
+                        EvolvesTo.Add(new EvolvesTo(Cached<MonsterStaticData>.Get((short) new ResourceUri(evolvesTo.species).ID), list));
                     }
                 }
             }
@@ -322,7 +321,7 @@ namespace PokeD.Core.Data.PokeD
         public byte WurmplesEvolution => (byte) (PersonalityValue / 65536);
 
 
-        public Monster(short species) : base(new MonsterStaticData(species))
+        public Monster(short species) : base(Cached<MonsterStaticData>.Get(species))
         {
             var random = new MersenneTwisterRandom();
             var thirtyBits = (uint) random.Next(1 << 30);
@@ -347,14 +346,14 @@ namespace PokeD.Core.Data.PokeD
                                     -|SpDIV|SpAIV|SpeIV
              */
         }
-        public Monster(short species, ushort secretID, uint personalityValue, byte nature) : base(new MonsterStaticData(species))
+        public Monster(short species, ushort secretID, uint personalityValue, byte nature) : base(Cached<MonsterStaticData>.Get(species))
         {
             SecretID = secretID;
             PersonalityValue = personalityValue;
 
             Nature = nature;
         }
-        public Monster(short species, Gender gender, bool isShiny, short ability, byte nature) : base(new MonsterStaticData(species))
+        public Monster(short species, Gender gender, bool isShiny, short ability, byte nature) : base(Cached<MonsterStaticData>.Get(species))
         {
             PersonalityValue = StaticData.Abilities.Contains(ability) ? GenerateRandom(gender, isShiny, ability) : 0;
             Nature = nature;

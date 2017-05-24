@@ -17,10 +17,9 @@ namespace PokeD.Core.Extensions
             if (data.Length != 3)
                 return Vector3.Zero;
 
-            float x, y, z;
-            var xb = float.TryParse(data[0], NumberStyles.AllowDecimalPoint, cultureInfo, out x);
-            var yb = float.TryParse(data[1], NumberStyles.AllowDecimalPoint, cultureInfo, out y);
-            var zb = float.TryParse(data[2], NumberStyles.AllowDecimalPoint, cultureInfo, out z);
+            var xb = float.TryParse(data[0], NumberStyles.AllowDecimalPoint, cultureInfo, out float x);
+            var yb = float.TryParse(data[1], NumberStyles.AllowDecimalPoint, cultureInfo, out float y);
+            var zb = float.TryParse(data[2], NumberStyles.AllowDecimalPoint, cultureInfo, out float z);
 
             if (xb && yb && zb)
                 return new Vector3(x * 1000 / 1000, y * 1000 / 1000, z * 1000 / 1000);
