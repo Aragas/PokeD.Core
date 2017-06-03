@@ -11,18 +11,13 @@ namespace PokeD.Core.Packets.PokeD.Authorization
 
         public override VarInt ID => PokeDPacketTypes.AuthorizationRequest;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            Name = reader.Read(Name);
-
-            return this;
+            Name = deserialiser.Read(Name);
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream stream)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            stream.Write(Name);
-
-            return this;
+            serializer.Write(Name);
         }
     }
 }

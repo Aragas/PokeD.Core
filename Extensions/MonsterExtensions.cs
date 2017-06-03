@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 using PokeD.Core.Data.P3D;
@@ -15,12 +16,12 @@ namespace PokeD.Core.Extensions
             dict.Add("Experience", $"[{monster.Experience}]");
             dict.Add("Gender", $"[{((int) monster.Gender)}]");
             dict.Add("EggSteps", $"[{monster.EggSteps}]");
-            dict.Add("Item", $"[{monster.HeldItem}]");
+            dict.Add("Item", $"[{monster.HeldItem?.StaticData.ID ?? 0}]");
             dict.Add("ItemData", $"[]");
             dict.Add("NickName", $"[{monster.DisplayName}]");
             dict.Add("Level", $"[{monster.Level}]");
             dict.Add("OT", $"[{monster.CatchInfo.TrainerID}]");
-            dict.Add("Ability", $"[{string.Join(",", monster.Ability.StaticData.ID)}]");
+            dict.Add("Ability", $"[{monster.Ability.StaticData.ID}]");
             dict.Add("Status", $"[]"); // TODO
             dict.Add("Nature", $"[{monster.Nature}]");
             dict.Add("CatchLocation", $"[{monster.CatchInfo.Location}]");
@@ -67,9 +68,32 @@ namespace PokeD.Core.Extensions
             dict.Add("EVs", $"[{monster.EV.HP},{monster.EV.Attack},{monster.EV.Defense},{monster.EV.SpecialAttack},{monster.EV.SpecialDefense},{monster.EV.Speed}]");
             dict.Add("IVs", $"[{monster.IV.HP},{monster.IV.Attack},{monster.IV.Defense},{monster.IV.SpecialAttack},{monster.IV.SpecialDefense},{monster.IV.Speed}]");
             dict.Add("AdditionalData", $"[]");
-            dict.Add("IDValue", $"[PokeD01Conv]");
+            dict.Add("IDValue", $"[{GetP3DID(monster.PersonalityValue)}]");
 
             return DictionaryToDataItems(dict);
+        }
+        private static string GetP3DID(uint personalityValue)
+        {
+            var chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            var result = "";
+            var digits = Digits(personalityValue).ToList();
+            for (var i = 0; i < 5; i += 2)
+            {
+                var number = int.Parse(digits[i].ToString() + digits[i+1].ToString());
+                if (number > chars.Length)
+                    number = chars.Length - 1;
+                result += chars[number];
+            }
+
+            return result;
+        }
+        private static IEnumerable<uint> Digits(this uint number)
+        {
+            do
+            {
+                yield return number % 10;
+                number /= 10;
+            } while (number > 0);
         }
         private static DataItems DictionaryToDataItems(Dictionary<string, string> dict)
         {

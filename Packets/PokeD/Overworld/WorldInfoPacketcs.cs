@@ -16,24 +16,19 @@ namespace PokeD.Core.Packets.PokeD.Overworld
 
         public override VarInt ID => PokeDPacketTypes.WorldInfo;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            Time = reader.Read(Time);
-            Season = reader.Read(Season);
-            Weather = reader.Read(Weather);
-            Event = reader.Read(Event);
-
-            return this;
+            Time = deserialiser.Read(Time);
+            Season = deserialiser.Read(Season);
+            Weather = deserialiser.Read(Weather);
+            Event = deserialiser.Read(Event);
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream writer)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            writer.Write(Time);
-            writer.Write(Season);
-            writer.Write(Weather);
-            writer.Write(Event);
-
-            return this;
+            serializer.Write(Time);
+            serializer.Write(Season);
+            serializer.Write(Weather);
+            serializer.Write(Event);
         }
     }
 }

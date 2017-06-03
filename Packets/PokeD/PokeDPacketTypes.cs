@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-
-using PCLExt.AppDomain;
-
-using Aragas.Network.Packets;
-
-namespace PokeD.Core.Packets.PokeD
+﻿namespace PokeD.Core.Packets.PokeD
 {
     public enum PokeDPacketTypes
     {
@@ -50,12 +42,5 @@ namespace PokeD.Core.Packets.PokeD
         TradeRefuse             = 0xE2,
 
         Disconnect              = 0xFF,
-    }
-
-    public static class PokeDPacketResponses
-    {
-        private static readonly Dictionary<int, Func<PokeDPacket>> Packets = Packet.CreateIDList<PokeDPacket>(typeof(PokeDPacketTypes), new Assembly[] { AppDomain.GetAssembly(typeof(PokeDPacketResponses)) });
-
-        public static bool TryGetPacketFunc(int key, out Func<PokeDPacket> func) => Packets.TryGetValue(key, out func);
     }
 }

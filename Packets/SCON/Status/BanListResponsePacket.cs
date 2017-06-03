@@ -13,18 +13,13 @@ namespace PokeD.Core.Packets.SCON.Status
 
         public override VarInt ID => SCONPacketTypes.BanListResponse;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            Bans = reader.Read(Bans);
-
-            return this;
+            Bans = deserialiser.Read(Bans);
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream stream)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            stream.Write(Bans);
-
-            return this;
+            serializer.Write(Bans);
         }
     }
 }

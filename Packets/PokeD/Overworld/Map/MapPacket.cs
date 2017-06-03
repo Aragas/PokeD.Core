@@ -19,22 +19,17 @@ namespace PokeD.Core.Packets.PokeD.Overworld.Map
 
         public override VarInt ID => PokeDPacketTypes.Map;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            MapData = reader.Read(MapData);
-            TileSetHashes = reader.Read(TileSetHashes);
-            ImageHashes = reader.Read(ImageHashes);
-
-            return this;
+            MapData = deserialiser.Read(MapData);
+            TileSetHashes = deserialiser.Read(TileSetHashes);
+            ImageHashes = deserialiser.Read(ImageHashes);
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream writer)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            writer.Write(MapData);
-            writer.Write(TileSetHashes);
-            writer.Write(ImageHashes);
-
-            return this;
+            serializer.Write(MapData);
+            serializer.Write(TileSetHashes);
+            serializer.Write(ImageHashes);
         }
     }
 }

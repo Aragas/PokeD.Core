@@ -16,10 +16,10 @@ namespace PokeD.Core.Packets.PokeD.Battle
 
         public override VarInt ID => PokeDPacketTypes.BattleRequest;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            Message = reader.Read(Message);
-            Type = reader.Read(Type);
+            Message = deserialiser.Read(Message);
+            Type = deserialiser.Read(Type);
 
             /*
             switch ((BattleType) Type)
@@ -50,19 +50,14 @@ namespace PokeD.Core.Packets.PokeD.Battle
                     break;
             }
             */
-            
-            return this;
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream writer)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            writer.Write(Message);
-            writer.Write(Type);
+            serializer.Write(Message);
+            serializer.Write(Type);
             /*
-            Battle.ToStream(writer);
+            Battle.ToStream(serializer);
             */
-            
-            return this;
         }
     }
 }

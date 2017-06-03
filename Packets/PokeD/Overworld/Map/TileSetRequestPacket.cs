@@ -11,18 +11,13 @@ namespace PokeD.Core.Packets.PokeD.Overworld.Map
 
         public override VarInt ID => PokeDPacketTypes.TileSetRequest;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            TileSetNames = reader.Read(TileSetNames);
-
-            return this;
+            TileSetNames = deserialiser.Read(TileSetNames);
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream writer)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            writer.Write(TileSetNames);
-           
-            return this;
+            serializer.Write(TileSetNames);
         }
     }
 }

@@ -18,18 +18,13 @@ namespace PokeD.Core.Packets.PokeD.Battle
 
         public override VarInt ID => PokeDPacketTypes.BattleSwitch;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            Info = reader.Read(Info);
-
-            return this;
+            Info = deserialiser.Read(Info);
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream writer)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            writer.Write(Info);
-
-            return this;
+            serializer.Write(Info);
         }
     }
 }

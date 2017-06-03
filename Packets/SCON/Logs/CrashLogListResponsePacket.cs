@@ -13,18 +13,13 @@ namespace PokeD.Core.Packets.SCON.Logs
 
         public override VarInt ID => SCONPacketTypes.CrashLogListResponse;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            CrashLogs = reader.Read(CrashLogs);
-
-            return this;
+            CrashLogs = deserialiser.Read(CrashLogs);
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream stream)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            stream.Write(CrashLogs);
-
-            return this;
+            serializer.Write(CrashLogs);
         }
     }
 }

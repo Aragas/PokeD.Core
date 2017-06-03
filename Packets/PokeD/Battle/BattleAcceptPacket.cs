@@ -14,18 +14,13 @@ namespace PokeD.Core.Packets.PokeD.Battle
 
         public override VarInt ID => PokeDPacketTypes.BattleAccept;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            IsAccepted = reader.Read(IsAccepted);
-
-            return this;
+            IsAccepted = deserialiser.Read(IsAccepted);
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream writer)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            writer.Write(IsAccepted);
-
-            return this;
+            serializer.Write(IsAccepted);
         }
     }
 }

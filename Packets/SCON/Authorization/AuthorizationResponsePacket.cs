@@ -19,18 +19,13 @@ namespace PokeD.Core.Packets.SCON.Authorization
 
         public override VarInt ID => SCONPacketTypes.AuthorizationResponse;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            AuthorizationStatus = (AuthorizationStatus) reader.Read((byte) AuthorizationStatus);
-
-            return this;
+            AuthorizationStatus = (AuthorizationStatus) deserialiser.Read((byte) AuthorizationStatus);
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream stream)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            stream.Write((byte) AuthorizationStatus);
-
-            return this;
+            serializer.Write((byte) AuthorizationStatus);
         }
     }
 }

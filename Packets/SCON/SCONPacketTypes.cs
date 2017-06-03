@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-
-using Aragas.Network.Packets;
-
-using PCLExt.AppDomain;
-
-namespace PokeD.Core.Packets.SCON
+﻿namespace PokeD.Core.Packets.SCON
 {
     public enum SCONPacketTypes
     {
@@ -51,12 +43,5 @@ namespace PokeD.Core.Packets.SCON
 
         UploadLuaToServer           = 0x1A,
         ReloadNPCs                  = 0x1B,
-    }
-
-    public static class SCONPacketResponses
-    {
-        private static readonly Dictionary<int, Func<SCONPacket>> Packets = Packet.CreateIDList<SCONPacket>(typeof(SCONPacketTypes), new Assembly[] { AppDomain.GetAssembly(typeof(SCONPacketResponses)) });
-
-        public static bool TryGetPacketFunc(int key, out Func<SCONPacket> func) => Packets.TryGetValue(key, out func);
     }
 }

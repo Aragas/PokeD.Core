@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-
-using PCLExt.AppDomain;
-
-using Aragas.Network.Packets;
-
-namespace PokeD.Core.Packets.P3D
+﻿namespace PokeD.Core.Packets.P3D
 {
     public enum P3DPacketTypes
     {
@@ -45,12 +37,5 @@ namespace PokeD.Core.Packets.P3D
 
         ServerInfoData              = 0x62,
         ServerDataRequest           = 0x63
-    }
-
-    public static class P3DPacketResponses
-    {
-        private static Dictionary<int, Func<P3DPacket>> Packets { get; } = Packet.CreateIDListByAttribute<P3DPacket>(new Assembly[] { AppDomain.GetAssembly(typeof(P3DPacketResponses)) });
-
-        public static bool TryGetPacketFunc(int key, out Func<P3DPacket> func) => Packets.TryGetValue(key, out func);
     }
 }

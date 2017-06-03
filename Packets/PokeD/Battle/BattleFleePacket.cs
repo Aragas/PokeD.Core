@@ -11,14 +11,7 @@ namespace PokeD.Core.Packets.PokeD.Battle
     {
         public override VarInt ID => PokeDPacketTypes.BattleFlee;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
-        {
-            return this;
-        }
-
-        public override ProtobufPacket WritePacket(ProtobufStream writer)
-        {
-            return this;
-        }
+        public override void Deserialize(ProtobufDeserialiser deserialiser) { }
+        public override void Serialize(ProtobufSerializer serializer) { }
     }
 }

@@ -12,20 +12,15 @@ namespace PokeD.Core.Packets.SCON.Authorization
 
         public override VarInt ID => SCONPacketTypes.EncryptionResponse;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            SharedSecret = reader.Read(SharedSecret);
-            VerificationToken = reader.Read(VerificationToken);
-
-            return this;
+            SharedSecret = deserialiser.Read(SharedSecret);
+            VerificationToken = deserialiser.Read(VerificationToken);
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream stream)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            stream.Write(SharedSecret);
-            stream.Write(VerificationToken);
-
-            return this;
+            serializer.Write(SharedSecret);
+            serializer.Write(VerificationToken);
         }
     }
 }

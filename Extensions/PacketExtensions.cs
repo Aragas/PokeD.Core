@@ -11,14 +11,14 @@ using PokeD.Core.Data.PokeD.Structs;
 using PokeD.Core.Data.SCON;
 using PokeD.Core.Packets.PokeD.Overworld.Map;
 
-using static Aragas.Network.IO.PacketStream;
-using static Aragas.Network.IO.PacketDataReader;
+using static Aragas.Network.IO.PacketSerializer;
+using static Aragas.Network.IO.PacketDeserialiser;
 
 namespace PokeD.Core.Extensions
 {
     public static class PacketExtensions
     {
-        private static void Extend<T>(Func<PacketDataReader, int, T> readFunc, Action<PacketStream, T, bool> writeAction)
+        private static void Extend<T>(Func<PacketDeserialiser, int, T> readFunc, Action<PacketSerializer, T, bool> writeAction)
         {
             ExtendRead(readFunc);
             ExtendWrite(writeAction);
@@ -66,109 +66,109 @@ namespace PokeD.Core.Extensions
         }
 
 
-        private static void WriteFileHashArray(PacketStream stream, FileHash[] value, bool writeDefaultLength = true)
+        private static void WriteFileHashArray(PacketSerializer serializer, FileHash[] value, bool writeDefaultLength = true)
         {
-            stream.Write(new VarInt(value.Length));
+            serializer.Write(new VarInt(value.Length));
 
             foreach (var fileHash in value)
-                stream.Write(fileHash);
+                serializer.Write(fileHash);
         }
-        private static FileHash[] ReadFileHashArray(PacketDataReader reader, int length = 0)
+        private static FileHash[] ReadFileHashArray(PacketDeserialiser deserialiser, int length = 0)
         {
             if (length == 0)
-                length = reader.Read<VarInt>();
+                length = deserialiser.Read<VarInt>();
 
             var array = new FileHash[length];
 
             for (var i = 0; i < length; i++)
-                array[i] = ReadFileHash(reader);
+                array[i] = ReadFileHash(deserialiser);
 
             return array;
         }
 
-        private static void WriteFileHash(PacketStream stream, FileHash value, bool writeDefaultLength = true)
+        private static void WriteFileHash(PacketSerializer serializer, FileHash value, bool writeDefaultLength = true)
         {
-            stream.Write(value.Name);
-            stream.Write(value.Hash);
+            serializer.Write(value.Name);
+            serializer.Write(value.Hash);
         }
-        private static FileHash ReadFileHash(PacketDataReader reader, int length = 0)
+        private static FileHash ReadFileHash(PacketDeserialiser deserialiser, int length = 0)
         {
-            return new FileHash() { Name = reader.Read<string>(), Hash = reader.Read<string>() };
+            return new FileHash() { Name = deserialiser.Read<string>(), Hash = deserialiser.Read<string>() };
         }
 
         
-        private static void WriteImageResponseArray(PacketStream stream, ImageResponse[] value, bool writeDefaultLength = true)
+        private static void WriteImageResponseArray(PacketSerializer serializer, ImageResponse[] value, bool writeDefaultLength = true)
         {
-            stream.Write(new VarInt(value.Length));
+            serializer.Write(new VarInt(value.Length));
 
             foreach (var imageResponse in value)
-                stream.Write(imageResponse);
+                serializer.Write(imageResponse);
         }
-        private static ImageResponse[] ReadImageResponseArray(PacketDataReader reader, int length = 0)
+        private static ImageResponse[] ReadImageResponseArray(PacketDeserialiser deserialiser, int length = 0)
         {
             if (length == 0)
-                length = reader.Read<VarInt>();
+                length = deserialiser.Read<VarInt>();
 
             var array = new ImageResponse[length];
 
             for (var i = 0; i < length; i++)
-                array[i] = ReadImageResponse(reader);
+                array[i] = ReadImageResponse(deserialiser);
 
             return array;
         }
 
-        private static void WriteTileSetResponseArray(PacketStream stream, TileSetResponse[] value, bool writeDefaultLength = true)
+        private static void WriteTileSetResponseArray(PacketSerializer serializer, TileSetResponse[] value, bool writeDefaultLength = true)
         {
-            stream.Write(new VarInt(value.Length));
+            serializer.Write(new VarInt(value.Length));
 
             foreach (var tileSetResponse in value)
-                stream.Write(tileSetResponse);
+                serializer.Write(tileSetResponse);
         }
-        private static TileSetResponse[] ReadTileSetResponseArray(PacketDataReader reader, int length = 0)
+        private static TileSetResponse[] ReadTileSetResponseArray(PacketDeserialiser deserialiser, int length = 0)
         {
             if (length == 0)
-                length = reader.Read<VarInt>();
+                length = deserialiser.Read<VarInt>();
 
             var array = new TileSetResponse[length];
 
             for (var i = 0; i < length; i++)
-                array[i] = ReadTileSetResponse(reader);
+                array[i] = ReadTileSetResponse(deserialiser);
 
             return array;
         }
 
-        private static void WriteImageResponse(PacketStream stream, ImageResponse value, bool writeDefaultLength = true)
+        private static void WriteImageResponse(PacketSerializer serializer, ImageResponse value, bool writeDefaultLength = true)
         {
-            stream.Write(value.Name);
-            stream.Write(value.ImageData);
+            serializer.Write(value.Name);
+            serializer.Write(value.ImageData);
         }
-        private static ImageResponse ReadImageResponse(PacketDataReader reader, int length = 0)
+        private static ImageResponse ReadImageResponse(PacketDeserialiser deserialiser, int length = 0)
         {
-            return new ImageResponse() { Name = reader.Read<string>(), ImageData = reader.Read<byte[]>() };
+            return new ImageResponse() { Name = deserialiser.Read<string>(), ImageData = deserialiser.Read<byte[]>() };
         }
 
-        private static void WriteTileSetResponse(PacketStream stream, TileSetResponse value, bool writeDefaultLength = true)
+        private static void WriteTileSetResponse(PacketSerializer serializer, TileSetResponse value, bool writeDefaultLength = true)
         {
-            stream.Write(value.Name);
-            stream.Write(value.TileSetData);
+            serializer.Write(value.Name);
+            serializer.Write(value.TileSetData);
         }
-        private static TileSetResponse ReadTileSetResponse(PacketDataReader reader, int length = 0)
+        private static TileSetResponse ReadTileSetResponse(PacketDeserialiser deserialiser, int length = 0)
         {
-            return new TileSetResponse() { Name = reader.Read<string>(), TileSetData = reader.Read<string>() };
+            return new TileSetResponse() { Name = deserialiser.Read<string>(), TileSetData = deserialiser.Read<string>() };
         }
 
 
         #region MonsterInstanceData
 
-        private static void WriteAttack(PacketStream stream, Attack value, bool writeDefaultLength = true)
+        private static void WriteAttack(PacketSerializer serializer, Attack value, bool writeDefaultLength = true)
         {
-            stream.Write(value.StaticData.ID);
-            stream.Write(value.PPCurrent);
-            stream.Write(value.PPUps);
+            serializer.Write(value.StaticData.ID);
+            serializer.Write(value.PPCurrent);
+            serializer.Write(value.PPUps);
         }
-        private static Attack ReadAttack(PacketDataReader reader, int length = 0)
+        private static Attack ReadAttack(PacketDeserialiser deserialiser, int length = 0)
         {
-            return new Attack(reader.Read<short>(), reader.Read<byte>(), reader.Read<byte>());
+            return new Attack(deserialiser.Read<short>(), deserialiser.Read<byte>(), deserialiser.Read<byte>());
         }
 
         /*
@@ -189,49 +189,49 @@ namespace PokeD.Core.Extensions
         }
         */
 
-        private static void WriteStats(PacketStream stream, Stats value, bool writeDefaultLength = true)
+        private static void WriteStats(PacketSerializer serializer, Stats value, bool writeDefaultLength = true)
         {
-            stream.Write(value.HP);
-            stream.Write(value.Attack);
-            stream.Write(value.Defense);
-            stream.Write(value.SpecialAttack);
-            stream.Write(value.SpecialDefense);
-            stream.Write(value.Speed);
+            serializer.Write(value.HP);
+            serializer.Write(value.Attack);
+            serializer.Write(value.Defense);
+            serializer.Write(value.SpecialAttack);
+            serializer.Write(value.SpecialDefense);
+            serializer.Write(value.Speed);
         }
-        private static Stats ReadStats(PacketDataReader reader, int length = 0)
+        private static Stats ReadStats(PacketDeserialiser deserialiser, int length = 0)
         {
             return new Stats(
-                reader.Read<short>(),
-                reader.Read<short>(),
-                reader.Read<short>(),
-                reader.Read<short>(),
-                reader.Read<short>(),
-                reader.Read<short>());
+                deserialiser.Read<short>(),
+                deserialiser.Read<short>(),
+                deserialiser.Read<short>(),
+                deserialiser.Read<short>(),
+                deserialiser.Read<short>(),
+                deserialiser.Read<short>());
         }
 
-        private static void WriteCatchInfo(PacketStream stream, CatchInfo value, bool writeDefaultLength = true)
+        private static void WriteCatchInfo(PacketSerializer serializer, CatchInfo value, bool writeDefaultLength = true)
         {
-            stream.Write(value.Method);
-            stream.Write(value.Location);
-            stream.Write(value.TrainerName);
-            stream.Write(value.TrainerID);
-            stream.Write(value.PokeballID);
-            stream.Write(value.Nickname);
+            serializer.Write(value.Method);
+            serializer.Write(value.Location);
+            serializer.Write(value.TrainerName);
+            serializer.Write(value.TrainerID);
+            serializer.Write(value.PokeballID);
+            serializer.Write(value.Nickname);
         }
-        private static CatchInfo ReadCatchInfo(PacketDataReader reader, int length = 0)
+        private static CatchInfo ReadCatchInfo(PacketDeserialiser deserialiser, int length = 0)
         {
             return new CatchInfo
             {
-                Method = reader.Read<string>(),
-                Location = reader.Read<string>(),
-                TrainerName = reader.Read<string>(),
-                TrainerID = reader.Read<ushort>(),
-                PokeballID = reader.Read<byte>(),
-                Nickname = reader.Read<string>()
+                Method = deserialiser.Read<string>(),
+                Location = deserialiser.Read<string>(),
+                TrainerName = deserialiser.Read<string>(),
+                TrainerID = deserialiser.Read<ushort>(),
+                PokeballID = deserialiser.Read<byte>(),
+                Nickname = deserialiser.Read<string>()
             };
         }
 
-        private static void WriteMonster(PacketStream stream, Monster value, bool writeDefaultLength = true)
+        private static void WriteMonster(PacketSerializer serializer, Monster value, bool writeDefaultLength = true)
         {
             /*
             stream.Write(value.StaticData.ID);
@@ -251,7 +251,7 @@ namespace PokeD.Core.Extensions
             stream.Write(value.HeldItem);
             */
         }
-        private static Monster ReadMonster(PacketDataReader reader, int length = 0)
+        private static Monster ReadMonster(PacketDeserialiser deserialiser, int length = 0)
         {
             return null;
             /*
@@ -281,173 +281,173 @@ namespace PokeD.Core.Extensions
 
 
 
-        private static void WriteMonsterTeam(PacketStream stream, MonsterTeam value, bool writeDefaultLength = true) { }
-        private static MonsterTeam ReadMonsterTeam(PacketDataReader reader, int length = 0) { return default(MonsterTeam); }
+        private static void WriteMonsterTeam(PacketSerializer serializer, MonsterTeam value, bool writeDefaultLength = true) { }
+        private static MonsterTeam ReadMonsterTeam(PacketDeserialiser deserialiser, int length = 0) { return default(MonsterTeam); }
 
 
-        private static void WriteMetaSwitch(PacketStream stream, MetaSwitch value, bool writeDefaultLength = true) { stream.Write(value.Meta); }
-        private static MetaSwitch ReadMetaSwitch(PacketDataReader reader, int length = 0) => new MetaSwitch(reader.Read<byte>());
+        private static void WriteMetaSwitch(PacketSerializer serializer, MetaSwitch value, bool writeDefaultLength = true) { serializer.Write(value.Meta); }
+        private static MetaSwitch ReadMetaSwitch(PacketDeserialiser deserialiser, int length = 0) => new MetaSwitch(deserialiser.Read<byte>());
 
-        private static void WriteMetaPosition(PacketStream stream, MetaPosition value, bool writeDefaultLength = true) { stream.Write(value.Meta); }
-        private static MetaPosition ReadMetaPosition(PacketDataReader reader, int length = 0) => new MetaPosition(reader.Read<long>());
+        private static void WriteMetaPosition(PacketSerializer serializer, MetaPosition value, bool writeDefaultLength = true) { serializer.Write(value.Meta); }
+        private static MetaPosition ReadMetaPosition(PacketDeserialiser deserialiser, int length = 0) => new MetaPosition(deserialiser.Read<long>());
 
-        private static void WriteBattleState(PacketStream stream, BattleState value, bool writeDefaultLength = true) {  }
-        private static BattleState ReadBattleState(PacketDataReader reader, int length = 0) { return default(BattleState); }
+        private static void WriteBattleState(PacketSerializer serializer, BattleState value, bool writeDefaultLength = true) {  }
+        private static BattleState ReadBattleState(PacketDeserialiser deserialiser, int length = 0) { return default(BattleState); }
 
-        private static void WriteMetaAttack(PacketStream stream, MetaAttack value, bool writeDefaultLength = true) { stream.Write(value.Meta); }
-        private static MetaAttack ReadMetaAttack(PacketDataReader reader, int length = 0) => new MetaAttack(reader.Read<byte>());
+        private static void WriteMetaAttack(PacketSerializer serializer, MetaAttack value, bool writeDefaultLength = true) { serializer.Write(value.Meta); }
+        private static MetaAttack ReadMetaAttack(PacketDeserialiser deserialiser, int length = 0) => new MetaAttack(deserialiser.Read<byte>());
 
-        private static void WriteMetaItem(PacketStream stream, MetaItem value, bool writeDefaultLength = true) { stream.Write(value.Meta); }
-        private static MetaItem ReadMetaItem(PacketDataReader reader, int length = 0) => new MetaItem(reader.Read<short>());
+        private static void WriteMetaItem(PacketSerializer serializer, MetaItem value, bool writeDefaultLength = true) { serializer.Write(value.Meta); }
+        private static MetaItem ReadMetaItem(PacketDeserialiser deserialiser, int length = 0) => new MetaItem(deserialiser.Read<short>());
 
 
-        private static void WriteBan(PacketStream stream, Ban value, bool writeDefaultLength = true)
+        private static void WriteBan(PacketSerializer serializer, Ban value, bool writeDefaultLength = true)
         {
-            stream.Write(value.Name);
-            stream.Write(value.IP);
-            stream.Write(value.BanTime);
-            stream.Write(value.UnBanTime);
-            stream.Write(value.Reason);
+            serializer.Write(value.Name);
+            serializer.Write(value.IP);
+            serializer.Write(value.BanTime);
+            serializer.Write(value.UnBanTime);
+            serializer.Write(value.Reason);
         }
-        private static Ban ReadBan(PacketDataReader reader, int length = 0)
+        private static Ban ReadBan(PacketDeserialiser deserialiser, int length = 0)
         {
             var value = new Ban();
-            value.Name = reader.Read(value.Name);
-            value.IP = reader.Read(value.IP);
-            value.BanTime = reader.Read(value.BanTime);
-            value.UnBanTime = reader.Read(value.UnBanTime);
-            value.Reason = reader.Read(value.Reason);
+            value.Name = deserialiser.Read(value.Name);
+            value.IP = deserialiser.Read(value.IP);
+            value.BanTime = deserialiser.Read(value.BanTime);
+            value.UnBanTime = deserialiser.Read(value.UnBanTime);
+            value.Reason = deserialiser.Read(value.Reason);
 
             return value;
         }
 
-        private static void WriteLog(PacketStream stream, Log value, bool writeDefaultLength = true)
+        private static void WriteLog(PacketSerializer serializer, Log value, bool writeDefaultLength = true)
         {
-            stream.Write(value.LogFileName);
+            serializer.Write(value.LogFileName);
         }
-        private static Log ReadLog(PacketDataReader reader, int length = 0)
+        private static Log ReadLog(PacketDeserialiser deserialiser, int length = 0)
         {
             var value = new Log();
-            value.LogFileName = reader.Read(value.LogFileName);
+            value.LogFileName = deserialiser.Read(value.LogFileName);
 
             return value;
         }
 
-        private static void WritePlayerDatabase(PacketStream stream, PlayerDatabase value, bool writeDefaultLength = true)
+        private static void WritePlayerDatabase(PacketSerializer serializer, PlayerDatabase value, bool writeDefaultLength = true)
         {
-            stream.Write(value.Name);
-            stream.Write(value.LastIP);
-            stream.Write(value.LastSeen);
+            serializer.Write(value.Name);
+            serializer.Write(value.LastIP);
+            serializer.Write(value.LastSeen);
         }
-        private static PlayerDatabase ReadPlayerDatabase(PacketDataReader reader, int length = 0)
+        private static PlayerDatabase ReadPlayerDatabase(PacketDeserialiser deserialiser, int length = 0)
         {
             var value = new PlayerDatabase();
-            value.Name = reader.Read(value.Name);
-            value.LastIP = reader.Read(value.LastIP);
-            value.LastSeen = reader.Read(value.LastSeen);
+            value.Name = deserialiser.Read(value.Name);
+            value.LastIP = deserialiser.Read(value.LastIP);
+            value.LastSeen = deserialiser.Read(value.LastSeen);
 
             return value;
         }
 
-        private static void WritePlayerInfo(PacketStream stream, PlayerInfo value, bool writeDefaultLength = true)
+        private static void WritePlayerInfo(PacketSerializer serializer, PlayerInfo value, bool writeDefaultLength = true)
         {
-            stream.Write(value.Name);
-            stream.Write(value.IP);
-            stream.Write(value.Ping);
-            stream.Write(value.Position);
-            stream.Write(value.LevelFile);
-            stream.Write(value.PlayTime);
+            serializer.Write(value.Name);
+            serializer.Write(value.IP);
+            serializer.Write(value.Ping);
+            serializer.Write(value.Position);
+            serializer.Write(value.LevelFile);
+            serializer.Write(value.PlayTime);
         }
-        private static PlayerInfo ReadPlayerInfo(PacketDataReader reader, int length = 0)
+        private static PlayerInfo ReadPlayerInfo(PacketDeserialiser deserialiser, int length = 0)
         {
             var value = new PlayerInfo();
-            value.Name = reader.Read(value.Name);
-            value.IP = reader.Read(value.IP);
-            value.Ping = reader.Read(value.Ping);
-            value.Position = reader.Read(value.Position);
-            value.LevelFile = reader.Read(value.LevelFile);
-            value.PlayTime = reader.Read(value.PlayTime);
+            value.Name = deserialiser.Read(value.Name);
+            value.IP = deserialiser.Read(value.IP);
+            value.Ping = deserialiser.Read(value.Ping);
+            value.Position = deserialiser.Read(value.Position);
+            value.LevelFile = deserialiser.Read(value.LevelFile);
+            value.PlayTime = deserialiser.Read(value.PlayTime);
 
             return value;
         }
 
 
-        private static void WriteBanArray(PacketStream stream, Ban[] value, bool writeDefaultLength = true)
+        private static void WriteBanArray(PacketSerializer serializer, Ban[] value, bool writeDefaultLength = true)
         {
-            stream.Write(new VarInt(value.Length));
+            serializer.Write(new VarInt(value.Length));
 
             foreach (var playerInfo in value)
-                stream.Write(playerInfo);
+                serializer.Write(playerInfo);
         }
-        private static Ban[] ReadBanArray(PacketDataReader reader, int length = 0)
+        private static Ban[] ReadBanArray(PacketDeserialiser deserialiser, int length = 0)
         {
             if (length == 0)
-                length = reader.Read<VarInt>();
+                length = deserialiser.Read<VarInt>();
 
             var array = new Ban[length];
 
             for (var i = 0; i < length; i++)
-                array[i] = ReadBan(reader);
+                array[i] = ReadBan(deserialiser);
 
             return array;
         }
 
-        private static void WriteLogArray(PacketStream stream, Log[] value, bool writeDefaultLength = true)
+        private static void WriteLogArray(PacketSerializer serializer, Log[] value, bool writeDefaultLength = true)
         {
-            stream.Write(new VarInt(value.Length));
+            serializer.Write(new VarInt(value.Length));
 
             foreach (var playerInfo in value)
-                stream.Write(playerInfo);
+                serializer.Write(playerInfo);
         }
-        private static Log[] ReadLogArray(PacketDataReader reader, int length = 0)
+        private static Log[] ReadLogArray(PacketDeserialiser deserialiser, int length = 0)
         {
             if (length == 0)
-                length = reader.Read<VarInt>();
+                length = deserialiser.Read<VarInt>();
 
             var array = new Log[length];
 
             for (var i = 0; i < length; i++)
-                array[i] = ReadLog(reader);
+                array[i] = ReadLog(deserialiser);
 
             return array;
         }
 
-        private static void WritePlayerDatabaseArray(PacketStream stream, PlayerDatabase[] value, bool writeDefaultLength = true)
+        private static void WritePlayerDatabaseArray(PacketSerializer serializer, PlayerDatabase[] value, bool writeDefaultLength = true)
         {
-            stream.Write(new VarInt(value.Length));
+            serializer.Write(new VarInt(value.Length));
 
             foreach (var playerInfo in value)
-                stream.Write(playerInfo);
+                serializer.Write(playerInfo);
         }
-        private static PlayerDatabase[] ReadPlayerDatabaseArray(PacketDataReader reader, int length = 0)
+        private static PlayerDatabase[] ReadPlayerDatabaseArray(PacketDeserialiser deserialiser, int length = 0)
         {
             if (length == 0)
-                length = reader.Read<VarInt>();
+                length = deserialiser.Read<VarInt>();
 
             var array = new PlayerDatabase[length];
 
             for (var i = 0; i < length; i++)
-                array[i] = ReadPlayerDatabase(reader);
+                array[i] = ReadPlayerDatabase(deserialiser);
 
             return array;
         }
 
-        private static void WritePlayerInfoArray(PacketStream stream, PlayerInfo[] value, bool writeDefaultLength = true)
+        private static void WritePlayerInfoArray(PacketSerializer serializer, PlayerInfo[] value, bool writeDefaultLength = true)
         {
-            stream.Write(new VarInt(value.Length));
+            serializer.Write(new VarInt(value.Length));
 
             foreach (var playerInfo in value)
-                stream.Write(playerInfo);
+                serializer.Write(playerInfo);
         }
-        private static PlayerInfo[] ReadPlayerInfoArray(PacketDataReader reader, int length = 0)
+        private static PlayerInfo[] ReadPlayerInfoArray(PacketDeserialiser deserialiser, int length = 0)
         {
             if (length == 0)
-                length = reader.Read<VarInt>();
+                length = deserialiser.Read<VarInt>();
 
             var array = new PlayerInfo[length];
 
             for (var i = 0; i < length; i++)
-                array[i] = ReadPlayerInfo(reader);
+                array[i] = ReadPlayerInfo(deserialiser);
 
             return array;
         }

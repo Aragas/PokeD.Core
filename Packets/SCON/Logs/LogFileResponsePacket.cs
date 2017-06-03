@@ -12,20 +12,15 @@ namespace PokeD.Core.Packets.SCON.Logs
 
         public override VarInt ID => SCONPacketTypes.LogFileResponse;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            LogFilename = reader.Read(LogFilename);
-            LogFile = reader.Read(LogFile);
-
-            return this;
+            LogFilename = deserialiser.Read(LogFilename);
+            LogFile = deserialiser.Read(LogFile);
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream stream)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            stream.Write(LogFilename);
-            stream.Write(LogFile);
-
-            return this;
+            serializer.Write(LogFilename);
+            serializer.Write(LogFile);
         }
     }
 }

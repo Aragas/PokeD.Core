@@ -11,18 +11,13 @@ namespace PokeD.Core.Packets.PokeD.Chat
 
         public override VarInt ID => PokeDPacketTypes.ChatGlobalMessage;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            Message = reader.Read(Message);
-
-            return this;
+            Message = deserialiser.Read(Message);
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream writer)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            writer.Write(Message);
-
-            return this;
+            serializer.Write(Message);
         }
     }
 }

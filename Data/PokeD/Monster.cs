@@ -360,7 +360,13 @@ namespace PokeD.Core.Data.PokeD
         }
         private uint GenerateRandom(Gender gender, bool isShiny, short ability)
         {
+            int cycles = 0;
+
             Generate:
+            if (cycles > 100)
+                return 0;
+            cycles++;
+
             var random = new MersenneTwisterRandom();
             var thirtyBits = (uint) random.Next(1 << 30);
             var twoBits = (uint) random.Next(1 << 2);
@@ -442,6 +448,7 @@ namespace PokeD.Core.Data.PokeD
 
             Experience = int.Parse(dict["Experience"]);
             Friendship = byte.Parse(dict["Friendship"]);
+            EggSteps = int.Parse(dict["EggSteps"]);
             CatchInfo = new CatchInfo()
             {
                 Nickname = string.IsNullOrEmpty(dict["NickName"]) ? string.Empty : dict["NickName"],

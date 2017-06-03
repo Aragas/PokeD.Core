@@ -8,14 +8,7 @@ namespace PokeD.Core.Packets.PokeD.Overworld
     {
         public override VarInt ID => PokeDPacketTypes.Ping;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
-        {
-            return this;
-        }
-
-        public override ProtobufPacket WritePacket(ProtobufStream writer)
-        {
-            return this;
-        }
+        public override void Deserialize(ProtobufDeserialiser deserialiser) { }
+        public override void Serialize(ProtobufSerializer serializer) { }
     }
 }

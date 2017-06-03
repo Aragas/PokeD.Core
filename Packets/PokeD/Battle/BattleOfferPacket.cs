@@ -15,20 +15,15 @@ namespace PokeD.Core.Packets.PokeD.Battle
 
         public override VarInt ID => PokeDPacketTypes.BattleOffer;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            PlayerIDs = reader.Read(PlayerIDs);
-            Message = reader.Read(Message);
-
-            return this;
+            PlayerIDs = deserialiser.Read(PlayerIDs);
+            Message = deserialiser.Read(Message);
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream writer)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            writer.Write(PlayerIDs);
-            writer.Write(Message);
-
-            return this;
+            serializer.Write(PlayerIDs);
+            serializer.Write(Message);
         }
     }
 }

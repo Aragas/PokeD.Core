@@ -11,18 +11,13 @@ namespace PokeD.Core.Packets.PokeD.Trade
 
         public override VarInt ID => PokeDPacketTypes.TradeAccept;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            DestinationID = reader.Read(DestinationID);
-
-            return this;
+            DestinationID = deserialiser.Read(DestinationID);
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream writer)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            writer.Write(DestinationID);
-
-            return this;
+            serializer.Write(DestinationID);
         }
     }
 }

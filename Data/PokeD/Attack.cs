@@ -54,12 +54,12 @@ namespace PokeD.Core.Data.PokeD
         //public Attack(short id, byte pp, byte ppUps, IMonsterStaticData user) : base(new AttackStaticData(id), pp, ppUps) { }
 
         public Attack(short id) : base(Cached<AttackStaticData>.Get(id)) { }
-        public Attack(short id, byte pp, byte ppUps) : base(Cached<AttackStaticData>.Get(id), pp, ppUps) { }
+        public Attack(short id, byte ppCurrent, byte ppUps) : base(Cached<AttackStaticData>.Get(id), ppCurrent, ppUps) { }
 
         public Attack(ResourceUri uri) : base(Cached<AttackStaticData>.Get((short) uri.ID)) { }
-        public Attack(ResourceUri uri, byte pp, byte ppUps) : base(Cached<AttackStaticData>.Get((short) uri.ID), pp, ppUps) { }
+        public Attack(ResourceUri uri, byte ppCurrent, byte ppUps) : base(Cached<AttackStaticData>.Get((short) uri.ID), ppCurrent, ppUps) { }
 
         public Attack(AttackStaticData staticData) : base(staticData) { }
-        public Attack(AttackStaticData staticData, byte pp, byte ppUps) : base(staticData, pp, ppUps) { }
+        public Attack(AttackStaticData staticData, byte ppCurrent, byte ppUps) : base(staticData, ppCurrent, ppUps) { }
     }
 }

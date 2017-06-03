@@ -11,18 +11,13 @@ namespace PokeD.Core.Packets.SCON
 
         public override VarInt ID => SCONPacketTypes.ExecuteCommand;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            Command = reader.Read(Command);
-
-            return this;
+            Command = deserialiser.Read(Command);
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream stream)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            stream.Write(Command);
-
-            return this;
+            serializer.Write(Command);
         }
     }
 }

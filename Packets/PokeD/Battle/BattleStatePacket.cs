@@ -16,18 +16,13 @@ namespace PokeD.Core.Packets.PokeD.Battle
 
         public override VarInt ID => PokeDPacketTypes.BattleState;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            BattleState = reader.Read(BattleState);
-
-            return this;
+            BattleState = deserialiser.Read(BattleState);
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream writer)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            writer.Write(BattleState);
-
-            return this;
+            serializer.Write(BattleState);
         }
     }
 }

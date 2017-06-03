@@ -50,32 +50,27 @@ namespace PokeD.Core.Packets.PokeD.Overworld
 
         public override VarInt ID => PokeDPacketTypes.TrainerInfo;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            PlayerID = reader.Read(PlayerID);
-            TrainerSprite = reader.Read(TrainerSprite);
-            Name = reader.Read(Name);
+            PlayerID = deserialiser.Read(PlayerID);
+            TrainerSprite = deserialiser.Read(TrainerSprite);
+            Name = deserialiser.Read(Name);
 
-            TrainerID = reader.Read(TrainerID);
-            Gender = reader.Read(Gender);
+            TrainerID = deserialiser.Read(TrainerID);
+            Gender = deserialiser.Read(Gender);
 
-            MonsterTeam = reader.Read(MonsterTeam);
-
-            return this;
+            MonsterTeam = deserialiser.Read(MonsterTeam);
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream writer)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            writer.Write(PlayerID);
-            writer.Write(TrainerSprite);
-            writer.Write(Name);
+            serializer.Write(PlayerID);
+            serializer.Write(TrainerSprite);
+            serializer.Write(Name);
 
-            writer.Write(TrainerID);
-            writer.Write(Gender);
+            serializer.Write(TrainerID);
+            serializer.Write(Gender);
 
-            writer.Write(MonsterTeam);
-
-            return this;
+            serializer.Write(MonsterTeam);
         }
     }
 }

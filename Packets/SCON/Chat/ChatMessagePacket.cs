@@ -12,20 +12,15 @@ namespace PokeD.Core.Packets.SCON.Chat
 
         public override VarInt ID => SCONPacketTypes.ChatMessage;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            Player = reader.Read(Player);
-            Message = reader.Read(Message);
-
-            return this;
+            Player = deserialiser.Read(Player);
+            Message = deserialiser.Read(Message);
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream stream)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            stream.Write(Player);
-            stream.Write(Message);
-
-            return this;
+            serializer.Write(Player);
+            serializer.Write(Message);
         }
     }
 }

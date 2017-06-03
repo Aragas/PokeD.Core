@@ -13,18 +13,13 @@ namespace PokeD.Core.Packets.SCON.Status
 
         public override VarInt ID => SCONPacketTypes.PlayerInfoListResponse;
 
-        public override ProtobufPacket ReadPacket(ProtobufDataReader reader)
+        public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
-            PlayerInfos = reader.Read(PlayerInfos);
-
-            return this;
+            PlayerInfos = deserialiser.Read(PlayerInfos);
         }
-
-        public override ProtobufPacket WritePacket(ProtobufStream stream)
+        public override void Serialize(ProtobufSerializer serializer)
         {
-            stream.Write(PlayerInfos);
-
-            return this;
+            serializer.Write(PlayerInfos);
         }
     }
 }
