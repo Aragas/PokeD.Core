@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove=".git" />
     <None Remove=".gitignore" />
     <None Remove=".gitmodules" />
     <None Remove=".travis.yml" />
