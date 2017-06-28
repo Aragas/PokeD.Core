@@ -9,8 +9,6 @@ namespace PokeD.Core.Packets.SCON
         public string Command { get; set; } = string.Empty;
 
 
-        public override VarInt ID => SCONPacketTypes.ExecuteCommand;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             Command = deserialiser.Read(Command);

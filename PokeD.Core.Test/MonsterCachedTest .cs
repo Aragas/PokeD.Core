@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using PokeD.Core.Data.PokeApi;
 
 namespace PokeD.Core.Test
 {
-    [TestFixture]
+    [TestClass]
     public class MonsterCachedTest
     {
         public MonsterCachedTest()
@@ -13,10 +13,10 @@ namespace PokeD.Core.Test
         }
 
 
-        [Test]
+        [TestMethod]
         public void TestMonsterDataItems() { MonsterClass.MonsterDataItems(); }
 
-        [Test]
+        [TestMethod]
         public void TestLoadStaticData() { MonsterClass.LoadStaticData(); }
     }
 }

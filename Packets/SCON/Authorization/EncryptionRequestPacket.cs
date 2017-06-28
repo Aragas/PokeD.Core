@@ -10,8 +10,6 @@ namespace PokeD.Core.Packets.SCON.Authorization
         public byte[] VerificationToken { get; set; } = new byte[0];
 
 
-        public override VarInt ID => SCONPacketTypes.EncryptionRequest;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             PublicKey = deserialiser.Read(PublicKey);

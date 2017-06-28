@@ -14,8 +14,6 @@ namespace PokeD.Core.Packets.PokeD.Battle
         public BattleState BattleState { get; set; }
 
 
-        public override VarInt ID => PokeDPacketTypes.BattleState;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             BattleState = deserialiser.Read(BattleState);

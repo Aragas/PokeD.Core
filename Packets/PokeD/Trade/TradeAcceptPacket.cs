@@ -9,8 +9,6 @@ namespace PokeD.Core.Packets.PokeD.Trade
         public VarInt DestinationID { get; set; }
 
 
-        public override VarInt ID => PokeDPacketTypes.TradeAccept;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             DestinationID = deserialiser.Read(DestinationID);

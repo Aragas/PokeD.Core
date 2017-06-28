@@ -16,8 +16,6 @@ namespace PokeD.Core.Packets.PokeD.Battle
         public byte SwitchMonster { get { return Info.SwitchMonster; } set { Info = new MetaSwitch(CurrentMonster, value); } }
 
 
-        public override VarInt ID => PokeDPacketTypes.BattleSwitch;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             Info = deserialiser.Read(Info);

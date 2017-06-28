@@ -4,9 +4,7 @@ namespace PokeD.Core.IO
 {
     public class P3DSerializer : PacketSerializer
     {
-        private byte[] _buffer;
-
-        public override byte[] GetBuffer() => _buffer;
+        public override byte[] GetBuffer() => new byte[0];
 
         // -- Anything 
         public override void Write<T>(T value = default(T), bool writeDefaultLength = true) { }

@@ -10,8 +10,6 @@ namespace PokeD.Core.Packets.SCON.Logs
         public string LogFile { get; set; } = string.Empty;
 
 
-        public override VarInt ID => SCONPacketTypes.LogFileResponse;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             LogFilename = deserialiser.Read(LogFilename);

@@ -17,8 +17,6 @@ namespace PokeD.Core.Packets.PokeD.Overworld.Map
         public FileHash[] ImageHashes { get; set; } = new FileHash[0];
 
 
-        public override VarInt ID => PokeDPacketTypes.Map;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             MapData = deserialiser.Read(MapData);

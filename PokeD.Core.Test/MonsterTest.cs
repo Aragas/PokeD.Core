@@ -1,14 +1,14 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PokeD.Core.Test
 {
-    [TestFixture]
+    [TestClass]
     public class MonsterTest
     {
-        [Test]
+        [TestMethod]
         public void TestMonsterDataItems() { MonsterClass.MonsterDataItems(); }
 
-        [Test]
+        [TestMethod]
         public void TestLoadStaticData() { MonsterClass.LoadStaticData(); }
     }
 }

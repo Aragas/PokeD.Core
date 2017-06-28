@@ -10,7 +10,7 @@ using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.P3D
 {
-    public abstract class P3DPacket : PacketWithAttribute<P3DSerializer, P3DDeserializer>
+    public abstract class P3DPacket : PacketWithAttribute<int, P3DSerializer, P3DDeserializer>
     {
         public int Origin { get; set; }
 

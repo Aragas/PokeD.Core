@@ -17,8 +17,6 @@ namespace PokeD.Core.Packets.PokeD.Battle
         public short Item { get { return Info.Item; } set { Info = new MetaItem(Monster, value); } }
 
 
-        public override VarInt ID => PokeDPacketTypes.BattleItem;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             Info = deserialiser.Read(Info);

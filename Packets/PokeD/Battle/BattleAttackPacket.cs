@@ -18,8 +18,6 @@ namespace PokeD.Core.Packets.PokeD.Battle
         public byte TargetMonster { get { return Info.TargetMonster; } set { Info = new MetaAttack(CurrentMonster, Move, value); } }
 
 
-        public override VarInt ID => PokeDPacketTypes.BattleAttack;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             Info = deserialiser.Read(Info);

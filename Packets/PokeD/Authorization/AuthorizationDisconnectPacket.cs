@@ -9,8 +9,6 @@ namespace PokeD.Core.Packets.PokeD.Authorization
         public string Reason { get; set; } = string.Empty;
 
 
-        public override VarInt ID => PokeDPacketTypes.AuthorizationDisconnect;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             Reason = deserialiser.Read(Reason);

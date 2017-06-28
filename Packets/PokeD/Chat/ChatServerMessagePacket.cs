@@ -9,8 +9,6 @@ namespace PokeD.Core.Packets.PokeD.Chat
         public string Message { get; set; } = string.Empty;
 
 
-        public override VarInt ID => PokeDPacketTypes.ChatServerMessage;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             Message = deserialiser.Read(Message);

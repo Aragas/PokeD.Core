@@ -11,8 +11,6 @@ namespace PokeD.Core.Packets.SCON.Status
         public Ban[] Bans { get; set; } = new Ban[0];
 
 
-        public override VarInt ID => SCONPacketTypes.BanListResponse;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             Bans = deserialiser.Read(Bans);

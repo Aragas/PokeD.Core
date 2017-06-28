@@ -10,8 +10,6 @@ namespace PokeD.Core.Packets.SCON.Logs
         public string CrashLogFile { get; set; } = string.Empty;
 
 
-        public override VarInt ID => SCONPacketTypes.CrashLogFileResponse;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             CrashLogFilename = deserialiser.Read(CrashLogFilename);

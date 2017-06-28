@@ -14,8 +14,6 @@ namespace PokeD.Core.Packets.PokeD.Authorization
         public AuthorizationStatus AuthorizationStatus { get; set; }
 
 
-        public override VarInt ID => PokeDPacketTypes.AuthorizationResponse;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             AuthorizationStatus = (AuthorizationStatus)deserialiser.Read((byte)AuthorizationStatus);

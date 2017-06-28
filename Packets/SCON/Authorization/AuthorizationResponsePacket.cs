@@ -17,8 +17,6 @@ namespace PokeD.Core.Packets.SCON.Authorization
         public AuthorizationStatus AuthorizationStatus { get; set; }
 
 
-        public override VarInt ID => SCONPacketTypes.AuthorizationResponse;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             AuthorizationStatus = (AuthorizationStatus) deserialiser.Read((byte) AuthorizationStatus);

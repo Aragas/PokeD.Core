@@ -21,8 +21,6 @@ namespace PokeD.Core.Packets.PokeD.Overworld.Map
         public ImageResponse[] Images { get; set; } = new ImageResponse[0];
 
 
-        public override VarInt ID => PokeDPacketTypes.TileSetResponse;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             TileSets = deserialiser.Read(TileSets);

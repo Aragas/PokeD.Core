@@ -13,8 +13,6 @@ namespace PokeD.Core.Packets.PokeD.Battle
         public string Message { get; set; } = string.Empty;
 
 
-        public override VarInt ID => PokeDPacketTypes.BattleOffer;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             PlayerIDs = deserialiser.Read(PlayerIDs);

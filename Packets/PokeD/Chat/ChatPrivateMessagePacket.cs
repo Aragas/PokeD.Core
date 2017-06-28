@@ -10,8 +10,6 @@ namespace PokeD.Core.Packets.PokeD.Chat
         public string Message { get; set; } = string.Empty;
 
 
-        public override VarInt ID => PokeDPacketTypes.ChatPrivateMessage;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             PlayerID = deserialiser.Read(PlayerID);

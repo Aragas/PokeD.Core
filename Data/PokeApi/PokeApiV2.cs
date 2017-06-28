@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 using PCLExt.FileStorage;
+using PCLExt.FileStorage.Extensions;
 
 using PokeD.Core.Storage.Files;
 using PokeD.Core.Storage.Folders;

@@ -11,8 +11,6 @@ namespace PokeD.Core.Packets.SCON.Status
         public PlayerDatabase[] PlayerDatabases { get; set; } = new PlayerDatabase[0];
 
 
-        public override VarInt ID => SCONPacketTypes.PlayerDatabaseListResponse;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             PlayerDatabases = deserialiser.Read(PlayerDatabases);

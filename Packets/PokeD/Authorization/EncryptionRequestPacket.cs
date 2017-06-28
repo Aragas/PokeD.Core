@@ -10,8 +10,6 @@ namespace PokeD.Core.Packets.PokeD.Authorization
         public byte[] VerificationToken { get; set; } = new byte[0];
 
 
-        public override VarInt ID => PokeDPacketTypes.EncryptionRequest;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             PublicKey = deserialiser.Read(PublicKey);

@@ -9,8 +9,6 @@ namespace PokeD.Core.Packets.PokeD.Overworld.Map
         public string[] TileSetNames { get; set; } = new string[0];
 
 
-        public override VarInt ID => PokeDPacketTypes.TileSetRequest;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             TileSetNames = deserialiser.Read(TileSetNames);

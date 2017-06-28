@@ -34,7 +34,7 @@ namespace PokeD.Core.Storage.Files
             public PokeApiV2Json Get(ResourceUri resourceUri)
             {
                 var resourceName = $"{resourceUri.Type}_{resourceUri.ID}";
-                var zipEntry = Zip.Entries.SingleOrDefault(entry => PortablePath.GetFileNameWithoutExtension(entry.Name) == resourceName);
+                var zipEntry = Zip.Entries.SingleOrDefault(entry => System.IO.Path.GetFileNameWithoutExtension(entry.Name) == resourceName);
                 if (zipEntry == null)
                     return null;
 
@@ -42,7 +42,7 @@ namespace PokeD.Core.Storage.Files
                 using (var reader = new StreamReader(stream, Encoding.UTF8))
                     return PokeApiV2Json.Deserialize(resourceUri, reader.ReadToEnd());
             }
-            public bool Contains(ResourceUri resourceUri) => Zip.Entries.SingleOrDefault(entry => PortablePath.GetFileNameWithoutExtension(entry.Name).Replace('_', '/') == $"{resourceUri.Type}/{resourceUri.ID}") != null;
+            public bool Contains(ResourceUri resourceUri) => Zip.Entries.SingleOrDefault(entry => System.IO.Path.GetFileNameWithoutExtension(entry.Name).Replace('_', '/') == $"{resourceUri.Type}/{resourceUri.ID}") != null;
 
             public void Dispose()
             {
@@ -62,7 +62,7 @@ namespace PokeD.Core.Storage.Files
 
             if (InMemory)
             {
-                using (var fs = Open(FileAccess.ReadAndWrite))
+                using (var fs = Open(PCLExt.FileStorage.FileAccess.ReadAndWrite))
                 using (var zip = new ZipArchive(fs))
                 {
                     foreach (var zipEntry in zip.Entries)
@@ -73,7 +73,7 @@ namespace PokeD.Core.Storage.Files
                         using (var stream = zipEntry.Open())
                         using (var reader = new StreamReader(stream, Encoding.UTF8))
                         {
-                            var id = PortablePath.GetFileNameWithoutExtension(zipEntry.Name).Replace('_', '/');
+                            var id = System.IO.Path.GetFileNameWithoutExtension(zipEntry.Name).Replace('_', '/');
                             var json = reader.ReadToEnd();
                             Files.Add(id, PokeApiV2Json.Deserialize(id, json));
                         }
@@ -82,7 +82,7 @@ namespace PokeD.Core.Storage.Files
             }
             else
             {
-                using (var fs = Open(FileAccess.ReadAndWrite))
+                using (var fs = Open(PCLExt.FileStorage.FileAccess.ReadAndWrite))
                     Zip = new ZipStruct(fs);
             }
         }

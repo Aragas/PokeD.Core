@@ -12,8 +12,6 @@ namespace PokeD.Core.Packets.PokeD.Battle
         public string Reason { get; set; } = string.Empty;
 
 
-        public override VarInt ID => PokeDPacketTypes.BattleCancelled;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             Reason = deserialiser.Read(Reason);

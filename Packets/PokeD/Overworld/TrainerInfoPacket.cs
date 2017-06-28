@@ -48,8 +48,6 @@ namespace PokeD.Core.Packets.PokeD.Overworld
         public MonsterTeam MonsterTeam { get; set; } = new MonsterTeam();
 
 
-        public override VarInt ID => PokeDPacketTypes.TrainerInfo;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             PlayerID = deserialiser.Read(PlayerID);

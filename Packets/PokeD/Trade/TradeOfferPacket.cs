@@ -12,8 +12,6 @@ namespace PokeD.Core.Packets.PokeD.Trade
         public Monster MonsterData { get; set; } // TODO: null
 
 
-        public override VarInt ID => PokeDPacketTypes.TradeOffer;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             DestinationID = deserialiser.Read(DestinationID);

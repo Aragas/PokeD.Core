@@ -9,8 +9,6 @@ namespace PokeD.Core.Packets.SCON.Authorization
         public string PasswordHash { get; set; } = string.Empty;
 
 
-        public override VarInt ID => SCONPacketTypes.AuthorizationPassword;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             PasswordHash = deserialiser.Read(PasswordHash);

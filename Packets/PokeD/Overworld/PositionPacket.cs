@@ -13,8 +13,6 @@ namespace PokeD.Core.Packets.PokeD.Overworld
         public Vector3 Position { get { return Info.Position; } set { Info = new MetaPosition(value); } }
 
 
-        public override VarInt ID => PokeDPacketTypes.Position;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             Info = deserialiser.Read(Info);

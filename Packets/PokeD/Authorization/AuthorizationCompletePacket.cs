@@ -8,9 +8,6 @@ namespace PokeD.Core.Packets.PokeD.Authorization
     {
         public VarInt PlayerID { get; set; }
 
-
-        public override VarInt ID => PokeDPacketTypes.AuthorizationComplete;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             PlayerID = deserialiser.Read(PlayerID);

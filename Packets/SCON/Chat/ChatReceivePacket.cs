@@ -9,8 +9,6 @@ namespace PokeD.Core.Packets.SCON.Chat
         public bool Enabled { get; set; }
 
 
-        public override VarInt ID => SCONPacketTypes.ChatReceivePacket;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             Enabled = deserialiser.Read(Enabled);

@@ -14,8 +14,6 @@ namespace PokeD.Core.Packets.PokeD.Overworld
         public byte Event { get; set; }
 
 
-        public override VarInt ID => PokeDPacketTypes.WorldInfo;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             Time = deserialiser.Read(Time);

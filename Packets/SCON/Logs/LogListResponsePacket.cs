@@ -11,8 +11,6 @@ namespace PokeD.Core.Packets.SCON.Logs
         public Log[] Logs { get; set; } = new Log[0];
 
 
-        public override VarInt ID => SCONPacketTypes.LogListResponse;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             Logs = deserialiser.Read(Logs);

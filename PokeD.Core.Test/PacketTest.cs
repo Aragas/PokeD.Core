@@ -4,10 +4,11 @@ using System.IO;
 using System.Linq;
 
 using Aragas.Network.Data;
+using Aragas.Network.Extensions;
 using Aragas.Network.IO;
 using Aragas.Network.Packets;
 
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using PokeD.Core.Data.PokeApi;
 using PokeD.Core.Extensions;
@@ -15,22 +16,24 @@ using PokeD.Core.IO;
 using PokeD.Core.Packets.P3D;
 using PokeD.Core.Packets.PokeD;
 using PokeD.Core.Packets.SCON;
+using PokeD.Core.Test;
+
 
 namespace PokeD.Core.Test
 {
-    [TestFixture]
+    [TestClass]
     public class PacketTest
     {
         public PacketTest()
         {
             PokeApiV2.CacheType = PokeApiV2.CacheTypeEnum.None;
 
-            PacketExtensions.Init();
+            Extensions.PacketExtensions.Init();
         }
 
 
         /*
-        [Test]
+        [TestMethod]
         public void TestP3DProtobufSerializationDeserialization()
         {
             var packets = P3DPacketResponses.Packets.Where(packetFunc => packetFunc != null).Select(packetFunc => packetFunc()).ToList();
@@ -55,7 +58,6 @@ namespace PokeD.Core.Test
                     Assert.IsTrue(packets[i].ID == testPackets[i].ID);
             }
         }
-        */
         private static P3DPacket GetPacket(string data)
         {
             if (!string.IsNullOrEmpty(data))
@@ -72,40 +74,41 @@ namespace PokeD.Core.Test
                             if (packet.TryParseData(data))
                                 return packet;
                             else
-                                Assert.Fail();
+                                AssertEx.Fail();
                         }
                         else
-                            Assert.Fail();
+                            AssertEx.Fail();
                     }
                     else
-                        Assert.Fail();
+                        AssertEx.Fail();
                 }
                 else
-                    Assert.Fail();
+                    AssertEx.Fail();
             }
             else
-                Assert.Fail();
+                AssertEx.Fail();
 
             return null;
         }
+        */
 
 
-        [Test]
+        [TestMethod]
         public void TestPokeDProtobufSerializationDeserialization() { /* SerializationDeserialization(PokeDPacketResponses.Packets); */ }
 
-        [Test]
+        [TestMethod]
         public void TestSCONProtobufSerializationDeserialization() { /* SerializationDeserialization(SCONPacketResponses.Packets); */ }
         
-        private void SerializationDeserialization<TPacketType>(Func<TPacketType>[] packetFuncs) where TPacketType : ProtobufPacket
+        private void SerializationDeserialization<TPacketType>(Func<TPacketType>[] packetFuncs) where TPacketType : PacketWithIntegerType<VarInt, ProtobufSerializer, ProtobufDeserialiser>
         {
             var packets = packetFuncs.Where(packetFunc => packetFunc != null).Select(packetFunc => packetFunc()).ToList();
             var testPackets = new List<TPacketType>();
 
             var tcpClient = new TestITCPClient();
-            using (var write = new ProtobufStream(tcpClient))
+            using (var transmission = new ProtobufTransmission<TPacketType>(tcpClient))
             {
                 foreach (var packet in packets)
-                    write.SendPacket(packet);
+                    transmission.SendPacket(packet);
 
 
                 tcpClient.Stream.Seek(0, SeekOrigin.Begin);
@@ -113,9 +116,10 @@ namespace PokeD.Core.Test
 
                 while (tcpClient.Stream.Position != tcpClient.Stream.Length)
                 {
-                    int length = write.ReadVarInt();
-                    var byteArray = write.Receive(length);
-                    testPackets.Add((TPacketType) GetPacket(byteArray, packetFuncs));
+                    testPackets.Add(transmission.ReadPacket());
+                    //int length = transmission.ReadVarInt();
+                    //var byteArray = transmission.Receive(length);
+                    //testPackets.Add((TPacketType) GetPacket(byteArray, packetFuncs));
                 }
 
                 Assert.IsTrue(packets.Count == testPackets.Count);
@@ -123,16 +127,20 @@ namespace PokeD.Core.Test
                     Assert.IsTrue(packets[i].ID == testPackets[i].ID);
             }
         }
-        private static ProtobufPacket GetPacket<TPacketType>(byte[] byteArray, Func<TPacketType>[] packetFuncs) where TPacketType : ProtobufPacket
+        private static PacketWithIntegerType<VarInt, ProtobufSerializer, ProtobufDeserialiser> GetPacket<TPacketType>(byte[] byteArray, Func<TPacketType>[] packetFuncs) where TPacketType : PacketWithIntegerType<VarInt, ProtobufSerializer, ProtobufDeserialiser>
         {
-            using (var reader = new ProtobufDataReader(byteArray))
+            using (var deserialiser = new ProtobufDeserialiser(byteArray))
             {
-                var id = reader.Read<VarInt>();
+                var id = deserialiser.Read<VarInt>();
 
                 if (packetFuncs.Length > id)
                 {
                     if (packetFuncs[id] != null)
-                        return packetFuncs[id]().ReadPacket(reader);
+                    {
+                        var packet = packetFuncs[id]();
+                        packet.Deserialize(deserialiser);
+                        return packet;
+                    }
                     else
                         Assert.Fail();
                 }

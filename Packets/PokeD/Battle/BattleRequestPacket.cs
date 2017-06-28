@@ -14,8 +14,6 @@ namespace PokeD.Core.Packets.PokeD.Battle
         //public IBattleInfo Battle { get; set; } = new BattleInfo1x1();
 
 
-        public override VarInt ID => PokeDPacketTypes.BattleRequest;
-
         public override void Deserialize(ProtobufDeserialiser deserialiser)
         {
             Message = deserialiser.Read(Message);
