@@ -1,21 +1,16 @@
 language: csharp
-mono:
-  - latest
 
-solution: PokeD.Core.sln
+mono: none
+dotnet: 1.0.3
+dist: trusty
 
 before_install:
   - git submodule update --init --recursive
-  
-install:
-  - nuget restore PokeD.Core.sln
-  - nuget install NUnit.Runners -Version 3.2.0 -OutputDirectory tools
-#  - nuget install OpenCover -Version 4.6.519 -OutputDirectory tools
 
 script:
-  - xbuild /p:Configuration=Release PokeD.Core.sln
-  - xbuild /p:Configuration=Debug PokeD.Core.sln
-  - mono ./tools/NUnit.ConsoleRunner.3.2.0/tools/nunit3-console.exe ./PokeD.Core.Test/bin/Release/PokeD.Core.Test.dll
+ - dotnet restore
+ - dotnet build --configuration Release
+ - dotnet test ./PokeD.Core.Test/PokeD.Core.Test.csproj
  
 
 notifications:
