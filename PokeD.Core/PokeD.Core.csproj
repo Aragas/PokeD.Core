@@ -7,25 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="PokeD.BattleEngine\**" />
-    <Compile Remove="PokeD.Core.Test\**" />
-    <EmbeddedResource Remove="PokeD.BattleEngine\**" />
-    <EmbeddedResource Remove="PokeD.Core.Test\**" />
-    <None Remove="PokeD.BattleEngine\**" />
-    <None Remove="PokeD.Core.Test\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove=".git" />
-    <None Remove=".gitignore" />
-    <None Remove=".gitmodules" />
-    <None Remove=".travis.yml" />
-    <None Remove="appveyor.yml" />
-    <None Remove="LICENSE" />
-    <None Remove="README.md" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Aragas.Network-2" Version="1.1.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="PCLExt.FileStorage" Version="1.2.1.1" />
