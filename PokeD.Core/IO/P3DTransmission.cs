@@ -71,18 +71,6 @@ namespace PokeD.Core.IO
             return null;
         }
 
-        public P3DPacket ReadPacketBlocking()
-        {
-            var data = ReadLine();
-            if (P3DPacket.TryParseID(data, out var id))
-            {
-                var packet = Factory.Create(id);
-                if (packet?.TryParseData(data) == true)
-                    return packet;
-            }
-            return null;
-        }
-
 
         private StringBuilder StringBuilder { get; } = new StringBuilder();
         private IEnumerable<string> ReadLineEnumerable()
