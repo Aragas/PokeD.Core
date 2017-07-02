@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 
 using Aragas.Network.IO;
 
@@ -43,6 +44,8 @@ namespace PokeD.Core.IO
 
     public class P3DTransmission : SocketPacketTransmission<P3DPacket, int, P3DSerializer, P3DDeserializer>
     {
+        readonly ReaderWriterLockSlim locker = new ReaderWriterLockSlim();
+
         public P3DTransmission(ISocketClient socketClient, Type packetEnumType = null) : base(socketClient, packetEnumType)
         {
             var socket = socketClient.GetType().GetProperty("Socket", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(socketClient) as Socket;
@@ -52,14 +55,19 @@ namespace PokeD.Core.IO
 
         public override void SendPacket(P3DPacket packet)
         {
+            locker.EnterWriteLock();
             Send(Encoding.UTF8.GetBytes($"{packet.CreateData()}\r\n"));
+            locker.ExitWriteLock();
         }
 
         public override P3DPacket ReadPacket()
         {
             if (Socket.DataAvailable > 0)
             {
+                locker.EnterReadLock();
                 var data = ReadLine();
+                locker.ExitReadLock();
+                
                 if (P3DPacket.TryParseID(data, out var id))
                 {
                     var packet = Factory.Create(id);
@@ -67,6 +75,7 @@ namespace PokeD.Core.IO
                         return packet;
                 }
             }
+            
 
             return null;
         }
