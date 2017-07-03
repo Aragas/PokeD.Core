@@ -5,7 +5,15 @@ namespace PokeD.Core.IO
 {
     public class P3DSocketStream : NetworkStream
     {
-        public P3DSocketStream(Socket socket) : base(socket) { socket.Blocking = true; }
+        public P3DSocketStream(Socket socket) : base(socket)
+        {
+            socket.Blocking = true;
+            socket.ReceiveTimeout = 5000;
+            socket.SendTimeout = 5000;
+
+            ReadTimeout = 5000;
+            WriteTimeout = 5000;
+        }
 
         public override void Write(byte[] buffer, int offset, int count)
         {
