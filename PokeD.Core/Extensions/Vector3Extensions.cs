@@ -7,7 +7,7 @@ namespace PokeD.Core.Extensions
 {
     public static class Vector3Extensions
     {
-        public static Vector3 FromPokeString(string @string, char gameSeparator, CultureInfo cultureInfo)
+        public static Vector3 FromP3DString(string @string, char gameSeparator, CultureInfo cultureInfo)
         {
             var systemSeparator = cultureInfo.NumberFormat.NumberDecimalSeparator[0];
 
@@ -26,7 +26,7 @@ namespace PokeD.Core.Extensions
             else
                 return Vector3.Zero;
         }
-        public static string ToPokeString(this Vector3 vector3, char gameSeparator, CultureInfo cultureInfo)
+        public static string ToP3DString(this Vector3 vector3, char gameSeparator, CultureInfo cultureInfo)
         {
             var systemSeparator = cultureInfo.NumberFormat.NumberDecimalSeparator[0];
 

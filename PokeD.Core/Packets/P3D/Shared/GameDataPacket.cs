@@ -28,11 +28,11 @@ namespace PokeD.Core.Packets.P3D.Shared
         public int PokemonFacing { get { try { return int.Parse(DataItems[14], CultureInfo); } catch (Exception) { return 0; } } set { DataItems[14] = value.ToString(CultureInfo); } }
 
 
-        public Vector3 GetPosition(char separator) { return Vector3Extensions.FromPokeString(Position, separator, CultureInfo); }
-        public void SetPosition(Vector3 position, char separator) { Position = position.ToPokeString(separator, CultureInfo); }
+        public Vector3 GetPosition(char separator) { return Vector3Extensions.FromP3DString(Position, separator, CultureInfo); }
+        public void SetPosition(Vector3 position, char separator) { Position = position.ToP3DString(separator, CultureInfo); }
 
-        public Vector3 GetPokemonPosition(char separator) { return Vector3Extensions.FromPokeString(PokemonPosition, separator, CultureInfo); }
-        public void SetPokemonPosition(Vector3 position, char separator) { PokemonPosition = position.ToPokeString(separator, CultureInfo); }
+        public Vector3 GetPokemonPosition(char separator) { return Vector3Extensions.FromP3DString(PokemonPosition, separator, CultureInfo); }
+        public void SetPokemonPosition(Vector3 position, char separator) { PokemonPosition = position.ToP3DString(separator, CultureInfo); }
 
 
         public override void Deserialize(P3DDeserializer deserialiser) { }
