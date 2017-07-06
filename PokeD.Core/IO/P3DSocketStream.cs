@@ -7,12 +7,9 @@ namespace PokeD.Core.IO
     {
         public P3DSocketStream(Socket socket) : base(socket)
         {
-            socket.Blocking = true;
-            socket.ReceiveTimeout = 5000;
-            socket.SendTimeout = 5000;
-
-            ReadTimeout = 5000;
-            WriteTimeout = 5000;
+            socket.Blocking = false;
+            socket.ReceiveTimeout = 500;
+            socket.SendTimeout = 500;
         }
 
         public override void Write(byte[] buffer, int offset, int count)
@@ -29,7 +26,7 @@ namespace PokeD.Core.IO
         {
             if (!Socket.Connected)
                 return -1;
-            
+
             try { return base.Read(buffer, offset, count); }
             catch (IOException) { return -1; }
             catch (SocketException) { return -1; }

@@ -30,10 +30,10 @@ namespace PokeD.Core.IO
             var inValue = new byte[3 * BytesPerLong];
             for (var i = 0; i < input.Length; i++)
             {
-                inValue[i * BytesPerLong + 3] = (byte) (input[i] >> ((BytesPerLong - 1) * BitsPerByte) & 0xff);
-                inValue[i * BytesPerLong + 2] = (byte) (input[i] >> ((BytesPerLong - 2) * BitsPerByte) & 0xff);
-                inValue[i * BytesPerLong + 1] = (byte) (input[i] >> ((BytesPerLong - 3) * BitsPerByte) & 0xff);
-                inValue[i * BytesPerLong + 0] = (byte) (input[i] >> ((BytesPerLong - 4) * BitsPerByte) & 0xff);
+                inValue[i * BytesPerLong + 3] = (byte)(input[i] >> ((BytesPerLong - 1) * BitsPerByte) & 0xff);
+                inValue[i * BytesPerLong + 2] = (byte)(input[i] >> ((BytesPerLong - 2) * BitsPerByte) & 0xff);
+                inValue[i * BytesPerLong + 1] = (byte)(input[i] >> ((BytesPerLong - 3) * BitsPerByte) & 0xff);
+                inValue[i * BytesPerLong + 0] = (byte)(input[i] >> ((BytesPerLong - 4) * BitsPerByte) & 0xff);
             }
 
             var outValue = BitConverter.GetBytes(0);
@@ -54,6 +54,7 @@ namespace PokeD.Core.IO
         public P3DTransmission(Socket socket, Type packetEnumType = null) : base(socket, new P3DSocketStream(socket), packetEnumType)
         {
             SetKeepAlive(socket, 5000, 1000);
+
         }
 
 
