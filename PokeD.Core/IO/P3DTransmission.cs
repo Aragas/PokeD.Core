@@ -54,7 +54,6 @@ namespace PokeD.Core.IO
         public P3DTransmission(Socket socket, Type packetEnumType = null) : base(socket, new P3DSocketStream(socket), packetEnumType)
         {
             SetKeepAlive(socket, 5000, 1000);
-
         }
 
 
