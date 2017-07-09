@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Text;
 
 using Aragas.Network.IO;
@@ -12,10 +13,10 @@ namespace PokeD.Core.IO
 {
     public class P3DTransmission : SocketPacketTransmission<P3DPacket, int, P3DSerializer, P3DDeserializer>
     {
-        public static bool SetKeepAlive(Socket socket, ulong time, ulong interval)
+        private static bool SetKeepAlive(Socket socket, ulong time, ulong interval)
         {
-            const int BytesPerLong = 4;
-            const int BitsPerByte = 8;
+            const int bytesPerLong = 4;
+            const int bitsPerByte = 8;
 
             var turnOn = time != 0 && interval != 0;
             // Array to hold input values.
@@ -27,13 +28,13 @@ namespace PokeD.Core.IO
             };
 
             // Pack input into byte struct.
-            var inValue = new byte[3 * BytesPerLong];
+            var inValue = new byte[3 * bytesPerLong];
             for (var i = 0; i < input.Length; i++)
             {
-                inValue[i * BytesPerLong + 3] = (byte)(input[i] >> ((BytesPerLong - 1) * BitsPerByte) & 0xff);
-                inValue[i * BytesPerLong + 2] = (byte)(input[i] >> ((BytesPerLong - 2) * BitsPerByte) & 0xff);
-                inValue[i * BytesPerLong + 1] = (byte)(input[i] >> ((BytesPerLong - 3) * BitsPerByte) & 0xff);
-                inValue[i * BytesPerLong + 0] = (byte)(input[i] >> ((BytesPerLong - 4) * BitsPerByte) & 0xff);
+                inValue[i * bytesPerLong + 3] = (byte)(input[i] >> ((bytesPerLong - 1) * bitsPerByte) & 0xff);
+                inValue[i * bytesPerLong + 2] = (byte)(input[i] >> ((bytesPerLong - 2) * bitsPerByte) & 0xff);
+                inValue[i * bytesPerLong + 1] = (byte)(input[i] >> ((bytesPerLong - 3) * bitsPerByte) & 0xff);
+                inValue[i * bytesPerLong + 0] = (byte)(input[i] >> ((bytesPerLong - 4) * bitsPerByte) & 0xff);
             }
 
             var outValue = BitConverter.GetBytes(0);
@@ -43,15 +44,43 @@ namespace PokeD.Core.IO
                 socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, turnOn);
                 socket.IOControl(IOControlCode.KeepAliveValues, inValue, outValue);
             }
-            catch (SocketException)
-            {
-                return false;
-            }
+            catch (SocketException) { return false; }
             return true;
         }
 
+        public P3DTransmission(Socket socket, Type packetEnumType = null) : base(socket, new P3DSocketStream(socket), packetEnumType)
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                SetKeepAlive(socket, 5000, 1000);
+            }
+            else if(RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                // Even if this is not intended for checking if the connection is alive, this is the best way for now
+                var keepAliveTimeSeconds = 5;
+                var keepAliveIntervalSeconds = 1;
+                var keepAliveCount = 3;
 
-        public P3DTransmission(Socket socket, Type packetEnumType = null) : base(socket, new P3DSocketStream(socket), packetEnumType) { }
+                SocketOptionName tcpKeepIdle;
+                SocketOptionName tcpKeepIntvl;
+                SocketOptionName tcpKeepCnt;
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    tcpKeepIdle = (SocketOptionName) 0x4; // TCP_KEEPIDLE
+                    tcpKeepIntvl = (SocketOptionName) 0x5; // TCP_KEEPINTVL
+                    tcpKeepCnt = (SocketOptionName) 0x6; // TCP_KEEPCNT
+                }
+                else
+                {
+                    tcpKeepIdle = (SocketOptionName) 0x10; // TCP_KEEPALIVE
+                    tcpKeepIntvl = (SocketOptionName) 0x101; // TCP_KEEPINTVL
+                    tcpKeepCnt = (SocketOptionName) 0x102; // TCP_KEEPCNT
+                }
+                socket.SetSocketOption(SocketOptionLevel.Tcp, tcpKeepIdle, keepAliveTimeSeconds);
+                socket.SetSocketOption(SocketOptionLevel.Tcp, tcpKeepIntvl, keepAliveIntervalSeconds);
+                socket.SetSocketOption(SocketOptionLevel.Tcp, tcpKeepCnt, keepAliveCount);
+            }
+        }
 
 
         public override void SendPacket(P3DPacket packet)
