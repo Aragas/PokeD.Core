@@ -13,6 +13,9 @@ namespace PokeD.Core.IO
 {
     public class P3DTransmission : SocketPacketTransmission<P3DPacket, int, P3DSerializer, P3DDeserializer>
     {
+        [DllImport("libc", EntryPoint = "setsockopt")]
+        private static extern int SetSocketOptionLinux(IntPtr socket, int level, int optname, ref int optval, int optlen);
+
         private static bool SetKeepAlive(Socket socket, ulong time, ulong interval)
         {
             const int bytesPerLong = 4;
@@ -54,32 +57,29 @@ namespace PokeD.Core.IO
             {
                 SetKeepAlive(socket, 5000, 1000);
             }
-            else if(RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 // Even if this is not intended for checking if the connection is alive, this is the best way for now
                 var keepAliveTimeSeconds = 5;
                 var keepAliveIntervalSeconds = 1;
                 var keepAliveCount = 3;
 
-                SocketOptionName tcpKeepIdle;
-                SocketOptionName tcpKeepIntvl;
-                SocketOptionName tcpKeepCnt;
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                {
-                    tcpKeepIdle = (SocketOptionName) 0x4; // TCP_KEEPIDLE
-                    tcpKeepIntvl = (SocketOptionName) 0x5; // TCP_KEEPINTVL
-                    tcpKeepCnt = (SocketOptionName) 0x6; // TCP_KEEPCNT
-                }
-                else
-                {
-                    tcpKeepIdle = (SocketOptionName) 0x10; // TCP_KEEPALIVE
-                    tcpKeepIntvl = (SocketOptionName) 0x101; // TCP_KEEPINTVL
-                    tcpKeepCnt = (SocketOptionName) 0x102; // TCP_KEEPCNT
-                }
                 socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
-                socket.SetSocketOption(SocketOptionLevel.Tcp, tcpKeepIdle, keepAliveTimeSeconds);
-                socket.SetSocketOption(SocketOptionLevel.Tcp, tcpKeepIntvl, keepAliveIntervalSeconds);
-                socket.SetSocketOption(SocketOptionLevel.Tcp, tcpKeepCnt, keepAliveCount);
+                SetSocketOptionLinux(socket.Handle, 0x6, 0x4, ref keepAliveTimeSeconds, sizeof(int));
+                SetSocketOptionLinux(socket.Handle, 0x6, 0x5, ref keepAliveIntervalSeconds, sizeof(int));
+                SetSocketOptionLinux(socket.Handle, 0x6, 0x6, ref keepAliveCount, sizeof(int));
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                // Even if this is not intended for checking if the connection is alive, this is the best way for now
+                var keepAliveTimeSeconds = 5;
+                var keepAliveIntervalSeconds = 1;
+                var keepAliveCount = 3;
+
+                socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
+                SetSocketOptionLinux(socket.Handle, 0x6, 0x10, ref keepAliveTimeSeconds, sizeof(int));
+                SetSocketOptionLinux(socket.Handle, 0x6, 0x101, ref keepAliveIntervalSeconds, sizeof(int));
+                SetSocketOptionLinux(socket.Handle, 0x6, 0x102, ref keepAliveCount, sizeof(int));
             }
         }
 
@@ -122,7 +122,7 @@ namespace PokeD.Core.IO
         private IEnumerable<string> ReadLineEnumerable()
         {
             int @byte = SocketStream.ReadByte();
-            char symbol = (char) @byte;
+            char symbol = (char)@byte;
             while (@byte != -1)
             {
                 int nextByte;
@@ -134,7 +134,7 @@ namespace PokeD.Core.IO
 
                     yield return line;
                 }
-                else if ((nextByte = SocketStream.ReadByte()) != -1 && (nextSymbol = (char) nextByte) == '\n' && symbol == '\r')
+                else if ((nextByte = SocketStream.ReadByte()) != -1 && (nextSymbol = (char)nextByte) == '\n' && symbol == '\r')
                 {
                     var line = StringBuilder.ToString();
                     StringBuilder.Clear();
