@@ -57,7 +57,7 @@ namespace PokeD.Core.IO
             {
                 SetKeepAlive(socket, 5000, 1000);
             }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 // Even if this is not intended for checking if the connection is alive, this is the best way for now
                 var keepAliveTimeSeconds = 5;
@@ -76,7 +76,7 @@ namespace PokeD.Core.IO
                 var keepAliveIntervalSeconds = 1;
                 var keepAliveCount = 3;
 
-                socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
+                socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true); 
                 SetSocketOptionLinux(socket.Handle, 0x6, 0x10, ref keepAliveTimeSeconds, sizeof(int));
                 SetSocketOptionLinux(socket.Handle, 0x6, 0x101, ref keepAliveIntervalSeconds, sizeof(int));
                 SetSocketOptionLinux(socket.Handle, 0x6, 0x102, ref keepAliveCount, sizeof(int));
