@@ -76,6 +76,7 @@ namespace PokeD.Core.IO
                     tcpKeepIntvl = (SocketOptionName) 0x101; // TCP_KEEPINTVL
                     tcpKeepCnt = (SocketOptionName) 0x102; // TCP_KEEPCNT
                 }
+                socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
                 socket.SetSocketOption(SocketOptionLevel.Tcp, tcpKeepIdle, keepAliveTimeSeconds);
                 socket.SetSocketOption(SocketOptionLevel.Tcp, tcpKeepIntvl, keepAliveIntervalSeconds);
                 socket.SetSocketOption(SocketOptionLevel.Tcp, tcpKeepCnt, keepAliveCount);
