@@ -14,7 +14,7 @@ namespace PokeD.Core.IO
     public class P3DTransmission : SocketPacketTransmission<P3DPacket, int, P3DSerializer, P3DDeserializer>
     {
         [DllImport("libc", EntryPoint = "setsockopt")]
-        private static extern int SetSocketOptionLinux(IntPtr socket, int level, int optname, ref int optval, int optlen);
+        private static extern int SetSocketOptionLinux(IntPtr socket, int level, int optname, ref int optval, uint optlen);
 
         private static bool SetKeepAlive(Socket socket, ulong time, ulong interval)
         {
@@ -60,26 +60,28 @@ namespace PokeD.Core.IO
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 // Even if this is not intended for checking if the connection is alive, this is the best way for now
+                var onOff = 1;
                 var keepAliveTimeSeconds = 5;
                 var keepAliveIntervalSeconds = 1;
                 var keepAliveCount = 3;
 
-                socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
-                SetSocketOptionLinux(socket.Handle, 0x6, 0x4, ref keepAliveTimeSeconds, sizeof(int));
-                SetSocketOptionLinux(socket.Handle, 0x6, 0x5, ref keepAliveIntervalSeconds, sizeof(int));
-                SetSocketOptionLinux(socket.Handle, 0x6, 0x6, ref keepAliveCount, sizeof(int));
+                SetSocketOptionLinux(socket.Handle, 0xFFFF, 0x8,    ref onOff, sizeof(int));
+                SetSocketOptionLinux(socket.Handle, 0x6,    0x4,    ref keepAliveTimeSeconds, sizeof(int));
+                SetSocketOptionLinux(socket.Handle, 0x6,    0x5,    ref keepAliveIntervalSeconds, sizeof(int));
+                SetSocketOptionLinux(socket.Handle, 0x6,    0x6,    ref keepAliveCount, sizeof(int));
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 // Even if this is not intended for checking if the connection is alive, this is the best way for now
+                var onOff = 1;
                 var keepAliveTimeSeconds = 5;
                 var keepAliveIntervalSeconds = 1;
                 var keepAliveCount = 3;
 
-                socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true); 
-                SetSocketOptionLinux(socket.Handle, 0x6, 0x10, ref keepAliveTimeSeconds, sizeof(int));
-                SetSocketOptionLinux(socket.Handle, 0x6, 0x101, ref keepAliveIntervalSeconds, sizeof(int));
-                SetSocketOptionLinux(socket.Handle, 0x6, 0x102, ref keepAliveCount, sizeof(int));
+                SetSocketOptionLinux(socket.Handle, 0xFFFF, 0x8,    ref onOff, sizeof(int));
+                SetSocketOptionLinux(socket.Handle, 0x6,    0x10,   ref keepAliveTimeSeconds, sizeof(int));
+                SetSocketOptionLinux(socket.Handle, 0x6,    0x101,  ref keepAliveIntervalSeconds, sizeof(int));
+                SetSocketOptionLinux(socket.Handle, 0x6,    0x102,  ref keepAliveCount, sizeof(int));
             }
         }
 
