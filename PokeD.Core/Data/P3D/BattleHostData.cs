@@ -2,18 +2,15 @@ using System.Collections.Generic;
 
 namespace PokeD.Core.Data.P3D
 {
-    public class BattleHostData
+    public class BattleHostData : P3DData
     {
-        public static implicit operator string(BattleHostData battleData) => battleData._battleData;
         public static implicit operator BattleHostData(string battleData) => new BattleHostData(battleData);
 
-        private readonly string _battleData;
+        public IReadOnlyList<string> Queries => ParseHostData(Data);
 
-        public IReadOnlyList<string> Queries => ParseHostData(_battleData);
+        public BattleHostData(string battleData) : base(battleData) { }
 
-        public BattleHostData(string battleData) => _battleData = battleData;
 
-        
         private static IReadOnlyList<string> ParseHostData(string data)
         {
             var newQueries = new List<string>();

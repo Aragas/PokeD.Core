@@ -31,7 +31,6 @@ namespace PokeD.Core.Data.PokeD
 
             ID = id;
             Name = move.names.Find(GetLocalizedName).name;
-            //Type = new MonsterTypeStaticData((byte) new ResourceUri(move.type).ID);
             Type = Cached<MonsterTypeStaticData>.Get((byte) new ResourceUri(move.type).ID);
 
             Target = (Target) new ResourceUri(move.target).ID;
@@ -50,16 +49,13 @@ namespace PokeD.Core.Data.PokeD
 
     public class Attack : BaseAttackInstance
     {
-        //public Attack(short id, IMonsterStaticData user) : base(new AttackStaticData(id)) { }
-        //public Attack(short id, byte pp, byte ppUps, IMonsterStaticData user) : base(new AttackStaticData(id), pp, ppUps) { }
-
         public Attack(short id) : base(Cached<AttackStaticData>.Get(id)) { }
         public Attack(short id, byte ppCurrent, byte ppUps) : base(Cached<AttackStaticData>.Get(id), ppCurrent, ppUps) { }
 
         public Attack(ResourceUri uri) : base(Cached<AttackStaticData>.Get((short) uri.ID)) { }
         public Attack(ResourceUri uri, byte ppCurrent, byte ppUps) : base(Cached<AttackStaticData>.Get((short) uri.ID), ppCurrent, ppUps) { }
 
-        public Attack(AttackStaticData staticData) : base(staticData) { }
-        public Attack(AttackStaticData staticData, byte ppCurrent, byte ppUps) : base(staticData, ppCurrent, ppUps) { }
+        public Attack(IAttackStaticData staticData) : base(staticData) { }
+        public Attack(IAttackStaticData staticData, byte ppCurrent, byte ppUps) : base(staticData, ppCurrent, ppUps) { }
     }
 }

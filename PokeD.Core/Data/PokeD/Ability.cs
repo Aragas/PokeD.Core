@@ -6,7 +6,7 @@ namespace PokeD.Core.Data.PokeD
     public class AbilityStaticData : IAbilityStaticData
     {
         public static Languages Language { get; set; } = Languages.English;
-        private static bool GetLocalizedName(Localization name) => ((Languages)new ResourceUri(name.language).ID) == Language;
+        private static bool GetLocalizedName(Localization name) => ((Languages) new ResourceUri(name.language).ID) == Language;
 
 
         public short ID { get; }
@@ -26,8 +26,6 @@ namespace PokeD.Core.Data.PokeD
 
     public class Ability : BaseAbility
     {
-        //public Ability(short id, bool isHidden) : base(new AbilityStaticData(id), isHidden) { }
-
         public Ability(short id, bool isHidden) : base(Cached<AbilityStaticData>.Get(id), isHidden) { }
 
         public Ability(ResourceUri uri, bool isHidden) : base(Cached<AbilityStaticData>.Get((short) uri.ID), isHidden) { }

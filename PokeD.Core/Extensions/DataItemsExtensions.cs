@@ -8,7 +8,7 @@ namespace PokeD.Core.Extensions
 {
     public static class DataItemsExtensions
     {
-        public static Monster[] DataItemsToMonsters(this DataItems data) => data.ToString().Split('|').Select(str => new DataItems(str)).Select(items => new Monster(items)).ToArray();
+        public static Monster[] DataItemsToMonsters(this DataItems data) => data.ToString().Split('|').Select(str => str).Select(items => new Monster(items)).ToArray();
 
         public static Dictionary<string, string> ToDictionary(this DataItems data)
         {

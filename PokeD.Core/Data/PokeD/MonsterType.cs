@@ -7,7 +7,7 @@ namespace PokeD.Core.Data.PokeD
     public class MonsterTypeStaticData : ITypeStaticData
     {
         public static Languages Language { get; set; } = Languages.English;
-        private static bool GetLocalizedName(Localization name) => ((Languages)new ResourceUri(name.language).ID) == Language;
+        private static bool GetLocalizedName(Localization name) => ((Languages) new ResourceUri(name.language).ID) == Language;
 
 
         public byte ID { get; }

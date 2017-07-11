@@ -107,7 +107,7 @@ namespace PokeD.Core.IO
 
         public bool TryReadPacket(out P3DPacket packet)
         {
-            var data = ReadLine(); // Is blocking
+            var data = ReadLine();
 
             if (P3DPacket.TryParseID(data, out var id))
             {

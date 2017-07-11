@@ -2,15 +2,12 @@
 
 namespace PokeD.Core.Data.P3D
 {
-    public class TradeData
+    public class TradeData : P3DData
     {
-        public static implicit operator string(TradeData tradeData) => tradeData._tradeData;
         public static implicit operator TradeData(string tradeData) => new TradeData(tradeData);
 
-        private readonly string _tradeData;
-        
-        public Monster Monster => new Monster(new DataItems(_tradeData));
+        public Monster Monster => new Monster(Data);
 
-        public TradeData(string tradeData) => _tradeData = tradeData;
+        public TradeData(string tradeData) : base(tradeData) { }
     }
 }

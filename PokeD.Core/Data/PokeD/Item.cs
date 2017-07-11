@@ -72,8 +72,6 @@ namespace PokeD.Core.Data.PokeD
 
     public class Item : BaseItemInstance
     {
-        //public Item(int id) : base(new ItemStaticData(id)) { }
-
         public Item(int id) : base(Cached<ItemStaticData>.Get(id)) { }
 
         public Item(ResourceUri uri) : base(Cached<ItemStaticData>.Get(uri.ID)) { }

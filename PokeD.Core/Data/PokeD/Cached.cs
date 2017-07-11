@@ -11,7 +11,7 @@ namespace PokeD.Core.Data.PokeD
 
         public static T2 Get(long id)
         {
-            if (Cache.TryGetValue(id, out T2 value))
+            if (Cache.TryGetValue(id, out var value))
                 return value;
             else
             {
@@ -28,7 +28,7 @@ namespace PokeD.Core.Data.PokeD
 
         public static T2 Get(T1 id)
         {
-            if (Cache.TryGetValue(id, out T2 value))
+            if (Cache.TryGetValue(id, out var value))
                 return value;
             else
             {

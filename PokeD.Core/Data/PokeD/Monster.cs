@@ -257,22 +257,18 @@ namespace PokeD.Core.Data.PokeD
                     switch (new ResourceUri(vg.move_learn_method).ID)
                     {
                         case 1:
-                            //LearnableAttacks.Add(new AttackLearn(new AttackStaticData((short) new ResourceUri(move.move).ID), new AttackLearn.ByLevel((byte) vg.level_learned_at)));
-                            LearnableAttacks.Add(new AttackLearn(Cached<AttackStaticData>.Get((short) new ResourceUri(move.move).ID), new AttackLearn.ByLevel((byte)vg.level_learned_at)));
+                            LearnableAttacks.Add(new AttackLearn(Cached<AttackStaticData>.Get((short) new ResourceUri(move.move).ID), new AttackLearn.ByLevel((byte) vg.level_learned_at)));
                             break;
 
                         case 2:
-                            //LearnableAttacks.Add(new AttackLearn(new AttackStaticData((short) new ResourceUri(move.move).ID), new AttackLearn.ByBreeding()));
                             LearnableAttacks.Add(new AttackLearn(Cached<AttackStaticData>.Get((short) new ResourceUri(move.move).ID), new AttackLearn.ByBreeding()));
                             break;
 
                         case 3:
-                            //LearnableAttacks.Add(new AttackLearn(new AttackStaticData((short) new ResourceUri(move.move).ID), new AttackLearn.ByTutor()));
                             LearnableAttacks.Add(new AttackLearn(Cached<AttackStaticData>.Get((short) new ResourceUri(move.move).ID), new AttackLearn.ByTutor()));
                             break;
 
                         case 4:
-                            //LearnableAttacks.Add(new AttackLearn(new AttackStaticData((short) new ResourceUri(move.move).ID), new AttackLearn.ByMachine()));
                             LearnableAttacks.Add(new AttackLearn(Cached<AttackStaticData>.Get((short) new ResourceUri(move.move).ID), new AttackLearn.ByMachine()));
                             break;
                             // Else is shit

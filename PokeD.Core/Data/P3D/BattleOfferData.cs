@@ -1,20 +1,20 @@
 using System.Collections.Generic;
+
 using PokeD.Core.Data.PokeD;
 
 namespace PokeD.Core.Data.P3D
 {
-    public class BattleOfferData
+    // If LeadMonsterIndex is not null, this is a confirmation, else client just gives the pokemons for the battle
+    public class BattleOfferData : P3DData
     {
-        public static implicit operator string(BattleOfferData battleData) => battleData._battleData;
         public static implicit operator BattleOfferData(string battleData) => new BattleOfferData(battleData);
 
-        private readonly string _battleData;
+        public int? LeadMonsterIndex => int.TryParse(Data, out var index) ? (int?) index : null;
+        public IReadOnlyList<Monster> Monsters => ParseOfferData(Data);
 
-        public IReadOnlyList<Monster> Monsters => ParseOfferData(_battleData);
+        public BattleOfferData(string battleData) : base(battleData) { }
 
-        public BattleOfferData(string battleData) => _battleData = battleData;
 
-        
         private static IReadOnlyList<Monster> ParseOfferData(string data)
         {
             var monsters = new List<Monster>();
@@ -24,7 +24,7 @@ namespace PokeD.Core.Data.P3D
             {
                 if (data[0] == '|' && tempData[tempData.Length - 1] == '}')
                 {
-                    monsters.Add(new Monster(new DataItems(tempData)));
+                    monsters.Add(new Monster(tempData));
                     tempData = "";
                 }
                 else
@@ -35,7 +35,7 @@ namespace PokeD.Core.Data.P3D
             }
             if (tempData.StartsWith("{") && tempData.EndsWith("}"))
             {
-                monsters.Add(new Monster(new DataItems(tempData)));
+                monsters.Add(new Monster(tempData));
                 tempData = "";
             }
 

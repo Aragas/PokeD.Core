@@ -2,15 +2,13 @@ using System.Collections.Generic;
 
 namespace PokeD.Core.Data.P3D
 {
-    public class BattleEndRoundData
+    public class BattleEndRoundData : P3DData
     {
-        public static implicit operator string(BattleEndRoundData battleData) => battleData._battleData;
         public static implicit operator BattleEndRoundData(string battleData) => new BattleEndRoundData(battleData);
 
-        private readonly string _battleData;
-        public IReadOnlyList<string> Queries => ParseEndRoundData(_battleData);
+        public IReadOnlyList<string> Queries => ParseEndRoundData(Data);
 
-        public BattleEndRoundData(string battleData) { _battleData = battleData; }
+        public BattleEndRoundData(string battleData) : base(battleData) { }
 
 
         private static IReadOnlyList<string> ParseEndRoundData(string data)

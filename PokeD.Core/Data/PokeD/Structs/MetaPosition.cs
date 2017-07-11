@@ -10,7 +10,7 @@ namespace PokeD.Core.Data.PokeD.Structs
         
         public Vector3 Position
         {
-            get { return new Vector3(Meta.BitsGet(0, 12) / 32.0f, Meta.BitsGet(24, 32) / 32.0f, Meta.BitsGet(12, 24) / 32.0f); }
+            get => new Vector3(Meta.BitsGet(0, 12) / 32.0f, Meta.BitsGet(24, 32) / 32.0f, Meta.BitsGet(12, 24) / 32.0f);
             set
             {
                 Meta = Meta.BitsSet((long) (value.X * 32.0f), 0, 12);
