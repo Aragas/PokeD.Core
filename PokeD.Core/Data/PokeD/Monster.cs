@@ -459,7 +459,8 @@ namespace PokeD.Core.Data.PokeD
                 TrainerID = (ushort)int.Parse(dict["OT"]).BitsGet(0, 16) == ushort.MaxValue ? (ushort)int.Parse(dict["OT"]).BitsGet(16, 32) : (ushort)int.Parse(dict["OT"]).BitsGet(0, 16)
             };
 
-            HeldItem = new Item(short.Parse(dict["Item"]));
+            if(short.TryParse(dict["Item"], out var item) && item != 0)
+                HeldItem = new Item(item);
 
             var move0 = dict["Attack1"].Split(',');
             var move1 = dict["Attack2"].Split(',');

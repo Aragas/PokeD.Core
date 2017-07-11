@@ -7,7 +7,7 @@ namespace PokeD.Core.Packets.P3D.Server
     [Packet((int) P3DPacketTypes.ServerClose)]
     public class ServerClosePacket : P3DPacket
     {
-        public string Reason { get { return DataItems[0]; } set { DataItems[0] = value; } }
+        public string Reason { get => DataItems[0]; set => DataItems[0] = value; }
 
         public override void Deserialize(P3DDeserializer deserialiser) { }
         public override void Serialize(P3DSerializer serializer) { }

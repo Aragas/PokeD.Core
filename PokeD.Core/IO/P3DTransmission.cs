@@ -93,7 +93,7 @@ namespace PokeD.Core.IO
 
         public override P3DPacket ReadPacket()
         {
-            var data = ReadLine(); // Is blocking
+            var data = ReadLine();
 
             if (P3DPacket.TryParseID(data, out var id))
             {
@@ -124,7 +124,7 @@ namespace PokeD.Core.IO
         private IEnumerable<string> ReadLineEnumerable()
         {
             int @byte = SocketStream.ReadByte();
-            char symbol = (char)@byte;
+            char symbol = (char) @byte;
             while (@byte != -1)
             {
                 int nextByte;
@@ -136,7 +136,7 @@ namespace PokeD.Core.IO
 
                     yield return line;
                 }
-                else if ((nextByte = SocketStream.ReadByte()) != -1 && (nextSymbol = (char)nextByte) == '\n' && symbol == '\r')
+                else if ((nextByte = SocketStream.ReadByte()) != -1 && (nextSymbol = (char) nextByte) == '\n' && symbol == '\r')
                 {
                     var line = StringBuilder.ToString();
                     StringBuilder.Clear();

@@ -2,6 +2,7 @@
 
 namespace PokeD.Core.Storage.Folders
 {
+    /*
     public class LuaModulesFolder : BaseFolder
     {
         public IFile HookFile => GetFile("hook.lua");
@@ -9,6 +10,7 @@ namespace PokeD.Core.Storage.Folders
 
         public LuaModulesFolder() : base(new ScriptsFolder().CreateFolder("Modules", CreationCollisionOption.OpenIfExists)) { }
     }
+    */
     public class ScriptsFolder : BaseFolder
     {
         public ScriptsFolder() : base(new MainFolder().CreateFolder("Scripts", CreationCollisionOption.OpenIfExists)) { }

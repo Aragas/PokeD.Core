@@ -1,5 +1,6 @@
 namespace PokeD.Core.Extensions
 {
+#pragma warning disable CS0675 // Bitwise-or operator used on a sign-extended operand
     public static class BitMaskExtensions
     {
         public static long BitsGet(this long number, int start, int end)
@@ -46,4 +47,5 @@ namespace PokeD.Core.Extensions
             return (byte) (number | mask);
         }
     }
+#pragma warning restore CS0675 // Bitwise-or operator used on a sign-extended operand
 }

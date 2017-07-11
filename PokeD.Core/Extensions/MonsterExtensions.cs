@@ -74,12 +74,12 @@ namespace PokeD.Core.Extensions
         }
         private static string GetP3DID(uint personalityValue)
         {
-            var chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
             var result = "";
             var digits = Digits(personalityValue).ToList();
             for (var i = 0; i < 5; i += 2)
             {
-                var number = int.Parse(digits[i].ToString() + digits[i+1].ToString());
+                var number = int.Parse($"{digits[i]}{digits[i]}");
                 if (number > chars.Length)
                     number = chars.Length - 1;
                 result += chars[number];

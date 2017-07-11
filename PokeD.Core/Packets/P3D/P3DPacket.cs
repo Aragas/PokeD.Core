@@ -40,15 +40,15 @@ namespace PokeD.Core.Packets.P3D
             if (!string.Equals(ProtocolVersion.ToString(CultureInfo), chunks[0], StringComparison.OrdinalIgnoreCase))
                 return false;
 
-            if (!int.TryParse(chunks[1], out int id))
+            if (!int.TryParse(chunks[1], out _))
                 return false;
 
-            if (!int.TryParse(chunks[2], out int origin))
+            if (!int.TryParse(chunks[2], out var origin))
                 return false;
             else
                 Origin = origin;
 
-            if (!int.TryParse(chunks[3], out int dataItemsCount))
+            if (!int.TryParse(chunks[3], out var dataItemsCount))
                 return false;
 
             var offsetList = new List<int>();
@@ -56,10 +56,10 @@ namespace PokeD.Core.Packets.P3D
             //Count from 4th item to second last item. Those are the offsets.
             for (var i = 4; i < dataItemsCount + 4; i++)
             {
-                if (int.TryParse(chunks[i], out int offset))
-                    offsetList.Add(offset);
-                else
+                if (!int.TryParse(chunks[i], out var offset))
                     return false;
+                else
+                    offsetList.Add(offset);
             }
 
             //Set the datastring, its the last item in the list. If it contained any separators, they will get read here:
