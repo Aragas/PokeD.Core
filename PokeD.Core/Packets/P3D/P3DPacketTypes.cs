@@ -1,5 +1,8 @@
-﻿namespace PokeD.Core.Packets.P3D
+﻿using Aragas.Network.Attributes;
+
+namespace PokeD.Core.Packets.P3D
 {
+    [PacketEnum(typeof(P3DPacket))]
     public enum P3DPacketTypes
     {
         GameData                    = 0x00,

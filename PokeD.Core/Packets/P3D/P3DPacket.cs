@@ -10,9 +10,23 @@ using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.P3D
 {
+    public struct Origin
+    {
+        public static Origin Server => new Origin(-1);
+
+        public static implicit operator Origin(int origin) => new Origin(origin);
+        public static implicit operator int(Origin origin) => origin._value;
+
+        private readonly int _value;
+        private Origin(int origin) => _value = origin;
+
+        public override string ToString() => _value.ToString();
+        public string ToString(IFormatProvider provider) => _value.ToString(provider);
+    }
+    
     public abstract class P3DPacket : PacketWithAttribute<int, P3DSerializer, P3DDeserializer>
     {
-        public int Origin { get; set; }
+        public Origin Origin { get; set; }
 
         public static float ProtocolVersion { get; set; } = 0.5f;
         public DataItems DataItems = new DataItems();

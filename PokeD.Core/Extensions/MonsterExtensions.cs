@@ -11,6 +11,7 @@ namespace PokeD.Core.Extensions
     {
         public static DataItems ToDataItems(this Monster monster)
         {
+#pragma warning disable IDE0028 // Simplify collection initialization
             var dict = new Dictionary<string, string>();
             dict.Add("Pokemon", $"[{monster.StaticData.ID}]");
             dict.Add("Experience", $"[{monster.Experience}]");
@@ -69,6 +70,7 @@ namespace PokeD.Core.Extensions
             dict.Add("IVs", $"[{monster.IV.HP},{monster.IV.Attack},{monster.IV.Defense},{monster.IV.SpecialAttack},{monster.IV.SpecialDefense},{monster.IV.Speed}]");
             dict.Add("AdditionalData", $"[]");
             dict.Add("IDValue", $"[{GetP3DID(monster.PersonalityValue)}]");
+#pragma warning restore IDE0028 // Simplify collection initialization
 
             return DictionaryToDataItems(dict);
         }

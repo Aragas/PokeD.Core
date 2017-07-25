@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 
 using Aragas.Network.IO;
-
+using Aragas.Network.Packets;
 using PokeD.Core.Packets.P3D;
 
 namespace PokeD.Core.IO
@@ -51,7 +51,7 @@ namespace PokeD.Core.IO
             return true;
         }
 
-        public P3DTransmission(Socket socket, Type packetEnumType = null) : base(socket, new P3DSocketStream(socket), packetEnumType)
+        public P3DTransmission(Socket socket, BasePacketFactory<P3DPacket, int, P3DSerializer, P3DDeserializer> factory = null) : base(socket, new P3DSocketStream(socket), factory)
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {

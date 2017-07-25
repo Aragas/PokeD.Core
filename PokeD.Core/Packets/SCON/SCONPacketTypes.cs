@@ -1,5 +1,8 @@
-﻿namespace PokeD.Core.Packets.SCON
+﻿using Aragas.Network.Attributes;
+
+namespace PokeD.Core.Packets.SCON
 {
+    [PacketEnum(typeof(SCONPacket))]
     public enum SCONPacketTypes
     {
         AuthorizationRequest        = 0x00,
