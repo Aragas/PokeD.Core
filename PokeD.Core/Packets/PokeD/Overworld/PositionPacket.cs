@@ -1,7 +1,6 @@
-﻿using Aragas.Network.Data;
-using Aragas.Network.IO;
-using Aragas.Network.Packets;
+﻿using Aragas.Network.IO;
 
+using PokeD.Core.Data;
 using PokeD.Core.Data.PokeD.Structs;
 
 namespace PokeD.Core.Packets.PokeD.Overworld
@@ -10,7 +9,7 @@ namespace PokeD.Core.Packets.PokeD.Overworld
     {
         private MetaPosition Info { get; set; }
 
-        public Vector3 Position { get { return Info.Position; } set { Info = new MetaPosition(value); } }
+        public Vector3 Position { get => Info.Position; set => Info = new MetaPosition(value); }
 
 
         public override void Deserialize(ProtobufDeserialiser deserialiser)

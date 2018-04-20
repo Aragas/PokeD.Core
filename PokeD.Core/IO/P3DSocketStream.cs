@@ -18,8 +18,8 @@ namespace PokeD.Core.IO
                 return;
 
             try { base.Write(buffer, offset, count); }
-            catch (IOException) { return; }
-            catch (SocketException) { return; }
+            catch (IOException) { }
+            catch (SocketException) { }
         }
 
         public override int Read(byte[] buffer, int offset, int count)
@@ -32,10 +32,10 @@ namespace PokeD.Core.IO
             catch (SocketException) { return 0; }
         }
 
+        private readonly byte[] _byteBuffer = new byte[1];
         public override int ReadByte()
         {
-            var buffer = new byte[1];
-            return Read(buffer, 0, 1) != 0 ? buffer[0] : -1;
+            return Read(_byteBuffer, 0, 1) != 0 ? _byteBuffer[0] : -1;
         }
     }
 }

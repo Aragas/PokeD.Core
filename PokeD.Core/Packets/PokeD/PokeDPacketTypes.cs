@@ -1,8 +1,5 @@
-﻿using Aragas.Network.Attributes;
-
-namespace PokeD.Core.Packets.PokeD
+﻿namespace PokeD.Core.Packets.PokeD
 {
-    [PacketEnum(typeof(PokeDPacket))]
     public enum PokeDPacketTypes
     {
         AuthorizationRequest    = 0xA1,

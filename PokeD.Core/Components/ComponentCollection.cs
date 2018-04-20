@@ -21,12 +21,11 @@ namespace PokeD.Core.Components
         protected override void InsertItem(int index, IComponent item)
         {
             if (IndexOf(item) != -1)
-                throw new ArgumentException("Cannot Add Same Component Multiple Times");
+                throw new ArgumentException("Cannot add same component multiple times");
 
             base.InsertItem(index, item);
 
-            if (item != null)
-                OnComponentAdded(new ComponentCollectionEventArgs(item));
+            OnComponentAdded(new ComponentCollectionEventArgs(item));
         }
         protected override void SetItem(int index, IComponent item) => throw new NotSupportedException();
         protected override void RemoveItem(int index)

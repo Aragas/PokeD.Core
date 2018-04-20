@@ -1,6 +1,5 @@
 ﻿using Aragas.Network.Data;
 using Aragas.Network.IO;
-using Aragas.Network.Packets;
 
 namespace PokeD.Core.Packets.PokeD.Trade
 {

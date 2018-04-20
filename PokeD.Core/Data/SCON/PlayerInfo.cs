@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Aragas.Network.Data;
-
 namespace PokeD.Core.Data.SCON
 {
     public class PlayerInfo

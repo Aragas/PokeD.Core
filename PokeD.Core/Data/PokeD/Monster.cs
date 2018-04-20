@@ -466,25 +466,25 @@ namespace PokeD.Core.Data.PokeD
             if (move0.Length != 1)
             {
                 var dat = Cached<AttackStaticData>.Get(short.Parse(move0[0]));
-                var ppUps = (byte) Math.Round((double) ((double) (byte.Parse(move0[1]) - dat.PP) / dat.PP / 0.2D));
+                var ppUps = (byte) Math.Round((double) (byte.Parse(move0[1]) - dat.PP) / dat.PP / 0.2D);
                 Moves.Add(new Attack(dat, byte.Parse(move0[2]), ppUps));
             }
             if (move1.Length != 1)
             {
                 var dat = Cached<AttackStaticData>.Get(short.Parse(move1[0]));
-                var ppUps = (byte) Math.Round((double) ((double) (byte.Parse(move1[1]) - dat.PP) / dat.PP / 0.2D));
+                var ppUps = (byte) Math.Round((double) (byte.Parse(move1[1]) - dat.PP) / dat.PP / 0.2D);
                 Moves.Add(new Attack(dat, byte.Parse(move1[2]), ppUps));
             }
             if (move2.Length != 1)
             {
                 var dat = Cached<AttackStaticData>.Get(short.Parse(move2[0]));
-                var ppUps = (byte) Math.Round((double) ((double) (byte.Parse(move2[1]) - dat.PP) / dat.PP / 0.2D));
+                var ppUps = (byte) Math.Round((double) (byte.Parse(move2[1]) - dat.PP) / dat.PP / 0.2D);
                 Moves.Add(new Attack(dat, byte.Parse(move2[2]), ppUps));
             }
             if (move3.Length != 1)
             {
                 var dat = Cached<AttackStaticData>.Get(short.Parse(move3[0]));
-                var ppUps = (byte) Math.Round((double) ((double) (byte.Parse(move3[1]) - dat.PP) / dat.PP / 0.2D));
+                var ppUps = (byte) Math.Round((double) (byte.Parse(move3[1]) - dat.PP) / dat.PP / 0.2D);
                 Moves.Add(new Attack(dat, byte.Parse(move3[2]), ppUps));
             }
 

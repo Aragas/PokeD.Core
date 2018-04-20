@@ -31,10 +31,7 @@ namespace PokeD.Core.Data.P3D
                     return string.Empty;
 
                 // if string is null, make it empty.
-                if (_dataItems[index] == null)
-                    _dataItems[index] = string.Empty;
-
-                return _dataItems[index];
+                return _dataItems[index] ?? (_dataItems[index] = string.Empty);
             }
 
             set

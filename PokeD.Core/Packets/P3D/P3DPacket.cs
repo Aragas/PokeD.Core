@@ -10,7 +10,7 @@ using PokeD.Core.IO;
 
 namespace PokeD.Core.Packets.P3D
 {
-    public struct Origin
+    public readonly struct Origin
     {
         public static Origin Server => new Origin(-1);
 

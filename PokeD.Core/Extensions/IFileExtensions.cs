@@ -1,8 +1,6 @@
 using System;
 using System.Security.Cryptography;
 
-using Aragas.Network.Extensions;
-
 using PCLExt.FileStorage;
 
 namespace PokeD.Core.Extensions

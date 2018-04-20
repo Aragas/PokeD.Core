@@ -45,7 +45,7 @@ namespace PokeD.Core.Data.PokeApi
         private static CacheTypeEnum _cacheType;
         public static CacheTypeEnum CacheType
         {
-            get { return _cacheType; }
+            get => _cacheType;
             set
             {
                 _cacheType = value;

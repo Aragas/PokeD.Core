@@ -4,7 +4,7 @@ using Aragas.Network.Packets;
 
 namespace PokeD.Core.Packets.SCON
 {
-    public abstract class SCONPacket : PacketWithEnumName<VarInt, ProtobufSerializer, ProtobufDeserialiser>
+    public abstract class SCONPacket : PacketWithEnum<SCONPacketTypes, VarInt, ProtobufSerializer, ProtobufDeserialiser>
     {
 
     }

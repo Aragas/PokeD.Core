@@ -2,8 +2,5 @@
 
 namespace PokeD.Core.Components
 {
-    public interface IComponent : IUpdatable, IDisposable
-    {
-
-    }
+    public interface IComponent : IUpdatable, IDisposable { }
 }

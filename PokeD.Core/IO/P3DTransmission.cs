@@ -7,6 +7,7 @@ using System.Text;
 
 using Aragas.Network.IO;
 using Aragas.Network.Packets;
+
 using PokeD.Core.Packets.P3D;
 
 namespace PokeD.Core.IO
@@ -123,12 +124,11 @@ namespace PokeD.Core.IO
         private StringBuilder StringBuilder { get; } = new StringBuilder();
         private IEnumerable<string> ReadLineEnumerable()
         {
-            int @byte = SocketStream.ReadByte();
-            char symbol = (char) @byte;
+            var @byte = SocketStream.ReadByte();
+            var symbol = (char) @byte;
             while (@byte != -1)
             {
-                int nextByte;
-                char nextSymbol = char.MinValue;
+                var nextSymbol = char.MinValue;
                 if (symbol == '\r' && Socket.Available == 0)
                 {
                     var line = StringBuilder.ToString();
@@ -136,14 +136,14 @@ namespace PokeD.Core.IO
 
                     yield return line;
                 }
-                else if ((nextByte = SocketStream.ReadByte()) != -1 && (nextSymbol = (char) nextByte) == '\n' && symbol == '\r')
+                else if ((@byte = SocketStream.ReadByte()) != -1 && (nextSymbol = (char) @byte) == '\n' && symbol == '\r')
                 {
                     var line = StringBuilder.ToString();
                     StringBuilder.Clear();
 
                     yield return line;
                 }
-                else if (nextByte == -1)
+                else if (@byte == -1)
                     yield return string.Empty;
                 else
                 {

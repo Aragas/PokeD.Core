@@ -6,19 +6,20 @@ using Aragas.Network.IO;
 using PokeD.BattleEngine.Battle;
 using PokeD.BattleEngine.Monster.Data;
 using PokeD.BattleEngine.Trainer.Data;
+using PokeD.Core.Data;
 using PokeD.Core.Data.PokeD;
 using PokeD.Core.Data.PokeD.Structs;
 using PokeD.Core.Data.SCON;
 using PokeD.Core.Packets.PokeD.Overworld.Map;
 
 using static Aragas.Network.IO.PacketSerializer;
-using static Aragas.Network.IO.PacketDeserialiser;
+using static Aragas.Network.IO.PacketDeserializer;
 
 namespace PokeD.Core.Extensions
 {
     public static class PacketExtensions
     {
-        private static void Extend<T>(Func<PacketDeserialiser, int, T> readFunc, Action<PacketSerializer, T, bool> writeAction)
+        private static void Extend<T>(Func<PacketDeserializer, int, T> readFunc, Action<PacketSerializer, T, bool> writeAction)
         {
             ExtendRead(readFunc);
             ExtendWrite(writeAction);
@@ -27,6 +28,9 @@ namespace PokeD.Core.Extensions
         public static void Init()
         {
             Aragas.Network.Extensions.PacketExtensions.Init();
+
+            Extend<Vector2>(ReadVector2, WriteVector2);
+            Extend<Vector3>(ReadVector3, WriteVector3);
 
             Extend<FileHash[]>(ReadFileHashArray, WriteFileHashArray);
             Extend<FileHash>(ReadFileHash, WriteFileHash);
@@ -66,6 +70,22 @@ namespace PokeD.Core.Extensions
         }
 
 
+        private static void WriteVector2(PacketSerializer serializer, Vector2 value, bool writeDefaultLength = true)
+        {
+            serializer.Write(value.X);
+            serializer.Write(value.Y);
+        }
+        private static Vector2 ReadVector2(PacketDeserializer deserializer, int length = 0) => new Vector2(deserializer.Read<float>(), deserializer.Read<float>());
+
+        private static void WriteVector3(PacketSerializer serializer, Vector3 value, bool writeDefaultLength = true)
+        {
+            serializer.Write(value.X);
+            serializer.Write(value.Y);
+            serializer.Write(value.Z);
+        }
+        private static Vector3 ReadVector3(PacketDeserializer deserializer, int length = 0) => new Vector3(deserializer.Read<float>(), deserializer.Read<float>(), deserializer.Read<float>());
+
+
         private static void WriteFileHashArray(PacketSerializer serializer, FileHash[] value, bool writeDefaultLength = true)
         {
             serializer.Write(new VarInt(value.Length));
@@ -73,15 +93,15 @@ namespace PokeD.Core.Extensions
             foreach (var fileHash in value)
                 serializer.Write(fileHash);
         }
-        private static FileHash[] ReadFileHashArray(PacketDeserialiser deserialiser, int length = 0)
+        private static FileHash[] ReadFileHashArray(PacketDeserializer deserializer, int length = 0)
         {
             if (length == 0)
-                length = deserialiser.Read<VarInt>();
+                length = deserializer.Read<VarInt>();
 
             var array = new FileHash[length];
 
             for (var i = 0; i < length; i++)
-                array[i] = ReadFileHash(deserialiser);
+                array[i] = ReadFileHash(deserializer);
 
             return array;
         }
@@ -91,9 +111,9 @@ namespace PokeD.Core.Extensions
             serializer.Write(value.Name);
             serializer.Write(value.Hash);
         }
-        private static FileHash ReadFileHash(PacketDeserialiser deserialiser, int length = 0)
+        private static FileHash ReadFileHash(PacketDeserializer deserializer, int length = 0)
         {
-            return new FileHash() { Name = deserialiser.Read<string>(), Hash = deserialiser.Read<string>() };
+            return new FileHash() { Name = deserializer.Read<string>(), Hash = deserializer.Read<string>() };
         }
 
         
@@ -104,15 +124,15 @@ namespace PokeD.Core.Extensions
             foreach (var imageResponse in value)
                 serializer.Write(imageResponse);
         }
-        private static ImageResponse[] ReadImageResponseArray(PacketDeserialiser deserialiser, int length = 0)
+        private static ImageResponse[] ReadImageResponseArray(PacketDeserializer deserializer, int length = 0)
         {
             if (length == 0)
-                length = deserialiser.Read<VarInt>();
+                length = deserializer.Read<VarInt>();
 
             var array = new ImageResponse[length];
 
             for (var i = 0; i < length; i++)
-                array[i] = ReadImageResponse(deserialiser);
+                array[i] = ReadImageResponse(deserializer);
 
             return array;
         }
@@ -124,15 +144,15 @@ namespace PokeD.Core.Extensions
             foreach (var tileSetResponse in value)
                 serializer.Write(tileSetResponse);
         }
-        private static TileSetResponse[] ReadTileSetResponseArray(PacketDeserialiser deserialiser, int length = 0)
+        private static TileSetResponse[] ReadTileSetResponseArray(PacketDeserializer deserializer, int length = 0)
         {
             if (length == 0)
-                length = deserialiser.Read<VarInt>();
+                length = deserializer.Read<VarInt>();
 
             var array = new TileSetResponse[length];
 
             for (var i = 0; i < length; i++)
-                array[i] = ReadTileSetResponse(deserialiser);
+                array[i] = ReadTileSetResponse(deserializer);
 
             return array;
         }
@@ -142,9 +162,9 @@ namespace PokeD.Core.Extensions
             serializer.Write(value.Name);
             serializer.Write(value.ImageData);
         }
-        private static ImageResponse ReadImageResponse(PacketDeserialiser deserialiser, int length = 0)
+        private static ImageResponse ReadImageResponse(PacketDeserializer deserializer, int length = 0)
         {
-            return new ImageResponse() { Name = deserialiser.Read<string>(), ImageData = deserialiser.Read<byte[]>() };
+            return new ImageResponse() { Name = deserializer.Read<string>(), ImageData = deserializer.Read<byte[]>() };
         }
 
         private static void WriteTileSetResponse(PacketSerializer serializer, TileSetResponse value, bool writeDefaultLength = true)
@@ -152,9 +172,9 @@ namespace PokeD.Core.Extensions
             serializer.Write(value.Name);
             serializer.Write(value.TileSetData);
         }
-        private static TileSetResponse ReadTileSetResponse(PacketDeserialiser deserialiser, int length = 0)
+        private static TileSetResponse ReadTileSetResponse(PacketDeserializer deserializer, int length = 0)
         {
-            return new TileSetResponse() { Name = deserialiser.Read<string>(), TileSetData = deserialiser.Read<string>() };
+            return new TileSetResponse() { Name = deserializer.Read<string>(), TileSetData = deserializer.Read<string>() };
         }
 
 
@@ -166,9 +186,9 @@ namespace PokeD.Core.Extensions
             serializer.Write(value.PPCurrent);
             serializer.Write(value.PPUps);
         }
-        private static Attack ReadAttack(PacketDeserialiser deserialiser, int length = 0)
+        private static Attack ReadAttack(PacketDeserializer deserializer, int length = 0)
         {
-            return new Attack(deserialiser.Read<short>(), deserialiser.Read<byte>(), deserialiser.Read<byte>());
+            return new Attack(deserializer.Read<short>(), deserializer.Read<byte>(), deserializer.Read<byte>());
         }
 
         /*
@@ -198,15 +218,15 @@ namespace PokeD.Core.Extensions
             serializer.Write(value.SpecialDefense);
             serializer.Write(value.Speed);
         }
-        private static Stats ReadStats(PacketDeserialiser deserialiser, int length = 0)
+        private static Stats ReadStats(PacketDeserializer deserializer, int length = 0)
         {
             return new Stats(
-                deserialiser.Read<short>(),
-                deserialiser.Read<short>(),
-                deserialiser.Read<short>(),
-                deserialiser.Read<short>(),
-                deserialiser.Read<short>(),
-                deserialiser.Read<short>());
+                deserializer.Read<short>(),
+                deserializer.Read<short>(),
+                deserializer.Read<short>(),
+                deserializer.Read<short>(),
+                deserializer.Read<short>(),
+                deserializer.Read<short>());
         }
 
         private static void WriteCatchInfo(PacketSerializer serializer, CatchInfo value, bool writeDefaultLength = true)
@@ -218,16 +238,16 @@ namespace PokeD.Core.Extensions
             serializer.Write(value.PokeballID);
             serializer.Write(value.Nickname);
         }
-        private static CatchInfo ReadCatchInfo(PacketDeserialiser deserialiser, int length = 0)
+        private static CatchInfo ReadCatchInfo(PacketDeserializer deserializer, int length = 0)
         {
             return new CatchInfo
             {
-                Method = deserialiser.Read<string>(),
-                Location = deserialiser.Read<string>(),
-                TrainerName = deserialiser.Read<string>(),
-                TrainerID = deserialiser.Read<ushort>(),
-                PokeballID = deserialiser.Read<byte>(),
-                Nickname = deserialiser.Read<string>()
+                Method = deserializer.Read<string>(),
+                Location = deserializer.Read<string>(),
+                TrainerName = deserializer.Read<string>(),
+                TrainerID = deserializer.Read<ushort>(),
+                PokeballID = deserializer.Read<byte>(),
+                Nickname = deserializer.Read<string>()
             };
         }
 
@@ -251,7 +271,7 @@ namespace PokeD.Core.Extensions
             stream.Write(value.HeldItem);
             */
         }
-        private static Monster ReadMonster(PacketDeserialiser deserialiser, int length = 0)
+        private static Monster ReadMonster(PacketDeserializer deserializer, int length = 0)
         {
             return null;
             /*
@@ -282,23 +302,23 @@ namespace PokeD.Core.Extensions
 
 
         private static void WriteMonsterTeam(PacketSerializer serializer, MonsterTeam value, bool writeDefaultLength = true) { }
-        private static MonsterTeam ReadMonsterTeam(PacketDeserialiser deserialiser, int length = 0) { return default(MonsterTeam); }
+        private static MonsterTeam ReadMonsterTeam(PacketDeserializer deserializer, int length = 0) { return default; }
 
 
         private static void WriteMetaSwitch(PacketSerializer serializer, MetaSwitch value, bool writeDefaultLength = true) { serializer.Write(value.Meta); }
-        private static MetaSwitch ReadMetaSwitch(PacketDeserialiser deserialiser, int length = 0) => new MetaSwitch(deserialiser.Read<byte>());
+        private static MetaSwitch ReadMetaSwitch(PacketDeserializer deserializer, int length = 0) => new MetaSwitch(deserializer.Read<byte>());
 
         private static void WriteMetaPosition(PacketSerializer serializer, MetaPosition value, bool writeDefaultLength = true) { serializer.Write(value.Meta); }
-        private static MetaPosition ReadMetaPosition(PacketDeserialiser deserialiser, int length = 0) => new MetaPosition(deserialiser.Read<long>());
+        private static MetaPosition ReadMetaPosition(PacketDeserializer deserializer, int length = 0) => new MetaPosition(deserializer.Read<long>());
 
         private static void WriteBattleState(PacketSerializer serializer, BattleState value, bool writeDefaultLength = true) {  }
-        private static BattleState ReadBattleState(PacketDeserialiser deserialiser, int length = 0) { return default(BattleState); }
+        private static BattleState ReadBattleState(PacketDeserializer deserializer, int length = 0) { return default; }
 
         private static void WriteMetaAttack(PacketSerializer serializer, MetaAttack value, bool writeDefaultLength = true) { serializer.Write(value.Meta); }
-        private static MetaAttack ReadMetaAttack(PacketDeserialiser deserialiser, int length = 0) => new MetaAttack(deserialiser.Read<byte>());
+        private static MetaAttack ReadMetaAttack(PacketDeserializer deserializer, int length = 0) => new MetaAttack(deserializer.Read<byte>());
 
         private static void WriteMetaItem(PacketSerializer serializer, MetaItem value, bool writeDefaultLength = true) { serializer.Write(value.Meta); }
-        private static MetaItem ReadMetaItem(PacketDeserialiser deserialiser, int length = 0) => new MetaItem(deserialiser.Read<short>());
+        private static MetaItem ReadMetaItem(PacketDeserializer deserializer, int length = 0) => new MetaItem(deserializer.Read<short>());
 
 
         private static void WriteBan(PacketSerializer serializer, Ban value, bool writeDefaultLength = true)
@@ -309,14 +329,14 @@ namespace PokeD.Core.Extensions
             serializer.Write(value.UnBanTime);
             serializer.Write(value.Reason);
         }
-        private static Ban ReadBan(PacketDeserialiser deserialiser, int length = 0)
+        private static Ban ReadBan(PacketDeserializer deserializer, int length = 0)
         {
             var value = new Ban();
-            value.Name = deserialiser.Read(value.Name);
-            value.IP = deserialiser.Read(value.IP);
-            value.BanTime = deserialiser.Read(value.BanTime);
-            value.UnBanTime = deserialiser.Read(value.UnBanTime);
-            value.Reason = deserialiser.Read(value.Reason);
+            value.Name = deserializer.Read(value.Name);
+            value.IP = deserializer.Read(value.IP);
+            value.BanTime = deserializer.Read(value.BanTime);
+            value.UnBanTime = deserializer.Read(value.UnBanTime);
+            value.Reason = deserializer.Read(value.Reason);
 
             return value;
         }
@@ -325,10 +345,10 @@ namespace PokeD.Core.Extensions
         {
             serializer.Write(value.LogFileName);
         }
-        private static Log ReadLog(PacketDeserialiser deserialiser, int length = 0)
+        private static Log ReadLog(PacketDeserializer deserializer, int length = 0)
         {
             var value = new Log();
-            value.LogFileName = deserialiser.Read(value.LogFileName);
+            value.LogFileName = deserializer.Read(value.LogFileName);
 
             return value;
         }
@@ -339,12 +359,12 @@ namespace PokeD.Core.Extensions
             serializer.Write(value.LastIP);
             serializer.Write(value.LastSeen);
         }
-        private static PlayerDatabase ReadPlayerDatabase(PacketDeserialiser deserialiser, int length = 0)
+        private static PlayerDatabase ReadPlayerDatabase(PacketDeserializer deserializer, int length = 0)
         {
             var value = new PlayerDatabase();
-            value.Name = deserialiser.Read(value.Name);
-            value.LastIP = deserialiser.Read(value.LastIP);
-            value.LastSeen = deserialiser.Read(value.LastSeen);
+            value.Name = deserializer.Read(value.Name);
+            value.LastIP = deserializer.Read(value.LastIP);
+            value.LastSeen = deserializer.Read(value.LastSeen);
 
             return value;
         }
@@ -358,15 +378,15 @@ namespace PokeD.Core.Extensions
             serializer.Write(value.LevelFile);
             serializer.Write(value.PlayTime);
         }
-        private static PlayerInfo ReadPlayerInfo(PacketDeserialiser deserialiser, int length = 0)
+        private static PlayerInfo ReadPlayerInfo(PacketDeserializer deserializer, int length = 0)
         {
             var value = new PlayerInfo();
-            value.Name = deserialiser.Read(value.Name);
-            value.IP = deserialiser.Read(value.IP);
-            value.Ping = deserialiser.Read(value.Ping);
-            value.Position = deserialiser.Read(value.Position);
-            value.LevelFile = deserialiser.Read(value.LevelFile);
-            value.PlayTime = deserialiser.Read(value.PlayTime);
+            value.Name = deserializer.Read(value.Name);
+            value.IP = deserializer.Read(value.IP);
+            value.Ping = deserializer.Read(value.Ping);
+            value.Position = deserializer.Read(value.Position);
+            value.LevelFile = deserializer.Read(value.LevelFile);
+            value.PlayTime = deserializer.Read(value.PlayTime);
 
             return value;
         }
@@ -379,15 +399,15 @@ namespace PokeD.Core.Extensions
             foreach (var playerInfo in value)
                 serializer.Write(playerInfo);
         }
-        private static Ban[] ReadBanArray(PacketDeserialiser deserialiser, int length = 0)
+        private static Ban[] ReadBanArray(PacketDeserializer deserializer, int length = 0)
         {
             if (length == 0)
-                length = deserialiser.Read<VarInt>();
+                length = deserializer.Read<VarInt>();
 
             var array = new Ban[length];
 
             for (var i = 0; i < length; i++)
-                array[i] = ReadBan(deserialiser);
+                array[i] = ReadBan(deserializer);
 
             return array;
         }
@@ -399,15 +419,15 @@ namespace PokeD.Core.Extensions
             foreach (var playerInfo in value)
                 serializer.Write(playerInfo);
         }
-        private static Log[] ReadLogArray(PacketDeserialiser deserialiser, int length = 0)
+        private static Log[] ReadLogArray(PacketDeserializer deserializer, int length = 0)
         {
             if (length == 0)
-                length = deserialiser.Read<VarInt>();
+                length = deserializer.Read<VarInt>();
 
             var array = new Log[length];
 
             for (var i = 0; i < length; i++)
-                array[i] = ReadLog(deserialiser);
+                array[i] = ReadLog(deserializer);
 
             return array;
         }
@@ -419,15 +439,15 @@ namespace PokeD.Core.Extensions
             foreach (var playerInfo in value)
                 serializer.Write(playerInfo);
         }
-        private static PlayerDatabase[] ReadPlayerDatabaseArray(PacketDeserialiser deserialiser, int length = 0)
+        private static PlayerDatabase[] ReadPlayerDatabaseArray(PacketDeserializer deserializer, int length = 0)
         {
             if (length == 0)
-                length = deserialiser.Read<VarInt>();
+                length = deserializer.Read<VarInt>();
 
             var array = new PlayerDatabase[length];
 
             for (var i = 0; i < length; i++)
-                array[i] = ReadPlayerDatabase(deserialiser);
+                array[i] = ReadPlayerDatabase(deserializer);
 
             return array;
         }
@@ -439,15 +459,15 @@ namespace PokeD.Core.Extensions
             foreach (var playerInfo in value)
                 serializer.Write(playerInfo);
         }
-        private static PlayerInfo[] ReadPlayerInfoArray(PacketDeserialiser deserialiser, int length = 0)
+        private static PlayerInfo[] ReadPlayerInfoArray(PacketDeserializer deserializer, int length = 0)
         {
             if (length == 0)
-                length = deserialiser.Read<VarInt>();
+                length = deserializer.Read<VarInt>();
 
             var array = new PlayerInfo[length];
 
             for (var i = 0; i < length; i++)
-                array[i] = ReadPlayerInfo(deserialiser);
+                array[i] = ReadPlayerInfo(deserializer);
 
             return array;
         }

@@ -3,8 +3,8 @@ using System.Globalization;
 using System.Linq;
 
 using Aragas.Network.Attributes;
-using Aragas.Network.Data;
 
+using PokeD.Core.Data;
 using PokeD.Core.Extensions;
 using PokeD.Core.IO;
 
