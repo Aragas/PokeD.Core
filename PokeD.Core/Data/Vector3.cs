@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
+#if NETSTANDARD2_1
+    using Math = System.MathF;
+#endif
+
 namespace PokeD.Core.Data
 {
     /// <summary>
@@ -27,70 +31,70 @@ namespace PokeD.Core.Data
 
         #region Math
 
-        public static Vector3 Floor(Vector3 value) => new Vector3(Math.Floor(value.X), Math.Floor(value.Y), Math.Floor(value.Z));
-        public Vector3 Floor() => Floor(this);
+        public static Vector3 Floor(in Vector3 value) => new Vector3(Math.Floor(value.X), Math.Floor(value.Y), Math.Floor(value.Z));
+        public Vector3 Floor() => Floor(in this);
 
-        public static Vector3 Ceiling(Vector3 value) => new Vector3(Math.Ceiling(value.X), Math.Ceiling(value.Y), Math.Ceiling(value.Z));
-        public Vector3 Ceiling() => Ceiling(this);
+        public static Vector3 Ceiling(in Vector3 value) => new Vector3(Math.Ceiling(value.X), Math.Ceiling(value.Y), Math.Ceiling(value.Z));
+        public Vector3 Ceiling() => Ceiling(in this);
 
 
         private static float Square(float num) => num * num;
-        public static float DistanceTo(Vector3 a, Vector3 b) => a.DistanceTo(b);
-        public float DistanceTo(Vector3 other) => (float)Math.Sqrt(Square(other.X - X) + Square(other.Y - Y) + Square(other.Z - Z));
+        public static float DistanceTo(in Vector3 a, in Vector3 b) => a.DistanceTo(in b);
+        public float DistanceTo(in Vector3 other) => (float) Math.Sqrt(Square(other.X - X) + Square(other.Y - Y) + Square(other.Z - Z));
 
         /// <summary>
         /// Finds the distance of this vector from Vector3.Zero
         /// </summary>
-        public float Distance() => DistanceTo(Zero);
+        public float Distance() => DistanceTo(in Zero);
 
-        public static Vector3 Min(Vector3 a, Vector3 b) => new Vector3(Math.Min(a.X, b.X), Math.Min(a.Y, b.Y), Math.Min(a.Z, b.Z));
-        public Vector3 Min(Vector3 other) => new Vector3(Math.Min(X, other.X), Math.Min(Y, other.Y), Math.Min(Z, other.Z));
+        public static Vector3 Min(in Vector3 a, in Vector3 b) => new Vector3(Math.Min(a.X, b.X), Math.Min(a.Y, b.Y), Math.Min(a.Z, b.Z));
+        public Vector3 Min(in Vector3 other) => new Vector3(Math.Min(X, other.X), Math.Min(Y, other.Y), Math.Min(Z, other.Z));
 
-        public static Vector3 Max(Vector3 a, Vector3 b) => new Vector3(Math.Max(a.X, b.X), Math.Max(a.Y, b.Y), Math.Max(a.Z, b.Z));
-        public Vector3 Max(Vector3 other) => new Vector3(Math.Max(X, other.X), Math.Max(Y, other.Y), Math.Max(Z, other.Z));
+        public static Vector3 Max(in Vector3 a, Vector3 b) => new Vector3(Math.Max(a.X, b.X), Math.Max(a.Y, b.Y), Math.Max(a.Z, b.Z));
+        public Vector3 Max(in Vector3 other) => new Vector3(Math.Max(X, other.X), Math.Max(Y, other.Y), Math.Max(Z, other.Z));
 
-        public static Vector3 Delta(Vector3 a, Vector3 b) => a - b;
-        public Vector3 Delta(Vector3 other) => this - other;
+        public static Vector3 Delta(in Vector3 a, in Vector3 b) => a - b;
+        public Vector3 Delta(in Vector3 other) => this - other;
 
-        public static Vector3 Normalize(Vector3 value)
+        public static Vector3 Normalize(in Vector3 value)
         {
-            var factor = 1f / DistanceTo(value, Zero);
+            var factor = 1f / DistanceTo(in value, in Zero);
             return value * factor;
         }
-        public Vector3 Normalize() => Normalize(this);
+        public Vector3 Normalize() => Normalize(in this);
 
         #endregion
 
         #region Operators
 
-        public static Vector3 operator -(Vector3 a) => new Vector3(-a.X, -a.Y, -a.Z);
-        public static Vector3 operator ++(Vector3 a) => new Vector3(a.X, a.Y, a.Z) + One;
-        public static Vector3 operator --(Vector3 a) => new Vector3(a.X, a.Y, a.Z) - One;
+        public static Vector3 operator -(in Vector3 a) => new Vector3(-a.X, -a.Y, -a.Z);
+        public static Vector3 operator ++(in Vector3 a) => new Vector3(a.X, a.Y, a.Z) + One;
+        public static Vector3 operator --(in Vector3 a) => new Vector3(a.X, a.Y, a.Z) - One;
 
-        public static bool operator !=(Vector3 a, Vector3 b) => !a.Equals(b);
-        public static bool operator ==(Vector3 a, Vector3 b) => a.Equals(b);
-        public static bool operator >(Vector3 a, Vector3 b) => a.X > b.X && a.Y > b.Y && a.Z > b.Z;
-        public static bool operator <(Vector3 a, Vector3 b) => a.X < b.X && a.Y < b.Y && a.Z < b.Z;
-        public static bool operator >=(Vector3 a, Vector3 b) => a.X >= b.X && a.Y >= b.Y && a.Z >= b.Z;
-        public static bool operator <=(Vector3 a, Vector3 b) => a.X <= b.X && a.Y <= b.Y && a.Z <= b.Z;
+        public static bool operator !=(in Vector3 a, in Vector3 b) => !a.Equals(in b);
+        public static bool operator ==(in Vector3 a, in Vector3 b) => a.Equals(in b);
+        public static bool operator >(in Vector3 a, in Vector3 b) => a.X > b.X && a.Y > b.Y && a.Z > b.Z;
+        public static bool operator <(in Vector3 a, in Vector3 b) => a.X < b.X && a.Y < b.Y && a.Z < b.Z;
+        public static bool operator >=(in Vector3 a, in Vector3 b) => a.X >= b.X && a.Y >= b.Y && a.Z >= b.Z;
+        public static bool operator <=(in Vector3 a, in Vector3 b) => a.X <= b.X && a.Y <= b.Y && a.Z <= b.Z;
 
-        public static Vector3 operator +(Vector3 a, Vector3 b) => new Vector3(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
-        public static Vector3 operator -(Vector3 a, Vector3 b) => new Vector3(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
-        public static Vector3 operator *(Vector3 a, Vector3 b) => new Vector3(a.X * b.X, a.Y * b.Y, a.Z * b.Z);
-        public static Vector3 operator /(Vector3 a, Vector3 b) => new Vector3(a.X / b.X, a.Y / b.Y, a.Z / b.Z);
-        public static Vector3 operator %(Vector3 a, Vector3 b) => new Vector3(a.X % b.X, a.Y % b.Y, a.Z % b.Z);
+        public static Vector3 operator +(in Vector3 a, in Vector3 b) => new Vector3(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
+        public static Vector3 operator -(in Vector3 a, in Vector3 b) => new Vector3(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
+        public static Vector3 operator *(in Vector3 a, in Vector3 b) => new Vector3(a.X * b.X, a.Y * b.Y, a.Z * b.Z);
+        public static Vector3 operator /(in Vector3 a, in Vector3 b) => new Vector3(a.X / b.X, a.Y / b.Y, a.Z / b.Z);
+        public static Vector3 operator %(in Vector3 a, in Vector3 b) => new Vector3(a.X % b.X, a.Y % b.Y, a.Z % b.Z);
 
-        public static Vector3 operator +(Vector3 a, float b) => new Vector3(a.X + b, a.Y + b, a.Z + b);
-        public static Vector3 operator -(Vector3 a, float b) => new Vector3(a.X - b, a.Y - b, a.Z - b);
-        public static Vector3 operator *(Vector3 a, float b) => new Vector3(a.X * b, a.Y * b, a.Z * b);
-        public static Vector3 operator /(Vector3 a, float b) => new Vector3(a.X / b, a.Y / b, a.Z / b);
-        public static Vector3 operator %(Vector3 a, float b) => new Vector3(a.X % b, a.Y % b, a.Z % b);
+        public static Vector3 operator +(in Vector3 a, float b) => new Vector3(a.X + b, a.Y + b, a.Z + b);
+        public static Vector3 operator -(in Vector3 a, float b) => new Vector3(a.X - b, a.Y - b, a.Z - b);
+        public static Vector3 operator *(in Vector3 a, float b) => new Vector3(a.X * b, a.Y * b, a.Z * b);
+        public static Vector3 operator /(in Vector3 a, float b) => new Vector3(a.X / b, a.Y / b, a.Z / b);
+        public static Vector3 operator %(in Vector3 a, float b) => new Vector3(a.X % b, a.Y % b, a.Z % b);
 
-        public static Vector3 operator +(float a, Vector3 b) => new Vector3(a + b.X, a + b.Y, a + b.Z);
-        public static Vector3 operator -(float a, Vector3 b) => new Vector3(a - b.X, a - b.Y, a - b.Z);
-        public static Vector3 operator *(float a, Vector3 b) => new Vector3(a * b.X, a * b.Y, a * b.Z);
-        public static Vector3 operator /(float a, Vector3 b) => new Vector3(a / b.X, a / b.Y, a / b.Z);
-        public static Vector3 operator %(float a, Vector3 b) => new Vector3(a % b.X, a % b.Y, a % b.Z);
+        public static Vector3 operator +(float a, in Vector3 b) => new Vector3(a + b.X, a + b.Y, a + b.Z);
+        public static Vector3 operator -(float a, in Vector3 b) => new Vector3(a - b.X, a - b.Y, a - b.Z);
+        public static Vector3 operator *(float a, in Vector3 b) => new Vector3(a * b.X, a * b.Y, a * b.Z);
+        public static Vector3 operator /(float a, in Vector3 b) => new Vector3(a / b.X, a / b.Y, a / b.Z);
+        public static Vector3 operator %(float a, in Vector3 b) => new Vector3(a % b.X, a % b.Y, a % b.Z);
 
         #endregion
 
@@ -124,12 +128,12 @@ namespace PokeD.Core.Data
                 return Equals(f);
 
             if (obj is Vector3 v3)
-                return Equals(v3);
+                return Equals(in v3);
 
             return false;
         }
         public bool Equals(float other) => other.Equals(X) && other.Equals(Y) && other.Equals(Z);
-        public bool Equals(Vector3 other) => other.X.Equals(X) && other.Y.Equals(Y) && other.Z.Equals(Z);
+        public bool Equals(in Vector3 other) => other.X.Equals(X) && other.Y.Equals(Y) && other.Z.Equals(Z);
 
         public override int GetHashCode() => X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
     }

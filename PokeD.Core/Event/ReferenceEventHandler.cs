@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace PokeD.Core.Event
@@ -33,11 +32,11 @@ namespace PokeD.Core.Event
             }
 
 
-            private bool Equals(DelegateWithReference x, DelegateWithReference y) => x.Delegate.Equals(y.Delegate);
-            public override bool Equals(object obj) => obj is DelegateWithReference storage && Equals(this, storage);
+            private bool Equals(in DelegateWithReference x, in DelegateWithReference y) => x.Delegate.Equals(y.Delegate);
+            public override bool Equals(object obj) => obj is DelegateWithReference storage && Equals(in this, in storage);
 
-            private int GetHashCode(DelegateWithReference storage) => storage.Object.GetHashCode() ^ storage.Delegate.GetHashCode();
-            public override int GetHashCode() => GetHashCode(this);
+            private int GetHashCode(in DelegateWithReference storage) => storage.Object.GetHashCode() ^ storage.Delegate.GetHashCode();
+            public override int GetHashCode() => GetHashCode(in this);
         }
         private List<DelegateWithReference> Subscribers { get; } = new List<DelegateWithReference>();
 
@@ -70,7 +69,7 @@ namespace PokeD.Core.Event
                             foreach (var storage in Subscribers)
                                 Logger.Log(LogType.Debug, storage.Object != null ? $"Object {storage.ObjectType} forgot to unsubscribe" : $"Object of type {storage.ObjectType} was disposed but forgot to unsubscribe!");
 #if DEBUG
-                            Debugger.Break();
+                            System.Diagnostics.Debugger.Debugger.Break();
 #endif
                         }
                     }
