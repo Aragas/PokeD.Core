@@ -13,31 +13,6 @@ namespace PokeD.Core
         Info,
 
         /// <summary>
-        /// Chat Log Type.
-        /// </summary>
-        Chat,
-
-        /// <summary>
-        /// Server Chat Log Type.
-        /// </summary>
-        Event,
-
-        /// <summary>
-        /// Trade Log Type.
-        /// </summary>
-        Trade,
-
-        /// <summary>
-        /// PvP Log Type.
-        /// </summary>
-        PvP,
-
-        /// <summary>
-        /// Command Log Type.
-        /// </summary>
-        Command,
-
-        /// <summary>
         /// Should be reported.
         /// </summary>
         Error,
@@ -50,6 +25,32 @@ namespace PokeD.Core
         /// Debug Log Type.
         /// </summary>
         Debug,
+
+
+        /// <summary>
+        /// Server Chat Log Type.
+        /// </summary>
+        Event,
+
+        /// <summary>
+        /// Command Log Type.
+        /// </summary>
+        Command,
+
+        /// <summary>
+        /// Chat Log Type.
+        /// </summary>
+        Chat,
+
+        /// <summary>
+        /// Trade Log Type.
+        /// </summary>
+        Trade,
+
+        /// <summary>
+        /// PvP Log Type.
+        /// </summary>
+        PvP,
     }
 
     public class LogEventArgs : EventArgs
@@ -67,12 +68,12 @@ namespace PokeD.Core
         
         public static bool EnableDebug { get; set; }
 
-        public static void Log(LogType type, string message)
+        public static void Log(LogType type, string message, string format = "[{0:yyyy-MM-dd HH:mm:ss}] {1}")
         {
-            if(!EnableDebug && type == LogType.Debug)
+            if(type == LogType.Debug && !EnableDebug)
                 return;
 
-            LogMessage?.Invoke(null,new LogEventArgs(DateTime.Now, $"[{type}]: {message}", "[{0:yyyy-MM-dd HH:mm:ss}] {1}"));
+            LogMessage?.Invoke(null, new LogEventArgs(DateTime.Now, $"[{type}]: {message}", "[{0:yyyy-MM-dd HH:mm:ss}] {1}"));
         }
 
         public static void LogChatMessage(string player, string chatChannel, string message) => LogMessage?.Invoke(null, new LogEventArgs(DateTime.Now, $"[{LogType.Chat}]: <{chatChannel}> {player}: {message}", "[{0:yyyy-MM-dd HH:mm:ss}] {1}"));
