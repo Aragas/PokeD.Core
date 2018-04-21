@@ -7,6 +7,8 @@ namespace PokeD.Core.Event
     /// </summary>
     public abstract class BaseEventHandler<TEventArgs> : IDisposable where TEventArgs : EventArgs
     {
+        private bool IsDisposed { get; set; }
+
         // TODO: Find some way to make the class invokable
         public static explicit operator Action<object, TEventArgs>(BaseEventHandler<TEventArgs> handler) => handler.Invoke;
         protected abstract void Invoke(object sender, TEventArgs eventArgs);
@@ -21,7 +23,6 @@ namespace PokeD.Core.Event
         public abstract BaseEventHandler<TEventArgs> Unsubscribe(EventHandler<TEventArgs> @delegate);
 
 
-        private bool _disposed;
         public void Dispose()
         {
             Dispose(true);
@@ -29,13 +30,13 @@ namespace PokeD.Core.Event
         }
         protected virtual void Dispose(bool disposing)
         {
-            if (!_disposed)
+            if (!IsDisposed)
             {
                 if (disposing)
                 {
 
                 }
-                _disposed = true;
+                IsDisposed = true;
             }
         }
         ~BaseEventHandler()

@@ -40,6 +40,8 @@ namespace PokeD.Core.Event
         }
         private List<DelegateWithReference> Subscribers { get; } = new List<DelegateWithReference>();
 
+        private bool IsDisposed { get; set; }
+
         public override BaseEventHandler<TEventArgs> Subscribe(object @object, EventHandler<TEventArgs> @delegate) { lock (Subscribers) { Subscribers.Add(new DelegateWithReference(@object, @delegate)); return this; } }
         public override BaseEventHandler<TEventArgs> Subscribe((object Object, EventHandler<TEventArgs> Delegate) tuple) { lock (Subscribers) { Subscribers.Add(new DelegateWithReference(tuple)); return this; } }
         public override BaseEventHandler<TEventArgs> Subscribe(EventHandler<TEventArgs> @delegate) { lock (Subscribers) { Subscribers.Add(new DelegateWithReference(@delegate)); return this; } }
@@ -54,10 +56,9 @@ namespace PokeD.Core.Event
             }
         }
 
-        private bool _disposed;
         protected override void Dispose(bool disposing)
         {
-            if (!_disposed)
+            if (!IsDisposed)
             {
                 if (disposing)
                 {
@@ -69,7 +70,7 @@ namespace PokeD.Core.Event
                             foreach (var storage in Subscribers)
                                 Logger.Log(LogType.Debug, storage.Object != null ? $"Object {storage.ObjectType} forgot to unsubscribe" : $"Object of type {storage.ObjectType} was disposed but forgot to unsubscribe!");
 #if DEBUG
-                            System.Diagnostics.Debugger.Debugger.Break();
+                            System.Diagnostics.Debugger.Break();
 #endif
                         }
                     }
@@ -77,7 +78,7 @@ namespace PokeD.Core.Event
                     Subscribers.Clear();
                 }
 
-                _disposed = true;
+                IsDisposed = true;
             }
             base.Dispose(disposing);
         }

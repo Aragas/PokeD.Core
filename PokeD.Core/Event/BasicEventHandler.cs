@@ -11,6 +11,8 @@ namespace PokeD.Core.Event
     {
         private event EventHandler<TEventArgs> EventHandler;
 
+        private bool IsDisposed { get; set; }
+
         public override BaseEventHandler<TEventArgs> Subscribe(object @object, EventHandler<TEventArgs> @delegate) { EventHandler += @delegate; return this; }
         public override BaseEventHandler<TEventArgs> Subscribe((object Object, EventHandler<TEventArgs> Delegate) tuple) { EventHandler += tuple.Delegate; return this; }
         public override BaseEventHandler<TEventArgs> Subscribe(EventHandler<TEventArgs> @delegate) { EventHandler += @delegate; return this; }
@@ -18,10 +20,9 @@ namespace PokeD.Core.Event
 
         protected override void Invoke(object sender, TEventArgs e) { EventHandler?.Invoke(sender, e); }
 
-        private bool _disposed;
         protected override void Dispose(bool disposing)
         {
-            if (!_disposed)
+            if (!IsDisposed)
             {
                 if (disposing)
                 {
@@ -34,7 +35,7 @@ namespace PokeD.Core.Event
                     }
                 }
 
-                _disposed = true;
+                IsDisposed = true;
             }
             base.Dispose(disposing);
         }

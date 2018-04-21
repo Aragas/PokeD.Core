@@ -41,6 +41,8 @@ namespace PokeD.Core.Event
         }
         private List<DelegateWithWeakReference> Subscribers { get; } = new List<DelegateWithWeakReference>();
 
+        private bool IsDisposed { get; set; }
+
         public override BaseEventHandler<TEventArgs> Subscribe(object @object, EventHandler<TEventArgs> @delegate) { lock (Subscribers) { Subscribers.Add(new DelegateWithWeakReference(@object, @delegate)); return this; } }
         public override BaseEventHandler<TEventArgs> Subscribe((object Object, EventHandler<TEventArgs> Delegate) tuple) { lock (Subscribers) { Subscribers.Add(new DelegateWithWeakReference(tuple)); return this; } }
         public override BaseEventHandler<TEventArgs> Subscribe(EventHandler<TEventArgs> @delegate) { lock (Subscribers) { Subscribers.Add(new DelegateWithWeakReference(@delegate)); return this; } }
@@ -55,10 +57,9 @@ namespace PokeD.Core.Event
             }
         }
 
-        private bool _disposed;
         protected override void Dispose(bool disposing)
         {
-            if (!_disposed)
+            if (!IsDisposed)
             {
                 if (disposing)
                 {
@@ -77,7 +78,7 @@ namespace PokeD.Core.Event
                     Subscribers.Clear();
                 }
 
-                _disposed = true;
+                IsDisposed = true;
             }
             base.Dispose(disposing);
         }
