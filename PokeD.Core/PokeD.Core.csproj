@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <PackageReference Include="Aragas.Network-2" Version="2.2.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="PCLExt.FileStorage" Version="1.3.2" />
   </ItemGroup>
 
