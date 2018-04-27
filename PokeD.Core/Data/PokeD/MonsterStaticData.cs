@@ -199,7 +199,7 @@ namespace PokeD.Core.Data.PokeD
                             evolutionConditions.Add(new EvolvesTo.ByMonsterInTeam((short) evolutionDetail.PartySpecies.ID));
 
                         if (evolutionDetail.PartyType != null)
-                            ;
+                            evolutionConditions.Add(new EvolvesTo.ByMonsterTypeInTeam(Cached<MonsterTypeStaticData>.Get((byte) evolutionDetail.PartySpecies.ID)));
 
                         if (evolutionDetail.TradeSpecies != null)
                             evolutionConditions.Add(new EvolvesTo.ByTradeMonster((short) evolutionDetail.TradeSpecies.ID));
