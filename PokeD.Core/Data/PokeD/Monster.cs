@@ -180,7 +180,7 @@ namespace PokeD.Core.Data.PokeD
                 Method = dict["CatchMethod"],
                 Location = dict["CatchLocation"],
                 TrainerName = dict["CatchTrainer"],
-                TrainerID = (ushort)int.Parse(dict["OT"]).BitsGet(0, 16) == ushort.MaxValue ? (ushort)int.Parse(dict["OT"]).BitsGet(16, 32) : (ushort)int.Parse(dict["OT"]).BitsGet(0, 16)
+                TrainerID = (ushort) int.Parse(dict["OT"]).BitsGet(0, 16) == ushort.MaxValue ? (ushort) int.Parse(dict["OT"]).BitsGet(16, 32) : (ushort) int.Parse(dict["OT"]).BitsGet(0, 16)
             };
 
             if(short.TryParse(dict["Item"], out var item) && item != 0)
