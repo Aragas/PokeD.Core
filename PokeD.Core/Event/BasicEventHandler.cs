@@ -26,7 +26,7 @@ namespace PokeD.Core.Event
             {
                 if (disposing)
                 {
-                    if (EventHandler != null && EventHandler.GetInvocationList().Any())
+                    if (EventHandler?.GetInvocationList().Any() == true)
                     {
                         Logger.Log(LogType.Debug, "Leaking events!");
 #if DEBUG
