@@ -51,7 +51,7 @@ namespace PokeD.Core.Data.PokeD
         {
             get
             {
-                if (_habitat is null)
+                if (_habitat == null)
                 {
                     var habitat = DataFetcher.GetApiObject<PokemonSpecies>(ID).Result.Habitat?.GetObject().Result;
                     _habitat = habitat != null ? new Habitat(habitat.ID, habitat.Names.Single(GetLocalizedName).Name) : Habitat.None;
@@ -65,7 +65,7 @@ namespace PokeD.Core.Data.PokeD
         {
             get
             {
-                if (_color is null)
+                if (_color == null)
                 {
                     var color = DataFetcher.GetApiObject<PokemonSpecies>(ID).Result.Colours.GetObject().Result;
                     _color = new Color(color.ID, color.Names.Single(GetLocalizedName).Name);
@@ -79,7 +79,7 @@ namespace PokeD.Core.Data.PokeD
         {
             get
             {
-                if (_shape is null)
+                if (_shape == null)
                 {
                     var shape = DataFetcher.GetApiObject<PokemonSpecies>(ID).Result.Shape.GetObject().Result;
                     _shape = new Shape(shape.ID, shape.Names.Single(GetLocalizedName).Name);

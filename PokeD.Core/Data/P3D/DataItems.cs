@@ -16,7 +16,7 @@ namespace PokeD.Core.Data.P3D
 
         public DataItems(params string[] dataItems)
         {
-            if(dataItems is null)
+            if(dataItems == null)
                 dataItems = new string[0];
             
             _dataItems = dataItems;
@@ -40,7 +40,7 @@ namespace PokeD.Core.Data.P3D
                     Array.Resize(ref _dataItems, index + 1);
 
                 // if string is null, make it empty.
-                if (value is null)
+                if (value == null)
                     value = string.Empty;
                 
                 _dataItems[index] = value;

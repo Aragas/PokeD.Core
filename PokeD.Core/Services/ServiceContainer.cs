@@ -11,19 +11,19 @@ namespace PokeD.Core.Services
 
         private static bool IsAssignableFrom(Type type, object value)
         {
-            if (type is null)
+            if (type == null)
                 throw new ArgumentNullException(nameof(type));
-            if (value is null)
+            if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
             return IsAssignableFromType(type, value.GetType());
         }
         private static bool IsAssignableFromType(Type type, Type objectType)
         {
-            if (type is null)
+            if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            if (objectType is null)
+            if (objectType == null)
                 throw new ArgumentNullException(nameof(objectType));
 
             if (type.GetTypeInfo().IsAssignableFrom(objectType.GetTypeInfo()))
@@ -36,9 +36,9 @@ namespace PokeD.Core.Services
         {
             var service = provider as IService;
 
-            if (type is null)
+            if (type == null)
                 throw new ArgumentNullException(nameof(type));
-            if (provider is null)
+            if (provider == null)
                 throw new ArgumentNullException(nameof(provider));
             if (!IsAssignableFrom(type, provider))
                 throw new ArgumentException("The provider does not match the specified service type!");
@@ -47,14 +47,14 @@ namespace PokeD.Core.Services
         }
         public void RemoveService(Type type)
         {
-            if (type is null)
+            if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
             _services.Remove(type);
         }
         public object GetService(Type type)
         {
-            if (type is null)
+            if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
             if (_services.TryGetValue(type, out var service))

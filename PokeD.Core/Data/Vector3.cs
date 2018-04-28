@@ -118,7 +118,7 @@ namespace PokeD.Core.Data
 
         public override bool Equals(object obj)
         {
-            if (obj is null)
+            if (obj == null)
                 return false;
 
             if (obj.GetType() != GetType())
