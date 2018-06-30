@@ -7,7 +7,7 @@ namespace PokeD.Core.IO
         public override byte[] GetBuffer() => new byte[0];
 
         // -- Anything 
-        public override void Write<T>(T value = default, bool writeDefaultLength = true) { }
+        public override void Write<T>(in T value = default, bool writeDefaultLength = true) { }
 
         public override void Dispose() { }
     }

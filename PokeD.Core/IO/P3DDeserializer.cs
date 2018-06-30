@@ -8,6 +8,6 @@ namespace PokeD.Core.IO
     {
         public P3DDeserializer() : base(Stream.Null) { }
 
-        public override T Read<T>(T value = default, int length = 0) => default;
+        public override T Read<T>(in T value = default, int length = 0) => default;
     }
 }
