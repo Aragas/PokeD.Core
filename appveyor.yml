@@ -6,6 +6,8 @@ configuration:
 platform: Any CPU
 
 environment:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
   COVERALLS_REPO_TOKEN:  
        secure: CCrbHxhmg6rtTk7kIU5WAEMzZ+tZGSSoVqpdAosFhqN1Fwt1X006XkaVqT4FdKXK
 
