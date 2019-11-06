@@ -1,9 +1,6 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
-#if NETSTANDARD2_1
-    using Math = System.MathF;
-#endif
+using Math = System.MathF;
 
 namespace PokeD.Core.Data
 {

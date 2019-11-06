@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 using Aragas.Network.Packets;
@@ -22,78 +22,97 @@ namespace PokeD.Core.Packets.P3D
 
         public override string ToString() => _value.ToString();
         public string ToString(IFormatProvider provider) => _value.ToString(provider);
+
+
+        public static bool operator ==(Origin left, Origin right) => left._value == right._value;
+        public static bool operator !=(Origin left, Origin right) => !(left == right);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj) => obj is Origin origin && Equals(origin);
+        public bool Equals(Origin other) => other._value.Equals(_value);
+
+        public override int GetHashCode() => HashCode.Combine(_value);
     }
-    
+
     public abstract class P3DPacket : PacketWithAttribute<int, P3DSerializer, P3DDeserializer>
     {
         public Origin Origin { get; set; }
 
-        public static float ProtocolVersion { get; set; } = 0.5f;
+        private static float _protocolVersion = 0.5f;
+        public static float ProtocolVersion
+        {
+            get { return _protocolVersion; }
+            set
+            {
+                _protocolVersion = value;
+                ProtocolVersionString = ProtocolVersion.ToString(CultureInfo);
+            }
+        }
+        public static string ProtocolVersionString { get; private set; } = ProtocolVersion.ToString(CultureInfo);
+
         public DataItems DataItems = new DataItems();
 
         protected static CultureInfo CultureInfo => CultureInfo.InvariantCulture;
 
-        public static bool TryParseID(string fullData, out int id)
+        public static bool TryParseID(ReadOnlySpan<char> span, out int id)
         {
+            var scanned = -1;
+            var position = 0;
+
+
             id = 0;
 
-            if (!fullData.Contains("|"))
+            if (!span.Contains("|", StringComparison.Ordinal))
                 return false;
 
-            var splitted = fullData.Split('|');
-            return splitted.Length > 1 && int.TryParse(splitted[1], out id);
+            ParseChunk(ref span, ref scanned, ref position); // skip first
+            return int.TryParse(ParseChunk(ref span, ref scanned, ref position), out id);
         }
 
-        public bool TryParseData(string fullData)
+        public bool TryParseData(ReadOnlySpan<char> span)
         {
-            var chunks = fullData.Split('|');
+            var scanned = -1;
+            var position = 0;
 
-            if (chunks.Length < 5)
+
+            if (!ParseChunk(ref span, ref scanned, ref position).Equals(ProtocolVersionString, StringComparison.OrdinalIgnoreCase))
                 return false;
 
-            if (!string.Equals(ProtocolVersion.ToString(CultureInfo), chunks[0], StringComparison.OrdinalIgnoreCase))
+            if (!int.TryParse(ParseChunk(ref span, ref scanned, ref position), out _))
                 return false;
 
-            if (!int.TryParse(chunks[1], out _))
-                return false;
 
-            if (!int.TryParse(chunks[2], out var origin))
+            if (!int.TryParse(ParseChunk(ref span, ref scanned, ref position), out var origin))
                 return false;
             else
                 Origin = origin;
 
-            if (!int.TryParse(chunks[3], out var dataItemsCount))
+            if (!int.TryParse(ParseChunk(ref span, ref scanned, ref position), out var dataItemsCount))
                 return false;
 
-            var offsetList = new List<int>();
+            Span<int> offsets = dataItemsCount * 4 < 1024 ? stackalloc int[dataItemsCount] : new int[dataItemsCount];
 
             //Count from 4th item to second last item. Those are the offsets.
-            for (var i = 4; i < dataItemsCount + 4; i++)
+            for (var i = 0; i < dataItemsCount; i++)
             {
-                if (!int.TryParse(chunks[i], out var offset))
+                if (!int.TryParse(ParseChunk(ref span, ref scanned, ref position), out var offset))
                     return false;
                 else
-                    offsetList.Add(offset);
+                    offsets[i] = offset;
             }
 
             //Set the datastring, its the last item in the list. If it contained any separators, they will get read here:
-            var dataString = "";
-            for (var i = dataItemsCount + 4; i < chunks.Length; i++)
-            {
-                if (i > dataItemsCount + 4)
-                    dataString += "|";
-
-                dataString += chunks[i];
-            }
+            scanned += position + 1;
+            var dataString = span.Slice(scanned, span.Length - scanned);
 
             //Cutting the data:
-            for (var i = 0; i < offsetList.Count; i++)
+            for (var i = 0; i < offsets.Length; i++)
             {
-                var cOffset = offsetList[i];
+                var cOffset = offsets[i];
                 var length = dataString.Length - cOffset;
 
-                if (i < offsetList.Count - 1)
-                    length = offsetList[i + 1] - cOffset;
+                if (i < offsets.Length - 1)
+                    length = offsets[i + 1] - cOffset;
 
                 if (length < 0)
                     return false;
@@ -101,12 +120,23 @@ namespace PokeD.Core.Packets.P3D
                 if (cOffset + length > dataString.Length)
                     return false;
 
-                DataItems.AddToEnd(dataString.Substring(cOffset, length));
+                DataItems.AddToEnd(dataString.Slice(cOffset, length));
             }
 
             return true;
         }
+        private static ReadOnlySpan<char> ParseChunk(ref ReadOnlySpan<char> span, ref int scanned, ref int position)
+        {
+            scanned += position + 1;
 
+            position = span.Slice(scanned, span.Length - scanned).IndexOf('|');
+            if (position < 0)
+            {
+                position = span.Slice(scanned, span.Length - scanned).Length;
+            }
+
+            return span.Slice(scanned, position);
+        }
 
 
         public string CreateData()
@@ -121,7 +151,7 @@ namespace PokeD.Core.Packets.P3D
             stringBuilder.Append("|");
             stringBuilder.Append(Origin.ToString(CultureInfo));
 
-            if (dataItems.Length <= 0)
+            if (dataItems.Length == 0)
             {
                 stringBuilder.Append("|0|");
                 return stringBuilder.ToString();

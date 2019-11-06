@@ -18,15 +18,6 @@ namespace PokeD.Core.Data.PokeD
 {
     public sealed class Monster : BaseMonsterInstance
     {
-        public struct Point
-        {
-            public int X;
-            public int Y;
-
-            public Point(int x, int y) { X = x; Y = y; }
-        }
-
-
         public ushort SecretID { get; }
         public uint PersonalityValue { get; }
 
@@ -41,7 +32,7 @@ namespace PokeD.Core.Data.PokeD
         public byte Characteristic => (byte)(PersonalityValue % 6);
         public override BaseAbility Ability => FirstAbility ? StaticData.Abilities.Ability_0 : StaticData.Abilities.Ability_1;
 
-        public Point[] SpindaSpots => BitConverter.GetBytes(PersonalityValue).Select(b => new Point(b & 0x0F, b >> 4)).ToArray();
+        public (int X, int Y)[] SpindaSpots => BitConverter.GetBytes(PersonalityValue).Select(b => (b & 0x0F, b >> 4)).ToArray();
         public byte WurmplesEvolution => (byte) (PersonalityValue / 65536);
 
 
@@ -244,16 +235,13 @@ namespace PokeD.Core.Data.PokeD
         private static Gender GetGender(DataItems dataItems)
         {
             var dict = dataItems.ToDictionary();
-            switch (int.Parse(dict["Gender"]))
+            return (int.Parse(dict["Gender"])) switch
             {
-                case 0:
-                    return Gender.Male;
-                case 1:
-                    return Gender.Female;
-                case 2:
-                    return Gender.Genderless;
-            }
-            return Gender.Genderless;
+                0 => Gender.Male,
+                1 => Gender.Female,
+                2 => Gender.Genderless,
+                _ => Gender.Genderless,
+            };
         }
         private static bool GetIsShiny(DataItems dataItems)
         {

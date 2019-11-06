@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Net.Sockets;
 
@@ -18,8 +19,7 @@ namespace PokeD.Core.IO
                 return;
 
             try { base.Write(buffer, offset, count); }
-            catch (IOException) { }
-            catch (SocketException) { }
+            catch (Exception e) when (e is IOException || e is SocketException) { }
         }
 
         public override int Read(byte[] buffer, int offset, int count)
@@ -28,8 +28,7 @@ namespace PokeD.Core.IO
                 return 0;
 
             try { return base.Read(buffer, offset, count); }
-            catch (IOException) { return 0; }
-            catch (SocketException) { return 0; }
+            catch (Exception e) when (e is IOException || e is SocketException) { return 0; }
         }
 
         private readonly byte[] _byteBuffer = new byte[1];

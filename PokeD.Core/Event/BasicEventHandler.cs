@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 
 namespace PokeD.Core.Event
 {
@@ -26,7 +25,7 @@ namespace PokeD.Core.Event
             {
                 if (disposing)
                 {
-                    if (EventHandler?.GetInvocationList().Any() == true)
+                    if (EventHandler?.GetInvocationList().Length > 0)
                     {
                         Logger.Log(LogType.Debug, "Leaking events!");
 #if DEBUG

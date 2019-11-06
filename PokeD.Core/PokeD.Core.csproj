@@ -1,17 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>PokeD.Core</RootNamespace>
     <AssemblyName>PokeD.Core</AssemblyName>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>8.0</LangVersion>
 	  <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <NoWarn>RCS1057;RCS1037;RCS1036;RCS1003</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Aragas.Network-2" Version="2.2.1" />
-    <PackageReference Include="PCLExt.FileStorage" Version="1.4.0" />
+    <PackageReference Include="PCLExt.FileStorage-devel" Version="1.5.0.294" />
     <PackageReference Include="PokeApi-NJ.NET" Version="1.2.0" />
+    <PackageReference Include="System.IO.Pipelines" Version="4.6.0" />
   </ItemGroup>
 
   <ItemGroup>

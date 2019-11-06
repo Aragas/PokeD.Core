@@ -19,7 +19,7 @@ namespace PokeD.Core.Data.P3D
             //Converts the single string received as data into a list of string 
             while (data.Length > 0)
             {
-                if (data[0] == '|' && tempData[tempData.Length - 1] == '}')
+                if (data[0] == '|' && tempData[^1] == '}')
                 {
                     newQueries.Add(tempData);
                     tempData = "";

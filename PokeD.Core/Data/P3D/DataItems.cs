@@ -17,8 +17,8 @@ namespace PokeD.Core.Data.P3D
         public DataItems(params string[] dataItems)
         {
             if(dataItems == null)
-                dataItems = new string[0];
-            
+                dataItems = Array.Empty<string>();
+
             _dataItems = dataItems;
         }
 
@@ -42,20 +42,20 @@ namespace PokeD.Core.Data.P3D
                 // if string is null, make it empty.
                 if (value == null)
                     value = string.Empty;
-                
+
                 _dataItems[index] = value;
             }
         }
 
 
-        public void AddToEnd(string data)
+        public void AddToEnd(ReadOnlySpan<char> data)
         {
             var index = _dataItems.Length;
 
             if (_dataItems.Length < index + 1)
                 Array.Resize(ref _dataItems, index + 1);
 
-            _dataItems[index] = data;
+            _dataItems[index] = data.ToString();
         }
 
 

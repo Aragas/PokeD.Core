@@ -9,9 +9,9 @@ namespace PokeD.Core.Extensions
     {
         public static string MD5Hash(this IFile file)
         {
-            using (var fileStream = file.OpenAsync(FileAccess.Read).Result)
-            using (var md5 = MD5.Create())
-                return BitConverter.ToString(md5.ComputeHash(fileStream.ReadFully())).Replace("-", "").ToLower();
+            using var fileStream = file.OpenAsync(FileAccess.Read).Result;
+            using var md5 = MD5.Create();
+            return BitConverter.ToString(md5.ComputeHash(fileStream.ReadFully())).Replace("-", "").ToLower();
         }
     }
 }

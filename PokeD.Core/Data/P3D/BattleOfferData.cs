@@ -22,7 +22,7 @@ namespace PokeD.Core.Data.P3D
             
             while (data.Length > 0)
             {
-                if (data[0] == '|' && tempData[tempData.Length - 1] == '}')
+                if (data[0] == '|' && tempData[^1] == '}')
                 {
                     monsters.Add(new Monster(tempData));
                     tempData = "";

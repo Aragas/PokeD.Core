@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace PokeD.Core.Event
 {
@@ -65,7 +64,7 @@ namespace PokeD.Core.Event
                 {
                     lock (Subscribers)
                     {
-                        if (Subscribers.Any())
+                        if (Subscribers.Count > 0)
                         {
                             Logger.Log(LogType.Debug, "Leaking events!");
                             foreach (var storage in Subscribers)

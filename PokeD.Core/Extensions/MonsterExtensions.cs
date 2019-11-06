@@ -15,7 +15,7 @@ namespace PokeD.Core.Extensions
             var dict = new Dictionary<string, string>();
             dict.Add("Pokemon", $"[{monster.StaticData.ID}]");
             dict.Add("Experience", $"[{monster.Experience}]");
-            dict.Add("Gender", $"[{((int) monster.Gender)}]");
+            dict.Add("Gender", $"[{(int) monster.Gender}]");
             dict.Add("EggSteps", $"[{monster.EggSteps}]");
             dict.Add("Item", $"[{monster.HeldItem?.StaticData.ID ?? 0}]");
             dict.Add("ItemData", $"[]");
@@ -35,7 +35,7 @@ namespace PokeD.Core.Extensions
             if (monster.Moves.Count > 0)
             {
                 var pp = monster.Moves[0].StaticData.PP;
-                var ppMax = (int) (monster.Moves[0].PPUps > 0 ? pp + pp * 0.2D * monster.Moves[0].PPUps : pp);
+                var ppMax = (int) (monster.Moves[0].PPUps > 0 ? pp + (pp * 0.2D * monster.Moves[0].PPUps) : pp);
                 dict.Add("Attack1", $"[{monster.Moves[0].StaticData.ID},{ppMax},{monster.Moves[0].PPCurrent}]");
             }
             else
@@ -43,7 +43,7 @@ namespace PokeD.Core.Extensions
             if (monster.Moves.Count > 1)
             {
                 var pp = monster.Moves[1].StaticData.PP;
-                var ppMax = (int) (monster.Moves[1].PPUps > 0 ? pp + pp * 0.2D * monster.Moves[1].PPUps : pp);
+                var ppMax = (int) (monster.Moves[1].PPUps > 0 ? pp + (pp * 0.2D * monster.Moves[1].PPUps) : pp);
                 dict.Add("Attack2", $"[{monster.Moves[1].StaticData.ID},{ppMax},{monster.Moves[1].PPCurrent}]");
             }
             else
@@ -51,7 +51,7 @@ namespace PokeD.Core.Extensions
             if (monster.Moves.Count > 2)
             {
                 var pp = monster.Moves[2].StaticData.PP;
-                var ppMax = (int) (monster.Moves[2].PPUps > 0 ? pp + pp * 0.2D * monster.Moves[2].PPUps : pp);
+                var ppMax = (int) (monster.Moves[2].PPUps > 0 ? pp + (pp * 0.2D * monster.Moves[2].PPUps) : pp);
                 dict.Add("Attack3", $"[{monster.Moves[2].StaticData.ID},{ppMax},{monster.Moves[2].PPCurrent}]");
             }
             else
@@ -59,7 +59,7 @@ namespace PokeD.Core.Extensions
             if (monster.Moves.Count > 3)
             {
                 var pp = monster.Moves[3].StaticData.PP;
-                var ppMax =  (int) (monster.Moves[3].PPUps > 0 ? pp + pp * 0.2D * monster.Moves[3].PPUps : pp);
+                var ppMax =  (int) (monster.Moves[3].PPUps > 0 ? pp + (pp * 0.2D * monster.Moves[3].PPUps) : pp);
                 dict.Add("Attack4", $"[{monster.Moves[3].StaticData.ID},{ppMax},{monster.Moves[3].PPCurrent}]");
             }
             else
@@ -102,7 +102,7 @@ namespace PokeD.Core.Extensions
             var builder = new StringBuilder();
 
             foreach (var s in dict)
-                builder.Append($"{{\"{s.Key}\"{s.Value}}}");
+                builder.Append("{\"").Append(s.Key).Append('\"').Append(s.Value).Append('}');
 
             return new DataItems(builder.ToString());
         }

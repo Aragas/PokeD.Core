@@ -35,10 +35,10 @@ namespace PokeD.Core.IO
             var inValue = new byte[3 * bytesPerLong];
             for (var i = 0; i < input.Length; i++)
             {
-                inValue[i * bytesPerLong + 3] = (byte)(input[i] >> ((bytesPerLong - 1) * bitsPerByte) & 0xff);
-                inValue[i * bytesPerLong + 2] = (byte)(input[i] >> ((bytesPerLong - 2) * bitsPerByte) & 0xff);
-                inValue[i * bytesPerLong + 1] = (byte)(input[i] >> ((bytesPerLong - 3) * bitsPerByte) & 0xff);
-                inValue[i * bytesPerLong + 0] = (byte)(input[i] >> ((bytesPerLong - 4) * bitsPerByte) & 0xff);
+                inValue[(i * bytesPerLong) + 3] = (byte)(input[i] >> ((bytesPerLong - 1) * bitsPerByte) & 0xff);
+                inValue[(i * bytesPerLong) + 2] = (byte)(input[i] >> ((bytesPerLong - 2) * bitsPerByte) & 0xff);
+                inValue[(i * bytesPerLong) + 1] = (byte)(input[i] >> ((bytesPerLong - 3) * bitsPerByte) & 0xff);
+                inValue[(i * bytesPerLong) + 0] = (byte)(input[i] >> ((bytesPerLong - 4) * bitsPerByte) & 0xff);
             }
 
             var outValue = BitConverter.GetBytes(0);
@@ -48,7 +48,7 @@ namespace PokeD.Core.IO
                 socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, turnOn);
                 socket.IOControl(IOControlCode.KeepAliveValues, inValue, outValue);
             }
-            catch (SocketException) { return false; }
+            catch (Exception e) when (e is SocketException) { return false; }
             return true;
         }
 
@@ -120,7 +120,6 @@ namespace PokeD.Core.IO
             packet = null;
             return false;
         }
-
 
         private StringBuilder StringBuilder { get; } = new StringBuilder();
         private IEnumerable<string> ReadLineEnumerable()
