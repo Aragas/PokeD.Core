@@ -12,9 +12,9 @@ namespace PokeD.Core.Packets.P3D
 {
     public readonly struct Origin
     {
-        public static Origin Server => new Origin(-1);
+        public static Origin Server => new(-1);
 
-        public static implicit operator Origin(int origin) => new Origin(origin);
+        public static implicit operator Origin(int origin) => new(origin);
         public static implicit operator int(Origin origin) => origin._value;
 
         private readonly int _value;
@@ -50,7 +50,7 @@ namespace PokeD.Core.Packets.P3D
         }
         public static string ProtocolVersionString { get; private set; } = ProtocolVersion.ToString(CultureInfo);
 
-        public DataItems DataItems = new DataItems();
+        public DataItems DataItems = new();
 
         protected static CultureInfo CultureInfo => CultureInfo.InvariantCulture;
 

@@ -75,7 +75,7 @@ namespace PokeD.Core.Extensions
             serializer.Write(value.X);
             serializer.Write(value.Y);
         }
-        private static Vector2 ReadVector2(PacketDeserializer deserializer, int length = 0) => new Vector2(deserializer.Read<float>(), deserializer.Read<float>());
+        private static Vector2 ReadVector2(PacketDeserializer deserializer, int length = 0) => new(deserializer.Read<float>(), deserializer.Read<float>());
 
         private static void WriteVector3(PacketSerializer serializer, Vector3 value, bool writeDefaultLength = true)
         {
@@ -83,7 +83,7 @@ namespace PokeD.Core.Extensions
             serializer.Write(value.Y);
             serializer.Write(value.Z);
         }
-        private static Vector3 ReadVector3(PacketDeserializer deserializer, int length = 0) => new Vector3(deserializer.Read<float>(), deserializer.Read<float>(), deserializer.Read<float>());
+        private static Vector3 ReadVector3(PacketDeserializer deserializer, int length = 0) => new(deserializer.Read<float>(), deserializer.Read<float>(), deserializer.Read<float>());
 
 
         private static void WriteFileHashArray(PacketSerializer serializer, FileHash[] value, bool writeDefaultLength = true)
@@ -113,7 +113,7 @@ namespace PokeD.Core.Extensions
         }
         private static FileHash ReadFileHash(PacketDeserializer deserializer, int length = 0)
         {
-            return new FileHash() { Name = deserializer.Read<string>(), Hash = deserializer.Read<string>() };
+            return new() { Name = deserializer.Read<string>(), Hash = deserializer.Read<string>() };
         }
 
         
@@ -164,7 +164,7 @@ namespace PokeD.Core.Extensions
         }
         private static ImageResponse ReadImageResponse(PacketDeserializer deserializer, int length = 0)
         {
-            return new ImageResponse() { Name = deserializer.Read<string>(), ImageData = deserializer.Read<byte[]>() };
+            return new() { Name = deserializer.Read<string>(), ImageData = deserializer.Read<byte[]>() };
         }
 
         private static void WriteTileSetResponse(PacketSerializer serializer, TileSetResponse value, bool writeDefaultLength = true)
@@ -174,7 +174,7 @@ namespace PokeD.Core.Extensions
         }
         private static TileSetResponse ReadTileSetResponse(PacketDeserializer deserializer, int length = 0)
         {
-            return new TileSetResponse() { Name = deserializer.Read<string>(), TileSetData = deserializer.Read<string>() };
+            return new() { Name = deserializer.Read<string>(), TileSetData = deserializer.Read<string>() };
         }
 
 
@@ -188,7 +188,7 @@ namespace PokeD.Core.Extensions
         }
         private static Attack ReadAttack(PacketDeserializer deserializer, int length = 0)
         {
-            return new Attack(deserializer.Read<short>(), deserializer.Read<byte>(), deserializer.Read<byte>());
+            return new(deserializer.Read<short>(), deserializer.Read<byte>(), deserializer.Read<byte>());
         }
 
         /*
@@ -220,7 +220,7 @@ namespace PokeD.Core.Extensions
         }
         private static Stats ReadStats(PacketDeserializer deserializer, int length = 0)
         {
-            return new Stats(
+            return new(
                 deserializer.Read<short>(),
                 deserializer.Read<short>(),
                 deserializer.Read<short>(),
@@ -240,7 +240,7 @@ namespace PokeD.Core.Extensions
         }
         private static CatchInfo ReadCatchInfo(PacketDeserializer deserializer, int length = 0)
         {
-            return new CatchInfo
+            return new()
             {
                 Method = deserializer.Read<string>(),
                 Location = deserializer.Read<string>(),
@@ -306,19 +306,19 @@ namespace PokeD.Core.Extensions
 
 
         private static void WriteMetaSwitch(PacketSerializer serializer, MetaSwitch value, bool writeDefaultLength = true) { serializer.Write(value.Meta); }
-        private static MetaSwitch ReadMetaSwitch(PacketDeserializer deserializer, int length = 0) => new MetaSwitch(deserializer.Read<byte>());
+        private static MetaSwitch ReadMetaSwitch(PacketDeserializer deserializer, int length = 0) => new(deserializer.Read<byte>());
 
         private static void WriteMetaPosition(PacketSerializer serializer, MetaPosition value, bool writeDefaultLength = true) { serializer.Write(value.Meta); }
-        private static MetaPosition ReadMetaPosition(PacketDeserializer deserializer, int length = 0) => new MetaPosition(deserializer.Read<long>());
+        private static MetaPosition ReadMetaPosition(PacketDeserializer deserializer, int length = 0) => new(deserializer.Read<long>());
 
         private static void WriteBattleState(PacketSerializer serializer, BattleState value, bool writeDefaultLength = true) {  }
         private static BattleState ReadBattleState(PacketDeserializer deserializer, int length = 0) { return default; }
 
         private static void WriteMetaAttack(PacketSerializer serializer, MetaAttack value, bool writeDefaultLength = true) { serializer.Write(value.Meta); }
-        private static MetaAttack ReadMetaAttack(PacketDeserializer deserializer, int length = 0) => new MetaAttack(deserializer.Read<byte>());
+        private static MetaAttack ReadMetaAttack(PacketDeserializer deserializer, int length = 0) => new(deserializer.Read<byte>());
 
         private static void WriteMetaItem(PacketSerializer serializer, MetaItem value, bool writeDefaultLength = true) { serializer.Write(value.Meta); }
-        private static MetaItem ReadMetaItem(PacketDeserializer deserializer, int length = 0) => new MetaItem(deserializer.Read<short>());
+        private static MetaItem ReadMetaItem(PacketDeserializer deserializer, int length = 0) => new(deserializer.Read<short>());
 
 
         private static void WriteBan(PacketSerializer serializer, Ban value, bool writeDefaultLength = true)

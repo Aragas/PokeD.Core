@@ -121,7 +121,7 @@ namespace PokeD.Core.IO
             return false;
         }
 
-        private StringBuilder StringBuilder { get; } = new StringBuilder();
+        private StringBuilder StringBuilder { get; } = new();
         private IEnumerable<string> ReadLineEnumerable()
         {
             var @byte = SocketStream.ReadByte();

@@ -5,9 +5,9 @@ namespace PokeD.Core.Data.P3D
     public class DataItems
     {
         public static implicit operator string[](DataItems dataItems) => dataItems._dataItems;
-        public static implicit operator DataItems(string dataItems) => new DataItems(dataItems);
-        public static implicit operator DataItems(string[] dataItems) => new DataItems(dataItems);
-        public static implicit operator DataItems(P3DData dataItems) => new DataItems(dataItems);
+        public static implicit operator DataItems(string dataItems) => new(dataItems);
+        public static implicit operator DataItems(string[] dataItems) => new(dataItems);
+        public static implicit operator DataItems(P3DData dataItems) => new(dataItems);
 
 
         public int Length => _dataItems.Length;

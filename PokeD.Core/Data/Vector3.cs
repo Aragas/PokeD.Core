@@ -28,10 +28,10 @@ namespace PokeD.Core.Data
 
         #region Math
 
-        public static Vector3 Floor(in Vector3 value) => new Vector3(Math.Floor(value.X), Math.Floor(value.Y), Math.Floor(value.Z));
+        public static Vector3 Floor(in Vector3 value) => new(Math.Floor(value.X), Math.Floor(value.Y), Math.Floor(value.Z));
         public Vector3 Floor() => Floor(in this);
 
-        public static Vector3 Ceiling(in Vector3 value) => new Vector3(Math.Ceiling(value.X), Math.Ceiling(value.Y), Math.Ceiling(value.Z));
+        public static Vector3 Ceiling(in Vector3 value) => new(Math.Ceiling(value.X), Math.Ceiling(value.Y), Math.Ceiling(value.Z));
         public Vector3 Ceiling() => Ceiling(in this);
 
 
@@ -44,11 +44,11 @@ namespace PokeD.Core.Data
         /// </summary>
         public float Distance() => DistanceTo(in Zero);
 
-        public static Vector3 Min(in Vector3 a, in Vector3 b) => new Vector3(Math.Min(a.X, b.X), Math.Min(a.Y, b.Y), Math.Min(a.Z, b.Z));
-        public Vector3 Min(in Vector3 other) => new Vector3(Math.Min(X, other.X), Math.Min(Y, other.Y), Math.Min(Z, other.Z));
+        public static Vector3 Min(in Vector3 a, in Vector3 b) => new(Math.Min(a.X, b.X), Math.Min(a.Y, b.Y), Math.Min(a.Z, b.Z));
+        public Vector3 Min(in Vector3 other) => new(Math.Min(X, other.X), Math.Min(Y, other.Y), Math.Min(Z, other.Z));
 
-        public static Vector3 Max(in Vector3 a, Vector3 b) => new Vector3(Math.Max(a.X, b.X), Math.Max(a.Y, b.Y), Math.Max(a.Z, b.Z));
-        public Vector3 Max(in Vector3 other) => new Vector3(Math.Max(X, other.X), Math.Max(Y, other.Y), Math.Max(Z, other.Z));
+        public static Vector3 Max(in Vector3 a, Vector3 b) => new(Math.Max(a.X, b.X), Math.Max(a.Y, b.Y), Math.Max(a.Z, b.Z));
+        public Vector3 Max(in Vector3 other) => new(Math.Max(X, other.X), Math.Max(Y, other.Y), Math.Max(Z, other.Z));
 
         public static Vector3 Delta(in Vector3 a, in Vector3 b) => a - b;
         public Vector3 Delta(in Vector3 other) => this - other;
@@ -64,7 +64,7 @@ namespace PokeD.Core.Data
 
         #region Operators
 
-        public static Vector3 operator -(in Vector3 a) => new Vector3(-a.X, -a.Y, -a.Z);
+        public static Vector3 operator -(in Vector3 a) => new(-a.X, -a.Y, -a.Z);
         public static Vector3 operator ++(in Vector3 a) => new Vector3(a.X, a.Y, a.Z) + One;
         public static Vector3 operator --(in Vector3 a) => new Vector3(a.X, a.Y, a.Z) - One;
 
@@ -75,41 +75,41 @@ namespace PokeD.Core.Data
         public static bool operator >=(in Vector3 a, in Vector3 b) => a.X >= b.X && a.Y >= b.Y && a.Z >= b.Z;
         public static bool operator <=(in Vector3 a, in Vector3 b) => a.X <= b.X && a.Y <= b.Y && a.Z <= b.Z;
 
-        public static Vector3 operator +(in Vector3 a, in Vector3 b) => new Vector3(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
-        public static Vector3 operator -(in Vector3 a, in Vector3 b) => new Vector3(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
-        public static Vector3 operator *(in Vector3 a, in Vector3 b) => new Vector3(a.X * b.X, a.Y * b.Y, a.Z * b.Z);
-        public static Vector3 operator /(in Vector3 a, in Vector3 b) => new Vector3(a.X / b.X, a.Y / b.Y, a.Z / b.Z);
-        public static Vector3 operator %(in Vector3 a, in Vector3 b) => new Vector3(a.X % b.X, a.Y % b.Y, a.Z % b.Z);
+        public static Vector3 operator +(in Vector3 a, in Vector3 b) => new(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
+        public static Vector3 operator -(in Vector3 a, in Vector3 b) => new(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
+        public static Vector3 operator *(in Vector3 a, in Vector3 b) => new(a.X * b.X, a.Y * b.Y, a.Z * b.Z);
+        public static Vector3 operator /(in Vector3 a, in Vector3 b) => new(a.X / b.X, a.Y / b.Y, a.Z / b.Z);
+        public static Vector3 operator %(in Vector3 a, in Vector3 b) => new(a.X % b.X, a.Y % b.Y, a.Z % b.Z);
 
-        public static Vector3 operator +(in Vector3 a, float b) => new Vector3(a.X + b, a.Y + b, a.Z + b);
-        public static Vector3 operator -(in Vector3 a, float b) => new Vector3(a.X - b, a.Y - b, a.Z - b);
-        public static Vector3 operator *(in Vector3 a, float b) => new Vector3(a.X * b, a.Y * b, a.Z * b);
-        public static Vector3 operator /(in Vector3 a, float b) => new Vector3(a.X / b, a.Y / b, a.Z / b);
-        public static Vector3 operator %(in Vector3 a, float b) => new Vector3(a.X % b, a.Y % b, a.Z % b);
+        public static Vector3 operator +(in Vector3 a, float b) => new(a.X + b, a.Y + b, a.Z + b);
+        public static Vector3 operator -(in Vector3 a, float b) => new(a.X - b, a.Y - b, a.Z - b);
+        public static Vector3 operator *(in Vector3 a, float b) => new(a.X * b, a.Y * b, a.Z * b);
+        public static Vector3 operator /(in Vector3 a, float b) => new(a.X / b, a.Y / b, a.Z / b);
+        public static Vector3 operator %(in Vector3 a, float b) => new(a.X % b, a.Y % b, a.Z % b);
 
-        public static Vector3 operator +(float a, in Vector3 b) => new Vector3(a + b.X, a + b.Y, a + b.Z);
-        public static Vector3 operator -(float a, in Vector3 b) => new Vector3(a - b.X, a - b.Y, a - b.Z);
-        public static Vector3 operator *(float a, in Vector3 b) => new Vector3(a * b.X, a * b.Y, a * b.Z);
-        public static Vector3 operator /(float a, in Vector3 b) => new Vector3(a / b.X, a / b.Y, a / b.Z);
-        public static Vector3 operator %(float a, in Vector3 b) => new Vector3(a % b.X, a % b.Y, a % b.Z);
+        public static Vector3 operator +(float a, in Vector3 b) => new(a + b.X, a + b.Y, a + b.Z);
+        public static Vector3 operator -(float a, in Vector3 b) => new(a - b.X, a - b.Y, a - b.Z);
+        public static Vector3 operator *(float a, in Vector3 b) => new(a * b.X, a * b.Y, a * b.Z);
+        public static Vector3 operator /(float a, in Vector3 b) => new(a / b.X, a / b.Y, a / b.Z);
+        public static Vector3 operator %(float a, in Vector3 b) => new(a % b.X, a % b.Y, a % b.Z);
 
         #endregion
 
         #region Constants
 
-        public static readonly Vector3 Zero = new Vector3(0, 0, 0);
-        public static readonly Vector3 One = new Vector3(1, 1, 1);
+        public static readonly Vector3 Zero = new(0, 0, 0);
+        public static readonly Vector3 One = new(1, 1, 1);
 
-        public static readonly Vector3 Up = new Vector3(0, 1, 0);
-        public static readonly Vector3 Down = new Vector3(0, -1, 0);
-        public static readonly Vector3 Left = new Vector3(-1, 0, 0);
-        public static readonly Vector3 Right = new Vector3(1, 0, 0);
-        public static readonly Vector3 Backwards = new Vector3(0, 0, -1);
-        public static readonly Vector3 Forwards = new Vector3(0, 0, 1);
+        public static readonly Vector3 Up = new(0, 1, 0);
+        public static readonly Vector3 Down = new(0, -1, 0);
+        public static readonly Vector3 Left = new(-1, 0, 0);
+        public static readonly Vector3 Right = new(1, 0, 0);
+        public static readonly Vector3 Backwards = new(0, 0, -1);
+        public static readonly Vector3 Forwards = new(0, 0, 1);
 
-        public static readonly Vector3 UnitX = new Vector3(1f, 0f, 0f);
-        public static readonly Vector3 UnitY = new Vector3(0f, 1f, 0f);
-        public static readonly Vector3 UnitZ = new Vector3(0f, 0f, 1f);
+        public static readonly Vector3 UnitX = new(1f, 0f, 0f);
+        public static readonly Vector3 UnitY = new(0f, 1f, 0f);
+        public static readonly Vector3 UnitZ = new(0f, 0f, 1f);
 
         #endregion
 

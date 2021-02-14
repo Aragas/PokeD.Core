@@ -4,7 +4,7 @@ namespace PokeD.Core.Data.P3D
 {
     public class BattleEndRoundData : P3DData
     {
-        public static implicit operator BattleEndRoundData(string battleData) => new BattleEndRoundData(battleData);
+        public static implicit operator BattleEndRoundData(string battleData) => new(battleData);
 
         public IReadOnlyList<string> Queries => ParseEndRoundData(Data);
 

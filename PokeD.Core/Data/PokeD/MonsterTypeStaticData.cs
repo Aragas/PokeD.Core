@@ -12,7 +12,7 @@ namespace PokeD.Core.Data.PokeD
         public byte ID { get; }
         public string Name { get; }
 
-        public DamageRelationRole DamageRelations { get; } = new DamageRelationRole();
+        public DamageRelationRole DamageRelations { get; } = new();
 
         public MonsterTypeStaticData(byte id)
         {

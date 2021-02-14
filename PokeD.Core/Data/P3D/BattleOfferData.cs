@@ -7,7 +7,7 @@ namespace PokeD.Core.Data.P3D
     // If LeadMonsterIndex is not null, this is a confirmation, else client just gives the pokemons for the battle
     public class BattleOfferData : P3DData
     {
-        public static implicit operator BattleOfferData(string battleData) => new BattleOfferData(battleData);
+        public static implicit operator BattleOfferData(string battleData) => new(battleData);
 
         public int? LeadMonsterIndex => int.TryParse(Data, out var index) ? (int?) index : null;
         public IReadOnlyList<Monster> Monsters => ParseOfferData(Data);

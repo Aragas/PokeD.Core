@@ -4,7 +4,7 @@ namespace PokeD.Core.Data.P3D
 {
     public class BattleHostData : P3DData
     {
-        public static implicit operator BattleHostData(string battleData) => new BattleHostData(battleData);
+        public static implicit operator BattleHostData(string battleData) => new(battleData);
 
         public IReadOnlyList<string> Queries => ParseHostData(Data);
 

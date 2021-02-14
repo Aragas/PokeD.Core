@@ -7,7 +7,7 @@ namespace PokeD.Core.Data.PokeD
 {
     public class Cached<T2> where T2 : class
     {
-        private static Dictionary<long, T2> Cache { get; } = new Dictionary<long, T2>();
+        private static Dictionary<long, T2> Cache { get; } = new();
 
         public static T2 Get(long id)
         {
@@ -24,7 +24,7 @@ namespace PokeD.Core.Data.PokeD
 
     public class Cached<T1, T2> where T2 : class
     {
-        protected static Dictionary<T1, T2> Cache { get; } = new Dictionary<T1, T2>();
+        protected static Dictionary<T1, T2> Cache { get; } = new();
 
         public static T2 Get(T1 id)
         {

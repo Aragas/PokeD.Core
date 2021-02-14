@@ -43,7 +43,7 @@ namespace PokeD.Core.Packets.PokeD.Overworld
         public short TrainerID { get; set; }
         public byte Gender { get; set; }
 
-        public MonsterTeam MonsterTeam { get; set; } = new MonsterTeam();
+        public MonsterTeam MonsterTeam { get; set; } = new();
 
 
         public override void Deserialize(ProtobufDeserialiser deserialiser)

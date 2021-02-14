@@ -30,10 +30,10 @@ namespace PokeD.Core.Data
 
         #region Math
 
-        public static Vector2 Floor(in Vector2 value) => new Vector2(Math.Floor(value.X), Math.Floor(value.Y));
+        public static Vector2 Floor(in Vector2 value) => new(Math.Floor(value.X), Math.Floor(value.Y));
         public Vector2 Floor() => Floor(in this);
 
-        public static Vector2 Ceiling(in Vector2 value) => new Vector2(Math.Ceiling(value.X), Math.Ceiling(value.Y));
+        public static Vector2 Ceiling(in Vector2 value) => new(Math.Ceiling(value.X), Math.Ceiling(value.Y));
         public Vector2 Ceiling() => Ceiling(in this);
 
         private static float Square(float num) => num * num;
@@ -45,11 +45,11 @@ namespace PokeD.Core.Data
         /// </summary>
         public double Distance() => DistanceTo(in Zero);
 
-        public static Vector2 Min(in Vector2 a, in Vector2 b) => new Vector2(Math.Min(a.X, b.X), Math.Min(a.Y, b.Y));
-        public Vector2 Min(Vector2 other) => new Vector2(Math.Min(X, other.X), Math.Min(Y, other.Y));
+        public static Vector2 Min(in Vector2 a, in Vector2 b) => new(Math.Min(a.X, b.X), Math.Min(a.Y, b.Y));
+        public Vector2 Min(Vector2 other) => new(Math.Min(X, other.X), Math.Min(Y, other.Y));
 
-        public static Vector2 Max(in Vector2 a, in Vector2 b) => new Vector2(Math.Max(a.X, b.X), Math.Max(a.Y, b.Y));
-        public Vector2 Max(in Vector2 other) => new Vector2(Math.Max(X, other.X), Math.Max(Y, other.Y));
+        public static Vector2 Max(in Vector2 a, in Vector2 b) => new(Math.Max(a.X, b.X), Math.Max(a.Y, b.Y));
+        public Vector2 Max(in Vector2 other) => new(Math.Max(X, other.X), Math.Max(Y, other.Y));
 
         public static Vector2 Delta(in Vector2 a, in Vector2 b) => a - b;
         public Vector2 Delta(in Vector2 other) => this - other;
@@ -65,7 +65,7 @@ namespace PokeD.Core.Data
 
         #region Operators
 
-        public static Vector2 operator -(in Vector2 a) => new Vector2(-a.X, -a.Y);
+        public static Vector2 operator -(in Vector2 a) => new(-a.X, -a.Y);
         public static Vector2 operator ++(in Vector2 a) => new Vector2(a.X, a.Y) + 1.0f;
         public static Vector2 operator --(in Vector2 a) => new Vector2(a.X, a.Y) - 1.0f;
 
@@ -76,30 +76,30 @@ namespace PokeD.Core.Data
         public static bool operator >=(in Vector2 a, in Vector2 b) => a.X >= b.X && a.Y >= b.Y;
         public static bool operator <=(in Vector2 a, in Vector2 b) => a.X <= b.X && a.Y <= b.Y;
 
-        public static Vector2 operator +(in Vector2 a, in Vector2 b) => new Vector2(a.X + b.X, a.Y + b.Y);
-        public static Vector2 operator -(in Vector2 a, in Vector2 b) => new Vector2(a.X - b.X, a.Y - b.Y);
-        public static Vector2 operator *(in Vector2 a, in Vector2 b) => new Vector2(a.X * b.X, a.Y * b.Y);
-        public static Vector2 operator /(in Vector2 a, in Vector2 b) => new Vector2(a.X / b.X, a.Y / b.Y);
-        public static Vector2 operator %(in Vector2 a, in Vector2 b) => new Vector2(a.X % b.X, a.Y % b.Y);
+        public static Vector2 operator +(in Vector2 a, in Vector2 b) => new(a.X + b.X, a.Y + b.Y);
+        public static Vector2 operator -(in Vector2 a, in Vector2 b) => new(a.X - b.X, a.Y - b.Y);
+        public static Vector2 operator *(in Vector2 a, in Vector2 b) => new(a.X * b.X, a.Y * b.Y);
+        public static Vector2 operator /(in Vector2 a, in Vector2 b) => new(a.X / b.X, a.Y / b.Y);
+        public static Vector2 operator %(in Vector2 a, in Vector2 b) => new(a.X % b.X, a.Y % b.Y);
 
-        public static Vector2 operator +(in Vector2 a, float b) => new Vector2(a.X + b, a.Y + b);
-        public static Vector2 operator -(in Vector2 a, float b) => new Vector2(a.X - b, a.Y - b);
-        public static Vector2 operator *(in Vector2 a, float b) => new Vector2(a.X * b, a.Y * b);
-        public static Vector2 operator /(in Vector2 a, float b) => new Vector2(a.X / b, a.Y / b);
-        public static Vector2 operator %(in Vector2 a, float b) => new Vector2(a.X % b, a.Y % b);
+        public static Vector2 operator +(in Vector2 a, float b) => new(a.X + b, a.Y + b);
+        public static Vector2 operator -(in Vector2 a, float b) => new(a.X - b, a.Y - b);
+        public static Vector2 operator *(in Vector2 a, float b) => new(a.X * b, a.Y * b);
+        public static Vector2 operator /(in Vector2 a, float b) => new(a.X / b, a.Y / b);
+        public static Vector2 operator %(in Vector2 a, float b) => new(a.X % b, a.Y % b);
 
-        public static Vector2 operator +(float a, in Vector2 b) => new Vector2(a + b.X, a + b.Y);
-        public static Vector2 operator -(float a, in Vector2 b) => new Vector2(a - b.X, a - b.Y);
-        public static Vector2 operator *(float a, in Vector2 b) => new Vector2(a * b.X, a * b.Y);
-        public static Vector2 operator /(float a, in Vector2 b) => new Vector2(a / b.X, a / b.Y);
-        public static Vector2 operator %(float a, in Vector2 b) => new Vector2(a % b.X, a % b.Y);
+        public static Vector2 operator +(float a, in Vector2 b) => new(a + b.X, a + b.Y);
+        public static Vector2 operator -(float a, in Vector2 b) => new(a - b.X, a - b.Y);
+        public static Vector2 operator *(float a, in Vector2 b) => new(a * b.X, a * b.Y);
+        public static Vector2 operator /(float a, in Vector2 b) => new(a / b.X, a / b.Y);
+        public static Vector2 operator %(float a, in Vector2 b) => new(a % b.X, a % b.Y);
 
         #endregion
 
         #region Constants
 
-        public static readonly Vector2 Zero = new Vector2(0, 0);
-        public static readonly Vector2 One = new Vector2(1, 1);
+        public static readonly Vector2 Zero = new(0, 0);
+        public static readonly Vector2 One = new(1, 1);
 
         #endregion
 
